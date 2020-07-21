@@ -1,0 +1,290 @@
+---
+title: "titanic_demo_two"
+author: "Noushin Nabavi"
+date: '2020-01-21'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(tidyr)
+library(stringr)
+library(purrr)
+```
+
+
+```{r echo=TRUE}
+x <- tribble(
+  ~key, ~val_x,
+     1, "x1",
+     2, "x2",
+     2, "x3",
+     1, "x4"
+)
+y <- tribble(
+  ~key, ~val_y,
+     1, "y1",
+     2, "y2"
+)
+left_join(x, y, by = "key")
+
+```
+
+```{r echo=TRUE}
+
+x <- tribble(
+  ~key, ~val_x,
+     1, "x1",
+     2, "x2",
+     2, "x3",
+     3, "x4"
+)
+y <- tribble(
+  ~key, ~val_y,
+     1, "y1",
+     2, "y2",
+     2, "y3",
+     3, "y4"
+)
+left_join(x, y, by = "key")
+```
+
+#Advanced Mutate
+
+###Used to be `mutate_at` `mutate_if`, etc. In the most recent version of `dplyr` the syntax is now `across`.
+across() makes it easy to apply the same transformation to multiple columns, allowing you to use select() semantics inside in summarise() and mutate()
+
+```{r across}
+# A named list of functions
+iris %>%
+  dplyr::group_by(Species) %>%
+  dplyr::summarise(across(starts_with("Sepal"), list(mean = mean, sd = sd)))
+
+```
+
+```{across2}
+iris %>%
+  group_by(Species) %>%
+  summarise(across(starts_with("Sepal"), mean, .names = "mean_{col}"))
+
+```
+
+# Functions
+
+Need to load data below for an output: (See exercise)
+
+```{r eval=FALSE}
+str(mort)
+summary(mort)
+
+str(pop)
+summary(pop)
+
+str(corr)
+summary(corr)
+
+str(env)
+summary(env))
+```
+
+```{r eval=TRUE, ehco=TRUE}
+var_summary <- function(data, var) {
+  data %>%
+    summarise(n = n(), min = min({{ var }}), max = max({{ var }}))
+}
+  
+  mtcars %>%
+  group_by(cyl) %>%
+  var_summary(mpg)
+
+
+```
+
+
+# Strings and `stringr`
+
+## Combining Strings
+```{r strings, echo=TRUE}
+string = "This is a string!"
+str_c("x", "y")
+
+str_c("x", "y", sep = ", ")
+
+str_c("x", "y", sep = "-")
+
+str_c("prefix-", c("a", "b", "c"), "-suffix")
+
+```
+
+
+# Strings
+
+## String Length
+
+```{r, echo=TRUE}
+
+str_length(c("a", "R for data science", NA))
+
+```
+
+
+
+## Changing Case
+
+There are a few arguments for changing the cases of strings. `str_to_lower()`, `str_to_upper()` or `str_to_title()`
+
+```{r, echo=TRUE}
+str_to_lower(x)
+str_to_upper(x)
+str_to_title(x)
+
+```
+
+
+
+
+## Subsetting Strings
+
+### You can extract parts of a string using `str_sub()`. As well as the string, `str_sub()` takes start and end arguments which give the (inclusive) position of the substring
+
+### negative numbers count backwards from end
+
+```{r subset strings, echo=TRUE}
+
+x <- c("Apple", "Banana", "Pear")
+str_sub(x, 1, 3)
+
+str_sub(x, -3, -1)
+
+
+```
+
+# Regex
+
+### Regexps are a very terse language that allow you to describe patterns in strings. They take a little while to get your head around, but once you understand them, you’ll find them extremely useful.
+
+### To learn regular expressions, use `str_view()` and `str_view_all()`. These functions take a character vector and a regular expression, and show you how they match. We’ll start with very simple regular expressions and then gradually get more and more complicated using `stringr`
+
+```{r, echo=TRUE}
+x <- c("apple", "banana", "pear")
+str_view(x, "an")
+
+```
+
+# Regex
+
+### The next step up in complexity is `.`, which matches any character (except a newline):
+
+```{r, echo=TRUE}
+str_view(x, ".a.")
+
+```
+
+### But if `.` matches any character, how do you match the actual character `.`? You need to use an .yellow[escape] to tell the regular expression you want to match it exactly, not use its special behaviour. Represented by two `\\` back slashes or square brackets `[ ]`.
+
+```{r, echo=TRUE}
+str_view(c("abc", "a.c", "bef"), "a\\.c")
+str_view(c("abc", "a.c", "bef"), "a[.]c")
+
+```
+
+
+```{r, echo=TRUE}
+str_view(x, "^a")
+```
+
+```{r, echo=TRUE}
+str_view(x, "a$")
+```
+
+
+
+## More Examples:
+
+```{r, echo=TRUE}
+x <- c("apple pie", "apple", "apple cake")
+str_view(x, "apple")
+
+```
+
+### Only match the whole word 
+
+```{r, echo=TRUE}
+str_view(x, "^apple$")
+
+```
+
+
+## str_replace
+
+### Replace all vowels with '-'
+
+```{r, echo=TRUE}
+x <- c("apple", "pear", "banana")
+str_replace(x, "[aeiou]", "-")
+```
+
+For thorough documentation on regex and stringr review the R for Data Science Handbook: https://r4ds.had.co.nz/strings.html
+
+
+# Lists
+
+### Lists are the next step up from named vectors. Lists can contain other lists
+
+```{r, echo=TRUE}
+x <- list(1, 2, 3)
+x
+```
+
+### We can combine multiple data sets into a list, as we'll see in the exercises
+
+#Lists
+
+```{r}
+
+x1 <- list(c(1, 2), c(3, 4))
+x2 <- list(list(1, 2), list(3, 4))
+x3 <- list(1, list(2, list(3)))
+
+```
+
+
+
+#Purrr
+
+### Works well with lists for applying a function to everything in a given list
+### `map` replaces .green[for loops] in code and is succinct and easier to read.
+
+```{r, echo=TRUE}
+df <- tibble(
+  a = rnorm(10),
+  b = rnorm(10),
+  c = rnorm(10),
+  d = rnorm(10)
+)
+
+```
+
+
+Say we wanted the `median` of each:
+
+```{r, echo=TRUE}
+median(df$a)
+
+median(df$b)
+
+median(df$c)
+
+median(df$d)
+
+```
+
+
+# Using `map`
+
+```{r, echo=TRUE}
+map_dbl(df, median)
+
+
+```

@@ -1,0 +1,511 @@
+---
+title: "Visualization_practice"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Load Libraries
+```{r Read Libraries}
+library(tidyverse)
+library(ggplot2)
+library(readxl)
+library(lubridate)
+```
+
+# Read in Data
+
+
+```{r Read Data}
+mort<- read_excel("./Raw Data/deaths_2016.xlsx")
+pop <- read_csv("./Raw Data/Population_Estimates.csv")
+corr <- read_csv ("./Raw Data/Corr_2016.csv",locale = readr::locale(encoding = "latin1"))
+env <- read_csv ("./Raw Data/Weather_data.csv")
+```
+
+# Review from last week
+
+
+#Research Questions
+
+Analysis 1: Calculate age and sex specific cancer mortality rates by health region in BC
+Analysis 2: Link environmental data to the cancer mortality data to perform an odds ratio analysis *
+
+*if this analysis where to be done in the real world, it would be better to use cancer cases rather than mortality data, but for this course, the cleaning and data management (and not the analysis or research question) is of the focus.
+
+
+Convert pop to long format and rename. 
+
+```{r Population long}
+pop_long<-pop %>%
+  select(-c(X1,Total))%>%
+  pivot_longer(cols = 4:23,
+                 names_to = "Age",
+               values_to = "Value")%>%
+  mutate(Age = case_when(
+          Age =="04-Jan" ~ "01-04",
+          Age =="09-May" ~ "05-09",
+          Age =="14-Oct" ~   "10-14",
+          TRUE ~ Age
+             
+           )
+  )
+  
+pop_long
+
+```
+
+While we're at it, let's rename `Health Service Delivery Area` to something smaller and without spaces.We can do this by using `rename` and the position of the column (1) or we can specify the column name directly - but it is more typing. Let's also remove the `Year` column since we know all of this data is from `2016`:
+
+```{r rename_pop}
+
+pop_long%>%
+  rename("HSDA" = `Health Service Delivery Area`)
+
+pop_long<-pop_long%>%
+  rename("HSDA" = 1)%>%
+  select(-Year)
+
+```
+
+To illustrate why tidy data is easier to work with, let's summarize the `pop_long` data by HSDA, Age to get the total population for each age group per HSDA. The "T" in the gender column represents "Total" between male and female. Although, "T" in gender could also stand for transgender. So it is always good to check on the `unique(pop_long$Gender)` to make sure that one of those values does not include the total. Similarly, often census data will have a "Total" column in another place that can be inconvenient for analysis (hence why we removed it in earlier steps). However, if we ever need that column, we can add it back since our code is preserved above!
+
+
+
+```{r}
+pop_long <- pop_long %>%
+  filter(Gender=="T")
+
+
+
+```
+
+Now let's plot Age on the X axis and Total as the Y axis per HSDA
+
+```{r plot population}
+
+pop_long %>%
+    ggplot(aes(x=Age, y=Value, group=HSDA,colour=HSDA))+
+    geom_line()+
+    geom_point()
+
+```
+
+Now if you wanted to create a similar workflow using the `pop` data that is wider.... how would you do that ?
+Below is an attempt at replicating the top graph... unfortunately, we cannot map all of the columns to ggplot's x-axis, since ggplot looks for that data in a **column**. Additionally, the population values are each in a different column, so we have no "name" to give the y-axis.
+
+```{r pop_wide, include=FALSE, eval=FALSE}
+
+pop %>%
+  rename("HSDA" = `Health Service Delivery Area`)%>%
+  filter(Gender =="T")%>%
+    ggplot(aes(x = , y =, group = HSDA ,colour = HSDA))+
+    geom_line()+
+    geom_point()
+
+
+```
+
+Realistically, for reporting purposes we would want to select meaningful visualizations, and a line graph isn't the best to show age.
+Since age groups are not interconnected with the next age group (denoted by connecting them), we would want to show age distribution as a bar graph.
+Or alternatively, a facet (See: https://ggplot2.tidyverse.org/reference/facet_grid.html?q=facet#arguments) to show a comparison between groups. 
+
+
+# Joins 
+
+Consider what unique keys exist in each data set that would allow us to **join** them together in the future. We will probably want to retain these columns. First, we are going to set up a `list` called `data_list` to hold our four data sets. This will allow me to quickly examine summary statistics for all data sets. Now, we want to use `names` to figure out the column names of each `data` in `data_list`. `purrr` gives us the `map` function that we can use to `map` all the `data` in the `data_list` to `names` to get an output. The syntax is first the data or list - `data_list`, the second is the `function` - `names()` and the `.` or `.x` denotes the `data` in the list. 
+
+
+
+```{r keys}
+data_list<- list(mort,pop,corr,env)
+
+  map(data_list,~names(.))
+
+  # map(data_list,~names(.x))
+#we can also name the list
+  
+data_list<- list("mort"=mort,"pop"=pop,"corr"=corr,"env"=env)  
+
+map(data_list,~names(.x))
+#which outputs the name on top of the corresponding list
+```
+
+
+In mort we have `ID` and `dbuid2016`. `ID` seems to be a 'unique' key for just `mort`. `dbuid2016` are the census dissemination block. pop contains health service delivery areas, 
+corr contains a lot of keys and population for each area. env has `postal_code`. In this case, we can link:
+
+- mort to corr by `dbuid2016`
+- pop to corr by `health service delivery areas` and `hrname_english` - but this doesn't look like a clean join, alternatively there is also the `hruid2017` and `X1` columns. Again, neither of these joins are clean so we will have to choose a method and then clean the data to match.
+- then we can link mort and pop eventually by `dbuid2016`
+- so far no clear way to link to postal_code
+
+
+Let's create a new variable called `rates` and remove Location_of_death, and Martial_status.
+
+Now we can run some checks on this data. First let's check for duplicates in the `ID` column. 
+
+`count(ID)` will count each ID in rates. `n` in the resulting column is the number of time ID occurs. By filtering `n > 1` we are filtering the IDs by those that occur more than once, aka they are likely duplicate values.
+
+```{r rates cleaning}
+
+
+rates <- mort%>%
+    select(-c(Location_of_death, Marital_status))
+
+##==============================================================##
+##             Data Cleaning - Removing Duplicates              ##
+##==============================================================##
+rates_dup <-rates %>% count(ID)%>%filter(n>1)
+
+```
+
+Examine the duplicates by filtering or joining `rates_dup`. These look like they are true duplicates
+
+```{r rates_dup}
+rates %>%
+  filter(ID %in% rates_dup$ID)
+
+rates%>%filter(ID=="1004618")
+
+rates<-rates %>%
+  distinct()
+```
+
+# Working with missing values
+
+There are many ways missing data can manifest. This can look like :
+
+- blank values in your data, e.g. nothing there or `""` or spaces between quotes `" "`
+- `NULL`, `missing`, `nodata`
+- `-999`, `999`
+
+In some cases, a value may be provided that makes no sense for your data like `999` or some very large or very small number. 
+
+It is important to check for how missing data may "look" within your data set. Refer back to summaries and unique values to examine this. Data can be missing at random (MAR), or missing not at random (NMAR). This will influence the decision of what to do with missing data. 
+
+If the data is truly missing at random - we can drop the observations with missing data, providing that this is not a significant proportion of the data.
+
+If the data is missing not at random, this means that the value that is missing is related to the reason it is missing. Perhaps one hospital does a poor job of birth date. If records with missing birth date are deleted, the rate of cancer deaths in that geographical area may appear to be very low. For missing values for `sex` we can impute them via simple sampling methods. 
+
+Revisit the summaries for rates.
+
+In `B_year` it is unlikely that anyone is over 110 years old and born in 1827. Here we are add 100 to these values, assuming there was a typo if 18 when it should be 19. For birth day and month, the “average” so to speak will be used (15 for the date of the month, and 6 or June for the month of the year). This is sufficient for analysis one, because the age calculation will be combined into 10 year age groups. The misclassification should be minimal and acceptable for the purpose of this analysis.
+
+
+```{r rates cleaning}
+##-------------------------------
+## Check for unexpected values        
+##-------------------------------
+rates %>%ggplot()+geom_histogram(aes(x=B_year))
+
+
+#There are a few ways to manually correct these values, this is the base R way you may be familiar with:
+#However, we are going to use the tidyverse way. 
+# rates$B_year[rates$B_year == 1827] <- 1927
+# rates$B_year[rates$B_year == 1831] <- 1931
+# rates$B_year[rates$B_year == 1832] <- 1932
+# rates$B_year[rates$B_year == 1837] <- 1937
+
+rates <- rates %>% 
+  mutate(B_year = ifelse(B_year < 1905, B_year + 100, B_year),
+         B_month = ifelse(is.na(B_month), 6, B_month),
+          B_day = ifelse(is.na(B_day), 15, B_day)
+)
+
+
+rates %>% count(B_month)
+#B_month has no values over 12
+
+rates %>%ggplot()+geom_histogram(aes(x=D_month))
+
+rates %>% count(D_month)
+# rates$D_month[rates$D_month > 12]<-6
+
+rates <- rates %>%
+   mutate(D_month = ifelse(D_month > 12, 6, D_month))
+
+#Check result
+rates %>% count(D_month)
+
+rates %>% count(D_day)
+rates %>%ggplot()+geom_histogram(aes(x=D_day), binwidth = 1)
+
+rates %>%ggplot()+geom_histogram(aes(x=B_day), binwidth = 1)
+
+```
+
+# Working with Dates
+
+We will use the (lubridate)[https://lubridate.tidyverse.org/] package to work with our dates. Here we need to put together all of the birth and death columns to create a date of birth `DOB` and date of death `DOD`. To do that, we can use `paste` from base R or `str_c` from `stringr`.  To make this all fit into one line we are also going to add `as_date` to convert the concatenated `str_c` vector into a `date`. For ages less than zero we will provide a value of 0.5. 
+
+
+
+```{r fix_dates}
+
+#Base approach
+# rates$DOD <- as.Date(paste(rates$D_year, rates$D_month, rates$D_day, sep="-"))
+# rates$DOB <- as.Date(paste(rates$B_year, rates$B_month, rates$B_day, sep="-"))
+
+rates = rates %>% mutate(DOB = as_date(str_c(B_year, B_month, B_day, sep = "-")),
+                 DOD = as_date(str_c(D_year,D_month,D_day, sep ="-")),
+                 Age = year(DOD) - year(DOB)
+                 )
+
+range(rates$Age, na.rm=T)
+
+#base R
+rates$Age[rates$Age < 0] <- 0.5
+
+range(rates$Age, na.rm=T)
+```
+
+
+
+Here we are checking the rates data for na values using `map`. Since we need all rows to contain the unique id of dbuid2016, we can drop any NA values in this column, similarly with `B_year` column. In the `Sex` column we are missing 13 values, we can create a random sample to fill in these NA values. Before we sample our data we will call `set.seed()`, this allows you to have the same random sample - so if you are sharing your code or making reproducible research, this makes it so that when a random sample is generated, they will be the same if `set.seed` is the same. In `sample`, first we specify the two values already contained in this data set `c("M","F")`, then the number of samples - 13, and whether or not we want to sample with replacement. In this case, we want to sample with replacement, this means that we are taking a value from `c("M","F")` and putting that selection "back" into that selection.
+
+```{r NA_values}
+
+
+map(rates,~sum(is.na(.)))
+
+#Show me what the data looks like where any variable has an na value
+rates %>% filter_all(any_vars(is.na(.)))
+
+#Filter the data based on these two columns 
+rates %>% filter_at(vars(B_year,dbuid2016), any_vars(is.na(.)))
+
+#remove NAs
+
+# rates <- rates[!is.na(rates$B_year),]
+# rates <- rates[!is.na(rates$dbuid2016),]
+
+#drop NAs for those we cannot guess or impute
+rates <- rates %>% drop_na(c(B_year,dbuid2016))
+
+set.seed(123)
+rates <- rates %>% mutate(Sex = ifelse(is.na(Sex), sample(c("M","F"), size = 13, replace = TRUE),Sex))
+```
+Checking our na values again, age needs to be recalculated. For these causes, we can assume B_month and B_day are swapped. Since we are grouping this data by year later, it doesn't quite matter:
+
+```{r age}
+rates %>% filter(is.na(Age))
+
+rates<-rates%>% 
+  mutate(
+    DOB = if_else(is.na(DOB),as_date(str_c(B_year, B_day,B_month, sep = "-")),DOB),
+    Age = year(DOD) - year(DOB))
+rates %>% filter(is.na(Age))
+
+```
+
+# Strings 
+
+According to the ICD10 website, cause of death codes that start with a “C” are death from malignant neoplasms (cancer), while codes that start with a “D” are in situ, benign, or unknown status. These are not included in cancer death counts.
+
+In the chunk below the aim is to separate out `Cause_of_death` into the two new columns `letters` and `numbers`. There are quite a few different ways to do this in R and likely more not listed here. Can you think of any using `dplyr`, `tidyr` or `stringr`? 
+
+Study the different methodologies below:
+
+
+```{r working with strings}
+
+#base R way
+# rates$letter <- substring(rates$Cause_of_death, 1, 1)
+# rates$number <- substring(rates$Cause_of_death, 2, 3)
+
+#Using Stringr
+#Method 1:
+
+rates<-rates %>% 
+    separate(Cause_of_death, into = c("letter","number"), sep = 1 )
+#Method 2:
+# rates %>% 
+#   mutate(
+#     letter = str_extract(Cause_of_death,"[[:alpha:]]"),
+#     number = str_extract(Cause_of_death,"[[:digit:]]")
+#     )
+
+#Using regex:
+# rates %>% 
+#   extract(Cause_of_death, into = c("letter","number"),regex = "([A-Z]+)([0-9]+)")
+
+
+```
+
+We can further filter this data by those that have the "C" code. 
+
+
+```{r}
+
+rates <- rates %>% filter(letter == "C" )
+
+```
+
+# Categorization and Binning
+
+Sometimes you will need to organize our data into a different way. We may need to group similar data into specific categories for plotting, or because of a existing standard. For example, you may want to reduce the number of levels that a variable  can have.
+
+In the rates data set, age needs to be categorized into 10 year groups.
+
+The environmental data set, the weather data needs to be dichotomized into either positive or negative for the exposure, which is a cold weather climate.
+
+
+	    Breast cancer (C50) is category 1.
+			Prostate cancer (C61) is category 2.
+			Lung cancer (C33 and C34) is category 3.
+			Colorectal cancer (C18 – C21) is category 4.
+			Everything else is category 5. 
+			
+For ages, we want to put them into groups of 10 years. There are many ways to do this in R. `cut_interval` is a dplyr function for this purpose, where you select the interval and it will provide you with the interval the age fits in. `label = FALSE` returns a simple integer code instead of a factor. https://ggplot2.tidyverse.org/reference/cut_interval.html	
+
+Question: Is there a more stream-lined version for creating the CauseCat ?
+
+```{r categories}
+
+
+#Cause of death
+rates<- rates %>% mutate(CauseCat = ifelse(number == 50, 1, 
+                         ifelse(number == 61, 2, 
+                                ifelse(number == 33 | number == 34, 3, 
+                                       ifelse(number == 18 | number == 19 | number == 20 | number == 21, 4, 5)))))
+
+#Bin ages
+
+# rates$AgeCat <- findInterval(rates$Age, c(10,20,30,40,50,60,70,80,90))
+rates <-rates %>% mutate(AgeCat = cut_interval(Age,10, labels=FALSE))
+#rates$Age <- as.numeric (rates$Age)
+#rates$AgeCat <- cut(rates$Age, breaks=c(0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 130))
+#rates$AgeCat <- cut(rates$Age, breaks=c(0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 130), labels = FALSE)  
+```
+
+
+
+# Output cleaned data
+
+Let's save our work so far with `rates`. We will use  `write_csv`, first we specify our data frame or tribble we want to output. Then the path we want to save it to. Since we have already set up the `Outputs` folder in our project directory, we can refer to this as `./Outputs/` which means, look for the folder in this working directory by `.`
+
+```{r save outputs}
+
+write_csv(rates,"./Outputs/Cancer_rates.csv")
+
+
+```
+
+
+For the `env` data set, select the postal code WTHNRC12_04 and WTHNRC12_05 which are the annual average of daily max temp and the annual average of daily min temp, respectively. Rename the variables accordingly. The goal of the second analysis is to compare the rates of thyroid cancer between those who live in cold climates versus those who do not. To determine a cold climate, the location must have a daily average high temperate less than 10 degrees Celsius, and a daily average low temperature less than -3 degrees Celsius. By consulting the data dictionary, the needed variables are WTHNRC12_04 and WTHNRC12_05, plus the location variable, in this case, postal code.
+
+```{r env subset}
+env<- env%>%
+    select(POSTALCODE12, WTHNRC12_04, WTHNRC12_05)%>%
+    rename("Postal_code"=1, "max_temp"=2,"min_temp"=3)
+
+```
+
+
+
+```{r env filter}
+# env$exposure <- ifelse(env$max_temp < 10 & env$min_temp < -3, 1, 0) 
+env <- env %>% mutate(
+  exposure = ifelse(max_temp < 10 & min_temp < -3, 1, 0)
+)
+
+
+```
+
+In the chunk below output `env` to your Outputs folder and name the csv `exposures.csv`
+
+```{r write exposure}
+
+
+```
+
+
+
+For Analysis 1 : the rates data needs to be joined to the correspondence file by DBuid2016. ”DB” stands for dissemination block, a geographic area identifier, much like a postal code. If we think about `rates` many people can live in a given dissemination block, but we would expect that each dissemination block corresponds to one health region. This is a "One to many" join since rates stay the same but there will be many values for each correspondence file. `inner join` can be used to keep all rows in the rates data set that have a match in the correspondence file.
+
+```{r joins}
+##==============================================================##
+##                     Joining and Merging                      ##
+##==============================================================##
+#analysis1 <- left_join(rates, corr, by = "dbuid2016")
+#analysis1 <- right_join(corr, rates, by = "dbuid2016")
+#analysis1 <- analysis1[!is.na(analysis1$hruid2017),]
+
+analysis1 <- inner_join(rates, corr, by = "dbuid2016")
+
+```
+
+In the chunk below write analysis1 to output folder, call it "analysis1"
+
+```{r write analysis}
+
+
+```
+
+
+
+
+
+#Activity:
+
+1. Examine the Postal codes in rates. Can you find any issues with Postalcodes ? 
+
+Here is a complex regex that will match with postal codes, let's use it to examine what matches and what doesn't.
+
+This regex was found at :
+https://www.oreilly.com/library/view/regular-expressions-cookbook/9781449327453/ch04s15.html
+
+```{r activity postalcode}
+
+#^(?!.*[DFIOQU])[A-VXY][0-9][A-Z]●?[0-9][A-Z][0-9]$
+
+#Examine those that do not match the perfect postal code regex 
+ rates %>%filter(is.na(str_match(Postalcode, pattern = "^(?!.*[DFIOQU])[A-VXY][0-9][A-Z]?[0-9][A-Z][0-9]$")))
+
+
+```
+
+There is a brief explanation on the website of how they structured the regex. For our purposes, we can accept the magic that is regex and the work that someone else did for now... 
+
+What are some of the issues that you see with the postal codes that were returned? 
+
+
+```{r}
+unique(str_sub(rates$Postalcode,2,2))
+
+```
+
+3. Replicate the code above to include each position of each character in postal code (positions 1-6).
+
+4. Use `str_length` to find how many characters are in a Postalcode. Hint: use `unique` as well to see any that are more or less than 6 characters. What can be done about postal codes with missing or extra data?
+
+
+There is no perfect way to determine the "correct" postal code if it contains errors.
+
+
+5. Work on a join for pop and corr. Recall that :  `health service delivery areas` and `hrname_english` look like matches - but this doesn't look like a clean join, alternatively there is also the `hruid2017` and `X1` columns. Again, neither of these joins are clean so we will have to choose a method and then clean the data to match. 
+You will have to decide how you want to join these two sets of data. There is more than one method. One approach would be to alter the strings of the health service delivery areas so that they match. Another approach would be to split the strings to match the number of digits in both `X1` and `hruid2017`. Consider whether your data as is needs to be reshaped into the long or wide format for this join.
+
+6. Create a new Markdown document. You will use this new markdown document to create your first Exploratory Data Markdown file. Name this file appropriately using a convention that makes sense to you. Here are some examples of names:
+
+EDA_01, CancerMortality_01, Assignment1, exploratory_analysis
+
+This file should provide a colleague or manager with the high level insights about the data, how you cleaned it and why, how many NA values were found and what was done to correct them and why. You should also: 
+- Create a list of your data 
+- Create a function to pass to your list using purrr (Hint: Think of something that you may have repeated, summary statistics, types of plots, min and max values)
+- Include code chunks and headings for cleaning your population data in #5.
+
+This RMarkdown file should aim to answer the following questions about the data:
+
+- What are the dimensions of each data set? (Hint: Think of the R functions we used in Week_1_Practice and earlier in this document `dim`, `nrow`, `ncol`)
+- What does each column represent, what are some of the high level statistics for each data set?
+- How many NA values are there?
+- Include any plots that
+- Create a clean process for all your code in this .rmd, for instance, in this exercise we went back and forth between some cleaning exercises. Make this cleaner and easier to follow, provide descriptions of what you are doing and why.
+
+As a reminder, there are a lot of different ways to structure an analysis - so how you structure this document, your peers and even the answer key will probably be slightly different.
+
+

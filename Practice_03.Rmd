@@ -1,0 +1,212 @@
+---
+title: "Tidyverse_stringr_practice"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Load Libraries
+
+```{r load_libraries}
+library(tidyverse)
+library(stringr)
+
+```
+
+# Titanic Example
+
+```{r read data, echo=TRUE}
+
+titanic = read_csv("./Raw Data/titanic.csv", col_types = cols(Survived= col_factor(),
+                                                          Sex= col_factor()))
+#Can also do short form "f" for factor
+#titanic = read_csv("./Data/titanic.csv", col_types = cols(Survived= "f",
+                                                          # Sex= "f")
+titanic <- titanic %>% filter(!is.na(Survived))
+titanic <- titanic %>%
+    mutate(family_size = SibSp + Parch + 1)
+
+```
+
+Separate Name into `Last_name` and `First_name`
+
+```{r}
+
+titanic <- titanic %>% separate(Name, into = c("Last_name", "First_name"), sep=",")
+
+```
+
+There are now white spaces created by our separation, remove them by using `str_trim` this removes white space characters, we can specify `sides` as either both, left or right. In this case we only need left:
+
+```{r}
+titanic <- titanic %>%
+  mutate(First_name = str_trim(First_name, side = "left"))
+  
+  
+```
+
+
+We can extract title by using the following regex:
+```{r}
+titanic <- titanic %>% mutate(Title = str_extract(First_name, "([^.]+)"))
+
+```
+
+Step by step:
+
+    `^` matches the start of the string
+
+    `[^.]` this matches any character that's not a period note, since `.` is a reserved character we are using square brackets to tell regex, we want to match up to the period.
+
+    `\+` to take until a period
+
+And the expression is encapsulated with `()` to capture it. 
+
+# Create a function
+
+Create a function to format a name variable using the above to guide you:
+
+```{r}
+
+create_title <- function(firstname){
+  
+  title = str_trim(firstname, side = "left") %>%
+   str_extract(., "([^.]+)")
+  return(title)
+}
+
+```
+
+
+Try it out:
+
+```{r}
+titanic %>% mutate(Title = create_title(First_name))
+
+```
+
+# Who Data Example
+
+Who dataset contains tuberculosis (TB) cases broken down by year, country, age, gender, and diagnosis method. The data comes from the 2014 World Health Organization Global Tuberculosis Report, available at http://www.who.int/tb/country/data/download/en/.
+
+```{r read_data}
+
+data(who)
+
+```
+
+The best place to start is almost always to gather together the columns that are not variables
+
+It looks like country, iso2, and iso3 are three variables that redundantly specify the country.
+
+We don’t know what all the other columns are yet, but given the structure in the variable nmes (e.g. new_sp_m014, new_ep_m014, new_ep_f014) these are likely to be values, not variables.
+
+So we need to gather together all the columns from new_sp_m014 to newrel_f65. We don’t know what those values represent yet, so we’ll give them the generic name "key". We know the cells represent the count of cases, so we’ll use the variable cases. There are a lot of missing values in the current representation, so for now we’ll use na.rm just so we can focus on the values that are present.
+
+```{r}
+
+who1 <- who %>% 
+  pivot_longer(
+    cols = new_sp_m014:newrel_f65, 
+    names_to = "key", 
+    values_to = "cases", 
+    values_drop_na = TRUE
+  )
+who1
+
+```
+
+
+the data dictionary handy. It tells us:
+
+    The first three letters of each column denote whether the column contains new or old cases of TB. In this dataset, each column contains new cases.
+
+    The next two letters describe the type of TB:
+        rel stands for cases of relapse
+        ep stands for cases of extrapulmonary TB
+        sn stands for cases of pulmonary TB that could not be diagnosed by a pulmonary smear (smear negative)
+        sp stands for cases of pulmonary TB that could be diagnosed be a pulmonary smear (smear positive)
+
+    The sixth letter gives the sex of TB patients. The dataset groups cases by males (m) and females (f).
+
+    The remaining numbers gives the age group. The dataset groups cases into seven age groups:
+        014 = 0 – 14 years old
+        1524 = 15 – 24 years old
+        2534 = 25 – 34 years old
+        3544 = 35 – 44 years old
+        4554 = 45 – 54 years old
+        5564 = 55 – 64 years old
+        65 = 65 or older
+
+There are inconsistent names that contain underscores or have no underscore. Correct this using `str_replace` below:
+
+```{r}
+who2 <- who1 %>% 
+  mutate(names_from = stringr::str_replace(key, "newrel", "new_rel"))
+who2
+
+```
+
+Separate the key into three new columns called "new","type" and "sexage", these are separated by an `_`:
+
+```{r separate}
+who3 <- who2 %>% 
+  separate(key, c("new", "type", "sexage"), sep = "_")
+who3
+```
+
+Next we’ll separate sexage into sex and age by splitting after the first character:
+
+```{r}
+who5 <- who4 %>% 
+  separate(sexage, c("sex", "age"), sep = 1)
+who5
+
+```
+
+Typically you can pipe this together all in one:
+
+```{r pipes}
+who %>%
+  pivot_longer(
+    cols = new_sp_m014:newrel_f65, 
+    names_to = "key", 
+    values_to = "cases", 
+    values_drop_na = TRUE
+  ) %>% 
+  mutate(
+    key = stringr::str_replace(key, "newrel", "new_rel")
+  ) %>%
+  separate(key, c("new", "var", "sexage")) %>% 
+  select(-new, -iso2, -iso3) %>% 
+  separate(sexage, c("sex", "age"), sep = 1)
+
+```
+
+
+## Regex Question
+
+3. Explain what the following code does to the who data set?  Hint: look at the brackets
+
+
+```{r Q3_who}
+who_longer=who %>% pivot_longer(
+    cols = new_sp_m014:newrel_f65,
+    names_to = c("diagnosis", "gender", "age"),
+    names_pattern = "new_?(.*)_(.)(.*)",
+    values_to = "count",
+    values_drop_na = TRUE
+)
+
+```
+
+Question:
+
+1. In this case study we set values_drop_na = TRUE just to make it easier to check that we had the correct values. Is this reasonable? Think about how missing values are represented in this dataset. Are there implicit missing values? What’s the difference between an NA and zero?
+
+2. Create a plot of `titanic`'s Title's by summarizing the total count in each Title.
+
+
+
