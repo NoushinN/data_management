@@ -7,7 +7,7 @@ Course material: [here](https://github.com/GISKid/mapdatascience/tree/master/Dat
 Session 1: titanic and tidyverse demo  
 Session 2: practice (01 & 02)  
 Session 3: functions and purrr demo  
-Session 4: practice (03 & 04)  
+Session 4: practice (03 & 04) + storyboard 
 
 
 
