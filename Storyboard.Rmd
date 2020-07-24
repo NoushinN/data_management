@@ -1,0 +1,93 @@
+---
+title: "Storyboard"
+output: 
+  flexdashboard::flex_dashboard:
+    storyboard: true
+    theme: flatly
+---
+
+```{r libraries}
+
+#install.packages(c('tidyverse',`ggplot2`,`kableExtra`,`knitr`,'formattable'))
+
+library(tidyverse)
+library(ggplot2)
+library(kableExtra)
+library(knitr)
+library(formattable)
+library(questionr)
+```
+
+```{r read data}
+
+analysis1 <- read_csv("./Outputs/analysis1.csv")
+
+analysis2<-read_csv("./Outputs/analysis2.csv")
+
+hr_rates<-read_csv("./Outputs/HR_rates.csv")
+```
+
+
+
+### Cancer Mortality by Health Region Plot
+
+```{r}
+
+hr_rates %>% 
+  mutate(hruid2017 = as.factor(hruid2017),
+         hruid2017 = fct_reorder(hruid2017,rate))%>%
+  ggplot(aes(x=hruid2017,y=rate))+
+  geom_bar(fill="#253494",stat="identity",alpha=0.7)+
+  labs(y="Rates", x="Health Region", title = "Cancer Mortality Rates per 100,000",
+  subtitle = "*Not real data")+
+  theme_bw()
+
+```
+
+***
+The plot on the left shows Cancer Mortality Rates ordered by increasing rates per health region on the X-axis
+
+### Cancer Mortality  by Health Regions Table
+
+```{r}
+#formatting tables https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html
+hr_rates  %>%
+  mutate(rate = round(rate,2))%>%
+  mutate(rate = color_bar("lightgreen")(rate))%>%
+  kable("html",escape=F,col.names = c("Health Region", "Total Count per Health Region", "Health Region Population","Rates"))%>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+
+
+```
+
+
+### Odds Ratio
+
+```{r}
+
+oddsratiotable <- table (analysis2$outcome, analysis2$exposure)
+
+OR<-(oddsratiotable[4]*oddsratiotable[1])/(oddsratiotable[3]*oddsratiotable[2])
+
+oddsratiotable2 <- matrix(c(6, 138, 29, 7124), ncol=2)
+colnames(oddsratiotable2) <- c('+ outcome','- outcome')
+rownames(oddsratiotable2) <- c('+ exposure','- exposure')
+oddsratiotable2 <- as.table (oddsratiotable2)
+row.names(oddsratiotable2) <-c("Cold Climate", "Not Cold Climate")
+
+colnames(oddsratiotable2)<-c("Thyroid Cancer Death","Other Cancer Death")
+
+kable(oddsratiotable2)%>%
+  kable_styling("hover")%>%
+  add_header_above(c("", "Outcome" = 2))%>%
+  footnote(general = "*This is simulated/fake data")
+
+ORcheck <-odds.ratio(oddsratiotable2)
+ORcheck
+```
+***
+The Odds Ratio is `r round(OR,2)`.
+
+We utilized Canadian Urban Environmental Health Research Consortium (CANUE) weather data, organized by postal code. Some forms of cancer have been linked to living in cold climates (Lehrer and Rosenzweig, 2014). This data can be linked to the death records, with certain cancers being the outcome of interest (in this case thyroid), and the rest of the cancer deaths acting as the comparison group.
+
+
