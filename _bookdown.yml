@@ -1,0 +1,16 @@
+book_filename: "data-management-with-r"
+output_dir: "docs"
+delete_merged_file: true
+language:
+  ui:
+    chapter_name: "Chapter "
+rmd_files:
+  - "index.Rmd"
+  - "01_project_setup.Rmd"
+  - "02_tidyverse_basics.Rmd"
+  - "03_joining_data.Rmd"
+  - "04_data_cleaning.Rmd"
+  - "05_strings_regex.Rmd"
+  - "06_visualization.Rmd"
+  - "07_exploratory_analysis.Rmd"
+  - "08_storyboard_reporting.Rmd"

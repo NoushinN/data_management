@@ -1,0 +1,94 @@
+---
+title: "Data Management with R"
+output: html_document
+---
+
+# Data Management with R
+
+This document provides practical teaching materials and examples for **data management and reproducible analysis using R**. The focus is on building clear, structured, and repeatable workflows for working with data in an applied setting.
+
+---
+
+## Overview
+
+This project helps users:
+
+- Develop robust data wrangling skills using the tidyverse
+- Apply reproducible project structures for consistent and audit-ready analysis
+- Write clean, modular, and reusable code
+- Create clear outputs (tables, figures, dashboards)
+
+---
+
+## Core Topics Covered
+
+- Tidy data principles
+- Data cleaning and transformation using the tidyverse
+- Reproducible project setup using RStudio Projects
+- Functions and iteration using base R and purrr
+- Table and figure creation
+- Storyboards and dashboards using R Markdown and flexdashboard
+
+---
+
+## Repository Structure
+
+- `Raw Data/` – Input datasets for demonstrations
+- `Outputs/` – Processed datasets and results
+- `Demo_*.Rmd` – Demonstration notebooks
+- `Practice_*.Rmd` – Practice exercises
+- `Data-Management-Setup-*.Rmd` – Setup guidance
+
+---
+
+## Learning Flow
+
+1. Introduction to tidy data and the tidyverse
+2. Practice exercises (01–02)
+3. Functions and iteration
+4. Practice exercises (03–04)
+5. Storyboards and dashboards
+
+---
+
+## Intended Use
+
+- Self-guided learning
+- Training workshops
+- Reference material
+- Templates for reproducible workflows
+
+All datasets are simulated or instructional only.
+
+---
+
+## Tools and Packages
+
+- tidyverse
+- ggplot2
+- knitr
+- kableExtra
+- purrr
+- here
+- flexdashboard
+
+---
+
+## Reproducibility Notes
+
+- Uses RStudio Projects
+- Uses relative paths (here::here())
+- Code is modular and readable
+
+---
+
+## Assumptions
+
+- Basic familiarity with R
+- Focus on data management (not advanced modeling)
+
+---
+
+## Licence
+
+For educational use. See LICENSE for details.

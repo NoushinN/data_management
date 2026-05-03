@@ -1,94 +1,45 @@
 # Data Management with R
 
-This repository contains teaching materials and examples focused on **data management and reproducible analysis using R**. The content emphasizes practical workflows for cleaning, transforming, summarizing, and presenting data in a structured and reproducible way using modern R tools.
+This folder contains the fixed Bookdown version of the **Data Management with R** materials.
 
-The materials are suitable for learners who have basic familiarity with R and want to strengthen their skills in data wrangling, functional programming, and clear analytical communication.
+The previous combined file placed multiple chapters into one `.Rmd` file, which caused duplicate chunk-label errors such as `setup`. This version splits the content back into separate chapter files and prefixes code chunk labels so they are unique across the book.
 
----
+## Files included
 
-## Core topics covered
+- `index.Rmd` – book landing page and introduction
+- `01_project_setup.Rmd` – project setup and Git/GitHub workflow
+- `02_tidyverse_basics.Rmd` – tidyverse basics
+- `03_joining_data.Rmd` – joining data
+- `04_data_cleaning.Rmd` – data cleaning and data management
+- `05_strings_regex.Rmd` – strings and regular expressions
+- `06_visualization.Rmd` – visualization and advanced cleaning
+- `07_exploratory_analysis.Rmd` – exploratory analysis project
+- `08_storyboard_reporting.Rmd` – storyboard and reporting
+- `_bookdown.yml` – bookdown chapter order and output folder
+- `_output.yml` – output settings
+- `style.css` – basic styling
 
-- **Tidy data principles**
-- **Data cleaning and transformation** using the tidyverse
-- **Reproducible project structure** with RStudio Projects and relative file paths
-- **Functions and iteration** using base R and `purrr`
-- **Table and figure creation** for exploratory analysis and reporting
-- **Storyboards and dashboards** using R Markdown and flexdashboard
+## How to render the book
 
----
+Open the RStudio project, then run:
 
-## Repository structure
+```r
+bookdown::clean_book()
+bookdown::render_book("index.Rmd")
+```
 
-- `Raw Data/`  
-  Example input datasets used for demonstrations and practice exercises
+The rendered book will be created in the `docs/` folder.
 
-- `Outputs/`  
-  Cleaned data, intermediate outputs, and analysis results
+## Folder reminders
 
-- `Demo_*.Rmd`  
-  Demonstration notebooks illustrating core concepts and workflows
+Keep raw datasets in:
 
-- `Practice_*.Rmd`  
-  Hands‑on practice exercises aligned with each topic area
+```text
+Raw Data/
+```
 
-- `Data-Management-Setup-*.Rmd`  
-  Guidance on project setup, package use, and reproducible workflows
+Save generated files in:
 
----
-
-## Learning flow
-
-The materials are designed to be used sequentially:
-
-1. **Introduction to tidy data and the tidyverse**  
-   Reading data, selecting variables, filtering rows, and creating summaries
-
-2. **Practice exercises (01 & 02)**  
-   Applying data cleaning and transformation techniques
-
-3. **Functions and iteration**  
-   Writing reusable functions and using `purrr` for scalable data workflows
-
-4. **Practice exercises (03 & 04)**  
-   Reinforcing functional programming concepts
-
-5. **Storyboards and dashboards**  
-   Communicating results using plots, tables, and narrative with R Markdown and flexdashboard
-
----
-
-## Intended use
-
-This repository can be used for:
-- Self‑guided learning
-- Workshop or classroom instruction
-- Reference examples for applied data analysis projects
-- Templates for reproducible analytic workflows
-
-All example data included in this repository are **simulated or instructional only**.
-
----
-
-## Tools and packages used
-
-- `tidyverse`
-- `ggplot2`
-- `knitr`
-- `kableExtra`
-- `purrr`
-- `here`
-- `flexdashboard`
-
----
-
-## Reproducibility notes
-
-- The project assumes use of **RStudio Projects** for consistent file paths
-- Relative paths (e.g., via `here::here()`) are used throughout
-- Code is written to be readable, modular, and easy to adapt
-
----
-
-## Licence
-
-This repository is intended for educational and instructional use. See the `LICENSE` file for details.
+```text
+Outputs/
+```

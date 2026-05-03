@@ -1,0 +1,46 @@
+# Storyboard and Reporting
+
+## Learning objectives
+
+By the end of this chapter, you should be able to:
+
+- plan an analysis before writing code;
+- organize results into a clear storyline;
+- distinguish technical notes from reader-facing explanations;
+- prepare a clean final R Markdown report.
+
+## Why storyboarding matters
+
+A storyboard helps you decide what your report should say before you spend too much time formatting or coding. It is especially useful when your audience is a colleague, manager, client, or instructor who needs the main message quickly.
+
+## A simple storyboard template
+
+Use the following structure:
+
+| Section | Purpose |
+|---|---|
+| Background | Explain why the analysis is needed |
+| Data | Describe the datasets used |
+| Cleaning | Explain major cleaning decisions |
+| Analysis | Show summaries, rates, or comparisons |
+| Visualization | Present key plots |
+| Findings | Summarize the main results |
+| Limitations | Explain what the data cannot answer |
+| Next steps | Identify what should happen next |
+
+## Writing clear interpretation
+
+After each major code chunk or plot, add a few sentences explaining what the output means. Avoid leaving tables or plots without interpretation.
+
+## Example interpretation sentence
+
+> The plot shows that population counts vary by age group and Health Service Delivery Area. This helps identify whether age distribution differs across regions before calculating age-specific rates.
+
+## Practice
+
+Choose one plot from the visualization chapter and write a short paragraph explaining:
+
+1. what the plot shows;
+2. why it matters;
+3. one limitation of the plot;
+4. what analysis should come next.

@@ -1,0 +1,199 @@
+---
+title: "Data Management with R"
+author: "Noushin Nabavi"
+site: bookdown::bookdown_site
+documentclass: book
+output:
+  bookdown::gitbook:
+    css: style.css
+---
+
+# Welcome {-}
+
+This book provides practical teaching materials and examples for **data management and reproducible analysis using R**. The focus is on building clear, structured, and repeatable workflows for working with data in an applied setting.
+
+The materials are designed for learners who are developing confidence with R, RStudio Projects, the tidyverse, R Markdown, and bookdown. The examples use instructional datasets and emphasize the process of preparing, cleaning, joining, reshaping, visualizing, and communicating data.
+
+---
+
+# Overview {-}
+
+This book helps learners:
+
+- Develop practical data-wrangling skills using the tidyverse
+- Apply reproducible project structures for consistent analysis
+- Work with tidy data principles
+- Read, clean, reshape, and join datasets
+- Use strings, dates, and regular expressions in data cleaning
+- Create clear tables, figures, and analysis outputs
+- Communicate results through R Markdown, bookdown, dashboards, and storyboards
+
+The goal is not advanced statistical modelling. Instead, the emphasis is on building reliable workflows that support clear, organized, and reproducible analysis.
+
+---
+
+# How to Use This Book {-}
+
+Each chapter introduces a data management topic and includes worked examples, code chunks, explanations, and practice activities. Learners are encouraged to:
+
+- Read each section carefully
+- Run the code chunks in RStudio
+- Modify examples to test their understanding
+- Keep raw data unchanged
+- Save generated outputs in the `Outputs/` folder
+- Use clear file names and reproducible project structure
+
+The chapters are intended to be followed in order, but individual chapters can also be used as standalone reference materials.
+
+---
+
+# Recommended Chapter Flow {-}
+
+The book is organized into the following learning sequence:
+
+1. **Project Setup**  
+   Set up an RStudio Project, organize folders, and understand reproducible workflows.
+
+2. **Tidyverse Basics**  
+   Learn core tidyverse functions for reading, selecting, filtering, mutating, and summarizing data.
+
+3. **Joining Data**  
+   Practice combining datasets using keys and joins, with examples from the Titanic dataset.
+
+4. **Data Cleaning**  
+   Work with raw files, column names, missing values, reshaping, and structured cleaning steps.
+
+5. **Strings and Regular Expressions**  
+   Use `stringr`, `separate()`, `str_extract()`, and regex patterns to clean and parse text data.
+
+6. **Data Visualization**  
+   Create clear visual summaries using `ggplot2`, including line plots, bar charts, and grouped visualizations.
+
+7. **Exploratory Data Analysis**  
+   Build an organized EDA workflow using summaries, plots, missing-value checks, and data validation.
+
+8. **Communicating Results**  
+   Use storyboards, dashboards, and reporting structure to communicate data insights clearly.
+
+---
+
+# Project Structure {-}
+
+A recommended project structure is shown below:
+
+```text
+project/
+│
+├── index.Rmd
+├── 01_project_setup.Rmd
+├── 02_tidyverse_basics.Rmd
+├── 03_joining_data.Rmd
+├── 04_data_cleaning.Rmd
+├── 05_strings_regex.Rmd
+├── 06_visualization.Rmd
+├── 07_tidyverse_analysis.Rmd
+├── 08_storyboard.Rmd
+│
+├── _bookdown.yml
+├── _output.yml
+├── style.css
+├── data_management.Rproj
+│
+├── Raw Data/
+├── Outputs/
+├── docs/
+├── archive/
+│
+├── README.md
+├── LICENSE
+└── .gitignore
+```
+
+Raw data should remain in `Raw Data/`. Files created by analysis should be saved in `Outputs/`. Rendered book files can be saved in `docs/` if the book is being published with GitHub Pages.
+
+---
+
+# Required R Packages {-}
+
+The book uses several R packages, including:
+
+```{r index-install-packages, eval=FALSE}
+install.packages(c(
+  "bookdown",
+  "tidyverse",
+  "ggplot2",
+  "readxl",
+  "lubridate",
+  "stringr",
+  "purrr",
+  "knitr",
+  "kableExtra",
+  "here",
+  "flexdashboard"
+))
+```
+
+Load commonly used packages with:
+
+```{r index-load-packages, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(readxl)
+library(lubridate)
+library(stringr)
+library(purrr)
+```
+
+---
+
+# Building the Book {-}
+
+To build the book from RStudio, open the project file:
+
+```text
+data_management.Rproj
+```
+
+Then use the **Build Book** option in the Build pane.
+
+You can also render the book from the R console:
+
+```{r index-render-book, eval=FALSE}
+bookdown::render_book("index.Rmd")
+```
+
+---
+
+# Data and Reproducibility Notes {-}
+
+This project uses relative file paths and a structured folder system. This makes the work easier to share, rerun, and maintain.
+
+Recommended practices:
+
+- Do not edit raw data files directly
+- Keep all raw datasets in `Raw Data/`
+- Save processed files in `Outputs/`
+- Use clear and consistent file names
+- Use RStudio Projects to keep paths stable
+- Comment code where needed
+- Keep analysis steps in a logical order
+
+All datasets used in the course are simulated, fictitious, or instructional only. They are intended for teaching data management concepts, not for drawing real-world research conclusions.
+
+---
+
+# Intended Audience {-}
+
+This book is intended for learners who have basic familiarity with R and RStudio and want to build stronger applied data management skills. It can be used for:
+
+- Self-guided learning
+- Training workshops
+- Teaching support materials
+- Practice exercises
+- Templates for reproducible workflows
+
+---
+
+# Licence {-}
+
+For educational use. See `LICENSE` for details.

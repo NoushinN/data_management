@@ -1,0 +1,55 @@
+# Tidyverse Basics
+
+## Learning objectives
+
+By the end of this chapter, you should be able to:
+
+- load common R packages;
+- read data files into R;
+- inspect data frames;
+- use the pipe operator;
+- apply common `dplyr` verbs such as `select`, `filter`, `mutate`, `group_by`, and `summarize`.
+
+## Load libraries
+
+```{r 02-tidyverse-basics-load-tidyverse}
+library(tidyverse)
+```
+
+## Read data
+
+In most projects, the first step is reading raw data from the `Raw Data/` folder.
+
+```{r 02-tidyverse-basics-read-example-data, eval=FALSE}
+example_data <- read_csv("./Raw Data/example.csv")
+```
+
+## Inspect data
+
+Useful functions include:
+
+```{r 02-tidyverse-basics-inspect-functions, eval=FALSE}
+glimpse(example_data)
+summary(example_data)
+dim(example_data)
+names(example_data)
+```
+
+## Core tidyverse verbs
+
+```{r 02-tidyverse-basics-dplyr-verbs-example, eval=FALSE}
+example_data %>%
+  select(column_1, column_2) %>%
+  filter(column_1 == "value") %>%
+  mutate(new_column = column_2 * 2) %>%
+  group_by(column_1) %>%
+  summarize(total = sum(new_column, na.rm = TRUE))
+```
+
+## Practice questions
+
+1. Read one `.csv` file from your `Raw Data/` folder.
+2. Use `glimpse()` to inspect the dataset.
+3. Select three columns.
+4. Filter the data to one group or category.
+5. Create one new variable with `mutate()`.

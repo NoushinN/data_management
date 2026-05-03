@@ -1,0 +1,82 @@
+# Exploratory Analysis Project
+
+## Learning objectives
+
+By the end of this chapter, you should be able to:
+
+- create a short exploratory analysis report;
+- summarize the dimensions and structure of several datasets;
+- count missing values;
+- create reusable functions and apply them with `purrr::map()`;
+- explain cleaning decisions in plain language.
+
+## Purpose
+
+This chapter turns the earlier practice work into a more polished exploratory analysis document. The goal is to create a report that a colleague or manager could read to understand the data, what was cleaned, and what decisions were made.
+
+## Load libraries
+
+```{r 07-exploratory-analysis-eda-libraries}
+library(tidyverse)
+library(readxl)
+library(lubridate)
+```
+
+## Read data
+
+```{r 07-exploratory-analysis-eda-read-data, eval=FALSE}
+mort <- read_excel("./Raw Data/deaths_2016.xlsx")
+pop  <- read_csv("./Raw Data/Population_Estimates.csv")
+corr <- read_csv("./Raw Data/Corr_2016.csv", locale = readr::locale(encoding = "latin1"))
+env  <- read_csv("./Raw Data/Weather_data.csv")
+```
+
+## Create a data list
+
+```{r 07-exploratory-analysis-eda-data-list, eval=FALSE}
+data_list <- list(
+  mortality = mort,
+  population = pop,
+  correspondence = corr,
+  environment = env
+)
+```
+
+## Dataset dimensions
+
+```{r 07-exploratory-analysis-eda-dimensions, eval=FALSE}
+map(data_list, dim)
+map(data_list, nrow)
+map(data_list, ncol)
+```
+
+## Missing values function
+
+```{r 07-exploratory-analysis-missing-values-function}
+count_missing <- function(data) {
+  data %>% summarize(across(everything(), ~sum(is.na(.))))
+}
+```
+
+```{r 07-exploratory-analysis-apply-missing-function, eval=FALSE}
+map(data_list, count_missing)
+```
+
+## Recommended report structure
+
+Use this structure for your exploratory analysis R Markdown file:
+
+1. Purpose of the analysis
+2. Data sources
+3. Data dimensions
+4. Column descriptions
+5. Missing value checks
+6. Duplicate checks
+7. Cleaning decisions
+8. Initial plots
+9. Summary of key findings
+10. Next steps
+
+## Practice task
+
+Create a new R Markdown document called `exploratory_analysis.Rmd`. Use the structure above and include at least one table, one missing-value summary, and one plot.

@@ -1,0 +1,62 @@
+# Joining Data
+
+## Learning objectives
+
+By the end of this chapter, you should be able to:
+
+- identify keys used to join datasets;
+- understand one-to-one, one-to-many, and many-to-many joins;
+- use `left_join()`, `inner_join()`, and related join functions;
+- check for duplicate keys before joining.
+
+## Example data
+
+```{r 03-joining-data-join-example-data}
+library(tidyverse)
+
+x <- tribble(
+  ~key, ~val_x,
+     1, "x1",
+     2, "x2",
+     2, "x3",
+     1, "x4"
+)
+
+y <- tribble(
+  ~key, ~val_y,
+     1, "y1",
+     2, "y2"
+)
+```
+
+## Left join
+
+A left join keeps all rows from the first dataset and brings in matching information from the second dataset.
+
+```{r 03-joining-data-left-join-example}
+left_join(x, y, by = "key")
+```
+
+## Check duplicate keys
+
+Before joining real datasets, always check whether the join key is unique.
+
+```{r 03-joining-data-check-duplicate-keys}
+x %>% count(key) %>% filter(n > 1)
+y %>% count(key) %>% filter(n > 1)
+```
+
+## Common join types
+
+- `left_join()`: keep all rows from the left table.
+- `inner_join()`: keep only matched rows.
+- `right_join()`: keep all rows from the right table.
+- `full_join()`: keep all rows from both tables.
+- `anti_join()`: find rows that do not have a match.
+
+## Practice
+
+1. Create two small datasets with a common key.
+2. Try `left_join()` and `inner_join()`.
+3. Check what happens when one table has duplicate keys.
+4. Use `anti_join()` to identify unmatched rows.

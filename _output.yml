@@ -1,0 +1,11 @@
+bookdown::gitbook:
+  css: style.css
+  split_by: chapter
+  config:
+    toc:
+      before: |
+        <li><a href="./">Data Management with R</a></li>
+      collapse: section
+    download: ["pdf", "epub"]
+bookdown::html_book:
+  css: style.css

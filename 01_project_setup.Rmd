@@ -1,0 +1,370 @@
+```{r 01-project-setup-setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Project Setup and Reproducible Workflows
+
+This chapter introduces the recommended project structure for this course and explains how to keep your work organized, reproducible, and easy to share. A clear project setup is one of the most important parts of data management because it helps you avoid broken file paths, lost outputs, duplicate scripts, and unclear analysis steps.
+
+By the end of this chapter, you should be able to:
+
+- create and use an RStudio Project;
+- organize raw data, scripts, outputs, and reports into clear folders;
+- use relative file paths instead of computer-specific paths;
+- understand the role of Git and GitHub in reproducible analysis; and
+- apply a simple workflow for saving, documenting, and sharing your work.
+
+---
+
+## Why project setup matters
+
+A data analysis project usually includes several types of files, including raw data, cleaned data, R Markdown files, figures, tables, notes, and final reports. If these files are not organized consistently, the analysis becomes difficult to reproduce and difficult for others to review.
+
+A good project structure helps you:
+
+- find files quickly;
+- avoid overwriting important work;
+- keep raw data separate from cleaned or modified data;
+- make your code easier to run on another computer;
+- document each step of the analysis; and
+- create a clear audit trail of your work.
+
+In this course, we will use **RStudio Projects** and **R Markdown** to support a clean and reproducible workflow.
+
+---
+
+## Recommended folder structure
+
+For this course, use one main project folder. Inside that folder, create separate folders for raw data, generated outputs, and any supporting materials.
+
+A recommended structure is:
+
+```text
+Data-Management-with-R/
+│
+├── data_management.Rproj
+├── index.Rmd
+├── 01_project_setup.Rmd
+├── 02_tidyverse_basics.Rmd
+├── 03_joining_data.Rmd
+├── 04_data_cleaning.Rmd
+├── 05_strings_regex.Rmd
+├── 06_visualization.Rmd
+├── 07_tidyverse_analysis.Rmd
+├── 08_storyboard.Rmd
+│
+├── Raw Data/
+├── Outputs/
+├── docs/
+├── archive/
+│
+├── _bookdown.yml
+├── _output.yml
+├── style.css
+├── README.md
+├── LICENSE
+└── .gitignore
+```
+
+### Folder descriptions
+
+| Folder or file | Purpose |
+|---|---|
+| `data_management.Rproj` | Opens the project in RStudio and sets the working directory correctly. |
+| `index.Rmd` | The landing page or introduction for the bookdown project. |
+| `01_*.Rmd`, `02_*.Rmd`, etc. | Main chapter files for the book. |
+| `Raw Data/` | Original input datasets. These should not be manually edited. |
+| `Outputs/` | Cleaned datasets, tables, figures, and other generated files. |
+| `docs/` | Rendered bookdown website output. |
+| `archive/` | Old drafts, unused files, or previous versions kept for reference. |
+| `_bookdown.yml` | Controls bookdown file order and output folder. |
+| `_output.yml` | Controls bookdown output format. |
+| `README.md` | Explains the project for users and collaborators. |
+| `.gitignore` | Tells Git which files or folders should not be tracked. |
+
+---
+
+## Using RStudio Projects
+
+An **RStudio Project** keeps all files for one analysis or course in a single working environment. This is better than opening individual files from different folders because RStudio knows where the project starts.
+
+To create a project:
+
+1. Open RStudio.
+2. Select **File > New Project**.
+3. Choose either **New Directory** or **Existing Directory**.
+4. Save the project in the main course folder.
+5. Open the `.Rproj` file whenever you work on the project.
+
+When you open the `.Rproj` file, RStudio automatically sets the project folder as the working directory.
+
+---
+
+## Working with relative paths
+
+Avoid using full file paths that only work on your computer, such as:
+
+```{r 01-project-setup-bad_path_example, eval=FALSE}
+read_csv("C:/Users/YourName/Desktop/Data/Population_Estimates.csv")
+```
+
+Instead, use relative paths from the project folder:
+
+```{r 01-project-setup-good_path_example, eval=FALSE}
+read_csv("./Raw Data/Population_Estimates.csv")
+```
+
+This makes your code easier to share and easier to run on another computer.
+
+You can also use the `here` package:
+
+```{r 01-project-setup-here_example, eval=FALSE}
+library(here)
+read_csv(here("Raw Data", "Population_Estimates.csv"))
+```
+
+Both approaches are acceptable. The key idea is to avoid paths that only work on one machine.
+
+---
+
+## File naming conventions
+
+Good file names make a project easier to navigate. Use names that are short, descriptive, and consistent.
+
+Recommended practices:
+
+- Use lowercase where possible.
+- Use underscores instead of spaces.
+- Number chapter files in the order they appear.
+- Avoid vague names such as `final_final_version2.Rmd`.
+- Use dates only when they are truly useful.
+
+Examples:
+
+```text
+01_project_setup.Rmd
+02_tidyverse_basics.Rmd
+03_joining_data.Rmd
+cancer_rates.csv
+exposures.csv
+```
+
+---
+
+## Separating raw data and outputs
+
+Raw data should stay unchanged. If you clean, transform, or summarize the data, save the result in the `Outputs/` folder instead of overwriting the original file.
+
+For example:
+
+```{r 01-project-setup-output_example, eval=FALSE}
+rates_clean <- rates %>%
+  filter(letter == "C")
+
+write_csv(rates_clean, "./Outputs/Cancer_rates.csv")
+```
+
+This makes it easier to trace how the cleaned data was created.
+
+---
+
+## R Markdown workflow
+
+R Markdown allows you to combine text, code, and results in one document. This is useful for teaching, reporting, and reproducible analysis.
+
+A typical R Markdown workflow is:
+
+1. Explain the purpose of the section.
+2. Load the required packages.
+3. Read the data.
+4. Clean or reshape the data.
+5. Create summaries, tables, or plots.
+6. Explain what the results mean.
+7. Save any outputs that are needed later.
+
+This structure helps readers understand not only what the code does, but also why each step is needed.
+
+---
+
+## Bookdown chapter organization
+
+In this course, each major topic should be placed in its own `.Rmd` file. The order of the chapters is controlled by `_bookdown.yml`.
+
+A recommended order is:
+
+```text
+index.Rmd
+01_project_setup.Rmd
+02_tidyverse_basics.Rmd
+03_joining_data.Rmd
+04_data_cleaning.Rmd
+05_strings_regex.Rmd
+06_visualization.Rmd
+07_tidyverse_analysis.Rmd
+08_storyboard.Rmd
+```
+
+This structure keeps the book organized and makes it easier to revise one chapter without affecting the others.
+
+---
+
+## GitHub and version control
+
+Git and GitHub are recommended for advanced users and for anyone who wants to track changes carefully over time.
+
+To get the most out of this workshop, we recommend working within **RStudio Projects** (`.Rproj`) and using **Git** for version control, with **GitHub** as the remote repository.
+
+Using Git and GitHub allows you to:
+
+- track changes to your work over time;
+- revert to earlier versions if needed;
+- collaborate safely with others;
+- keep a clear audit trail of your analysis; and
+- back up your project outside your local computer.
+
+RStudio includes built-in Git tools, so you can use RStudio as your Git interface without installing a separate Git graphical interface, unless you already have one that you prefer.
+
+Throughout this workshop, the recommended workflow is:
+
+- one RStudio Project per analysis or assignment;
+- Git enabled at the project level; and
+- GitHub used as the remote backup and collaboration platform.
+
+For detailed R-focused guidance, the online book **Happy Git with R** is a useful reference. The steps below are based on that workflow.
+
+---
+
+## Installation and first-time Git setup
+
+Complete these steps once on your computer.
+
+### 1. Create a GitHub account
+
+Create a free GitHub account:
+
+<https://happygitwithr.com/github-acct.html>
+
+### 2. Install Git
+
+Git is a system-level tool that must be installed before RStudio can use it.
+
+Guidance:
+
+<https://happygitwithr.com/install-git.html>
+
+Notes:
+
+- Windows users should install **Git for Windows**.
+- macOS users can use Homebrew or the Xcode Command Line Tools.
+
+### 3. Introduce yourself to Git
+
+Git needs your name and email address for the commit history.
+
+Guidance:
+
+<https://happygitwithr.com/hello-git.html>
+
+This step connects your future commits to your identity as the project author or contributor.
+
+---
+
+## Connecting Git, GitHub, and RStudio
+
+After Git is installed, connect it to GitHub and RStudio.
+
+### 1. Connect local Git to GitHub
+
+Guidance:
+
+<https://happygitwithr.com/push-pull-github.html>
+
+This allows your local project to communicate with the remote GitHub repository.
+
+### 2. Choose an authentication method
+
+GitHub no longer allows password-based authentication for Git operations. You must use one of the following methods.
+
+#### Option A: HTTPS and Personal Access Token
+
+This is recommended for most users.
+
+<https://happygitwithr.com/credential-caching.html>
+
+#### Option B: SSH keys
+
+This is recommended if you work with Git frequently or across multiple computers.
+
+<https://happygitwithr.com/ssh-keys.html>
+
+### 3. Enable Git support inside RStudio
+
+Guidance:
+
+<https://happygitwithr.com/rstudio-git-github.html>
+
+Once Git is connected, RStudio will show a **Git** tab in the project interface.
+
+---
+
+## Recommended workflow: GitHub first
+
+A **GitHub-first workflow** means the repository is created on GitHub first and then cloned into RStudio.
+
+Full walkthrough:
+
+<https://happygitwithr.com/new-github-first.html>
+
+### Core steps
+
+1. Create a new repository on GitHub.
+2. Clone the repository into a new RStudio Project.
+3. Add or edit files locally.
+4. Commit the changes in RStudio.
+5. Push the committed changes back to GitHub.
+
+This workflow is recommended because it makes the connection between GitHub and the local RStudio Project clearer from the beginning.
+
+---
+
+## Practical notes for workshops
+
+Git is useful, but it is not mandatory for completing the workshop materials.
+
+If you prefer not to use GitHub, you can still:
+
+- work locally with `.Rproj` files;
+- organize your data and outputs using the recommended folder structure;
+- knit R Markdown documents; and
+- build the bookdown project locally.
+
+If you get stuck with Git or GitHub, continue working locally and sync later when the issue is resolved.
+
+---
+
+## Optional GitHub extensions
+
+After you are comfortable with the basics, you may explore:
+
+- GitHub Desktop: <https://desktop.github.com/>
+- branches;
+- pull requests;
+- issues;
+- README-driven documentation; and
+- GitHub Pages for publishing project websites.
+
+---
+
+## Chapter summary
+
+In this chapter, you learned how to structure a reproducible R project. The key recommendations are:
+
+- use one RStudio Project per analysis or course;
+- keep raw data in `Raw Data/`;
+- save generated files in `Outputs/`;
+- use relative paths;
+- organize bookdown chapters with numbered `.Rmd` files;
+- use Git for version tracking when appropriate; and
+- use GitHub for backup and collaboration when needed.
+
+A clean project structure makes your analysis easier to understand, easier to reproduce, and easier to maintain.
