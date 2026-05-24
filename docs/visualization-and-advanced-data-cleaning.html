@@ -123,6 +123,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -241,6 +264,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.7" data-path="storyboarding-and-reporting.html"><a href="storyboarding-and-reporting.html#practice-activity-1"><i class="fa fa-check"></i><b>8.7</b> Practice activity</a></li>
 <li class="chapter" data-level="8.8" data-path="storyboarding-and-reporting.html"><a href="storyboarding-and-reporting.html#chapter-summary-7"><i class="fa fa-check"></i><b>8.8</b> Chapter summary</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
 
       </nav>
@@ -263,7 +287,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In previous chapters, we focused on importing, cleaning, reshaping, and joining datasets using the tidyverse. In this chapter, we extend those workflows by introducing exploratory visualization and more advanced data-cleaning techniques commonly used in population health and environmental data analysis.</p>
 <p>The overall objective is to prepare several datasets for later analytical work involving cancer mortality, population estimates, geographic correspondence files, and environmental exposure data. Along the way, we will review common challenges such as missing values, inconsistent variable names, duplicate records, invalid dates, and poorly formatted identifiers.</p>
 <p>Although the datasets used in this course are simplified for teaching purposes, the workflow closely reflects the types of cleaning and preparation steps encountered in real-world epidemiological and environmental health projects.</p>
-<p>The chapter also introduces several important visualization techniques using <code>ggplot2</code>, which will help you explore and validate your cleaned datasets.</p>
+<p>The chapter also introduces several important visualization techniques using <code>ggplot2</code>, which will help you explore and validate your cleaned datasets. The <code>ggplot2</code> package is based on the Grammar of Graphics framework <span class="citation">Wickham (<a href="#ref-wickham2017">2017</a>)</span>.</p>
 <div id="research-context-and-datasets" class="section level2 hasAnchor" number="6.1">
 <h2><span class="header-section-number">6.1</span> Research context and datasets<a href="visualization-and-advanced-data-cleaning.html#research-context-and-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The exercises in this chapter are motivated by two simplified research questions.</p>
@@ -1265,6 +1289,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In this chapter, you expanded your data management workflow by combining advanced cleaning techniques with exploratory visualization. You reviewed datasets, reshaped population data, created visualizations, identified join keys, cleaned mortality and environmental datasets, handled missing values, validated identifiers, and created cleaned outputs for later analysis.</p>
 <p>These workflows form the foundation of reproducible analytical projects and closely resemble the types of preparation steps required in real-world public health and environmental data analysis.</p>
 
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-wickham2017" class="csl-entry">
+Wickham, Hadley. 2017. <em>Ggplot2: Elegant Graphics for Data Analysis</em>. 2nd ed. Springer.
 </div>
 </div>
             </section>

@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 7 Exploratory Analysis Project | Data Management with R</title>
-  <meta name="description" content="Chapter 7 Exploratory Analysis Project | Data Management with R" />
+  <title>References | Data Management with R</title>
+  <meta name="description" content="References | Data Management with R" />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 7 Exploratory Analysis Project | Data Management with R" />
+  <meta property="og:title" content="References | Data Management with R" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 7 Exploratory Analysis Project | Data Management with R" />
+  <meta name="twitter:title" content="References | Data Management with R" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="visualization-and-advanced-data-cleaning.html"/>
-<link rel="next" href="storyboarding-and-reporting.html"/>
+<link rel="prev" href="storyboarding-and-reporting.html"/>
+
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -282,200 +282,31 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="exploratory-analysis-project" class="section level1 hasAnchor" number="7">
-<h1><span class="header-section-number">Chapter 7</span> Exploratory Analysis Project<a href="exploratory-analysis-project.html#exploratory-analysis-project" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>In previous chapters, we focused on importing, cleaning, reshaping, joining, and visualizing datasets using the tidyverse. This chapter brings those individual skills together into a more complete exploratory analysis workflow.</p>
-<p>The purpose of exploratory analysis is not to produce final analytical results, but rather to understand the structure and quality of the data before formal analysis begins. A well-prepared exploratory analysis document should allow a colleague, manager, or future researcher to understand the datasets being used, the cleaning decisions that were made, and the reasoning behind those decisions.</p>
-<p>In practice, exploratory analysis is one of the most important stages of a data project because many analytical problems can be identified early through careful inspection of the data.</p>
-<p>By the end of this chapter, you should be able to organize multiple datasets into a reproducible workflow, summarize dataset structures, evaluate missing values, create reusable functions, and communicate cleaning decisions clearly using R Markdown.</p>
-<div id="loading-libraries-and-importing-datasets" class="section level2 hasAnchor" number="7.1">
-<h2><span class="header-section-number">7.1</span> Loading libraries and importing datasets<a href="exploratory-analysis-project.html#loading-libraries-and-importing-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>We begin by loading the libraries used throughout the exploratory analysis workflow.</p>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="exploratory-analysis-project.html#cb189-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb189-2"><a href="exploratory-analysis-project.html#cb189-2" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb189-3"><a href="exploratory-analysis-project.html#cb189-3" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span></code></pre></div>
-<p>The datasets used in this project include mortality records, population estimates, geographic correspondence files, and environmental exposure data.</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="exploratory-analysis-project.html#cb190-1" tabindex="-1"></a>mort <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(</span>
-<span id="cb190-2"><a href="exploratory-analysis-project.html#cb190-2" tabindex="-1"></a>  <span class="st">&quot;./Raw Data/deaths_2016.xlsx&quot;</span></span>
-<span id="cb190-3"><a href="exploratory-analysis-project.html#cb190-3" tabindex="-1"></a>)</span>
-<span id="cb190-4"><a href="exploratory-analysis-project.html#cb190-4" tabindex="-1"></a></span>
-<span id="cb190-5"><a href="exploratory-analysis-project.html#cb190-5" tabindex="-1"></a>pop <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
-<span id="cb190-6"><a href="exploratory-analysis-project.html#cb190-6" tabindex="-1"></a>  <span class="st">&quot;./Raw Data/Population_Estimates.csv&quot;</span></span>
-<span id="cb190-7"><a href="exploratory-analysis-project.html#cb190-7" tabindex="-1"></a>)</span>
-<span id="cb190-8"><a href="exploratory-analysis-project.html#cb190-8" tabindex="-1"></a></span>
-<span id="cb190-9"><a href="exploratory-analysis-project.html#cb190-9" tabindex="-1"></a>corr <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
-<span id="cb190-10"><a href="exploratory-analysis-project.html#cb190-10" tabindex="-1"></a>  <span class="st">&quot;./Raw Data/Corr_2016.csv&quot;</span>,</span>
-<span id="cb190-11"><a href="exploratory-analysis-project.html#cb190-11" tabindex="-1"></a>  <span class="at">locale =</span> readr<span class="sc">::</span><span class="fu">locale</span>(</span>
-<span id="cb190-12"><a href="exploratory-analysis-project.html#cb190-12" tabindex="-1"></a>    <span class="at">encoding =</span> <span class="st">&quot;latin1&quot;</span></span>
-<span id="cb190-13"><a href="exploratory-analysis-project.html#cb190-13" tabindex="-1"></a>  )</span>
-<span id="cb190-14"><a href="exploratory-analysis-project.html#cb190-14" tabindex="-1"></a>)</span>
-<span id="cb190-15"><a href="exploratory-analysis-project.html#cb190-15" tabindex="-1"></a></span>
-<span id="cb190-16"><a href="exploratory-analysis-project.html#cb190-16" tabindex="-1"></a>env <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
-<span id="cb190-17"><a href="exploratory-analysis-project.html#cb190-17" tabindex="-1"></a>  <span class="st">&quot;./Raw Data/Weather_data.csv&quot;</span></span>
-<span id="cb190-18"><a href="exploratory-analysis-project.html#cb190-18" tabindex="-1"></a>)</span></code></pre></div>
-<p>When working with multiple datasets, it is often helpful to place them into a single list structure. This makes it easier to apply functions repeatedly across all datasets using tools from the <code>purrr</code> package.</p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="exploratory-analysis-project.html#cb191-1" tabindex="-1"></a>data_list <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb191-2"><a href="exploratory-analysis-project.html#cb191-2" tabindex="-1"></a>  <span class="at">mortality =</span> mort,</span>
-<span id="cb191-3"><a href="exploratory-analysis-project.html#cb191-3" tabindex="-1"></a>  <span class="at">population =</span> pop,</span>
-<span id="cb191-4"><a href="exploratory-analysis-project.html#cb191-4" tabindex="-1"></a>  <span class="at">correspondence =</span> corr,</span>
-<span id="cb191-5"><a href="exploratory-analysis-project.html#cb191-5" tabindex="-1"></a>  <span class="at">environment =</span> env</span>
-<span id="cb191-6"><a href="exploratory-analysis-project.html#cb191-6" tabindex="-1"></a>)</span></code></pre></div>
+<div id="references" class="section level1 unnumbered hasAnchor">
+<h1>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div class="csl-entry">
+Wickham, Hadley. 2017. <em>Ggplot2: Elegant Graphics for Data Analysis</em>. 2nd ed. Springer.
 </div>
-<div id="reviewing-dataset-structure" class="section level2 hasAnchor" number="7.2">
-<h2><span class="header-section-number">7.2</span> Reviewing dataset structure<a href="exploratory-analysis-project.html#reviewing-dataset-structure" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>A good exploratory analysis begins with understanding the basic structure of each dataset. Important questions include:</p>
-<ul>
-<li>How many rows and columns are present?</li>
-<li>What variables are available?</li>
-<li>Are there obvious missing values?</li>
-<li>Are the variable types correct?</li>
-<li>Are there unusual or unexpected values?</li>
-</ul>
-<p>The <code>map()</code> function allows us to apply the same operation across all datasets efficiently.</p>
-<p>For example, we can review dataset dimensions.</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="exploratory-analysis-project.html#cb192-1" tabindex="-1"></a><span class="fu">map</span>(data_list, dim)</span>
-<span id="cb192-2"><a href="exploratory-analysis-project.html#cb192-2" tabindex="-1"></a></span>
-<span id="cb192-3"><a href="exploratory-analysis-project.html#cb192-3" tabindex="-1"></a><span class="fu">map</span>(data_list, nrow)</span>
-<span id="cb192-4"><a href="exploratory-analysis-project.html#cb192-4" tabindex="-1"></a></span>
-<span id="cb192-5"><a href="exploratory-analysis-project.html#cb192-5" tabindex="-1"></a><span class="fu">map</span>(data_list, ncol)</span></code></pre></div>
-<p>We can also inspect variable names.</p>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="exploratory-analysis-project.html#cb193-1" tabindex="-1"></a><span class="fu">map</span>(data_list, names)</span></code></pre></div>
-<p>Functions such as <code>glimpse()</code> and <code>summary()</code> are also useful during exploratory review.</p>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="exploratory-analysis-project.html#cb194-1" tabindex="-1"></a><span class="fu">map</span>(data_list, glimpse)</span>
-<span id="cb194-2"><a href="exploratory-analysis-project.html#cb194-2" tabindex="-1"></a></span>
-<span id="cb194-3"><a href="exploratory-analysis-project.html#cb194-3" tabindex="-1"></a><span class="fu">map</span>(data_list, summary)</span></code></pre></div>
-<p>These exploratory checks often reveal problems early in the workflow, including inconsistent variable naming, missing values, incorrect data types, or unusual coding structures.</p>
-<div class="tip">
-<p>One of the most common mistakes in data analysis is beginning formal analysis before fully understanding the structure and quality of the data.</p>
+<div class="csl-entry">
+———. 2026. <em>Stringr: Simple, Consistent Wrappers for Common String Operations</em>. <a href="https://stringr.tidyverse.org/">https://stringr.tidyverse.org/</a>.
+</div>
+<div class="csl-entry">
+Wickham, Hadley, Mine Çetinkaya-Rundel, and Garrett Grolemund. 2023. <em>R for Data Science</em>. O’Reilly Media. <a href="https://r4ds.hadley.nz/">https://r4ds.hadley.nz/</a>.
+</div>
+<div class="csl-entry">
+Xie, Yihui. 2016. <em>Bookdown: Authoring Books and Technical Documents with r Markdown</em>. Chapman; Hall/CRC. <a href="https://bookdown.org/yihui/bookdown/">https://bookdown.org/yihui/bookdown/</a>.
 </div>
 </div>
-<div id="working-with-missing-values" class="section level2 hasAnchor" number="7.3">
-<h2><span class="header-section-number">7.3</span> Working with missing values<a href="exploratory-analysis-project.html#working-with-missing-values" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Missing data are extremely common in real-world datasets. Before deciding how to handle missing values, it is important to understand how frequently they occur and whether they appear systematically within specific variables.</p>
-<p>Instead of repeatedly writing the same code for each dataset, we can create a reusable function.</p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="exploratory-analysis-project.html#cb195-1" tabindex="-1"></a>count_missing <span class="ot">&lt;-</span> <span class="cf">function</span>(data) {</span>
-<span id="cb195-2"><a href="exploratory-analysis-project.html#cb195-2" tabindex="-1"></a>  </span>
-<span id="cb195-3"><a href="exploratory-analysis-project.html#cb195-3" tabindex="-1"></a>  data <span class="sc">%&gt;%</span></span>
-<span id="cb195-4"><a href="exploratory-analysis-project.html#cb195-4" tabindex="-1"></a>    </span>
-<span id="cb195-5"><a href="exploratory-analysis-project.html#cb195-5" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
-<span id="cb195-6"><a href="exploratory-analysis-project.html#cb195-6" tabindex="-1"></a>      <span class="fu">across</span>(</span>
-<span id="cb195-7"><a href="exploratory-analysis-project.html#cb195-7" tabindex="-1"></a>        <span class="fu">everything</span>(),</span>
-<span id="cb195-8"><a href="exploratory-analysis-project.html#cb195-8" tabindex="-1"></a>        <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(.))</span>
-<span id="cb195-9"><a href="exploratory-analysis-project.html#cb195-9" tabindex="-1"></a>      )</span>
-<span id="cb195-10"><a href="exploratory-analysis-project.html#cb195-10" tabindex="-1"></a>    )</span>
-<span id="cb195-11"><a href="exploratory-analysis-project.html#cb195-11" tabindex="-1"></a>}</span></code></pre></div>
-<p>This function calculates the number of missing values for every variable in a dataset.</p>
-<p>We can then apply the function across all datasets.</p>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="exploratory-analysis-project.html#cb196-1" tabindex="-1"></a><span class="fu">map</span>(data_list, count_missing)</span></code></pre></div>
-<p>Reusable functions improve efficiency, reduce duplicated code, and make workflows easier to maintain.</p>
-<p>It is also important to remember that missing values are not always random. In some cases, missingness may indicate systematic collection problems, unavailable information, or meaningful absence of data.</p>
-<div class="warning">
-<p>Never remove missing values automatically without first understanding why they are missing and whether the missingness may influence the analysis.</p>
-</div>
-</div>
-<div id="duplicate-records-and-cleaning-decisions" class="section level2 hasAnchor" number="7.4">
-<h2><span class="header-section-number">7.4</span> Duplicate records and cleaning decisions<a href="exploratory-analysis-project.html#duplicate-records-and-cleaning-decisions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In addition to missing values, duplicate records should also be investigated during exploratory analysis.</p>
-<p>For example:</p>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="exploratory-analysis-project.html#cb197-1" tabindex="-1"></a>mort <span class="sc">%&gt;%</span></span>
-<span id="cb197-2"><a href="exploratory-analysis-project.html#cb197-2" tabindex="-1"></a>  </span>
-<span id="cb197-3"><a href="exploratory-analysis-project.html#cb197-3" tabindex="-1"></a>  <span class="fu">count</span>(ID) <span class="sc">%&gt;%</span></span>
-<span id="cb197-4"><a href="exploratory-analysis-project.html#cb197-4" tabindex="-1"></a>  </span>
-<span id="cb197-5"><a href="exploratory-analysis-project.html#cb197-5" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">1</span>)</span></code></pre></div>
-<p>Duplicate records can arise from data-entry errors, repeated imports, or incorrect joins. Identifying these issues early helps prevent inflated counts and inaccurate results later in the workflow.</p>
-<p>As cleaning decisions are made, they should be documented clearly in plain language. Good documentation is one of the defining features of reproducible analysis.</p>
-<p>For example, instead of writing only code comments such as:</p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="exploratory-analysis-project.html#cb198-1" tabindex="-1"></a><span class="co"># fixed dates</span></span></code></pre></div>
-<p>it is better to explain the reasoning more clearly:</p>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="exploratory-analysis-project.html#cb199-1" tabindex="-1"></a><span class="co"># Birth years before 1905 were assumed to be data-entry errors</span></span>
-<span id="cb199-2"><a href="exploratory-analysis-project.html#cb199-2" tabindex="-1"></a><span class="co"># and adjusted forward by 100 years.</span></span></code></pre></div>
-<p>Clear explanations help future users understand not only <em>what</em> changes were made, but also <em>why</em> those changes were considered appropriate.</p>
-</div>
-<div id="exploratory-visualization" class="section level2 hasAnchor" number="7.5">
-<h2><span class="header-section-number">7.5</span> Exploratory visualization<a href="exploratory-analysis-project.html#exploratory-visualization" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Visualization is another important component of exploratory analysis. Simple plots can quickly reveal outliers, skewed distributions, missing categories, or unusual relationships between variables.</p>
-<p>For example, histograms are useful for examining continuous variables.</p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="exploratory-analysis-project.html#cb200-1" tabindex="-1"></a>mort <span class="sc">%&gt;%</span></span>
-<span id="cb200-2"><a href="exploratory-analysis-project.html#cb200-2" tabindex="-1"></a>  </span>
-<span id="cb200-3"><a href="exploratory-analysis-project.html#cb200-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(</span>
-<span id="cb200-4"><a href="exploratory-analysis-project.html#cb200-4" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> B_year)</span>
-<span id="cb200-5"><a href="exploratory-analysis-project.html#cb200-5" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb200-6"><a href="exploratory-analysis-project.html#cb200-6" tabindex="-1"></a>  </span>
-<span id="cb200-7"><a href="exploratory-analysis-project.html#cb200-7" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb200-8"><a href="exploratory-analysis-project.html#cb200-8" tabindex="-1"></a>  </span>
-<span id="cb200-9"><a href="exploratory-analysis-project.html#cb200-9" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb200-10"><a href="exploratory-analysis-project.html#cb200-10" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Distribution of Birth Year&quot;</span>,</span>
-<span id="cb200-11"><a href="exploratory-analysis-project.html#cb200-11" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Birth year&quot;</span>,</span>
-<span id="cb200-12"><a href="exploratory-analysis-project.html#cb200-12" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Count&quot;</span></span>
-<span id="cb200-13"><a href="exploratory-analysis-project.html#cb200-13" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb200-14"><a href="exploratory-analysis-project.html#cb200-14" tabindex="-1"></a>  </span>
-<span id="cb200-15"><a href="exploratory-analysis-project.html#cb200-15" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
-<p>Bar plots are often useful for categorical variables.</p>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="exploratory-analysis-project.html#cb201-1" tabindex="-1"></a>mort <span class="sc">%&gt;%</span></span>
-<span id="cb201-2"><a href="exploratory-analysis-project.html#cb201-2" tabindex="-1"></a>  </span>
-<span id="cb201-3"><a href="exploratory-analysis-project.html#cb201-3" tabindex="-1"></a>  <span class="fu">count</span>(Sex) <span class="sc">%&gt;%</span></span>
-<span id="cb201-4"><a href="exploratory-analysis-project.html#cb201-4" tabindex="-1"></a>  </span>
-<span id="cb201-5"><a href="exploratory-analysis-project.html#cb201-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(</span>
-<span id="cb201-6"><a href="exploratory-analysis-project.html#cb201-6" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> Sex, <span class="at">y =</span> n)</span>
-<span id="cb201-7"><a href="exploratory-analysis-project.html#cb201-7" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb201-8"><a href="exploratory-analysis-project.html#cb201-8" tabindex="-1"></a>  </span>
-<span id="cb201-9"><a href="exploratory-analysis-project.html#cb201-9" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb201-10"><a href="exploratory-analysis-project.html#cb201-10" tabindex="-1"></a>  </span>
-<span id="cb201-11"><a href="exploratory-analysis-project.html#cb201-11" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb201-12"><a href="exploratory-analysis-project.html#cb201-12" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Distribution of Sex&quot;</span>,</span>
-<span id="cb201-13"><a href="exploratory-analysis-project.html#cb201-13" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Sex&quot;</span>,</span>
-<span id="cb201-14"><a href="exploratory-analysis-project.html#cb201-14" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Count&quot;</span></span>
-<span id="cb201-15"><a href="exploratory-analysis-project.html#cb201-15" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb201-16"><a href="exploratory-analysis-project.html#cb201-16" tabindex="-1"></a>  </span>
-<span id="cb201-17"><a href="exploratory-analysis-project.html#cb201-17" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
-<p>Exploratory visualizations do not need to be highly polished. Their primary purpose is to help you understand the data and identify potential problems.</p>
-</div>
-<div id="organizing-an-exploratory-analysis-report" class="section level2 hasAnchor" number="7.6">
-<h2><span class="header-section-number">7.6</span> Organizing an exploratory analysis report<a href="exploratory-analysis-project.html#organizing-an-exploratory-analysis-report" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>A well-structured exploratory analysis document should guide the reader logically through the datasets and cleaning workflow.</p>
-<p>Although the exact structure may vary between projects, most exploratory analysis reports include the following components:</p>
-<ol style="list-style-type: decimal">
-<li>A short description of the project purpose and research questions.</li>
-<li>A description of the datasets being used.</li>
-<li>Summary information about dataset dimensions and structure.</li>
-<li>Explanations of important variables.</li>
-<li>Missing-value summaries and duplicate checks.</li>
-<li>Cleaning and transformation decisions.</li>
-<li>Initial visualizations and descriptive summaries.</li>
-<li>A brief discussion of key findings and remaining data issues.</li>
-<li>Proposed next steps for future analysis.</li>
-</ol>
-<p>The goal is not to create a perfect final report, but rather to create a clear and reproducible record of the exploratory workflow.</p>
-</div>
-<div id="practice-activity" class="section level2 hasAnchor" number="7.7">
-<h2><span class="header-section-number">7.7</span> Practice activity<a href="exploratory-analysis-project.html#practice-activity" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Create a new R Markdown document called:</p>
-<pre class="text"><code>exploratory_analysis.Rmd</code></pre>
-<p>Use the structure introduced in this chapter to build a short exploratory analysis report for the datasets used throughout the course.</p>
-<p>Your report should include:</p>
-<ul>
-<li>at least one table summarizing dataset dimensions;</li>
-<li>one missing-value summary;</li>
-<li>at least one visualization;</li>
-<li>a short explanation of cleaning decisions; and</li>
-<li>clear comments describing major analytical steps.</li>
-</ul>
-<p>As you write the document, focus on clarity and reproducibility. Imagine that another analyst will need to understand and continue your work in the future.</p>
-</div>
-<div id="chapter-summary-6" class="section level2 hasAnchor" number="7.8">
-<h2><span class="header-section-number">7.8</span> Chapter summary<a href="exploratory-analysis-project.html#chapter-summary-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In this chapter, you combined many of the skills introduced earlier in the course into a more complete exploratory analysis workflow. You organized datasets into reusable structures, summarized dimensions and variable information, evaluated missing values, created reusable functions, checked for duplicate records, and produced simple exploratory visualizations.</p>
-<p>Most importantly, you practiced documenting cleaning decisions and analytical reasoning in a way that supports reproducibility and collaboration. Exploratory analysis is not simply a preliminary step before “real analysis”; it is a critical stage that shapes the quality and reliability of all later results.</p>
 
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="visualization-and-advanced-data-cleaning.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="storyboarding-and-reporting.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="storyboarding-and-reporting.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

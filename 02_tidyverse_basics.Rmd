@@ -1,8 +1,9 @@
 # Tidyverse Basics
 
-The **tidyverse** is a collection of R packages designed for data science and data analysis. These packages provide a consistent and readable approach for importing, cleaning, transforming, visualizing, and analyzing data. In practice, the tidyverse is widely used because it allows complex workflows to be written in a clear and organized way.
+The **tidyverse** is a collection of R packages designed for data science and data analysis. These packages provide a consistent and readable approach for importing, cleaning, transforming, visualizing, and analyzing data. In practice, the tidyverse is widely used because it allows complex workflows to be written in a clear and organized way. The tidyverse ecosystem is widely used for data science workflows @wickham2023.
 
 In this chapter, you will learn how to load tidyverse packages, read datasets into R, inspect data frames, and perform common data manipulation tasks using `dplyr`. By the end of the chapter, you should feel comfortable performing basic exploratory data analysis and creating simple data transformation pipelines.
+
 
 ## Loading packages and reading data
 

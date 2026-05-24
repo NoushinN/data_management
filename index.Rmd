@@ -16,6 +16,8 @@ output:
     latex_engine: xelatex
     keep_tex: true
 classoption: oneside
+bibliography: references.bib
+link-citations: true
 ---
 
 # Welcome {-}

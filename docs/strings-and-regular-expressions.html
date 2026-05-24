@@ -123,6 +123,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -241,6 +264,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.7" data-path="storyboarding-and-reporting.html"><a href="storyboarding-and-reporting.html#practice-activity-1"><i class="fa fa-check"></i><b>8.7</b> Practice activity</a></li>
 <li class="chapter" data-level="8.8" data-path="storyboarding-and-reporting.html"><a href="storyboarding-and-reporting.html#chapter-summary-7"><i class="fa fa-check"></i><b>8.8</b> Chapter summary</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
 
       </nav>
@@ -261,7 +285,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="strings-and-regular-expressions" class="section level1 hasAnchor" number="5">
 <h1><span class="header-section-number">Chapter 5</span> Strings and Regular Expressions<a href="strings-and-regular-expressions.html#strings-and-regular-expressions" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Character variables are extremely common in real-world datasets. Names, addresses, postal codes, diagnostic codes, survey responses, and file names are all examples of text-based data that often require cleaning before analysis can begin.</p>
-<p>This chapter introduces tools for working with strings and regular expressions in R using the tidyverse and the <code>stringr</code> package. You will learn how to separate text variables into multiple columns, remove unnecessary spaces, extract patterns from text, reshape complex datasets, and use regular expressions to identify meaningful information hidden inside character strings.</p>
+<p>This chapter introduces tools for working with strings and regular expressions in R using the tidyverse and the <code>stringr</code> package. You will learn how to separate text variables into multiple columns, remove unnecessary spaces, extract patterns from text, reshape complex datasets, and use regular expressions to identify meaningful information hidden inside character strings. The <code>stringr</code> package simplifies many common string operations in R <span class="citation">Wickham (<a href="#ref-stringr">2026</a>)</span>.</p>
 <p>In addition to text cleaning, this chapter also introduces important data reshaping techniques using <code>pivot_longer()</code>, which is commonly used to convert messy wide-format datasets into tidy long-format structures suitable for analysis.</p>
 <div id="working-with-character-data-in-r" class="section level2 hasAnchor" number="5.1">
 <h2><span class="header-section-number">5.1</span> Working with character data in R<a href="strings-and-regular-expressions.html#working-with-character-data-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -792,6 +816,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In this chapter, you learned how to work with character variables and regular expressions using the tidyverse and <code>stringr</code>. You cleaned and separated text variables, extracted patterns using regex, created reusable functions, reshaped wide datasets into tidy long-format structures, and interpreted coded variable names.</p>
 <p>These techniques are extremely important in real-world data management because many datasets contain poorly structured text variables and encoded information that must be cleaned before analysis can begin.</p>
 
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-stringr" class="csl-entry">
+———. 2026. <em>Stringr: Simple, Consistent Wrappers for Common String Operations</em>. <a href="https://stringr.tidyverse.org/">https://stringr.tidyverse.org/</a>.
 </div>
 </div>
             </section>

@@ -123,6 +123,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -241,6 +264,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.7" data-path="storyboarding-and-reporting.html"><a href="storyboarding-and-reporting.html#practice-activity-1"><i class="fa fa-check"></i><b>8.7</b> Practice activity</a></li>
 <li class="chapter" data-level="8.8" data-path="storyboarding-and-reporting.html"><a href="storyboarding-and-reporting.html#chapter-summary-7"><i class="fa fa-check"></i><b>8.8</b> Chapter summary</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
 
       </nav>
@@ -266,7 +290,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="organizing-a-reproducible-project" class="section level2 hasAnchor" number="1.1">
 <h2><span class="header-section-number">1.1</span> Organizing a reproducible project<a href="project-setup-and-reproducible-workflows.html#organizing-a-reproducible-project" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A typical data analysis project includes several different types of files. These often include raw datasets, cleaned datasets, R scripts, figures, tables, notes, and reports. Without a clear structure, projects can quickly become difficult to navigate and maintain.</p>
-<p>A good project structure helps you keep related files together and reduces the likelihood of errors. It also makes collaboration easier because other users can understand the workflow more quickly.</p>
+<p>A good project structure helps you keep related files together and reduces the likelihood of errors. It also makes collaboration easier because other users can understand the workflow more quickly. Bookdown provides a framework for creating reproducible books and technical documents directly from R Markdown files <span class="citation">Xie (<a href="#ref-xie2016">2016</a>)</span>.</p>
 <p>For this course, all work should be placed inside a single main project folder. Within that folder, separate folders should be created for raw data, generated outputs, reports, and archived material.</p>
 <p>A recommended structure is shown below.</p>
 <pre class="text"><code>Data-Management-with-R/
@@ -403,6 +427,12 @@ air_quality_summary.csv</code></pre>
 <p>In this chapter, you learned how to organize a reproducible R project using RStudio Projects, relative paths, R Markdown, and bookdown. You also learned how to separate raw data from generated outputs, organize chapter files consistently, and structure projects in a way that improves reproducibility and collaboration.</p>
 <p>A clean project structure makes analyses easier to understand, easier to maintain, and easier to share with others. As projects grow larger and more complex, good organizational practices become increasingly important.</p>
 
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-xie2016" class="csl-entry">
+Xie, Yihui. 2016. <em>Bookdown: Authoring Books and Technical Documents with r Markdown</em>. Chapman; Hall/CRC. <a href="https://bookdown.org/yihui/bookdown/">https://bookdown.org/yihui/bookdown/</a>.
 </div>
 </div>
             </section>

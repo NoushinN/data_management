@@ -2,7 +2,7 @@
 
 Character variables are extremely common in real-world datasets. Names, addresses, postal codes, diagnostic codes, survey responses, and file names are all examples of text-based data that often require cleaning before analysis can begin.
 
-This chapter introduces tools for working with strings and regular expressions in R using the tidyverse and the `stringr` package. You will learn how to separate text variables into multiple columns, remove unnecessary spaces, extract patterns from text, reshape complex datasets, and use regular expressions to identify meaningful information hidden inside character strings.
+This chapter introduces tools for working with strings and regular expressions in R using the tidyverse and the `stringr` package. You will learn how to separate text variables into multiple columns, remove unnecessary spaces, extract patterns from text, reshape complex datasets, and use regular expressions to identify meaningful information hidden inside character strings. The `stringr` package simplifies many common string operations in R @stringr.
 
 In addition to text cleaning, this chapter also introduces important data reshaping techniques using `pivot_longer()`, which is commonly used to convert messy wide-format datasets into tidy long-format structures suitable for analysis.
 
