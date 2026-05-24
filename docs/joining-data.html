@@ -286,7 +286,7 @@ div.csl-indent {
 <h1><span class="header-section-number">Chapter 3</span> Joining Data<a href="joining-data.html#joining-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>In many real-world projects, data are stored across multiple datasets rather than in a single table. For example, one file may contain patient demographic information, while another contains laboratory results or medication records. To perform meaningful analysis, these datasets often need to be combined into a single data frame.</p>
 <p>The process of combining datasets based on one or more shared variables is called a <em>join</em>. In the tidyverse, joins are commonly performed using functions from the <code>dplyr</code> package. Understanding how joins work is an essential skill in data management because incorrect joins can easily introduce duplicate rows, missing information, or inaccurate results.</p>
-<p>In this chapter, you will learn how to identify join keys, understand common join relationships, and use functions such as <code>left_join()</code> and <code>inner_join()</code> to combine datasets safely and effectively.</p>
+<p>In this chapter, you will learn how to identify join keys, understand common join relationships, and use functions such as <code>left_join()</code> and <code>inner_join()</code> to combine datasets safely and effectively. The <code>dplyr</code> package provides powerful tools for joining relational datasets <span class="citation">Wickham et al. (<a href="#ref-dplyr">2026</a>)</span>.</p>
 <div id="understanding-join-keys" class="section level2 hasAnchor" number="3.1">
 <h2><span class="header-section-number">3.1</span> Understanding join keys<a href="joining-data.html#understanding-join-keys" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A join works by matching rows between two datasets using one or more shared variables called <em>keys</em>. A key is typically an identifier such as a patient ID, employee number, postal code, or year.</p>
@@ -398,6 +398,12 @@ div.csl-indent {
 <p>In this chapter, you learned how datasets can be combined using joins in <code>dplyr</code>. You were introduced to join keys, common join relationships, and several important join functions including <code>left_join()</code>, <code>inner_join()</code>, and <code>anti_join()</code>.</p>
 <p>You also learned why checking for duplicate keys is an essential part of reproducible data management workflows. Careful inspection of joins helps prevent data duplication, missing records, and inaccurate analytical results.</p>
 
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-dplyr" class="csl-entry">
+Wickham, Hadley, Romain François, Lionel Henry, and Kirill Müller. 2026. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://dplyr.tidyverse.org/">https://dplyr.tidyverse.org/</a>.
 </div>
 </div>
             </section>

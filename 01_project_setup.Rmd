@@ -8,9 +8,9 @@ By the end of this chapter, you should be able to create a structured RStudio pr
 
 ## Organizing a reproducible project
 
-A typical data analysis project includes several different types of files. These often include raw datasets, cleaned datasets, R scripts, figures, tables, notes, and reports. Without a clear structure, projects can quickly become difficult to navigate and maintain.
+A typical data analysis project includes several different types of files. These often include raw datasets, cleaned datasets, R scripts, figures, tables, notes, and reports. Without a clear structure, projects can quickly become difficult to navigate and maintain. 
 
-A good project structure helps you keep related files together and reduces the likelihood of errors. It also makes collaboration easier because other users can understand the workflow more quickly. Bookdown provides a framework for creating reproducible books and technical documents directly from R Markdown files @xie2016.
+A good project structure helps you keep related files together and reduces the likelihood of errors. It also makes collaboration easier because other users can understand the workflow more quickly. Bookdown provides a framework for creating reproducible books and technical documents directly from R Markdown files @xie2016. Reproducible workflows are an important component of modern data analysis @xie2015.
 
 For this course, all work should be placed inside a single main project folder. Within that folder, separate folders should be created for raw data, generated outputs, reports, and archived material. 
 

@@ -62,7 +62,7 @@ A good exploratory analysis begins with understanding the basic structure of eac
 - Are the variable types correct?
 - Are there unusual or unexpected values?
 
-The `map()` function allows us to apply the same operation across all datasets efficiently.
+The `map()` function allows us to apply the same operation across all datasets efficiently. The `skimr` package can also generate compact summaries for exploratory data analysis @skimr.
 
 For example, we can review dataset dimensions.
 

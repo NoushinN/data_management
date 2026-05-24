@@ -217,7 +217,7 @@ names(pop)
 colnames(pop)
 ```
 
-Some age-group variables contain names such as `"04-Jan"` or `"09-May"`, which are not ideal variable names for analysis.
+Some age-group variables contain names such as `"04-Jan"` or `"09-May"`, which are not ideal variable names for analysis.The `janitor` package is also useful for cleaning messy column names and inspecting datasets @janitor.
 
 One approach is to rename problematic variables directly.
 

@@ -748,7 +748,7 @@ div.csl-indent {
 ## [21] &quot;75-79&quot;                        &quot;80-84&quot;                       
 ## [23] &quot;85-89&quot;                        &quot;90+&quot;                         
 ## [25] &quot;Total&quot;</code></pre>
-<p>Some age-group variables contain names such as <code>"04-Jan"</code> or <code>"09-May"</code>, which are not ideal variable names for analysis.</p>
+<p>Some age-group variables contain names such as <code>"04-Jan"</code> or <code>"09-May"</code>, which are not ideal variable names for analysis.The <code>janitor</code> package is also useful for cleaning messy column names and inspecting datasets <span class="citation">Firke (<a href="#ref-janitor">2026</a>)</span>.</p>
 <p>One approach is to rename problematic variables directly.</p>
 <div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="data-cleaning-and-data-management.html#cb76-1" tabindex="-1"></a>pop2 <span class="ot">&lt;-</span> pop <span class="sc">%&gt;%</span></span>
 <span id="cb76-2"><a href="data-cleaning-and-data-management.html#cb76-2" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
@@ -859,6 +859,12 @@ div.csl-indent {
 <p>In this chapter, you learned several important data cleaning and management techniques using the tidyverse. You imported multiple datasets, explored project files, inspected dataset structures, handled encoding issues, cleaned variable names, reshaped data into tidy formats, and recoded variables using <code>case_when()</code>.</p>
 <p>These skills form the foundation of reproducible data analysis workflows and will be used extensively throughout the remainder of the course.</p>
 
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-janitor" class="csl-entry">
+Firke, Sam. 2026. <em>Janitor: Simple Tools for Examining and Cleaning Dirty Data</em>. <a href="https://cran.r-project.org/package=janitor">https://cran.r-project.org/package=janitor</a>.
 </div>
 </div>
             </section>

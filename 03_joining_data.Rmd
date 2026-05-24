@@ -4,7 +4,7 @@ In many real-world projects, data are stored across multiple datasets rather tha
 
 The process of combining datasets based on one or more shared variables is called a *join*. In the tidyverse, joins are commonly performed using functions from the `dplyr` package. Understanding how joins work is an essential skill in data management because incorrect joins can easily introduce duplicate rows, missing information, or inaccurate results.
 
-In this chapter, you will learn how to identify join keys, understand common join relationships, and use functions such as `left_join()` and `inner_join()` to combine datasets safely and effectively.
+In this chapter, you will learn how to identify join keys, understand common join relationships, and use functions such as `left_join()` and `inner_join()` to combine datasets safely and effectively. The `dplyr` package provides powerful tools for joining relational datasets @dplyr.
 
 ## Understanding join keys
 

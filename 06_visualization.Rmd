@@ -6,7 +6,7 @@ The overall objective is to prepare several datasets for later analytical work i
 
 Although the datasets used in this course are simplified for teaching purposes, the workflow closely reflects the types of cleaning and preparation steps encountered in real-world epidemiological and environmental health projects.
 
-The chapter also introduces several important visualization techniques using `ggplot2`, which will help you explore and validate your cleaned datasets. The `ggplot2` package is based on the Grammar of Graphics framework @wickham2017.
+The chapter also introduces several important visualization techniques using `ggplot2`, which will help you explore and validate your cleaned datasets. The `ggplot2` package is based on the Grammar of Graphics framework @wickham2017. Data visualization in this book is primarily based on the `ggplot2` package @ggplot2pkg.
 
 ## Research context and datasets
 
