@@ -2,63 +2,50 @@
 <html lang="" xml:lang="">
 <head>
 
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Tidyverse Basics | Data Management with R</title>
-  <meta name="description" content="Chapter 2 Tidyverse Basics | Data Management with R" />
-  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Chapter 2 Tidyverse Basics | Data Management with R" />
+<meta property="og:type" content="book" />
 
-  <meta property="og:title" content="Chapter 2 Tidyverse Basics | Data Management with R" />
-  <meta property="og:type" content="book" />
-  
-  
-  
 
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Tidyverse Basics | Data Management with R" />
-  
-  
-  
+
 
 <meta name="author" content="Noushin Nabavi" />
 
+<meta name="date" content="2026-05-24" />
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  
-  
-<link rel="prev" href="project-setup-and-reproducible-workflows.html"/>
-<link rel="next" href="joining-data.html"/>
+<meta name="description" content="Chapter 2 Tidyverse Basics | Data Management with R">
+
+<title>Chapter 2 Tidyverse Basics | Data Management with R</title>
+
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
-<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="libs/navigation-1.1/tabsets.js"></script>
 
 
-
-
-
-
-
-
-<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
-<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-
-
+<style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -117,204 +104,205 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
-
 <style type="text/css">
-  
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  pre:not([class]) {
+    background-color: white;
+  }
 </style>
 
+
+
 <link rel="stylesheet" href="style.css" type="text/css" />
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+/* show arrow before summary tag as in bootstrap
+TODO: remove if bootstrap in updated in html_document (rmarkdown#1485) */
+details > summary {
+  display: list-item;
+  cursor: pointer;
+}
+</style>
 </head>
 
 <body>
 
+<div class="container-fluid main-container">
 
 
-  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
-
-    <div class="book-summary">
-      <nav role="navigation">
-
-<ul class="summary">
-<li><a href="./">Data Management with R</a></li>
-
-<li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
-<li class="chapter" data-level="1" data-path="project-setup-and-reproducible-workflows.html"><a href="project-setup-and-reproducible-workflows.html"><i class="fa fa-check"></i><b>1</b> Project Setup and Reproducible Workflows</a>
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
 <ul>
-<li class="chapter" data-level="1.1" data-path="project-setup-and-reproducible-workflows.html"><a href="project-setup-and-reproducible-workflows.html#organizing-a-reproducible-project"><i class="fa fa-check"></i><b>1.1</b> Organizing a reproducible project</a></li>
-<li class="chapter" data-level="1.2" data-path="project-setup-and-reproducible-workflows.html"><a href="project-setup-and-reproducible-workflows.html#working-with-rstudio-projects-and-file-paths"><i class="fa fa-check"></i><b>1.2</b> Working with RStudio Projects and file paths</a></li>
-<li class="chapter" data-level="1.3" data-path="project-setup-and-reproducible-workflows.html"><a href="project-setup-and-reproducible-workflows.html#naming-files-and-managing-outputs"><i class="fa fa-check"></i><b>1.3</b> Naming files and managing outputs</a></li>
-<li class="chapter" data-level="1.4" data-path="project-setup-and-reproducible-workflows.html"><a href="project-setup-and-reproducible-workflows.html#r-markdown-and-bookdown-workflows"><i class="fa fa-check"></i><b>1.4</b> R Markdown and bookdown workflows</a></li>
-<li class="chapter" data-level="1.5" data-path="project-setup-and-reproducible-workflows.html"><a href="project-setup-and-reproducible-workflows.html#section"><i class="fa fa-check"></i><b>1.5</b> Section</a>
+<li><a href="index.html#welcome" id="toc-welcome">Welcome</a></li>
+<li><a href="overview.html#overview" id="toc-overview">Overview</a></li>
+<li><a href="how-to-use-this-book.html#how-to-use-this-book" id="toc-how-to-use-this-book">How to Use This Book</a></li>
+<li><a href="recommended-chapter-flow.html#recommended-chapter-flow" id="toc-recommended-chapter-flow">Recommended Chapter Flow</a></li>
+<li><a href="project-structure.html#project-structure" id="toc-project-structure">Project Structure</a></li>
+<li><a href="required-r-packages.html#required-r-packages" id="toc-required-r-packages">Required R Packages</a></li>
+<li><a href="building-the-book.html#building-the-book" id="toc-building-the-book">Building the Book</a></li>
+<li><a href="data-and-reproducibility-notes.html#data-and-reproducibility-notes" id="toc-data-and-reproducibility-notes">Data and Reproducibility Notes</a></li>
+<li><a href="intended-audience.html#intended-audience" id="toc-intended-audience">Intended Audience</a></li>
+<li><a href="licence.html#licence" id="toc-licence">Licence</a></li>
+<li class="has-sub"><a href="project-setup-and-reproducible-workflows.html#project-setup-and-reproducible-workflows" id="toc-project-setup-and-reproducible-workflows"><span class="toc-section-number">1</span> Project Setup and Reproducible Workflows</a>
 <ul>
-<li class="chapter" data-level="1.5.1" data-path="project-setup-and-reproducible-workflows.html"><a href="project-setup-and-reproducible-workflows.html#subsection"><i class="fa fa-check"></i><b>1.5.1</b> Subsection</a></li>
+<li><a href="project-setup-and-reproducible-workflows.html#organizing-a-reproducible-project" id="toc-organizing-a-reproducible-project"><span class="toc-section-number">1.1</span> Organizing a reproducible project</a></li>
+<li><a href="project-setup-and-reproducible-workflows.html#working-with-rstudio-projects-and-file-paths" id="toc-working-with-rstudio-projects-and-file-paths"><span class="toc-section-number">1.2</span> Working with RStudio Projects and file paths</a></li>
+<li><a href="project-setup-and-reproducible-workflows.html#naming-files-and-managing-outputs" id="toc-naming-files-and-managing-outputs"><span class="toc-section-number">1.3</span> Naming files and managing outputs</a></li>
+<li><a href="project-setup-and-reproducible-workflows.html#r-markdown-and-bookdown-workflows" id="toc-r-markdown-and-bookdown-workflows"><span class="toc-section-number">1.4</span> R Markdown and bookdown workflows</a></li>
+<li><a href="project-setup-and-reproducible-workflows.html#git-github-and-reproducible-analysis" id="toc-git-github-and-reproducible-analysis"><span class="toc-section-number">1.5</span> Git, GitHub, and reproducible analysis</a></li>
+<li><a href="project-setup-and-reproducible-workflows.html#chapter-summary" id="toc-chapter-summary"><span class="toc-section-number">1.6</span> Chapter summary</a></li>
 </ul></li>
-<li class="chapter" data-level="1.6" data-path="project-setup-and-reproducible-workflows.html"><a href="project-setup-and-reproducible-workflows.html#git-github-and-reproducible-analysis"><i class="fa fa-check"></i><b>1.6</b> Git, GitHub, and reproducible analysis</a></li>
-<li class="chapter" data-level="1.7" data-path="project-setup-and-reproducible-workflows.html"><a href="project-setup-and-reproducible-workflows.html#chapter-summary"><i class="fa fa-check"></i><b>1.7</b> Chapter summary</a></li>
-</ul></li>
-<li class="chapter" data-level="2" data-path="tidyverse-basics.html"><a href="tidyverse-basics.html"><i class="fa fa-check"></i><b>2</b> Tidyverse Basics</a>
+<li class="has-sub"><a href="tidyverse-basics.html#tidyverse-basics" id="toc-tidyverse-basics"><span class="toc-section-number">2</span> Tidyverse Basics</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="tidyverse-basics.html"><a href="tidyverse-basics.html#loading-packages-and-reading-data"><i class="fa fa-check"></i><b>2.1</b> Loading packages and reading data</a></li>
-<li class="chapter" data-level="2.2" data-path="tidyverse-basics.html"><a href="tidyverse-basics.html#inspecting-data-frames"><i class="fa fa-check"></i><b>2.2</b> Inspecting data frames</a></li>
-<li class="chapter" data-level="2.3" data-path="tidyverse-basics.html"><a href="tidyverse-basics.html#data-manipulation-with-dplyr"><i class="fa fa-check"></i><b>2.3</b> Data manipulation with dplyr</a></li>
-<li class="chapter" data-level="2.4" data-path="tidyverse-basics.html"><a href="tidyverse-basics.html#practice-exercise"><i class="fa fa-check"></i><b>2.4</b> Practice exercise</a></li>
-<li class="chapter" data-level="2.5" data-path="tidyverse-basics.html"><a href="tidyverse-basics.html#chapter-summary-1"><i class="fa fa-check"></i><b>2.5</b> Chapter summary</a></li>
+<li><a href="tidyverse-basics.html#loading-packages-and-reading-data" id="toc-loading-packages-and-reading-data"><span class="toc-section-number">2.1</span> Loading packages and reading data</a></li>
+<li><a href="tidyverse-basics.html#inspecting-data-frames" id="toc-inspecting-data-frames"><span class="toc-section-number">2.2</span> Inspecting data frames</a></li>
+<li><a href="tidyverse-basics.html#data-manipulation-with-dplyr" id="toc-data-manipulation-with-dplyr"><span class="toc-section-number">2.3</span> Data manipulation with dplyr</a></li>
+<li><a href="tidyverse-basics.html#practice-exercise" id="toc-practice-exercise"><span class="toc-section-number">2.4</span> Practice exercise</a></li>
+<li><a href="tidyverse-basics.html#chapter-summary-1" id="toc-chapter-summary-1"><span class="toc-section-number">2.5</span> Chapter summary</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="joining-data.html"><a href="joining-data.html"><i class="fa fa-check"></i><b>3</b> Joining Data</a>
+<li class="has-sub"><a href="joining-data.html#joining-data" id="toc-joining-data"><span class="toc-section-number">3</span> Joining Data</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="joining-data.html"><a href="joining-data.html#learning-objectives"><i class="fa fa-check"></i><b>3.1</b> Learning objectives</a></li>
-<li class="chapter" data-level="3.2" data-path="joining-data.html"><a href="joining-data.html#example-data"><i class="fa fa-check"></i><b>3.2</b> Example data</a></li>
-<li class="chapter" data-level="3.3" data-path="joining-data.html"><a href="joining-data.html#left-join"><i class="fa fa-check"></i><b>3.3</b> Left join</a></li>
-<li class="chapter" data-level="3.4" data-path="joining-data.html"><a href="joining-data.html#check-duplicate-keys"><i class="fa fa-check"></i><b>3.4</b> Check duplicate keys</a></li>
-<li class="chapter" data-level="3.5" data-path="joining-data.html"><a href="joining-data.html#common-join-types"><i class="fa fa-check"></i><b>3.5</b> Common join types</a></li>
-<li class="chapter" data-level="3.6" data-path="joining-data.html"><a href="joining-data.html#practice"><i class="fa fa-check"></i><b>3.6</b> Practice</a></li>
+<li><a href="joining-data.html#understanding-join-keys" id="toc-understanding-join-keys"><span class="toc-section-number">3.1</span> Understanding join keys</a></li>
+<li><a href="joining-data.html#performing-joins-with-dplyr" id="toc-performing-joins-with-dplyr"><span class="toc-section-number">3.2</span> Performing joins with dplyr</a></li>
+<li><a href="joining-data.html#checking-for-duplicate-keys" id="toc-checking-for-duplicate-keys"><span class="toc-section-number">3.3</span> Checking for duplicate keys</a></li>
+<li><a href="joining-data.html#practical-workflow-for-joining-data" id="toc-practical-workflow-for-joining-data"><span class="toc-section-number">3.4</span> Practical workflow for joining data</a></li>
+<li><a href="joining-data.html#practice-exercise-1" id="toc-practice-exercise-1"><span class="toc-section-number">3.5</span> Practice exercise</a></li>
+<li><a href="joining-data.html#chapter-summary-2" id="toc-chapter-summary-2"><span class="toc-section-number">3.6</span> Chapter summary</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="data-cleaning-and-data-management.html"><a href="data-cleaning-and-data-management.html"><i class="fa fa-check"></i><b>4</b> Data Cleaning and Data Management</a>
+<li class="has-sub"><a href="data-cleaning-and-data-management.html#data-cleaning-and-data-management" id="toc-data-cleaning-and-data-management"><span class="toc-section-number">4</span> Data Cleaning and Data Management</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="data-cleaning-and-data-management.html"><a href="data-cleaning-and-data-management.html#load-libraries"><i class="fa fa-check"></i><b>4.1</b> Load libraries</a></li>
+<li><a href="data-cleaning-and-data-management.html#preparing-the-r-environment" id="toc-preparing-the-r-environment"><span class="toc-section-number">4.1</span> Preparing the R environment</a></li>
+<li><a href="data-cleaning-and-data-management.html#exploring-project-files" id="toc-exploring-project-files"><span class="toc-section-number">4.2</span> Exploring project files</a></li>
+<li><a href="data-cleaning-and-data-management.html#description-of-the-datasets" id="toc-description-of-the-datasets"><span class="toc-section-number">4.3</span> Description of the datasets</a></li>
+<li><a href="data-cleaning-and-data-management.html#importing-data-into-r" id="toc-importing-data-into-r"><span class="toc-section-number">4.4</span> Importing data into R</a></li>
+<li><a href="data-cleaning-and-data-management.html#inspecting-datasets" id="toc-inspecting-datasets"><span class="toc-section-number">4.5</span> Inspecting datasets</a></li>
+<li><a href="data-cleaning-and-data-management.html#exploring-and-validating-the-data" id="toc-exploring-and-validating-the-data"><span class="toc-section-number">4.6</span> Exploring and validating the data</a></li>
+<li><a href="data-cleaning-and-data-management.html#cleaning-variable-names-and-reshaping-data" id="toc-cleaning-variable-names-and-reshaping-data"><span class="toc-section-number">4.7</span> Cleaning variable names and reshaping data</a></li>
+<li><a href="data-cleaning-and-data-management.html#practical-considerations-for-r-markdown-workflows" id="toc-practical-considerations-for-r-markdown-workflows"><span class="toc-section-number">4.8</span> Practical considerations for R Markdown workflows</a></li>
+<li><a href="data-cleaning-and-data-management.html#chapter-summary-3" id="toc-chapter-summary-3"><span class="toc-section-number">4.9</span> Chapter summary</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html"><i class="fa fa-check"></i><b>5</b> Strings and Regular Expressions</a>
+<li class="has-sub"><a href="strings-and-regular-expressions.html#strings-and-regular-expressions" id="toc-strings-and-regular-expressions"><span class="toc-section-number">5</span> Strings and Regular Expressions</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html#read-the-data"><i class="fa fa-check"></i><b>5.1</b> 2.1 Read the Data</a></li>
-<li class="chapter" data-level="5.2" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html#basic-cleaning"><i class="fa fa-check"></i><b>5.2</b> 2.2 Basic Cleaning</a></li>
-<li class="chapter" data-level="5.3" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html#remove-extra-spaces"><i class="fa fa-check"></i><b>5.3</b> 3.1 Remove Extra Spaces</a></li>
-<li class="chapter" data-level="5.4" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html#regex-explanation"><i class="fa fa-check"></i><b>5.4</b> 4.1 Regex Explanation</a></li>
-<li class="chapter" data-level="5.5" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html#test-the-function"><i class="fa fa-check"></i><b>5.5</b> 5.1 Test the Function</a></li>
-<li class="chapter" data-level="5.6" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html#plot-titanic-titles"><i class="fa fa-check"></i><b>5.6</b> 6.1 Plot Titanic Titles</a></li>
-<li class="chapter" data-level="5.7" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html#explanation-of-the-regex"><i class="fa fa-check"></i><b>5.7</b> 15.1 Explanation of the Regex</a></li>
-<li class="chapter" data-level="5.8" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html#titanic-practice"><i class="fa fa-check"></i><b>5.8</b> 17.1 Titanic Practice</a></li>
-<li class="chapter" data-level="5.9" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html#who-practice"><i class="fa fa-check"></i><b>5.9</b> 17.2 WHO Practice</a></li>
-<li class="chapter" data-level="5.10" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html#titanic-survival-count-by-sex"><i class="fa fa-check"></i><b>5.10</b> 18.1 Titanic: Survival Count by Sex</a></li>
-<li class="chapter" data-level="5.11" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html#who-total-cases-by-sex"><i class="fa fa-check"></i><b>5.11</b> 18.2 WHO: Total Cases by Sex</a></li>
-<li class="chapter" data-level="5.12" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html#who-total-cases-by-age-group"><i class="fa fa-check"></i><b>5.12</b> 18.3 WHO: Total Cases by Age Group</a></li>
+<li><a href="strings-and-regular-expressions.html#working-with-character-data-in-r" id="toc-working-with-character-data-in-r"><span class="toc-section-number">5.1</span> Working with character data in R</a></li>
+<li><a href="strings-and-regular-expressions.html#cleaning-and-separating-character-variables" id="toc-cleaning-and-separating-character-variables"><span class="toc-section-number">5.2</span> Cleaning and separating character variables</a></li>
+<li><a href="strings-and-regular-expressions.html#extracting-patterns-with-regular-expressions" id="toc-extracting-patterns-with-regular-expressions"><span class="toc-section-number">5.3</span> Extracting patterns with regular expressions</a></li>
+<li><a href="strings-and-regular-expressions.html#creating-reusable-functions" id="toc-creating-reusable-functions"><span class="toc-section-number">5.4</span> Creating reusable functions</a></li>
+<li><a href="strings-and-regular-expressions.html#summarizing-and-visualizing-categorical-data" id="toc-summarizing-and-visualizing-categorical-data"><span class="toc-section-number">5.5</span> Summarizing and visualizing categorical data</a></li>
+<li><a href="strings-and-regular-expressions.html#reshaping-complex-datasets" id="toc-reshaping-complex-datasets"><span class="toc-section-number">5.6</span> Reshaping complex datasets</a></li>
+<li><a href="strings-and-regular-expressions.html#using-regular-expressions-inside-pivot_longer" id="toc-using-regular-expressions-inside-pivot_longer"><span class="toc-section-number">5.7</span> Using regular expressions inside pivot_longer()</a></li>
+<li><a href="strings-and-regular-expressions.html#missing-values-and-interpretation" id="toc-missing-values-and-interpretation"><span class="toc-section-number">5.8</span> Missing values and interpretation</a></li>
+<li><a href="strings-and-regular-expressions.html#additional-practice" id="toc-additional-practice"><span class="toc-section-number">5.9</span> Additional practice</a></li>
+<li><a href="strings-and-regular-expressions.html#chapter-summary-4" id="toc-chapter-summary-4"><span class="toc-section-number">5.10</span> Chapter summary</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="visualization-and-advanced-cleaning.html"><a href="visualization-and-advanced-cleaning.html"><i class="fa fa-check"></i><b>6</b> Visualization and Advanced Cleaning</a>
+<li class="has-sub"><a href="visualization-and-advanced-data-cleaning.html#visualization-and-advanced-data-cleaning" id="toc-visualization-and-advanced-data-cleaning"><span class="toc-section-number">6</span> Visualization and Advanced Data Cleaning</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="visualization-and-advanced-cleaning.html"><a href="visualization-and-advanced-cleaning.html#dataset-dimensions"><i class="fa fa-check"></i><b>6.1</b> 3.1 Dataset dimensions</a></li>
-<li class="chapter" data-level="6.2" data-path="visualization-and-advanced-cleaning.html"><a href="visualization-and-advanced-cleaning.html#column-names"><i class="fa fa-check"></i><b>6.2</b> 3.2 Column names</a></li>
-<li class="chapter" data-level="6.3" data-path="visualization-and-advanced-cleaning.html"><a href="visualization-and-advanced-cleaning.html#missing-values-by-dataset"><i class="fa fa-check"></i><b>6.3</b> 3.3 Missing values by dataset</a></li>
-<li class="chapter" data-level="6.4" data-path="visualization-and-advanced-cleaning.html"><a href="visualization-and-advanced-cleaning.html#convert-population-data-to-long-format"><i class="fa fa-check"></i><b>6.4</b> 4.1 Convert population data to long format</a></li>
-<li class="chapter" data-level="6.5" data-path="visualization-and-advanced-cleaning.html"><a href="visualization-and-advanced-cleaning.html#rename-columns-and-remove-unnecessary-fields"><i class="fa fa-check"></i><b>6.5</b> 4.2 Rename columns and remove unnecessary fields</a></li>
-<li class="chapter" data-level="6.6" data-path="visualization-and-advanced-cleaning.html"><a href="visualization-and-advanced-cleaning.html#keep-total-population-only"><i class="fa fa-check"></i><b>6.6</b> 4.3 Keep total population only</a></li>
-<li class="chapter" data-level="6.7" data-path="visualization-and-advanced-cleaning.html"><a href="visualization-and-advanced-cleaning.html#line-plot-by-hsda"><i class="fa fa-check"></i><b>6.7</b> 5.1 Line plot by HSDA</a></li>
-<li class="chapter" data-level="6.8" data-path="visualization-and-advanced-cleaning.html"><a href="visualization-and-advanced-cleaning.html#bar-plot-by-age-group"><i class="fa fa-check"></i><b>6.8</b> 5.2 Bar plot by age group</a></li>
-<li class="chapter" data-level="6.9" data-path="visualization-and-advanced-cleaning.html"><a href="visualization-and-advanced-cleaning.html#optional-faceted-visualization"><i class="fa fa-check"></i><b>6.9</b> 5.3 Optional: Faceted visualization</a></li>
-<li class="chapter" data-level="6.10" data-path="visualization-and-advanced-cleaning.html"><a href="visualization-and-advanced-cleaning.html#remove-columns-not-needed-for-the-current-analysis"><i class="fa fa-check"></i><b>6.10</b> 7.1 Remove columns not needed for the current analysis</a></li>
-<li class="chapter" data-level="6.11" data-path="visualization-and-advanced-cleaning.html"><a href="visualization-and-advanced-cleaning.html#check-and-remove-duplicate-records"><i class="fa fa-check"></i><b>6.11</b> 7.2 Check and remove duplicate records</a></li>
-<li class="chapter" data-level="6.12" data-path="visualization-and-advanced-cleaning.html"><a href="visualization-and-advanced-cleaning.html#check-birth-year-values"><i class="fa fa-check"></i><b>6.12</b> 8.1 Check birth year values</a></li>
-<li class="chapter" data-level="6.13" data-path="visualization-and-advanced-cleaning.html"><a href="visualization-and-advanced-cleaning.html#check-death-month-and-death-day"><i class="fa fa-check"></i><b>6.13</b> 8.2 Check death month and death day</a></li>
-<li class="chapter" data-level="6.14" data-path="visualization-and-advanced-cleaning.html"><a href="visualization-and-advanced-cleaning.html#check-remaining-missing-values"><i class="fa fa-check"></i><b>6.14</b> 9.1 Check remaining missing values</a></li>
-<li class="chapter" data-level="6.15" data-path="visualization-and-advanced-cleaning.html"><a href="visualization-and-advanced-cleaning.html#drop-records-missing-essential-identifiers"><i class="fa fa-check"></i><b>6.15</b> 9.2 Drop records missing essential identifiers</a></li>
-<li class="chapter" data-level="6.16" data-path="visualization-and-advanced-cleaning.html"><a href="visualization-and-advanced-cleaning.html#impute-missing-sex-values"><i class="fa fa-check"></i><b>6.16</b> 9.3 Impute missing sex values</a></li>
-<li class="chapter" data-level="6.17" data-path="visualization-and-advanced-cleaning.html"><a href="visualization-and-advanced-cleaning.html#recalculate-age-where-needed"><i class="fa fa-check"></i><b>6.17</b> 9.4 Recalculate age where needed</a></li>
-<li class="chapter" data-level="6.18" data-path="visualization-and-advanced-cleaning.html"><a href="visualization-and-advanced-cleaning.html#separate-icd-10-letters-and-numbers"><i class="fa fa-check"></i><b>6.18</b> 10.1 Separate ICD-10 letters and numbers</a></li>
-<li class="chapter" data-level="6.19" data-path="visualization-and-advanced-cleaning.html"><a href="visualization-and-advanced-cleaning.html#keep-cancer-deaths-only"><i class="fa fa-check"></i><b>6.19</b> 10.2 Keep cancer deaths only</a></li>
-<li class="chapter" data-level="6.20" data-path="visualization-and-advanced-cleaning.html"><a href="visualization-and-advanced-cleaning.html#save-exposure-data"><i class="fa fa-check"></i><b>6.20</b> 14.1 Save exposure data</a></li>
-<li class="chapter" data-level="6.21" data-path="visualization-and-advanced-cleaning.html"><a href="visualization-and-advanced-cleaning.html#save-joined-analysis-1-data"><i class="fa fa-check"></i><b>6.21</b> 15.1 Save joined Analysis 1 data</a></li>
-<li class="chapter" data-level="6.22" data-path="visualization-and-advanced-cleaning.html"><a href="visualization-and-advanced-cleaning.html#standardize-postal-codes"><i class="fa fa-check"></i><b>6.22</b> 16.1 Standardize postal codes</a></li>
-<li class="chapter" data-level="6.23" data-path="visualization-and-advanced-cleaning.html"><a href="visualization-and-advanced-cleaning.html#identify-postal-codes-that-do-not-match-the-expected-format"><i class="fa fa-check"></i><b>6.23</b> 16.2 Identify postal codes that do not match the expected format</a></li>
-<li class="chapter" data-level="6.24" data-path="visualization-and-advanced-cleaning.html"><a href="visualization-and-advanced-cleaning.html#check-each-postal-code-position"><i class="fa fa-check"></i><b>6.24</b> 16.3 Check each postal code position</a></li>
-<li class="chapter" data-level="6.25" data-path="visualization-and-advanced-cleaning.html"><a href="visualization-and-advanced-cleaning.html#check-postal-code-length"><i class="fa fa-check"></i><b>6.25</b> 16.4 Check postal code length</a></li>
+<li><a href="visualization-and-advanced-data-cleaning.html#research-context-and-datasets" id="toc-research-context-and-datasets"><span class="toc-section-number">6.1</span> Research context and datasets</a></li>
+<li><a href="visualization-and-advanced-data-cleaning.html#reviewing-datasets-before-cleaning" id="toc-reviewing-datasets-before-cleaning"><span class="toc-section-number">6.2</span> Reviewing datasets before cleaning</a></li>
+<li><a href="visualization-and-advanced-data-cleaning.html#cleaning-and-reshaping-population-data" id="toc-cleaning-and-reshaping-population-data"><span class="toc-section-number">6.3</span> Cleaning and reshaping population data</a></li>
+<li><a href="visualization-and-advanced-data-cleaning.html#visualizing-population-data" id="toc-visualizing-population-data"><span class="toc-section-number">6.4</span> Visualizing population data</a></li>
+<li><a href="visualization-and-advanced-data-cleaning.html#identifying-join-keys" id="toc-identifying-join-keys"><span class="toc-section-number">6.5</span> Identifying join keys</a></li>
+<li><a href="visualization-and-advanced-data-cleaning.html#cleaning-mortality-data" id="toc-cleaning-mortality-data"><span class="toc-section-number">6.6</span> Cleaning mortality data</a></li>
+<li><a href="visualization-and-advanced-data-cleaning.html#handling-missing-and-inconsistent-values" id="toc-handling-missing-and-inconsistent-values"><span class="toc-section-number">6.7</span> Handling missing and inconsistent values</a></li>
+<li><a href="visualization-and-advanced-data-cleaning.html#creating-dates-and-calculating-age" id="toc-creating-dates-and-calculating-age"><span class="toc-section-number">6.8</span> Creating dates and calculating age</a></li>
+<li><a href="visualization-and-advanced-data-cleaning.html#imputing-missing-values" id="toc-imputing-missing-values"><span class="toc-section-number">6.9</span> Imputing missing values</a></li>
+<li><a href="visualization-and-advanced-data-cleaning.html#working-with-icd-10-codes" id="toc-working-with-icd-10-codes"><span class="toc-section-number">6.10</span> Working with ICD-10 codes</a></li>
+<li><a href="visualization-and-advanced-data-cleaning.html#visualizing-cleaned-mortality-data" id="toc-visualizing-cleaned-mortality-data"><span class="toc-section-number">6.11</span> Visualizing cleaned mortality data</a></li>
+<li><a href="visualization-and-advanced-data-cleaning.html#saving-cleaned-datasets" id="toc-saving-cleaned-datasets"><span class="toc-section-number">6.12</span> Saving cleaned datasets</a></li>
+<li><a href="visualization-and-advanced-data-cleaning.html#joining-datasets-and-validating-postal-codes" id="toc-joining-datasets-and-validating-postal-codes"><span class="toc-section-number">6.13</span> Joining datasets and validating postal codes</a></li>
+<li><a href="visualization-and-advanced-data-cleaning.html#final-assignment-guidance" id="toc-final-assignment-guidance"><span class="toc-section-number">6.14</span> Final assignment guidance</a></li>
+<li><a href="visualization-and-advanced-data-cleaning.html#chapter-summary-5" id="toc-chapter-summary-5"><span class="toc-section-number">6.15</span> Chapter summary</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="exploratory-analysis-project.html"><a href="exploratory-analysis-project.html"><i class="fa fa-check"></i><b>7</b> Exploratory Analysis Project</a>
+<li class="has-sub"><a href="exploratory-analysis-project.html#exploratory-analysis-project" id="toc-exploratory-analysis-project"><span class="toc-section-number">7</span> Exploratory Analysis Project</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="exploratory-analysis-project.html"><a href="exploratory-analysis-project.html#learning-objectives-1"><i class="fa fa-check"></i><b>7.1</b> Learning objectives</a></li>
-<li class="chapter" data-level="7.2" data-path="exploratory-analysis-project.html"><a href="exploratory-analysis-project.html#purpose"><i class="fa fa-check"></i><b>7.2</b> Purpose</a></li>
-<li class="chapter" data-level="7.3" data-path="exploratory-analysis-project.html"><a href="exploratory-analysis-project.html#load-libraries-1"><i class="fa fa-check"></i><b>7.3</b> Load libraries</a></li>
-<li class="chapter" data-level="7.4" data-path="exploratory-analysis-project.html"><a href="exploratory-analysis-project.html#read-data"><i class="fa fa-check"></i><b>7.4</b> Read data</a></li>
-<li class="chapter" data-level="7.5" data-path="exploratory-analysis-project.html"><a href="exploratory-analysis-project.html#create-a-data-list"><i class="fa fa-check"></i><b>7.5</b> Create a data list</a></li>
-<li class="chapter" data-level="7.6" data-path="exploratory-analysis-project.html"><a href="exploratory-analysis-project.html#dataset-dimensions-1"><i class="fa fa-check"></i><b>7.6</b> Dataset dimensions</a></li>
-<li class="chapter" data-level="7.7" data-path="exploratory-analysis-project.html"><a href="exploratory-analysis-project.html#missing-values-function"><i class="fa fa-check"></i><b>7.7</b> Missing values function</a></li>
-<li class="chapter" data-level="7.8" data-path="exploratory-analysis-project.html"><a href="exploratory-analysis-project.html#recommended-report-structure"><i class="fa fa-check"></i><b>7.8</b> Recommended report structure</a></li>
-<li class="chapter" data-level="7.9" data-path="exploratory-analysis-project.html"><a href="exploratory-analysis-project.html#practice-task"><i class="fa fa-check"></i><b>7.9</b> Practice task</a></li>
+<li><a href="exploratory-analysis-project.html#loading-libraries-and-importing-datasets" id="toc-loading-libraries-and-importing-datasets"><span class="toc-section-number">7.1</span> Loading libraries and importing datasets</a></li>
+<li><a href="exploratory-analysis-project.html#reviewing-dataset-structure" id="toc-reviewing-dataset-structure"><span class="toc-section-number">7.2</span> Reviewing dataset structure</a></li>
+<li><a href="exploratory-analysis-project.html#working-with-missing-values" id="toc-working-with-missing-values"><span class="toc-section-number">7.3</span> Working with missing values</a></li>
+<li><a href="exploratory-analysis-project.html#duplicate-records-and-cleaning-decisions" id="toc-duplicate-records-and-cleaning-decisions"><span class="toc-section-number">7.4</span> Duplicate records and cleaning decisions</a></li>
+<li><a href="exploratory-analysis-project.html#exploratory-visualization" id="toc-exploratory-visualization"><span class="toc-section-number">7.5</span> Exploratory visualization</a></li>
+<li><a href="exploratory-analysis-project.html#organizing-an-exploratory-analysis-report" id="toc-organizing-an-exploratory-analysis-report"><span class="toc-section-number">7.6</span> Organizing an exploratory analysis report</a></li>
+<li><a href="exploratory-analysis-project.html#practice-activity" id="toc-practice-activity"><span class="toc-section-number">7.7</span> Practice activity</a></li>
+<li><a href="exploratory-analysis-project.html#chapter-summary-6" id="toc-chapter-summary-6"><span class="toc-section-number">7.8</span> Chapter summary</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="storyboard-and-reporting.html"><a href="storyboard-and-reporting.html"><i class="fa fa-check"></i><b>8</b> Storyboard and Reporting</a>
+<li class="has-sub"><a href="storyboarding-and-reporting.html#storyboarding-and-reporting" id="toc-storyboarding-and-reporting"><span class="toc-section-number">8</span> Storyboarding and Reporting</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="storyboard-and-reporting.html"><a href="storyboard-and-reporting.html#learning-objectives-2"><i class="fa fa-check"></i><b>8.1</b> Learning objectives</a></li>
-<li class="chapter" data-level="8.2" data-path="storyboard-and-reporting.html"><a href="storyboard-and-reporting.html#why-storyboarding-matters"><i class="fa fa-check"></i><b>8.2</b> Why storyboarding matters</a></li>
-<li class="chapter" data-level="8.3" data-path="storyboard-and-reporting.html"><a href="storyboard-and-reporting.html#a-simple-storyboard-template"><i class="fa fa-check"></i><b>8.3</b> A simple storyboard template</a></li>
-<li class="chapter" data-level="8.4" data-path="storyboard-and-reporting.html"><a href="storyboard-and-reporting.html#writing-clear-interpretation"><i class="fa fa-check"></i><b>8.4</b> Writing clear interpretation</a></li>
-<li class="chapter" data-level="8.5" data-path="storyboard-and-reporting.html"><a href="storyboard-and-reporting.html#example-interpretation-sentence"><i class="fa fa-check"></i><b>8.5</b> Example interpretation sentence</a></li>
-<li class="chapter" data-level="8.6" data-path="storyboard-and-reporting.html"><a href="storyboard-and-reporting.html#practice-1"><i class="fa fa-check"></i><b>8.6</b> Practice</a></li>
+<li><a href="storyboarding-and-reporting.html#why-storyboarding-is-important" id="toc-why-storyboarding-is-important"><span class="toc-section-number">8.1</span> Why storyboarding is important</a></li>
+<li><a href="storyboarding-and-reporting.html#organizing-the-analytical-narrative" id="toc-organizing-the-analytical-narrative"><span class="toc-section-number">8.2</span> Organizing the analytical narrative</a></li>
+<li><a href="storyboarding-and-reporting.html#writing-interpretation-instead-of-only-showing-output" id="toc-writing-interpretation-instead-of-only-showing-output"><span class="toc-section-number">8.3</span> Writing interpretation instead of only showing output</a></li>
+<li><a href="storyboarding-and-reporting.html#separating-technical-details-from-reader-focused-explanations" id="toc-separating-technical-details-from-reader-focused-explanations"><span class="toc-section-number">8.4</span> Separating technical details from reader-focused explanations</a></li>
+<li><a href="storyboarding-and-reporting.html#building-a-polished-r-markdown-report" id="toc-building-a-polished-r-markdown-report"><span class="toc-section-number">8.5</span> Building a polished R Markdown report</a></li>
+<li><a href="storyboarding-and-reporting.html#example-interpretation-workflow" id="toc-example-interpretation-workflow"><span class="toc-section-number">8.6</span> Example interpretation workflow</a></li>
+<li><a href="storyboarding-and-reporting.html#practice-activity-1" id="toc-practice-activity-1"><span class="toc-section-number">8.7</span> Practice activity</a></li>
+<li><a href="storyboarding-and-reporting.html#chapter-summary-7" id="toc-chapter-summary-7"><span class="toc-section-number">8.8</span> Chapter summary</a></li>
 </ul></li>
 </ul>
-
-      </nav>
-    </div>
-
-    <div class="book-body">
-      <div class="body-inner">
-        <div class="book-header" role="navigation">
-          <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Management with R</a>
-          </h1>
-        </div>
-
-        <div class="page-wrapper" tabindex="-1" role="main">
-          <div class="page-inner">
-
-            <section class="normal" id="section-">
-<div id="tidyverse-basics" class="section level1 hasAnchor" number="2">
-<h1><span class="header-section-number">Chapter 2</span> Tidyverse Basics<a href="tidyverse-basics.html#tidyverse-basics" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="tidyverse-basics" class="section level1" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Tidyverse Basics</h1>
 <p>The <strong>tidyverse</strong> is a collection of R packages designed for data science and data analysis. These packages provide a consistent and readable approach for importing, cleaning, transforming, visualizing, and analyzing data. In practice, the tidyverse is widely used because it allows complex workflows to be written in a clear and organized way.</p>
 <p>In this chapter, you will learn how to load tidyverse packages, read datasets into R, inspect data frames, and perform common data manipulation tasks using <code>dplyr</code>. By the end of the chapter, you should feel comfortable performing basic exploratory data analysis and creating simple data transformation pipelines.</p>
-<div id="loading-packages-and-reading-data" class="section level2 hasAnchor" number="2.1">
-<h2><span class="header-section-number">2.1</span> Loading packages and reading data<a href="tidyverse-basics.html#loading-packages-and-reading-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="loading-packages-and-reading-data" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Loading packages and reading data</h2>
 <p>Before working with data in R, the required packages must first be loaded. The <code>tidyverse</code> package includes several commonly used packages such as <code>dplyr</code>, <code>ggplot2</code>, <code>readr</code>, and <code>tidyr</code>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="tidyverse-basics.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
-<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-## ✔ dplyr     1.2.1     ✔ readr     2.2.0
-## ✔ forcats   1.0.1     ✔ stringr   1.6.0
-## ✔ ggplot2   4.0.3     ✔ tibble    3.3.1
-## ✔ lubridate 1.9.5     ✔ tidyr     1.3.2
-## ✔ purrr     1.2.2     
-## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()
-## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="tidyverse-basics.html#cb16-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <p>In most projects, the first analytical step is reading raw data into R. Throughout this course, raw datasets should be stored inside the <code>Raw Data/</code> folder introduced in the previous chapter.</p>
 <p>The example below demonstrates how to read a <code>.csv</code> file using <code>read_csv()</code> from the <code>readr</code> package.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="tidyverse-basics.html#cb3-1" tabindex="-1"></a>example_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
-<span id="cb3-2"><a href="tidyverse-basics.html#cb3-2" tabindex="-1"></a>  <span class="st">&quot;./Raw Data/example.csv&quot;</span></span>
-<span id="cb3-3"><a href="tidyverse-basics.html#cb3-3" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="tidyverse-basics.html#cb17-1" tabindex="-1"></a>example_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb17-2"><a href="tidyverse-basics.html#cb17-2" tabindex="-1"></a>  <span class="st">&quot;./Raw Data/example.csv&quot;</span></span>
+<span id="cb17-3"><a href="tidyverse-basics.html#cb17-3" tabindex="-1"></a>)</span></code></pre></div>
 <p>Using relative paths helps keep projects reproducible because the code can run correctly on different computers as long as the project structure remains consistent.</p>
 <div class="tip">
 <p>One of the most common beginner problems in R involves incorrect working directories or broken file paths. Using RStudio Projects and relative paths helps avoid many of these issues.</p>
 </div>
 </div>
-<div id="inspecting-data-frames" class="section level2 hasAnchor" number="2.2">
-<h2><span class="header-section-number">2.2</span> Inspecting data frames<a href="tidyverse-basics.html#inspecting-data-frames" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="inspecting-data-frames" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Inspecting data frames</h2>
 <p>After importing a dataset, it is important to understand its structure before beginning any analysis. This step is often called <em>data inspection</em> or <em>exploratory inspection</em>.</p>
 <p>Several functions are useful for quickly examining a data frame.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="tidyverse-basics.html#cb4-1" tabindex="-1"></a><span class="fu">glimpse</span>(example_data)</span>
-<span id="cb4-2"><a href="tidyverse-basics.html#cb4-2" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="tidyverse-basics.html#cb4-3" tabindex="-1"></a><span class="fu">summary</span>(example_data)</span>
-<span id="cb4-4"><a href="tidyverse-basics.html#cb4-4" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="tidyverse-basics.html#cb4-5" tabindex="-1"></a><span class="fu">dim</span>(example_data)</span>
-<span id="cb4-6"><a href="tidyverse-basics.html#cb4-6" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="tidyverse-basics.html#cb4-7" tabindex="-1"></a><span class="fu">names</span>(example_data)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="tidyverse-basics.html#cb18-1" tabindex="-1"></a><span class="fu">glimpse</span>(example_data)</span>
+<span id="cb18-2"><a href="tidyverse-basics.html#cb18-2" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="tidyverse-basics.html#cb18-3" tabindex="-1"></a><span class="fu">summary</span>(example_data)</span>
+<span id="cb18-4"><a href="tidyverse-basics.html#cb18-4" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="tidyverse-basics.html#cb18-5" tabindex="-1"></a><span class="fu">dim</span>(example_data)</span>
+<span id="cb18-6"><a href="tidyverse-basics.html#cb18-6" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="tidyverse-basics.html#cb18-7" tabindex="-1"></a><span class="fu">names</span>(example_data)</span></code></pre></div>
 <p>The <code>glimpse()</code> function provides a compact overview of the dataset structure, including variable names and data types. The <code>summary()</code> function generates summary statistics for each variable, while <code>dim()</code> returns the number of rows and columns in the dataset. The <code>names()</code> function lists all variable names.</p>
 <p>Inspecting data early in the workflow helps identify potential issues such as missing values, incorrect variable types, or unexpected column names.</p>
 </div>
-<div id="data-manipulation-with-dplyr" class="section level2 hasAnchor" number="2.3">
-<h2><span class="header-section-number">2.3</span> Data manipulation with dplyr<a href="tidyverse-basics.html#data-manipulation-with-dplyr" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="data-manipulation-with-dplyr" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Data manipulation with dplyr</h2>
 <p>One of the most powerful features of the tidyverse is the <code>dplyr</code> package, which provides functions for manipulating and transforming data frames.</p>
 <p>Data manipulation workflows are commonly built using the pipe operator <code>%&gt;%</code>. The pipe sends the output of one step directly into the next step, making code easier to read and understand.</p>
 <p>The example below demonstrates several commonly used <code>dplyr</code> verbs.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="tidyverse-basics.html#cb5-1" tabindex="-1"></a>example_data <span class="sc">%&gt;%</span></span>
-<span id="cb5-2"><a href="tidyverse-basics.html#cb5-2" tabindex="-1"></a>  </span>
-<span id="cb5-3"><a href="tidyverse-basics.html#cb5-3" tabindex="-1"></a>  <span class="fu">select</span>(column_1, column_2) <span class="sc">%&gt;%</span></span>
-<span id="cb5-4"><a href="tidyverse-basics.html#cb5-4" tabindex="-1"></a>  </span>
-<span id="cb5-5"><a href="tidyverse-basics.html#cb5-5" tabindex="-1"></a>  <span class="fu">filter</span>(column_1 <span class="sc">==</span> <span class="st">&quot;value&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb5-6"><a href="tidyverse-basics.html#cb5-6" tabindex="-1"></a>  </span>
-<span id="cb5-7"><a href="tidyverse-basics.html#cb5-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">new_column =</span> column_2 <span class="sc">*</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb5-8"><a href="tidyverse-basics.html#cb5-8" tabindex="-1"></a>  </span>
-<span id="cb5-9"><a href="tidyverse-basics.html#cb5-9" tabindex="-1"></a>  <span class="fu">group_by</span>(column_1) <span class="sc">%&gt;%</span></span>
-<span id="cb5-10"><a href="tidyverse-basics.html#cb5-10" tabindex="-1"></a>  </span>
-<span id="cb5-11"><a href="tidyverse-basics.html#cb5-11" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb5-12"><a href="tidyverse-basics.html#cb5-12" tabindex="-1"></a>    <span class="at">total =</span> <span class="fu">sum</span>(new_column, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb5-13"><a href="tidyverse-basics.html#cb5-13" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="tidyverse-basics.html#cb19-1" tabindex="-1"></a>example_data <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="tidyverse-basics.html#cb19-2" tabindex="-1"></a>  </span>
+<span id="cb19-3"><a href="tidyverse-basics.html#cb19-3" tabindex="-1"></a>  <span class="fu">select</span>(column_1, column_2) <span class="sc">%&gt;%</span></span>
+<span id="cb19-4"><a href="tidyverse-basics.html#cb19-4" tabindex="-1"></a>  </span>
+<span id="cb19-5"><a href="tidyverse-basics.html#cb19-5" tabindex="-1"></a>  <span class="fu">filter</span>(column_1 <span class="sc">==</span> <span class="st">&quot;value&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-6"><a href="tidyverse-basics.html#cb19-6" tabindex="-1"></a>  </span>
+<span id="cb19-7"><a href="tidyverse-basics.html#cb19-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">new_column =</span> column_2 <span class="sc">*</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-8"><a href="tidyverse-basics.html#cb19-8" tabindex="-1"></a>  </span>
+<span id="cb19-9"><a href="tidyverse-basics.html#cb19-9" tabindex="-1"></a>  <span class="fu">group_by</span>(column_1) <span class="sc">%&gt;%</span></span>
+<span id="cb19-10"><a href="tidyverse-basics.html#cb19-10" tabindex="-1"></a>  </span>
+<span id="cb19-11"><a href="tidyverse-basics.html#cb19-11" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb19-12"><a href="tidyverse-basics.html#cb19-12" tabindex="-1"></a>    <span class="at">total =</span> <span class="fu">sum</span>(new_column, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb19-13"><a href="tidyverse-basics.html#cb19-13" tabindex="-1"></a>  )</span></code></pre></div>
 <p>In this workflow:</p>
 <ul>
 <li><code>select()</code> chooses specific columns from the dataset.</li>
@@ -328,8 +316,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The pipe operator <code>%&gt;%</code> can be interpreted as “then.” Reading pipelines from top to bottom often makes the analysis logic easier to follow.</p>
 </div>
 </div>
-<div id="practice-exercise" class="section level2 hasAnchor" number="2.4">
-<h2><span class="header-section-number">2.4</span> Practice exercise<a href="tidyverse-basics.html#practice-exercise" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="practice-exercise" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Practice exercise</h2>
 <p>To reinforce the concepts introduced in this chapter, try completing the following short exercise using one of your own datasets or a practice dataset provided in the course materials.</p>
 <ol style="list-style-type: decimal">
 <li>Import a <code>.csv</code> dataset from the <code>Raw Data/</code> folder.</li>
@@ -341,74 +329,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p>As you practice these steps, focus not only on writing code that works, but also on creating workflows that are readable, organized, and reproducible.</p>
 </div>
-<div id="chapter-summary-1" class="section level2 hasAnchor" number="2.5">
-<h2><span class="header-section-number">2.5</span> Chapter summary<a href="tidyverse-basics.html#chapter-summary-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="chapter-summary-1" class="section level2" number="2.5">
+<h2><span class="header-section-number">2.5</span> Chapter summary</h2>
 <p>In this chapter, you were introduced to the tidyverse and several core tools used in modern R workflows. You learned how to load packages, import datasets, inspect data frames, and manipulate data using common <code>dplyr</code> functions.</p>
-<p>These foundational skills will be used throughout the remainder of the course for data cleaning, visualization, exploratory analysis, and reporting.
-```</p>
+<p>These foundational skills will be used throughout the remainder of the course for data cleaning, visualization, exploratory analysis, and reporting.</p>
 
 </div>
 </div>
-            </section>
+<p style="text-align: center;">
+<a href="project-setup-and-reproducible-workflows.html"><button class="btn btn-default">Previous</button></a>
+<a href="joining-data.html"><button class="btn btn-default">Next</button></a>
+</p>
+</div>
+</div>
 
-          </div>
-        </div>
-      </div>
-<a href="project-setup-and-reproducible-workflows.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="joining-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
-    </div>
-  </div>
-<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+
+</div>
+
 <script>
-gitbook.require(["gitbook"], function(gitbook) {
-gitbook.start({
-  "sharing": {
-    "github": false,
-    "facebook": true,
-    "twitter": true,
-    "linkedin": false,
-    "weibo": false,
-    "instapaper": false,
-    "vk": false,
-    "whatsapp": false,
-    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-  },
-  "fontsettings": {
-    "theme": "white",
-    "family": "sans",
-    "size": 2
-  },
-  "edit": {
-    "link": null,
-    "text": null
-  },
-  "history": {
-    "link": null,
-    "text": null
-  },
-  "view": {
-    "link": null,
-    "text": null
-  },
-  "download": ["data-management-with-r.pdf", "data-management-with-r.epub"],
-  "search": {
-    "engine": "fuse",
-    "options": null
-  },
-  "toc": {
-    "collapse": "section"
-  }
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
 });
-});
+
 </script>
 
 </body>
-
 </html>
