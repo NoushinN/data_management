@@ -1,5 +1,3 @@
-# Visualization and Advanced Cleaning
-
 ```{r 06-visualization-setup, include=FALSE}
 knitr::opts_chunk$set(
   echo = TRUE,
@@ -8,59 +6,70 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Purpose of this practice
+# Visualization and Advanced Data Cleaning
 
-This practice builds on the previous data management exercises. The main goals are to:
+In previous chapters, we focused on importing, cleaning, reshaping, and joining datasets using the tidyverse. In this chapter, we extend those workflows by introducing exploratory visualization and more advanced data-cleaning techniques commonly used in population health and environmental data analysis.
 
-- review data cleaning and reshaping with `tidyverse`
-- create simple visualizations with `ggplot2`
-- identify possible join keys across datasets
-- clean mortality, population, correspondence, and environmental data
-- prepare cleaned output files for later analysis
+The overall objective is to prepare several datasets for later analytical work involving cancer mortality, population estimates, geographic correspondence files, and environmental exposure data. Along the way, we will review common challenges such as missing values, inconsistent variable names, duplicate records, invalid dates, and poorly formatted identifiers.
 
-# Research questions
+Although the datasets used in this course are simplified for teaching purposes, the workflow closely reflects the types of cleaning and preparation steps encountered in real-world epidemiological and environmental health projects.
 
-**Analysis 1:** Calculate age- and sex-specific cancer mortality rates by health region in BC.
+The chapter also introduces several important visualization techniques using `ggplot2`, which will help you explore and validate your cleaned datasets.
 
-**Analysis 2:** Link environmental data to cancer mortality data to perform an odds ratio analysis.
+## Research context and datasets
 
-> Note: In a real-world analysis, cancer case data would usually be more appropriate than mortality data. For this course, the focus is on data cleaning and data management rather than the final interpretation of the analysis.
+The exercises in this chapter are motivated by two simplified research questions.
 
-# 1. Load packages
+The first analysis investigates age- and sex-specific cancer mortality rates by health region in British Columbia. The second analysis explores whether environmental exposure variables can be linked to mortality data in order to perform a simplified odds-ratio analysis.
 
-```{r 06-visualization-load_packages}
+In practice, incidence or cancer case data would generally be preferable to mortality data for exposure studies. However, the emphasis of this course is on data cleaning and management rather than formal epidemiological interpretation.
+
+Four datasets will be used throughout the chapter:
+
+- a mortality dataset containing fictitious death records;
+- a population dataset containing age- and sex-specific population estimates;
+- a geographic correspondence file linking dissemination blocks to health regions; and
+- an environmental dataset containing weather variables by postal code.
+
+We begin by loading the required libraries.
+
+```{r 06-visualization-load-packages}
 library(tidyverse)
 library(readxl)
 library(lubridate)
 library(stringr)
 ```
 
-# 2. Read data
+Next, we import the datasets into R.
 
-The exercise uses four datasets:
+```{r 06-visualization-read-data}
+mort <- read_excel(
+  "./Raw Data/deaths_2016.xlsx"
+)
 
-| Dataset | File | Description |
-|---|---|---|
-| Mortality data | `deaths_2016.xlsx` | Fictitious mortality records |
-| Population data | `Population_Estimates.csv` | BC population estimates by age, sex, and HSDA |
-| Correspondence file | `Corr_2016.csv` | Geographic lookup between dissemination blocks and health regions |
-| Environmental data | `Weather_data.csv` | Weather variables by postal code |
+pop <- read_csv(
+  "./Raw Data/Population_Estimates.csv"
+)
 
-```{r 06-visualization-read_data}
-mort <- read_excel("./Raw Data/deaths_2016.xlsx")
-pop  <- read_csv("./Raw Data/Population_Estimates.csv")
 corr <- read_csv(
   "./Raw Data/Corr_2016.csv",
-  locale = readr::locale(encoding = "latin1")
+  locale = readr::locale(
+    encoding = "latin1"
+  )
 )
-env  <- read_csv("./Raw Data/Weather_data.csv")
+
+env <- read_csv(
+  "./Raw Data/Weather_data.csv"
+)
 ```
 
-# 3. Initial data review
+## Reviewing datasets before cleaning
 
-Before cleaning, it is helpful to review the dimensions, names, missing values, and structure of each dataset.
+Before modifying any dataset, it is important to understand its overall structure. Initial exploratory review often helps identify unexpected variable names, missing values, duplicate records, or formatting inconsistencies.
 
-```{r 06-visualization-create_data_list}
+We first create a list containing all datasets.
+
+```{r 06-visualization-create-data-list}
 data_list <- list(
   mort = mort,
   pop = pop,
@@ -69,45 +78,67 @@ data_list <- list(
 )
 ```
 
-## 3.1 Dataset dimensions
+We can then quickly review dataset dimensions.
 
-```{r 06-visualization-dataset_dimensions}
+```{r 06-visualization-dataset-dimensions}
 map_dfr(
   data_list,
-  ~ tibble(rows = nrow(.x), columns = ncol(.x)),
+  ~ tibble(
+    rows = nrow(.x),
+    columns = ncol(.x)
+  ),
   .id = "dataset"
 )
 ```
 
-## 3.2 Column names
+Column names can also be inspected.
 
-```{r 06-visualization-column_names}
+```{r 06-visualization-column-names}
 map(data_list, names)
 ```
 
-## 3.3 Missing values by dataset
+Finally, we summarize missing values across datasets.
 
-```{r 06-visualization-missing_values_summary}
+```{r 06-visualization-missing-values-summary}
 map(
   data_list,
   ~ map_int(.x, ~ sum(is.na(.x)))
 )
 ```
 
-# 4. Clean and reshape population data
+Early exploratory review is one of the most important stages of data cleaning because it helps identify potential problems before they propagate through the analysis workflow.
 
-The population data is currently in a wide format, with age groups stored as separate columns. For plotting and analysis, it is easier to work with tidy long-format data.
+::: {.tip}
+Always inspect datasets immediately after import. Many analytical problems originate from unnoticed import issues, incorrect variable types, or unexpected missing values.
+:::
 
-## 4.1 Convert population data to long format
+## Cleaning and reshaping population data
 
-```{r 06-visualization-population_long}
+The population dataset is currently stored in a wide format, where age groups appear as separate columns. Although this structure may be useful for spreadsheets, it is less convenient for visualization and analysis.
+
+A tidy long-format structure is generally easier to work with in R.
+
+We first reshape the dataset using `pivot_longer()`.
+
+```{r 06-visualization-population-long}
 pop_long <- pop %>%
-  select(-any_of(c("X1", "Total"))) %>%
+  
+  select(
+    -any_of(c("X1", "Total"))
+  ) %>%
+  
   pivot_longer(
-    cols = -any_of(c("Year", "Gender", "Health Service Delivery Area")),
+    cols = -any_of(
+      c(
+        "Year",
+        "Gender",
+        "Health Service Delivery Area"
+      )
+    ),
     names_to = "Age",
     values_to = "Population"
   ) %>%
+  
   mutate(
     Age = case_when(
       Age == "04-Jan" ~ "01-04",
@@ -120,297 +151,417 @@ pop_long <- pop %>%
 pop_long
 ```
 
-## 4.2 Rename columns and remove unnecessary fields
+Some variable names are unnecessarily long or contain spaces, so we simplify them.
 
-The column name `Health Service Delivery Area` is long and contains spaces. We will rename it to `HSDA`. We will also remove the `Year` column because all records are from 2016.
-
-```{r 06-visualization-clean_population_names}
+```{r 06-visualization-clean-population-names}
 pop_long <- pop_long %>%
-  rename(HSDA = `Health Service Delivery Area`) %>%
+  
+  rename(
+    HSDA = `Health Service Delivery Area`
+  ) %>%
+  
   select(-Year)
 
 pop_long
 ```
 
-## 4.3 Keep total population only
+For this example, we focus on total population counts only.
 
-The `Gender` column includes `T`, which represents total population. Because we are interested in total population by HSDA and age group for this example, we will keep only these records.
-
-```{r 06-visualization-filter_population_total}
+```{r 06-visualization-filter-population-total}
 pop_total <- pop_long %>%
+  
   filter(Gender == "T")
 
 pop_total
 ```
 
-# 5. Visualize population data
+## Visualizing population data
 
-## 5.1 Line plot by HSDA
+Visualization is an important part of exploratory analysis because it helps reveal trends, inconsistencies, and unusual values that may not be obvious in tables alone.
 
-A line plot can quickly show how population changes across age groups, but it is not always the best choice because age groups are categories rather than continuous values.
+The following line plot displays population counts across age groups by HSDA.
 
-```{r 06-visualization-population_line_plot}
+```{r 06-visualization-population-line-plot}
 pop_total %>%
-  ggplot(aes(x = Age, y = Population, group = HSDA, colour = HSDA)) +
+  
+  ggplot(
+    aes(
+      x = Age,
+      y = Population,
+      group = HSDA,
+      colour = HSDA
+    )
+  ) +
+  
   geom_line() +
+  
   geom_point() +
+  
   labs(
     title = "Population by Age Group and HSDA",
     x = "Age group",
     y = "Population",
     colour = "HSDA"
   ) +
+  
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  
+  theme(
+    axis.text.x = element_text(
+      angle = 45,
+      hjust = 1
+    )
+  )
 ```
 
-## 5.2 Bar plot by age group
+Because age groups are categorical rather than continuous, a bar plot may sometimes be easier to interpret.
 
-For reporting, a bar graph may be easier to interpret because age groups are categorical.
-
-```{r 06-visualization-population_bar_plot}
+```{r 06-visualization-population-bar-plot}
 pop_total %>%
-  ggplot(aes(x = Age, y = Population, fill = HSDA)) +
+  
+  ggplot(
+    aes(
+      x = Age,
+      y = Population,
+      fill = HSDA
+    )
+  ) +
+  
   geom_col(position = "dodge") +
+  
   labs(
     title = "Population Distribution by Age Group and HSDA",
     x = "Age group",
     y = "Population",
     fill = "HSDA"
   ) +
+  
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  
+  theme(
+    axis.text.x = element_text(
+      angle = 45,
+      hjust = 1
+    )
+  )
 ```
 
-## 5.3 Optional: Faceted visualization
+When plots become crowded, faceting can improve readability.
 
-Facets are useful when the plot becomes too busy.
-
-```{r 06-visualization-population_facets}
+```{r 06-visualization-population-facets}
 pop_total %>%
-  ggplot(aes(x = Age, y = Population)) +
+  
+  ggplot(
+    aes(
+      x = Age,
+      y = Population
+    )
+  ) +
+  
   geom_col() +
+  
   facet_wrap(~ HSDA) +
+  
   labs(
     title = "Population by Age Group for Each HSDA",
     x = "Age group",
     y = "Population"
   ) +
+  
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  
+  theme(
+    axis.text.x = element_text(
+      angle = 45,
+      hjust = 1
+    )
+  )
 ```
 
-# 6. Identify possible join keys
+## Identifying join keys
 
-A join requires one or more common variables between datasets. Before joining, always check whether the keys are clean and whether the relationship is one-to-one, one-to-many, or many-to-many.
+Before combining datasets, it is important to identify variables that can serve as join keys.
 
-```{r 06-visualization-review_join_keys}
+```{r 06-visualization-review-join-keys}
 map(data_list, names)
 ```
 
-Possible join paths:
+Possible join paths include:
 
-- `mort` can be joined to `corr` using `dbuid2016`.
-- `pop` can potentially be joined to `corr` using health region or health service delivery area variables, but the names and codes need checking first.
-- `env` contains postal code data, but the link to mortality records needs postal code cleaning and validation.
+- joining mortality data to the correspondence file using `dbuid2016`;
+- joining population data to geographic information using HSDA-related variables; and
+- linking environmental data to mortality records using postal codes.
 
-# 7. Clean mortality data
+Before performing joins, always inspect whether the key variables are unique and consistently formatted.
 
-## 7.1 Remove columns not needed for the current analysis
+::: {.warning}
+Incorrect joins are one of the most common causes of duplicate records and analytical errors in real-world projects.
+:::
 
-```{r 06-visualization-create_rates_data}
+## Cleaning mortality data
+
+We now begin cleaning the mortality dataset.
+
+Variables not required for the current analysis are removed.
+
+```{r 06-visualization-create-rates-data}
 rates <- mort %>%
-  select(-c(Location_of_death, Marital_status))
+  
+  select(
+    -c(
+      Location_of_death,
+      Marital_status
+    )
+  )
 
 rates
 ```
 
-## 7.2 Check and remove duplicate records
+Duplicate records should also be identified and reviewed.
 
-```{r 06-visualization-check_duplicates}
+```{r 06-visualization-check-duplicates}
 rates_dup <- rates %>%
+  
   count(ID) %>%
+  
   filter(n > 1)
 
 rates_dup
 ```
 
-```{r 06-visualization-inspect_duplicate_records}
+```{r 06-visualization-inspect-duplicate-records}
 rates %>%
+  
   filter(ID %in% rates_dup$ID)
 ```
 
-```{r 06-visualization-remove_duplicates}
+After inspection, duplicates can be removed.
+
+```{r 06-visualization-remove-duplicates}
 rates <- rates %>%
+  
   distinct()
 ```
 
-# 8. Work with missing and unexpected values
+## Handling missing and inconsistent values
 
-Missing values can appear in different ways, such as `NA`, blanks, `NULL`, `999`, or other placeholder values. Always check how missing or unusual data is represented before making cleaning decisions.
+Missing values and data-entry problems are common in administrative datasets.
 
-## 8.1 Check birth year values
+We begin by examining birth year distributions.
 
-```{r 06-visualization-check_birth_year}
+```{r 06-visualization-check-birth-year}
 rates %>%
-  ggplot(aes(x = B_year)) +
+  
+  ggplot(
+    aes(x = B_year)
+  ) +
+  
   geom_histogram(binwidth = 5) +
+  
   labs(
     title = "Distribution of Birth Year",
     x = "Birth year",
     y = "Count"
   ) +
+  
   theme_minimal()
 ```
 
-Birth years before 1905 are unlikely in this dataset. For this exercise, we assume these values are data-entry errors where `18xx` should be `19xx`.
+Some birth years before 1905 are likely data-entry errors. For this exercise, we assume these values should belong to the twentieth century.
 
-```{r 06-visualization-clean_birth_values}
+```{r 06-visualization-clean-birth-values}
 rates <- rates %>%
+  
   mutate(
-    B_year = if_else(B_year < 1905, B_year + 100, B_year),
-    B_month = if_else(is.na(B_month), 6, B_month),
-    B_day = if_else(is.na(B_day), 15, B_day)
+    B_year = if_else(
+      B_year < 1905,
+      B_year + 100,
+      B_year
+    ),
+    
+    B_month = if_else(
+      is.na(B_month),
+      6,
+      B_month
+    ),
+    
+    B_day = if_else(
+      is.na(B_day),
+      15,
+      B_day
+    )
   )
 ```
 
-## 8.2 Check death month and death day
+We also inspect death months and days.
 
-```{r 06-visualization-check_death_month}
-rates %>% count(D_month)
+```{r 06-visualization-check-death-month}
+rates %>%
+  count(D_month)
 ```
 
-```{r 06-visualization-clean_death_month}
+```{r 06-visualization-clean-death-month}
 rates <- rates %>%
-  mutate(D_month = if_else(D_month > 12, 6, D_month))
-
-rates %>% count(D_month)
-```
-
-```{r 06-visualization-check_days}
-rates %>% count(D_day)
-rates %>% count(B_day)
-```
-
-# 9. Create date variables and calculate age
-
-We will use `lubridate` to create date of birth (`DOB`) and date of death (`DOD`). Then we calculate age as the difference between year of death and year of birth.
-
-```{r 06-visualization-create_dates}
-rates <- rates %>%
+  
   mutate(
-    DOB = as_date(str_c(B_year, B_month, B_day, sep = "-")),
-    DOD = as_date(str_c(D_year, D_month, D_day, sep = "-")),
+    D_month = if_else(
+      D_month > 12,
+      6,
+      D_month
+    )
+  )
+
+rates %>%
+  count(D_month)
+```
+
+```{r 06-visualization-check-days}
+rates %>%
+  count(D_day)
+
+rates %>%
+  count(B_day)
+```
+
+## Creating dates and calculating age
+
+The `lubridate` package simplifies date handling in R.
+
+We create dates of birth and death and then calculate age.
+
+```{r 06-visualization-create-dates}
+rates <- rates %>%
+  
+  mutate(
+    DOB = as_date(
+      str_c(
+        B_year,
+        B_month,
+        B_day,
+        sep = "-"
+      )
+    ),
+    
+    DOD = as_date(
+      str_c(
+        D_year,
+        D_month,
+        D_day,
+        sep = "-"
+      )
+    ),
+    
     Age = year(DOD) - year(DOB),
-    Age = if_else(Age < 0, 0.5, as.numeric(Age))
+    
+    Age = if_else(
+      Age < 0,
+      0.5,
+      as.numeric(Age)
+    )
   )
 
 range(rates$Age, na.rm = TRUE)
 ```
 
-## 9.1 Check remaining missing values
+Remaining missing values can then be inspected.
 
-```{r 06-visualization-check_remaining_na}
-map_int(rates, ~ sum(is.na(.x)))
+```{r 06-visualization-check-remaining-na}
+map_int(
+  rates,
+  ~ sum(is.na(.x))
+)
 ```
 
-```{r 06-visualization-records_with_any_na}
+```{r 06-visualization-records-with-any-na}
 rates %>%
-  filter(if_any(everything(), is.na))
+  
+  filter(
+    if_any(
+      everything(),
+      is.na
+    )
+  )
 ```
 
-## 9.2 Drop records missing essential identifiers
+Records missing essential identifiers are removed.
 
-For this exercise, records missing `B_year` or `dbuid2016` are removed because these values are required for age calculation and geographic linkage.
-
-```{r 06-visualization-drop_essential_na}
+```{r 06-visualization-drop-essential-na}
 rates <- rates %>%
-  drop_na(B_year, dbuid2016)
+  
+  drop_na(
+    B_year,
+    dbuid2016
+  )
 ```
 
-## 9.3 Impute missing sex values
+## Imputing missing values
 
-For practice purposes, missing `Sex` values are randomly assigned as `M` or `F`. The `set.seed()` function makes the random assignment reproducible.
+For demonstration purposes, missing sex values are randomly imputed.
 
-```{r 06-visualization-impute_sex}
+```{r 06-visualization-impute-sex}
 set.seed(123)
 
-# Count and locate missing Sex values.
 missing_sex_index <- is.na(rates$Sex)
+
 missing_sex_count <- sum(missing_sex_index)
 
-# Replace only the missing rows. This avoids the recycling error that can happen
-# when using if_else() with a shorter sampled vector.
 rates$Sex <- as.character(rates$Sex)
+
 rates$Sex[missing_sex_index] <- sample(
   c("M", "F"),
   size = missing_sex_count,
   replace = TRUE
 )
+
 rates$Sex <- as.factor(rates$Sex)
 
-rates %>% count(Sex)
+rates %>%
+  count(Sex)
 ```
 
-## 9.4 Recalculate age where needed
+Although this approach is useful for teaching purposes, real-world imputation should be performed much more carefully.
 
-Some records may still have missing age values because day and month values may have been swapped. For this exercise, we try an alternate date construction.
+::: {.warning}
+Random imputation can introduce bias into analyses. Always document assumptions and cleaning decisions clearly.
+:::
 
-```{r 06-visualization-fix_remaining_age}
+## Working with ICD-10 codes
+
+Cause-of-death variables often contain coded medical classifications.
+
+We separate ICD-10 codes into letter and numeric components.
+
+```{r 06-visualization-separate-icd-codes}
 rates <- rates %>%
-  mutate(
-    DOB = if_else(
-      is.na(DOB),
-      as_date(str_c(B_year, B_day, B_month, sep = "-")),
-      DOB
-    ),
-    Age = year(DOD) - year(DOB),
-    Age = if_else(Age < 0, 0.5, as.numeric(Age))
-  )
-
-rates %>% filter(is.na(Age))
-```
-
-# 10. Work with ICD-10 cause-of-death codes
-
-Cause-of-death codes that start with `C` represent malignant neoplasms. Codes beginning with `D` include in situ, benign, or unknown-status neoplasms and are not counted as cancer deaths in this exercise.
-
-## 10.1 Separate ICD-10 letters and numbers
-
-```{r 06-visualization-separate_icd_codes}
-rates <- rates %>%
+  
   extract(
     Cause_of_death,
     into = c("letter", "number"),
     regex = "([A-Z]+)([0-9]+)",
     remove = FALSE
   ) %>%
-  mutate(number = as.numeric(number))
+  
+  mutate(
+    number = as.numeric(number)
+  )
 
-rates %>% count(letter)
+rates %>%
+  count(letter)
 ```
 
-## 10.2 Keep cancer deaths only
+Cancer-related mortality records are identified using ICD-10 codes beginning with `"C"`.
 
-```{r 06-visualization-filter_cancer_codes}
+```{r 06-visualization-filter-cancer-codes}
 rates <- rates %>%
+  
   filter(letter == "C")
 ```
 
-# 11. Categorize cancer type and age group
+We then classify cancer categories and age groups.
 
-Cancer categories used in this practice:
-
-| Category | ICD-10 code(s) | Description |
-|---|---|---|
-| 1 | C50 | Breast cancer |
-| 2 | C61 | Prostate cancer |
-| 3 | C33, C34 | Lung cancer |
-| 4 | C18-C21 | Colorectal cancer |
-| 5 | All other C codes | Other cancers |
-
-```{r 06-visualization-categorize_cancer_and_age}
+```{r 06-visualization-categorize-cancer-and-age}
 rates <- rates %>%
+  
   mutate(
     CauseCat = case_when(
       number == 50 ~ 1,
@@ -419,6 +570,7 @@ rates <- rates %>%
       number %in% 18:21 ~ 4,
       TRUE ~ 5
     ),
+    
     CauseCat_label = case_when(
       CauseCat == 1 ~ "Breast cancer",
       CauseCat == 2 ~ "Prostate cancer",
@@ -426,227 +578,220 @@ rates <- rates %>%
       CauseCat == 4 ~ "Colorectal cancer",
       CauseCat == 5 ~ "Other cancer"
     ),
+    
     AgeCat = cut(
       Age,
-      breaks = c(0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 130),
+      breaks = c(
+        0, 10, 20, 30, 40,
+        50, 60, 70, 80, 90, 130
+      ),
       include.lowest = TRUE,
       right = FALSE
     )
   )
 
-rates %>% count(CauseCat_label)
-rates %>% count(AgeCat)
+rates %>%
+  count(CauseCat_label)
+
+rates %>%
+  count(AgeCat)
 ```
 
-# 12. Visualize cleaned mortality data
+## Visualizing cleaned mortality data
 
-```{r 06-visualization-cancer_category_plot}
+After cleaning the mortality data, we can explore the distributions visually.
+
+```{r 06-visualization-cancer-category-plot}
 rates %>%
+  
   count(CauseCat_label) %>%
-  ggplot(aes(x = reorder(CauseCat_label, n), y = n)) +
+  
+  ggplot(
+    aes(
+      x = reorder(CauseCat_label, n),
+      y = n
+    )
+  ) +
+  
   geom_col() +
+  
   coord_flip() +
+  
   labs(
     title = "Cancer Deaths by Cancer Category",
     x = "Cancer category",
     y = "Number of deaths"
   ) +
+  
   theme_minimal()
 ```
 
-```{r 06-visualization-age_category_plot}
+```{r 06-visualization-age-category-plot}
 rates %>%
+  
   count(AgeCat, Sex) %>%
-  ggplot(aes(x = AgeCat, y = n, fill = Sex)) +
+  
+  ggplot(
+    aes(
+      x = AgeCat,
+      y = n,
+      fill = Sex
+    )
+  ) +
+  
   geom_col(position = "dodge") +
+  
   labs(
     title = "Cancer Deaths by Age Group and Sex",
     x = "Age group",
     y = "Number of deaths",
     fill = "Sex"
   ) +
+  
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  
+  theme(
+    axis.text.x = element_text(
+      angle = 45,
+      hjust = 1
+    )
+  )
 ```
 
-# 13. Save cleaned cancer mortality data
+## Saving cleaned datasets
 
-Create the `Outputs` folder if it does not already exist.
+Cleaned outputs should always be saved separately from raw data.
 
-```{r 06-visualization-create_outputs_folder}
-dir.create("./Outputs", showWarnings = FALSE)
+We first create an output folder if it does not already exist.
+
+```{r 06-visualization-create-outputs-folder}
+dir.create(
+  "./Outputs",
+  showWarnings = FALSE
+)
 ```
 
-```{r 06-visualization-save_cancer_rates}
-write_csv(rates, "./Outputs/Cancer_rates.csv")
+We then save the cleaned mortality data.
+
+```{r 06-visualization-save-cancer-rates}
+write_csv(
+  rates,
+  "./Outputs/Cancer_rates.csv"
+)
 ```
 
-# 14. Clean environmental exposure data
+Environmental exposure data can also be cleaned and saved.
 
-For Analysis 2, we need to identify whether each postal code is located in a cold climate. A cold climate is defined as:
-
-- average daily high temperature less than 10°C, and
-- average daily low temperature less than -3°C.
-
-The required variables are:
-
-| Original variable | New variable | Meaning |
-|---|---|---|
-| `POSTALCODE12` | `Postal_code` | Postal code |
-| `WTHNRC12_04` | `max_temp` | Annual average of daily maximum temperature |
-| `WTHNRC12_05` | `min_temp` | Annual average of daily minimum temperature |
-
-```{r 06-visualization-clean_environmental_data}
+```{r 06-visualization-clean-environmental-data}
 env_clean <- env %>%
-  select(POSTALCODE12, WTHNRC12_04, WTHNRC12_05) %>%
+  
+  select(
+    POSTALCODE12,
+    WTHNRC12_04,
+    WTHNRC12_05
+  ) %>%
+  
   rename(
     Postal_code = POSTALCODE12,
     max_temp = WTHNRC12_04,
     min_temp = WTHNRC12_05
   ) %>%
+  
   mutate(
-    exposure = if_else(max_temp < 10 & min_temp < -3, 1, 0)
+    exposure = if_else(
+      max_temp < 10 &
+      min_temp < -3,
+      1,
+      0
+    )
   )
 
 env_clean
 ```
 
-```{r 06-visualization-exposure_summary}
-env_clean %>% count(exposure)
+```{r 06-visualization-save-exposure-data}
+write_csv(
+  env_clean,
+  "./Outputs/exposures.csv"
+)
 ```
 
-## 14.1 Save exposure data
+## Joining datasets and validating postal codes
 
-```{r 06-visualization-save_exposure_data}
-write_csv(env_clean, "./Outputs/exposures.csv")
-```
+The mortality dataset can now be joined to the correspondence file.
 
-# 15. Join mortality data to correspondence file
-
-For Analysis 1, the cleaned cancer mortality data needs to be joined to the correspondence file using `dbuid2016`.
-
-A dissemination block (`DB`) is a geographic area identifier. Many people can live in one dissemination block, but each dissemination block should correspond to one health region.
-
-```{r 06-visualization-join_rates_corr}
-analysis1 <- inner_join(rates, corr, by = "dbuid2016")
+```{r 06-visualization-join-rates-corr}
+analysis1 <- inner_join(
+  rates,
+  corr,
+  by = "dbuid2016"
+)
 
 analysis1
 ```
 
-## 15.1 Save joined Analysis 1 data
+Postal codes should also be standardized before linkage.
 
-```{r 06-visualization-save_analysis1}
-write_csv(analysis1, "./Outputs/analysis1.csv")
-```
-
-# 16. Postal code quality check activity
-
-Postal codes often require cleaning before they can be used for joins. In this activity, we examine whether postal codes match the expected Canadian postal code format.
-
-## 16.1 Standardize postal codes
-
-```{r 06-visualization-standardize_postal_codes}
+```{r 06-visualization-standardize-postal-codes}
 rates <- rates %>%
+  
   mutate(
-    Postalcode_clean = Postalcode %>%
+    Postalcode_clean =
+      Postalcode %>%
+      
       str_to_upper() %>%
-      str_replace_all("\\s+", "")
+      
+      str_replace_all(
+        "\\s+",
+        ""
+      )
   )
 ```
 
-## 16.2 Identify postal codes that do not match the expected format
+We can then identify postal codes that do not follow the expected Canadian format.
 
-```{r 06-visualization-check_postal_regex}
-postal_pattern <- "^(?!.*[DFIOQU])[A-VXY][0-9][A-Z][0-9][A-Z][0-9]$"
+```{r 06-visualization-check-postal-regex}
+postal_pattern <-
+  "^(?!.*[DFIOQU])[A-VXY][0-9][A-Z][0-9][A-Z][0-9]$"
 
 postal_issues <- rates %>%
-  filter(is.na(str_match(Postalcode_clean, postal_pattern))) %>%
-  select(ID, Postalcode, Postalcode_clean)
+  
+  filter(
+    is.na(
+      str_match(
+        Postalcode_clean,
+        postal_pattern
+      )
+    )
+  ) %>%
+  
+  select(
+    ID,
+    Postalcode,
+    Postalcode_clean
+  )
 
 postal_issues
 ```
 
-## 16.3 Check each postal code position
+Regular-expression validation is an extremely useful technique for detecting formatting problems in identifiers such as postal codes, phone numbers, or IDs.
 
-```{r 06-visualization-postal_code_positions}
-rates %>%
-  transmute(
-    position_1 = str_sub(Postalcode_clean, 1, 1),
-    position_2 = str_sub(Postalcode_clean, 2, 2),
-    position_3 = str_sub(Postalcode_clean, 3, 3),
-    position_4 = str_sub(Postalcode_clean, 4, 4),
-    position_5 = str_sub(Postalcode_clean, 5, 5),
-    position_6 = str_sub(Postalcode_clean, 6, 6)
-  ) %>%
-  map(unique)
-```
+## Final assignment guidance
 
-## 16.4 Check postal code length
+As you continue building analytical workflows, begin organizing your work into separate exploratory data analysis documents.
 
-```{r 06-visualization-postal_code_length}
-rates %>%
-  mutate(postal_length = str_length(Postalcode_clean)) %>%
-  count(postal_length)
-```
+Each analysis file should clearly explain:
 
-# 17. Practice activity: Join population and correspondence data
+- the datasets being used;
+- the cleaning and validation steps performed;
+- assumptions made during cleaning;
+- how missing values were handled; and
+- how outputs were generated.
 
-The population and correspondence datasets do not have a perfectly clean join key. You may need to clean text or numeric identifiers before joining.
+A well-documented workflow is just as important as the analysis itself.
 
-Possible approaches:
+## Chapter summary
 
-- clean and compare HSDA names in `pop` and `corr`
-- compare code-based fields such as `X1` and `hruid2017`
-- reshape the population data before joining
-- check how many records match and how many do not
+In this chapter, you expanded your data management workflow by combining advanced cleaning techniques with exploratory visualization. You reviewed datasets, reshaped population data, created visualizations, identified join keys, cleaned mortality and environmental datasets, handled missing values, validated identifiers, and created cleaned outputs for later analysis.
 
-```{r 06-visualization-practice_join_pop_corr, eval=FALSE}
-# Example starting point only.
-# You will need to inspect the exact values before deciding on the best join.
-
-pop_join_ready <- pop_total %>%
-  mutate(HSDA_clean = str_to_lower(HSDA) %>% str_squish())
-
-corr_join_ready <- corr %>%
-  mutate(hrname_clean = str_to_lower(hrname_english) %>% str_squish())
-
-pop_corr_test <- left_join(
-  pop_join_ready,
-  corr_join_ready,
-  by = c("HSDA_clean" = "hrname_clean")
-)
-
-pop_corr_test
-```
-
-# 18. Final assignment guidance
-
-Create a new R Markdown document for your first exploratory data analysis file. Choose a clear file name, such as:
-
-- `EDA_01.Rmd`
-- `CancerMortality_01.Rmd`
-- `Assignment1.Rmd`
-- `exploratory_analysis.Rmd`
-
-Your document should explain the data and cleaning process clearly enough for a colleague or manager to follow.
-
-Include:
-
-- a list of your datasets
-- a function that can be applied to your dataset list using `purrr`
-- a summary of dataset dimensions
-- a description of what each column represents
-- high-level statistics for each dataset
-- missing value counts and how missing values were handled
-- plots that help explain the data
-- a clean section for population data cleaning and joining
-- clear comments explaining what each major code block does and why
-
-# 19. Reflection questions
-
-1. Why is long-format data usually easier to plot with `ggplot2`?
-2. Why should we check join keys before merging datasets?
-3. What is the difference between an `NA` value and a true zero?
-4. Why is it important to document assumptions when cleaning dates?
-5. What are the risks of randomly imputing missing values?
-6. Why might postal codes need standardization before joining datasets?
+These workflows form the foundation of reproducible analytical projects and closely resemble the types of preparation steps required in real-world public health and environmental data analysis.

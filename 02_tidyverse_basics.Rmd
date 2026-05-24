@@ -1,55 +1,106 @@
 # Tidyverse Basics
 
-## Learning objectives
+The **tidyverse** is a collection of R packages designed for data science and data analysis. These packages provide a consistent and readable approach for importing, cleaning, transforming, visualizing, and analyzing data. In practice, the tidyverse is widely used because it allows complex workflows to be written in a clear and organized way.
 
-By the end of this chapter, you should be able to:
+In this chapter, you will learn how to load tidyverse packages, read datasets into R, inspect data frames, and perform common data manipulation tasks using `dplyr`. By the end of the chapter, you should feel comfortable performing basic exploratory data analysis and creating simple data transformation pipelines.
 
-- load common R packages;
-- read data files into R;
-- inspect data frames;
-- use the pipe operator;
-- apply common `dplyr` verbs such as `select`, `filter`, `mutate`, `group_by`, and `summarize`.
+## Loading packages and reading data
 
-## Load libraries
+Before working with data in R, the required packages must first be loaded. The `tidyverse` package includes several commonly used packages such as `dplyr`, `ggplot2`, `readr`, and `tidyr`.
 
 ```{r 02-tidyverse-basics-load-tidyverse}
 library(tidyverse)
 ```
 
-## Read data
+In most projects, the first analytical step is reading raw data into R. Throughout this course, raw datasets should be stored inside the `Raw Data/` folder introduced in the previous chapter.
 
-In most projects, the first step is reading raw data from the `Raw Data/` folder.
+The example below demonstrates how to read a `.csv` file using `read_csv()` from the `readr` package.
 
 ```{r 02-tidyverse-basics-read-example-data, eval=FALSE}
-example_data <- read_csv("./Raw Data/example.csv")
+example_data <- read_csv(
+  "./Raw Data/example.csv"
+)
 ```
 
-## Inspect data
+Using relative paths helps keep projects reproducible because the code can run correctly on different computers as long as the project structure remains consistent.
 
-Useful functions include:
+::: {.tip}
+One of the most common beginner problems in R involves incorrect working directories or broken file paths. Using RStudio Projects and relative paths helps avoid many of these issues.
+:::
+
+## Inspecting data frames
+
+After importing a dataset, it is important to understand its structure before beginning any analysis. This step is often called *data inspection* or *exploratory inspection*.
+
+Several functions are useful for quickly examining a data frame.
 
 ```{r 02-tidyverse-basics-inspect-functions, eval=FALSE}
 glimpse(example_data)
+
 summary(example_data)
+
 dim(example_data)
+
 names(example_data)
 ```
 
-## Core tidyverse verbs
+The `glimpse()` function provides a compact overview of the dataset structure, including variable names and data types. The `summary()` function generates summary statistics for each variable, while `dim()` returns the number of rows and columns in the dataset. The `names()` function lists all variable names.
+
+Inspecting data early in the workflow helps identify potential issues such as missing values, incorrect variable types, or unexpected column names.
+
+## Data manipulation with dplyr
+
+One of the most powerful features of the tidyverse is the `dplyr` package, which provides functions for manipulating and transforming data frames.
+
+Data manipulation workflows are commonly built using the pipe operator `%>%`. The pipe sends the output of one step directly into the next step, making code easier to read and understand.
+
+The example below demonstrates several commonly used `dplyr` verbs.
 
 ```{r 02-tidyverse-basics-dplyr-verbs-example, eval=FALSE}
 example_data %>%
+  
   select(column_1, column_2) %>%
+  
   filter(column_1 == "value") %>%
+  
   mutate(new_column = column_2 * 2) %>%
+  
   group_by(column_1) %>%
-  summarize(total = sum(new_column, na.rm = TRUE))
+  
+  summarize(
+    total = sum(new_column, na.rm = TRUE)
+  )
 ```
 
-## Practice questions
+In this workflow:
 
-1. Read one `.csv` file from your `Raw Data/` folder.
-2. Use `glimpse()` to inspect the dataset.
-3. Select three columns.
-4. Filter the data to one group or category.
-5. Create one new variable with `mutate()`.
+- `select()` chooses specific columns from the dataset.
+- `filter()` keeps only rows that satisfy a condition.
+- `mutate()` creates a new variable.
+- `group_by()` creates groups within the data.
+- `summarize()` calculates summary statistics for each group.
+
+Together, these functions form the foundation of many data analysis workflows in R.
+
+::: {.note}
+The pipe operator `%>%` can be interpreted as “then.” Reading pipelines from top to bottom often makes the analysis logic easier to follow.
+:::
+
+## Practice exercise
+
+To reinforce the concepts introduced in this chapter, try completing the following short exercise using one of your own datasets or a practice dataset provided in the course materials.
+
+1. Import a `.csv` dataset from the `Raw Data/` folder.
+2. Use `glimpse()` and `summary()` to inspect the dataset.
+3. Select several variables of interest.
+4. Filter the data to one category or group.
+5. Create a new variable using `mutate()`.
+6. Calculate a simple summary statistic using `summarize()`.
+
+As you practice these steps, focus not only on writing code that works, but also on creating workflows that are readable, organized, and reproducible.
+
+## Chapter summary
+
+In this chapter, you were introduced to the tidyverse and several core tools used in modern R workflows. You learned how to load packages, import datasets, inspect data frames, and manipulate data using common `dplyr` functions.
+
+These foundational skills will be used throughout the remainder of the course for data cleaning, visualization, exploratory analysis, and reporting.

@@ -1,129 +1,118 @@
 # Data Cleaning and Data Management
 
-Prepare your Markdown file by loading any libraries you will use. For this exercise we will be using the `tidyverse` and `ggplot2` libraries.
+Data cleaning is one of the most important stages of any analytical workflow. In real-world projects, raw data are rarely ready for analysis immediately after import. Datasets often contain inconsistent variable names, missing values, formatting issues, duplicate records, encoding problems, or variables stored in unsuitable formats.
 
-You may have to install these libraries if you do not already have these installed by using:
-(Hint: Remove the `#` from the chunk below to install the packages, this is known as a "comment")
+This chapter introduces several common data management tasks using the tidyverse. You will learn how to import multiple file types, inspect datasets, identify common data quality issues, reshape data into tidy formats, and recode variables into more useful forms.
 
-```{r 04-data-cleaning-install}
-# install.packages(c('tidyverse','ggplot2'))
+Although the datasets used in this course are simplified for teaching purposes, the workflow closely reflects many real-world data cleaning tasks encountered in epidemiology, environmental health, and population data analysis.
 
+## Preparing the R environment
+
+Before beginning any analysis, the required libraries should be loaded. For this chapter, we will primarily use packages from the tidyverse ecosystem, along with `ggplot2` and `readxl`.
+
+If these packages are not already installed on your computer, they can be installed using:
+
+```{r 04-data-cleaning-install, eval=FALSE}
+install.packages(
+  c("tidyverse", "ggplot2", "readxl")
+)
 ```
 
-## Load libraries
+Once installed, the libraries can be loaded into the R session.
 
 ```{r 04-data-cleaning-load-libraries}
-
 library(tidyverse)
 library(ggplot2)
-
-
+library(readxl)
 ```
 
-# Load in the data
+## Exploring project files
 
-If we want to quickly look at all the data in the folder we can use:
+Before importing data, it is often useful to inspect the contents of the project folders. The `list.files()` function allows you to display all files stored within a directory.
 
 ```{r 04-data-cleaning-list-files}
 list.files("./Raw Data/")
-
 ```
-List files is a powerful tool that is often overlooked.
 
-We can look for specific types of files with list.files
+You can also search for specific file types using the `pattern` argument.
 
 ```{r 04-data-cleaning-list-files-type}
-list.files("./Raw Data/", pattern = '.csv')
+list.files(
+  "./Raw Data/",
+  pattern = ".csv"
+)
 
-list.files("./Raw Data/", pattern = '.xlsx')
-
+list.files(
+  "./Raw Data/",
+  pattern = ".xlsx"
+)
 ```
 
+Functions such as `list.files()` are frequently overlooked by beginners, but they become extremely useful when working with large projects that contain many datasets or outputs.
 
-If your `Corr_2016` is zipped, unzip it with your unzipping program (Winrar, 7zip) before continuing. 
-Or you can use:
+Some datasets may also be stored in compressed `.zip` files. These files should typically be extracted before analysis.
 
-```{r 04-data-cleaning-unzip}
-# unzip('./Raw Data/Corr_2016.zip', exdir = "./Raw Data")
+```{r 04-data-cleaning-unzip, eval=FALSE}
+unzip(
+  "./Raw Data/Corr_2016.zip",
+  exdir = "./Raw Data"
+)
 ```
 
-Where the first argument is the path of the zip file you want to unzip and `exdir` is the folder you want to unzip the file to.
+The `exdir` argument specifies the folder where the extracted files should be saved. Since files only need to be unzipped once, this code is often commented out after the extraction is complete.
 
-You only need to unzip the file once, so once this is done, you can comment out the above code with a `#` in front of `unzip`. Or change the chunk to:
+::: {.tip}
+When working in R Markdown documents, avoid repeatedly running file extraction code unless necessary. Re-extracting files every time the document is knitted can slow down workflows and create duplicate files.
+:::
 
->{include=FALSE, eval=FALSE}
+## Description of the datasets
 
-Let's load the data using `readr` for this example exercise [read more here](https://readr.tidyverse.org/index.html). 
+This course uses four datasets that simulate a simplified population health analysis workflow.
 
-We will be working with the deaths_2016.xlsx, Population_Estimates.xlsx, Corr_2016.csv and Weather_data.csv. These data are from the Introduction to Data Management course developed by Megan Striha and this data is reused for this exercise. 4 data sets will be used in this course:
+The mortality dataset contains records of deaths, including demographic information and ICD-10 cause-of-death codes. Although the dataset is based on realistic structures and counts, the data themselves are fictitious for teaching purposes.
 
+The population dataset contains estimates of population counts by age group, sex, and Health Service Delivery Area in British Columbia.
 
-Mortality Data
-Population Data
-Correspondence Files
-Environmental Data
+The correspondence dataset links lower geographic units to larger health regions and service delivery areas. Correspondence files are commonly used in population health and environmental research because they allow different geographic datasets to be connected.
 
-#Research Questions
+The environmental dataset contains weather-related variables by postal code, including measures related to temperature and cold exposure.
 
-Analysis 1: Calculate age and sex specific cancer mortality rates by health region in BC
-Analysis 2: Link environmental data to the cancer mortality data to perform an odds ratio analysis *
+The overall analytical goal is to combine these datasets in order to calculate mortality rates and explore potential environmental relationships.
 
-*if this analysis where to be done in the real world, it would be better to use cancer cases rather than mortality data, but for this course, the cleaning and data management (and not the analysis or research question) is of the focus.
+## Importing data into R
 
-# Data Description
+Different file formats require different import functions. The `readr` package is commonly used for `.csv` files, while Excel files require functions from the `readxl` package.
 
-**Population Data** – estimates of people in BC, by sex, age, and Health Service Delivery Area.
-		File name: Population_Estimates.csv
-
-
-**Mortality Data** – records of deaths are collected by each province and territory, then joined together to national level data at Statistics Canada. The data contains personal identifiers (age, sex, residence, marital status, etc.) and details about the nature of the death (ICD-10 codes).
-		File name: Deaths_2016.xlsx
-		
-**Geographical Correspondence File**  – contains two associated levels of geography, in this case, DB (dissemination block) and Health Service Delivery Area.
-		File name: Corr_2016.csv
-
-**Environmental Data File**  – contains weather data by postal code. For this analysis, the variables for average  daily high and average daily low temperature will be used to determine if the postal code is located in a cold climate.
-
-		File name: Weather_data.csv
-		
-Unlike the population data that is used in this course, the mortality data is fictitious. 
-
-The mortality data has been created based on real mortality counts, causes of death, and sex, but with imputed birth and death dates, and geographical values.
-
-This course uses fictitious 2016 mortality data, which contains sex, geographical variables, cause of death (underlying cause of death, ICD10 codes), marital status, location of death (in hospital, at home, etc.), and the day, month and year of birth and death.		
-
-The mortality data in Canada lists cause of death using ICD10 codes. ICD stands for the International Classification of Disease, while the ‘10’ indicates the 10th edition of the list. Prior to 2000, Canada used ICD9 codes, which causes a bit of a headache when comparing causes of death across editions.
-
-For this course, weather data from CANUE will be used as the exposure data. The exposure variable is the presence or absence of a cold climate. A cold climate is defined as a daily average high temperate less than 10 degrees Celsius, with a daily average low temperature less than -3 degrees Celsius.
-
-This data is real, although it is being joined to mortality data that is fictitious, so the results of the analysis will not have any practical research meaning. 
-
-The weather data set includes average temperatures, days of extreme heat and cold, days of frost, etc., all organized by postal code. 
-
-Correspondence files can take a number of different forms, but primarily, they allow one piece of information to be “matched” to another. These can sometimes take the form of data keys.
-
-For this course, we will be using a geographic correspondence file. 
-
-In our mortality data, we have a low level of geography (similar to a postal code). We need a correspondence file to figure out which province, health authority and health service delivery area that geographic code belongs to, in order to group our death by geography.
-
-The particular correspondence file that we will be using is available here: https://www150.statcan.gc.ca/n1/pub/82-402-x/2017001/corr-eng.htm
-
-
-Wait, `readr` doesn't have any functions for files ending in `.xlsx`. If we check the documentation and search for xlsx or excel it makes no mention of it. 
-Thankfully the tidyverse also has `readxl` bundled with it and `read_excel`. 
+The following code imports the datasets used in this chapter.
 
 ```{r 04-data-cleaning-load-data}
-library(readxl)
-mort<- read_excel("./Raw Data/deaths_2016.xlsx")
-pop <- read_csv("./Raw Data/Population_Estimates.csv")
-corr <- read_csv("./Raw Data/Corr_2016.csv", locale = readr::locale(encoding = "latin1"))
-env <- read_csv ("./Raw Data/Weather_data.csv")
+mort <- read_excel(
+  "./Raw Data/deaths_2016.xlsx"
+)
 
+pop <- read_csv(
+  "./Raw Data/Population_Estimates.csv"
+)
+
+corr <- read_csv(
+  "./Raw Data/Corr_2016.csv",
+  locale = readr::locale(
+    encoding = "latin1"
+  )
+)
+
+env <- read_csv(
+  "./Raw Data/Weather_data.csv"
+)
 ```
 
-#Explore the data
+Notice that the correspondence file uses a specific text encoding. Encoding problems are common when datasets contain accented characters or multilingual text.
 
-Type `?str` and `?summary` into the R console. Both of these functions give high level insights into our data.
+## Inspecting datasets
+
+After importing data, it is important to examine the structure and contents of each dataset before beginning analysis.
+
+Several functions provide useful high-level summaries.
 
 ```{r 04-data-cleaning-EDA}
 str(mort)
@@ -137,46 +126,54 @@ summary(corr)
 
 str(env)
 summary(env)
-
-
 ```
 
-We just broke one of our rules to not repeat our code! We will deal with this later...
+The `str()` function displays the structure of the dataset, including variable types and dimensions. The `summary()` function provides summary statistics and quick descriptive information.
 
-
-We can also use the `dplyr` function `glimpse`:
+Another useful function is `glimpse()` from `dplyr`.
 
 ```{r 04-data-cleaning-glimpse}
-
 glimpse(mort)
-
 ```
 
+Compared with `str()`, `glimpse()` often provides a cleaner and easier-to-read overview of the data frame.
 
-Investigate:
+Initial data inspection is one of the most important parts of data cleaning because it helps identify:
 
-1. How many health regions are in the data?
-2. How many men died of cancer? How many women?
-3. How many babies are in BC (under one year)?
+- missing values;
+- unusual variable names;
+- incorrect data types;
+- inconsistent formatting; and
+- unexpected values.
 
+## Exploring and validating the data
+
+A useful next step is performing simple exploratory checks to understand the datasets more fully.
+
+For example, we can identify all health regions in the correspondence dataset.
 
 ```{r 04-data-cleaning-health-regions}
-# Display unique health region names safely.
-# The correspondence file includes accented French names, so we use latin1 encoding.
 corr %>%
   distinct(hrname_english) %>%
-  mutate(hrname_english = iconv(hrname_english, from = "latin1", to = "UTF-8", sub = "")) %>%
+  mutate(
+    hrname_english = iconv(
+      hrname_english,
+      from = "latin1",
+      to = "UTF-8",
+      sub = ""
+    )
+  ) %>%
   arrange(hrname_english)
-
 ```
 
-If we look through these Health Regions, we can see that there is something strange going on with a few entries from Quebec.
-When working with English/French data, the encoding of the text can display wrong during import. We can fix this by re-importing the `Corr` data and specifying the `locale`. Sometimes this will resolve the issue, other times it may be more of a manual exercise that requires recoding of variables and working with `stringr`. We will be looking at `stringr` in Session 3.
+When working with multilingual datasets, encoding issues may cause characters to display incorrectly. Re-importing the file using the appropriate encoding often resolves these problems.
 
 ```{r 04-data-cleaning-reload-corr}
 corr <- read_csv(
   "./Raw Data/Corr_2016.csv",
-  locale = readr::locale(encoding = "latin1")
+  locale = readr::locale(
+    encoding = "latin1"
+  )
 )
 
 corr %>%
@@ -184,133 +181,144 @@ corr %>%
   arrange(hrname_english)
 ```
 
-If we simply wanted the number of health regions we can use:
+We can also calculate the number of health regions in the dataset.
 
-```{r 04-data-cleaning-number_of_regions}
-
-no_regions<-corr %>%distinct(hrname_english)%>%nrow()
-
+```{r 04-data-cleaning-number-of-regions}
+no_regions <- corr %>%
+  distinct(hrname_english) %>%
+  nrow()
 ```
 
+There are `r no_regions` health regions in the correspondence dataset.
 
-There are `r no_regions` Health Regions in the corr data set.
+Additional exploratory summaries can help validate the imported data.
 
 ```{r 04-data-cleaning-investigation}
+mort %>%
+  count(Sex)
 
-##----------------------------------------------------
-## How many men died of cancer? How many women?
-##----------------------------------------------------
-mort %>% count(Sex)
-#or
-mort %>% group_by(Sex)%>%count()
-
-##----------------------------------------------------
-## How many babies are in BC (under one year)?
-##----------------------------------------------------
-sum(pop$`<1`)
-pop%>%
-  summarize(Total_below_1 = sum(`<1`))
-
+pop %>%
+  summarize(
+    Total_below_1 = sum(`<1`)
+  )
 ```
 
-When column names do not start with a character or letter, the syntax changes. For example `pop$<1` will not return any values. When columns are named incorrectly (with spaces, starting with a symbol or number), we can refer to them using the forward ticks shown above. In practice, we should be converting all columns to a better format, it makes for quicker coding and ensures that future work or analysis will not be hampered by column names.
+These simple checks help verify that the datasets were imported correctly and that the variables contain plausible values.
 
+## Cleaning variable names and reshaping data
 
-If we look closer at the population data some of the column name do not make much sense.
-Both `names` and `colnames` do the same thing and list the column names. In R, there are always more than one way to do things.
+One common issue in real-world datasets is poorly formatted variable names. Variables that begin with numbers or contain symbols can make coding more difficult.
+
+For example:
 
 ```{r 04-data-cleaning-column-names}
 names(pop)
+
 colnames(pop)
-
 ```
 
-The 6th column"04-Jan" should be the next age group after <1 year old. The interval between years is 5. Therefore "04-Jan" should probably be "01-04" or some variation of that.
-For tidy data we need to make sure that our column names start with a character and not a numeric value. This is a problem since so many age columns start with numbers and need to be cleaned up!
+Some age-group variables contain names such as `"04-Jan"` or `"09-May"`, which are not ideal variable names for analysis.
 
-We are going to use `rename` to rename the three columns. Note: There are many different approaches to this problem.
+One approach is to rename problematic variables directly.
 
-```{r 04-data-cleaning-chunk}
-
+```{r 04-data-cleaning-rename-columns}
 pop2 <- pop %>%
-  rename("01-04"="04-Jan",
-        "05-09" ="09-May",
-        "10-14"="14-Oct")
-
+  rename(
+    "01-04" = "04-Jan",
+    "05-09" = "09-May",
+    "10-14" = "14-Oct"
+  )
 ```
 
+Another important data-cleaning task is reshaping data into a *tidy* format. In tidy data, each variable has its own column, each observation has its own row, and each value occupies a single cell.
 
-This is one approach, here is another using pivot_longer, lets remove `X1` if it exists and remove `Total` while we're at it using `select`. After removing columns that are not needed for the long-format population table...
-In `pivot_longer()`, the `cols` argument defines which columns should be combined under `Age`. Instead of relying only on column positions, we exclude the known non-age columns. This is more reliable because some versions of the population file may not contain an `X1` column.
+The `pivot_longer()` function is commonly used to convert wide datasets into long format.
 
-
-```{r 04-data-cleaning-chunk-2}
-pop_long<-pop %>%
-  select(-any_of(c("X1", "Total"))) %>%
+```{r 04-data-cleaning-pivot}
+pop_long <- pop %>%
+  
+  select(
+    -any_of(c("X1", "Total"))
+  ) %>%
+  
   pivot_longer(
-    cols = -any_of(c("Year", "Gender", "Health Service Delivery Area")),
+    cols = -any_of(
+      c(
+        "Year",
+        "Gender",
+        "Health Service Delivery Area"
+      )
+    ),
     names_to = "Age",
     values_to = "Value"
   )
-  
+
 pop_long
 ```
 
-Examine how the data is different from `pop` to `pop_long`. Type both in your console to compare.
+The resulting dataset stores age groups within a single variable rather than across many separate columns.
 
-We can now recode the values in the long format by using `case_when`. See `?case_when` for details and https://dplyr.tidyverse.org/reference/case_when.html
-
-First we are going to `mutate` the existing `Age` variable.  Then we are saying:
-
-_when_ `age` is equal to "04-Jan", assign (~) these rows the value of "01-04",
-_when_ `age` is equal to "09-May", assign these rows the value of "05-09",
-_when_ `age` is equal to "14-Oct", assign these rows the value of "10-14",
-_when_ the conditions above are not matched, assign these rows the value that they already had
+After reshaping the data, some values may still require cleaning or recoding. The `case_when()` function is often used for this purpose.
 
 ```{r 04-data-cleaning-reformat}
-pop_long =  pop_long %>%
-  mutate(Age = case_when(
-          Age =="04-Jan" ~ "01-04",
-          Age =="09-May" ~ "05-09",
-          Age =="14-Oct" ~   "10-14",
-          TRUE ~ Age
-             
-           )
+pop_long <- pop_long %>%
+  
+  mutate(
+    Age = case_when(
+      Age == "04-Jan" ~ "01-04",
+      Age == "09-May" ~ "05-09",
+      Age == "14-Oct" ~ "10-14",
+      TRUE ~ Age
+    )
   )
-       
 ```
 
-Below we have altered the code above by removing the last line - why is this wrong? What happens to the other values?
+The final line, `TRUE ~ Age`, is important because it preserves all values that do not match the earlier conditions.
+
+If this line is removed, unmatched rows become missing values.
 
 ```{r 04-data-cleaning-recode-wrong}
 pop %>%
-  select(-any_of(c("X1", "Total"))) %>%
+  
+  select(
+    -any_of(c("X1", "Total"))
+  ) %>%
+  
   pivot_longer(
-    cols = -any_of(c("Year", "Gender", "Health Service Delivery Area")),
+    cols = -any_of(
+      c(
+        "Year",
+        "Gender",
+        "Health Service Delivery Area"
+      )
+    ),
     names_to = "Age",
     values_to = "Value"
-  )%>%
-  mutate(Age = case_when(
-          Age =="04-Jan" ~ "01-04",
-          Age =="09-May" ~ "05-09",
-          Age =="14-Oct" ~   "10-14"
-          # TRUE ~ Age
-             
-           )
+  ) %>%
+  
+  mutate(
+    Age = case_when(
+      Age == "04-Jan" ~ "01-04",
+      Age == "09-May" ~ "05-09",
+      Age == "14-Oct" ~ "10-14"
+    )
   )
-
 ```
 
-It is important to double check that when you recode values!
+::: {.warning}
+Always verify the output after recoding variables. Small coding mistakes can unintentionally convert valid values into missing values.
+:::
 
+## Practical considerations for R Markdown workflows
 
-If you "knit" this document, make sure you have commented out the "unzip" chunk. Note that all of the outputs will be "knitted" to the word output. Some of which is not intuitive or pretty for a display in a word document. Refer to the R Markdown documentation to alter the chunks and their display in word.
+When working with R Markdown documents, remember that every code chunk is executed again during knitting. Code that modifies files, unzips folders, or downloads data should therefore be used carefully.
 
-See: https://rmarkdown.rstudio.com/lesson-3.html
+As projects grow larger, keeping code organized and avoiding repeated operations becomes increasingly important for reproducible workflows.
 
+You should also begin thinking about how analyses are documented. A good R Markdown document not only produces correct outputs, but also explains the reasoning behind each analytical step.
 
-Next week:
+## Chapter summary
 
-We will continue cleaning and reshaping the data. We will look into dates, regex, advanced functions and working with lists. 
+In this chapter, you learned several important data cleaning and management techniques using the tidyverse. You imported multiple datasets, explored project files, inspected dataset structures, handled encoding issues, cleaned variable names, reshaped data into tidy formats, and recoded variables using `case_when()`.
 
-You will structure your own analysis Project in R to create a polished R Markdown document.
+These skills form the foundation of reproducible data analysis workflows and will be used extensively throughout the remainder of the course.

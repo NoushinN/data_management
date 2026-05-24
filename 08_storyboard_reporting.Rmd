@@ -1,46 +1,163 @@
-# Storyboard and Reporting
+# Storyboarding and Reporting
 
-## Learning objectives
+Data analysis is not only about writing code and generating outputs. An important part of any analytical workflow is communicating the results clearly to other people. Even a technically correct analysis can become ineffective if the final report is confusing, disorganized, or difficult to interpret.
 
-By the end of this chapter, you should be able to:
+This chapter introduces the idea of *storyboarding*, which is the process of planning the structure and flow of an analysis before fully developing the report. Storyboarding helps organize ideas, identify the main analytical message, and create a logical structure that guides the reader through the analysis.
 
-- plan an analysis before writing code;
-- organize results into a clear storyline;
-- distinguish technical notes from reader-facing explanations;
-- prepare a clean final R Markdown report.
+In many professional environments, analytical reports are written for audiences who may not have strong technical backgrounds. Managers, clients, policy teams, and decision-makers often need a concise explanation of the results and their implications rather than detailed programming logic. A well-structured report helps bridge the gap between technical analysis and practical communication.
 
-## Why storyboarding matters
+By the end of this chapter, you should be able to organize analytical results into a coherent narrative, distinguish technical notes from reader-focused explanations, and prepare a polished R Markdown report that communicates findings clearly and professionally.
 
-A storyboard helps you decide what your report should say before you spend too much time formatting or coding. It is especially useful when your audience is a colleague, manager, client, or instructor who needs the main message quickly.
+## Why storyboarding is important
 
-## A simple storyboard template
+Many beginners begin writing reports by immediately producing plots and tables without first deciding what story the analysis should communicate. This often leads to reports that feel disorganized, repetitive, or difficult to follow.
 
-Use the following structure:
+Storyboarding helps solve this problem by encouraging analysts to think about the structure of the report before focusing on formatting details or extensive coding.
+
+A good storyboard answers several important questions:
+
+- What is the main purpose of the analysis?
+- Who is the intended audience?
+- What are the most important findings?
+- What evidence supports those findings?
+- What limitations or uncertainties should be acknowledged?
+- What should happen next?
+
+Thinking about these questions early helps create reports that are more focused and easier to interpret.
+
+::: {.tip}
+One of the most common reporting mistakes is including every result produced during the analysis. Effective reports focus on the results that are most relevant to the research question or decision-making process.
+:::
+
+## Organizing the analytical narrative
+
+Most analytical reports follow a similar general structure. Although the exact format may vary depending on the audience and project, the report should guide the reader logically from the problem statement to the conclusions.
+
+A simple storyboard structure often includes the following components:
 
 | Section | Purpose |
 |---|---|
-| Background | Explain why the analysis is needed |
-| Data | Describe the datasets used |
-| Cleaning | Explain major cleaning decisions |
-| Analysis | Show summaries, rates, or comparisons |
-| Visualization | Present key plots |
+| Background | Explain why the analysis is being performed |
+| Data | Describe the datasets and variables used |
+| Cleaning and preparation | Explain important cleaning decisions and assumptions |
+| Analysis | Present summaries, comparisons, or calculations |
+| Visualization | Show key figures or tables |
 | Findings | Summarize the main results |
-| Limitations | Explain what the data cannot answer |
-| Next steps | Identify what should happen next |
+| Limitations | Discuss uncertainty or missing information |
+| Next steps | Recommend future analysis or actions |
 
-## Writing clear interpretation
+This structure creates a clear analytical flow that helps readers understand not only the results, but also how those results were produced.
 
-After each major code chunk or plot, add a few sentences explaining what the output means. Avoid leaving tables or plots without interpretation.
+In practice, storyboarding often begins with a rough outline written in plain language before any code or plots are finalized.
 
-## Example interpretation sentence
+For example, before creating visualizations, you might first write:
 
-> The plot shows that population counts vary by age group and Health Service Delivery Area. This helps identify whether age distribution differs across regions before calculating age-specific rates.
+> We want to determine whether cancer mortality rates differ by age group and health region. Before calculating rates, we need to examine population distributions and evaluate whether age structures differ across regions.
 
-## Practice
+Writing the analytical purpose in plain language first often helps clarify what figures and summaries are actually needed.
 
-Choose one plot from the visualization chapter and write a short paragraph explaining:
+## Writing interpretation instead of only showing output
 
-1. what the plot shows;
-2. why it matters;
-3. one limitation of the plot;
-4. what analysis should come next.
+One of the most important parts of reporting is interpretation. Tables and plots should rarely appear without explanation.
+
+After each major figure or summary table, include several sentences explaining:
+
+- what the output shows;
+- why the result matters;
+- what patterns or trends are important; and
+- what limitations should be considered.
+
+For example:
+
+> The plot shows that population counts vary substantially across age groups and Health Service Delivery Areas. Older age groups appear more concentrated in some regions than others, suggesting that age standardization may be important before comparing mortality rates between regions.
+
+This type of interpretation helps connect the visualization to the broader analytical purpose.
+
+Without interpretation, readers are often left to guess what conclusions they should draw from the output.
+
+::: {.note}
+A good analytical report explains the meaning of the results, not only the code used to produce them.
+:::
+
+## Separating technical details from reader-focused explanations
+
+Not all readers require the same level of technical detail. Technical notes are important for reproducibility, but too much technical explanation can interrupt the flow of the report for non-technical audiences.
+
+In many cases, it is useful to separate:
+
+- technical implementation details; and
+- reader-focused interpretation.
+
+For example, instead of writing:
+
+> We used `pivot_longer()` to reshape the data from wide to long format.
+
+a more reader-focused explanation might be:
+
+> The population data were reorganized into a tidy structure so that age groups could be analyzed and visualized consistently.
+
+The technical code remains visible in the R Markdown document, but the written explanation focuses on the analytical purpose rather than the programming mechanics.
+
+This approach creates reports that are both reproducible and easier to read.
+
+## Building a polished R Markdown report
+
+R Markdown is particularly useful for reporting because it combines narrative text, code, tables, and visualizations within a single reproducible document.
+
+A polished report should include:
+
+- a clear title and introduction;
+- consistent formatting and headings;
+- explanatory text between code chunks;
+- readable plots and tables;
+- interpretation of important outputs; and
+- a concise summary of findings.
+
+When preparing figures, readability should be prioritized over decoration. Axes should be labeled clearly, titles should describe the figure meaningfully, and overcrowded plots should be simplified whenever possible.
+
+For example, instead of a title such as:
+
+```text
+Plot 1
+```
+
+a more informative title would be:
+
+```text
+Cancer Mortality by Age Group and Sex
+```
+
+Clear figure titles improve communication and reduce ambiguity.
+
+Similarly, comments and narrative explanations should focus on helping readers understand the workflow rather than simply describing the code syntax.
+
+## Example interpretation workflow
+
+Suppose a visualization shows population counts by age group and health region.
+
+A weak interpretation might be:
+
+> This is a bar plot of population by age.
+
+A stronger interpretation would be:
+
+> The visualization shows that population distributions differ across age groups and health regions. Some regions appear to have relatively older populations, which may influence comparisons of crude mortality rates. This suggests that age-specific or age-standardized analyses may be more appropriate than direct comparisons of overall mortality counts.
+
+The second explanation connects the visualization to analytical reasoning and future decision-making.
+
+## Practice activity
+
+Choose one visualization created earlier in the course and write a short interpretation paragraph discussing:
+
+1. what the visualization shows;
+2. why the result matters;
+3. one limitation of the figure or dataset; and
+4. what analysis or investigation should follow next.
+
+Focus on writing clearly for a reader who may not have a strong technical background.
+
+## Chapter summary
+
+In this chapter, you learned how storyboarding can improve the organization and clarity of analytical reports. You explored how to structure an analysis into a logical narrative, interpret visualizations in plain language, separate technical implementation details from reader-focused explanations, and prepare polished R Markdown reports.
+
+Strong analytical reporting is not only about producing correct results. It is also about communicating those results clearly, transparently, and persuasively to the intended audience.

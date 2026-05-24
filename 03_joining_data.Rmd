@@ -1,15 +1,16 @@
 # Joining Data
 
-## Learning objectives
+In many real-world projects, data are stored across multiple datasets rather than in a single table. For example, one file may contain patient demographic information, while another contains laboratory results or medication records. To perform meaningful analysis, these datasets often need to be combined into a single data frame.
 
-By the end of this chapter, you should be able to:
+The process of combining datasets based on one or more shared variables is called a *join*. In the tidyverse, joins are commonly performed using functions from the `dplyr` package. Understanding how joins work is an essential skill in data management because incorrect joins can easily introduce duplicate rows, missing information, or inaccurate results.
 
-- identify keys used to join datasets;
-- understand one-to-one, one-to-many, and many-to-many joins;
-- use `left_join()`, `inner_join()`, and related join functions;
-- check for duplicate keys before joining.
+In this chapter, you will learn how to identify join keys, understand common join relationships, and use functions such as `left_join()` and `inner_join()` to combine datasets safely and effectively.
 
-## Example data
+## Understanding join keys
+
+A join works by matching rows between two datasets using one or more shared variables called *keys*. A key is typically an identifier such as a patient ID, employee number, postal code, or year.
+
+The example below creates two small datasets that share a common variable called `key`.
 
 ```{r 03-joining-data-join-example-data}
 library(tidyverse)
@@ -29,34 +30,104 @@ y <- tribble(
 )
 ```
 
-## Left join
+In this example, the variable `key` is used to connect the two tables. Dataset `x` contains multiple rows for some keys, while dataset `y` contains only one row for each key.
 
-A left join keeps all rows from the first dataset and brings in matching information from the second dataset.
+Before performing joins, it is important to understand the relationship between the datasets. Common relationships include:
+
+- one-to-one relationships, where each key appears only once in both tables;
+- one-to-many relationships, where one table contains repeated keys; and
+- many-to-many relationships, where both tables contain duplicate keys.
+
+Understanding these relationships is important because joins involving duplicate keys can unexpectedly increase the number of rows in the final dataset.
+
+## Performing joins with dplyr
+
+One of the most commonly used joins is the `left_join()`. A left join keeps all rows from the first dataset and adds matching information from the second dataset whenever a match is found.
 
 ```{r 03-joining-data-left-join-example}
 left_join(x, y, by = "key")
 ```
 
-## Check duplicate keys
+In this example, every row from dataset `x` is preserved. The values from `y` are added based on matching values of `key`.
 
-Before joining real datasets, always check whether the join key is unique.
+Another commonly used join is the `inner_join()`, which keeps only rows that have matches in both datasets.
+
+Different join functions are useful for different analytical situations:
+
+- `left_join()` keeps all rows from the left table;
+- `inner_join()` keeps only matched rows;
+- `right_join()` keeps all rows from the right table;
+- `full_join()` keeps all rows from both tables; and
+- `anti_join()` identifies rows that do not have matching values in another dataset.
+
+In practice, `left_join()` is often the safest starting point because it preserves the structure of the main dataset while adding additional variables from another table.
+
+::: {.tip}
+When performing joins, always think carefully about which dataset should be considered the “main” table. The order of tables in a join can affect the final result.
+:::
+
+## Checking for duplicate keys
+
+Before joining datasets, it is good practice to verify whether the join key is unique. Duplicate keys are one of the most common causes of unexpected results during data merging.
+
+The following code counts the number of times each key appears in both datasets.
 
 ```{r 03-joining-data-check-duplicate-keys}
-x %>% count(key) %>% filter(n > 1)
-y %>% count(key) %>% filter(n > 1)
+x %>%
+  count(key) %>%
+  filter(n > 1)
+
+y %>%
+  count(key) %>%
+  filter(n > 1)
 ```
 
-## Common join types
+In dataset `x`, some keys appear more than once, while dataset `y` contains unique keys. This means the join represents a one-to-many relationship.
 
-- `left_join()`: keep all rows from the left table.
-- `inner_join()`: keep only matched rows.
-- `right_join()`: keep all rows from the right table.
-- `full_join()`: keep all rows from both tables.
-- `anti_join()`: find rows that do not have a match.
+If both datasets contain duplicate keys, the join may create many-to-many relationships, which can dramatically increase the number of rows in the output dataset.
 
-## Practice
+::: {.warning}
+Always inspect duplicate keys before performing joins on large datasets. Unexpected duplication is one of the most common data management errors in real-world projects.
+:::
 
-1. Create two small datasets with a common key.
-2. Try `left_join()` and `inner_join()`.
-3. Check what happens when one table has duplicate keys.
-4. Use `anti_join()` to identify unmatched rows.
+Another useful function is `anti_join()`, which identifies rows in one dataset that do not have matching values in another dataset.
+
+For example:
+
+```{r 03-joining-data-anti-join-example, eval=FALSE}
+anti_join(x, y, by = "key")
+```
+
+This can help identify missing IDs, unmatched records, or inconsistencies between datasets.
+
+## Practical workflow for joining data
+
+In real-world projects, joining datasets often follows a consistent workflow:
+
+1. Identify the key variable used to connect the datasets.
+2. Inspect both datasets for duplicate keys or missing values.
+3. Decide which join type is appropriate.
+4. Perform the join.
+5. Verify the number of rows before and after joining.
+6. Inspect the final dataset for unexpected duplication or missing values.
+
+Developing careful habits during joins is extremely important because join-related errors can propagate through the remainder of an analysis and affect final results.
+
+## Practice exercise
+
+To reinforce the concepts introduced in this chapter, create two small datasets with a shared key variable and experiment with different join functions.
+
+Try the following:
+
+1. Perform a `left_join()` and compare the output with an `inner_join()`.
+2. Add duplicate keys to one or both datasets and observe how the number of rows changes.
+3. Use `anti_join()` to identify unmatched records.
+4. Compare the dimensions of the datasets before and after joining.
+
+As you work through these exercises, focus not only on obtaining the correct output, but also on understanding why the number of rows changes under different join relationships.
+
+## Chapter summary
+
+In this chapter, you learned how datasets can be combined using joins in `dplyr`. You were introduced to join keys, common join relationships, and several important join functions including `left_join()`, `inner_join()`, and `anti_join()`.
+
+You also learned why checking for duplicate keys is an essential part of reproducible data management workflows. Careful inspection of joins helps prevent data duplication, missing records, and inaccurate analytical results.

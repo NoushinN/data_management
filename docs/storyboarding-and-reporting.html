@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | Data Management with R</title>
-  <meta name="description" content="Page not found | Data Management with R" />
+  <title>Chapter 8 Storyboarding and Reporting | Data Management with R</title>
+  <meta name="description" content="Chapter 8 Storyboarding and Reporting | Data Management with R" />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | Data Management with R" />
+  <meta property="og:title" content="Chapter 8 Storyboarding and Reporting | Data Management with R" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | Data Management with R" />
+  <meta name="twitter:title" content="Chapter 8 Storyboarding and Reporting | Data Management with R" />
   
   
   
@@ -29,7 +29,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
+<link rel="prev" href="exploratory-analysis-project.html"/>
 
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -188,18 +188,185 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="page-not-found" class="section level1">
-<h1>Page not found</h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="storyboarding-and-reporting" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">Chapter 8</span> Storyboarding and Reporting<a href="storyboarding-and-reporting.html#storyboarding-and-reporting" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Data analysis is not only about writing code and generating outputs. An important part of any analytical workflow is communicating the results clearly to other people. Even a technically correct analysis can become ineffective if the final report is confusing, disorganized, or difficult to interpret.</p>
+<p>This chapter introduces the idea of <em>storyboarding</em>, which is the process of planning the structure and flow of an analysis before fully developing the report. Storyboarding helps organize ideas, identify the main analytical message, and create a logical structure that guides the reader through the analysis.</p>
+<p>In many professional environments, analytical reports are written for audiences who may not have strong technical backgrounds. Managers, clients, policy teams, and decision-makers often need a concise explanation of the results and their implications rather than detailed programming logic. A well-structured report helps bridge the gap between technical analysis and practical communication.</p>
+<p>By the end of this chapter, you should be able to organize analytical results into a coherent narrative, distinguish technical notes from reader-focused explanations, and prepare a polished R Markdown report that communicates findings clearly and professionally.</p>
+<div id="why-storyboarding-is-important" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Why storyboarding is important<a href="storyboarding-and-reporting.html#why-storyboarding-is-important" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Many beginners begin writing reports by immediately producing plots and tables without first deciding what story the analysis should communicate. This often leads to reports that feel disorganized, repetitive, or difficult to follow.</p>
+<p>Storyboarding helps solve this problem by encouraging analysts to think about the structure of the report before focusing on formatting details or extensive coding.</p>
+<p>A good storyboard answers several important questions:</p>
+<ul>
+<li>What is the main purpose of the analysis?</li>
+<li>Who is the intended audience?</li>
+<li>What are the most important findings?</li>
+<li>What evidence supports those findings?</li>
+<li>What limitations or uncertainties should be acknowledged?</li>
+<li>What should happen next?</li>
+</ul>
+<p>Thinking about these questions early helps create reports that are more focused and easier to interpret.</p>
+<div class="tip">
+<p>One of the most common reporting mistakes is including every result produced during the analysis. Effective reports focus on the results that are most relevant to the research question or decision-making process.</p>
+</div>
+</div>
+<div id="organizing-the-analytical-narrative" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> Organizing the analytical narrative<a href="storyboarding-and-reporting.html#organizing-the-analytical-narrative" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Most analytical reports follow a similar general structure. Although the exact format may vary depending on the audience and project, the report should guide the reader logically from the problem statement to the conclusions.</p>
+<p>A simple storyboard structure often includes the following components:</p>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Section</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Background</td>
+<td>Explain why the analysis is being performed</td>
+</tr>
+<tr class="even">
+<td>Data</td>
+<td>Describe the datasets and variables used</td>
+</tr>
+<tr class="odd">
+<td>Cleaning and preparation</td>
+<td>Explain important cleaning decisions and assumptions</td>
+</tr>
+<tr class="even">
+<td>Analysis</td>
+<td>Present summaries, comparisons, or calculations</td>
+</tr>
+<tr class="odd">
+<td>Visualization</td>
+<td>Show key figures or tables</td>
+</tr>
+<tr class="even">
+<td>Findings</td>
+<td>Summarize the main results</td>
+</tr>
+<tr class="odd">
+<td>Limitations</td>
+<td>Discuss uncertainty or missing information</td>
+</tr>
+<tr class="even">
+<td>Next steps</td>
+<td>Recommend future analysis or actions</td>
+</tr>
+</tbody>
+</table>
+<p>This structure creates a clear analytical flow that helps readers understand not only the results, but also how those results were produced.</p>
+<p>In practice, storyboarding often begins with a rough outline written in plain language before any code or plots are finalized.</p>
+<p>For example, before creating visualizations, you might first write:</p>
+<blockquote>
+<p>We want to determine whether cancer mortality rates differ by age group and health region. Before calculating rates, we need to examine population distributions and evaluate whether age structures differ across regions.</p>
+</blockquote>
+<p>Writing the analytical purpose in plain language first often helps clarify what figures and summaries are actually needed.</p>
+</div>
+<div id="writing-interpretation-instead-of-only-showing-output" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> Writing interpretation instead of only showing output<a href="storyboarding-and-reporting.html#writing-interpretation-instead-of-only-showing-output" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>One of the most important parts of reporting is interpretation. Tables and plots should rarely appear without explanation.</p>
+<p>After each major figure or summary table, include several sentences explaining:</p>
+<ul>
+<li>what the output shows;</li>
+<li>why the result matters;</li>
+<li>what patterns or trends are important; and</li>
+<li>what limitations should be considered.</li>
+</ul>
+<p>For example:</p>
+<blockquote>
+<p>The plot shows that population counts vary substantially across age groups and Health Service Delivery Areas. Older age groups appear more concentrated in some regions than others, suggesting that age standardization may be important before comparing mortality rates between regions.</p>
+</blockquote>
+<p>This type of interpretation helps connect the visualization to the broader analytical purpose.</p>
+<p>Without interpretation, readers are often left to guess what conclusions they should draw from the output.</p>
+<div class="note">
+<p>A good analytical report explains the meaning of the results, not only the code used to produce them.</p>
+</div>
+</div>
+<div id="separating-technical-details-from-reader-focused-explanations" class="section level2 hasAnchor" number="8.4">
+<h2><span class="header-section-number">8.4</span> Separating technical details from reader-focused explanations<a href="storyboarding-and-reporting.html#separating-technical-details-from-reader-focused-explanations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Not all readers require the same level of technical detail. Technical notes are important for reproducibility, but too much technical explanation can interrupt the flow of the report for non-technical audiences.</p>
+<p>In many cases, it is useful to separate:</p>
+<ul>
+<li>technical implementation details; and</li>
+<li>reader-focused interpretation.</li>
+</ul>
+<p>For example, instead of writing:</p>
+<blockquote>
+<p>We used <code>pivot_longer()</code> to reshape the data from wide to long format.</p>
+</blockquote>
+<p>a more reader-focused explanation might be:</p>
+<blockquote>
+<p>The population data were reorganized into a tidy structure so that age groups could be analyzed and visualized consistently.</p>
+</blockquote>
+<p>The technical code remains visible in the R Markdown document, but the written explanation focuses on the analytical purpose rather than the programming mechanics.</p>
+<p>This approach creates reports that are both reproducible and easier to read.</p>
+</div>
+<div id="building-a-polished-r-markdown-report" class="section level2 hasAnchor" number="8.5">
+<h2><span class="header-section-number">8.5</span> Building a polished R Markdown report<a href="storyboarding-and-reporting.html#building-a-polished-r-markdown-report" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>R Markdown is particularly useful for reporting because it combines narrative text, code, tables, and visualizations within a single reproducible document.</p>
+<p>A polished report should include:</p>
+<ul>
+<li>a clear title and introduction;</li>
+<li>consistent formatting and headings;</li>
+<li>explanatory text between code chunks;</li>
+<li>readable plots and tables;</li>
+<li>interpretation of important outputs; and</li>
+<li>a concise summary of findings.</li>
+</ul>
+<p>When preparing figures, readability should be prioritized over decoration. Axes should be labeled clearly, titles should describe the figure meaningfully, and overcrowded plots should be simplified whenever possible.</p>
+<p>For example, instead of a title such as:</p>
+<pre class="text"><code>Plot 1</code></pre>
+<p>a more informative title would be:</p>
+<pre class="text"><code>Cancer Mortality by Age Group and Sex</code></pre>
+<p>Clear figure titles improve communication and reduce ambiguity.</p>
+<p>Similarly, comments and narrative explanations should focus on helping readers understand the workflow rather than simply describing the code syntax.</p>
+</div>
+<div id="example-interpretation-workflow" class="section level2 hasAnchor" number="8.6">
+<h2><span class="header-section-number">8.6</span> Example interpretation workflow<a href="storyboarding-and-reporting.html#example-interpretation-workflow" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Suppose a visualization shows population counts by age group and health region.</p>
+<p>A weak interpretation might be:</p>
+<blockquote>
+<p>This is a bar plot of population by age.</p>
+</blockquote>
+<p>A stronger interpretation would be:</p>
+<blockquote>
+<p>The visualization shows that population distributions differ across age groups and health regions. Some regions appear to have relatively older populations, which may influence comparisons of crude mortality rates. This suggests that age-specific or age-standardized analyses may be more appropriate than direct comparisons of overall mortality counts.</p>
+</blockquote>
+<p>The second explanation connects the visualization to analytical reasoning and future decision-making.</p>
+</div>
+<div id="practice-activity-1" class="section level2 hasAnchor" number="8.7">
+<h2><span class="header-section-number">8.7</span> Practice activity<a href="storyboarding-and-reporting.html#practice-activity-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Choose one visualization created earlier in the course and write a short interpretation paragraph discussing:</p>
+<ol style="list-style-type: decimal">
+<li>what the visualization shows;</li>
+<li>why the result matters;</li>
+<li>one limitation of the figure or dataset; and</li>
+<li>what analysis or investigation should follow next.</li>
+</ol>
+<p>Focus on writing clearly for a reader who may not have a strong technical background.</p>
+</div>
+<div id="chapter-summary-7" class="section level2 hasAnchor" number="8.8">
+<h2><span class="header-section-number">8.8</span> Chapter summary<a href="storyboarding-and-reporting.html#chapter-summary-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In this chapter, you learned how storyboarding can improve the organization and clarity of analytical reports. You explored how to structure an analysis into a logical narrative, interpret visualizations in plain language, separate technical implementation details from reader-focused explanations, and prepare polished R Markdown reports.</p>
+<p>Strong analytical reporting is not only about producing correct results. It is also about communicating those results clearly, transparently, and persuasively to the intended audience.
+```</p>
+
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
+<a href="exploratory-analysis-project.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>

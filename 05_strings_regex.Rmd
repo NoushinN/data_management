@@ -1,5 +1,3 @@
-# Strings and Regular Expressions
-
 ```{r 05-strings-regex-setup, include=FALSE}
 knitr::opts_chunk$set(
   echo = TRUE,
@@ -8,35 +6,35 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Learning Objectives
+# Strings and Regular Expressions
 
-By the end of this practice, you should be able to:
+Character variables are extremely common in real-world datasets. Names, addresses, postal codes, diagnostic codes, survey responses, and file names are all examples of text-based data that often require cleaning before analysis can begin.
 
-- Load and inspect data using tidyverse tools.
-- Separate one character column into multiple columns.
-- Clean extra spaces using `str_trim()`.
-- Extract text patterns using regular expressions and `str_extract()`.
-- Create a simple custom function.
-- Reshape data from wide format to long format using `pivot_longer()`.
-- Separate coded variable names into meaningful variables.
-- Summarize and visualize categorical data.
+This chapter introduces tools for working with strings and regular expressions in R using the tidyverse and the `stringr` package. You will learn how to separate text variables into multiple columns, remove unnecessary spaces, extract patterns from text, reshape complex datasets, and use regular expressions to identify meaningful information hidden inside character strings.
 
-# 1. Load Libraries
+In addition to text cleaning, this chapter also introduces important data reshaping techniques using `pivot_longer()`, which is commonly used to convert messy wide-format datasets into tidy long-format structures suitable for analysis.
 
-We will use the `tidyverse` package, which includes `dplyr`, `tidyr`, `ggplot2`, `readr`, and other useful packages. We will also load `stringr` for working with text.
+## Working with character data in R
+
+The tidyverse includes several useful tools for working with text data. In this chapter, we will primarily use functions from `stringr`, which provides a consistent and readable framework for string manipulation.
+
+Begin by loading the required libraries.
 
 ```{r 05-strings-regex-load-libraries}
 library(tidyverse)
 library(stringr)
 ```
 
-# 2. Titanic Example: Cleaning Names and Extracting Titles
+Throughout this chapter, we will work with two example datasets:
 
-In this section, we use the Titanic dataset to practice working with character variables.
+- the Titanic dataset, which will be used to practice cleaning names and extracting passenger titles; and
+- the WHO tuberculosis dataset, which will be used to demonstrate reshaping and decoding complex variable names.
 
-## 2.1 Read the Data
+## Cleaning and separating character variables
 
-The dataset is read from the `Raw Data` folder. We also convert `Survived` and `Sex` to factor variables during import.
+The Titanic dataset contains a variable called `Name`, which stores multiple pieces of information within a single text field.
+
+We begin by importing the data and converting selected variables into factors.
 
 ```{r 05-strings-regex-read-titanic-data}
 titanic <- read_csv(
@@ -48,104 +46,160 @@ titanic <- read_csv(
 )
 ```
 
-## 2.2 Basic Cleaning
-
-First, we remove records where `Survived` is missing. Then, we create a new variable called `family_size`.
+Before working with the names, we perform a small amount of initial cleaning. Records with missing survival information are removed, and a new variable called `family_size` is created.
 
 ```{r 05-strings-regex-clean-titanic-data}
 titanic <- titanic %>%
+  
   filter(!is.na(Survived)) %>%
-  mutate(family_size = SibSp + Parch + 1)
+  
+  mutate(
+    family_size = SibSp + Parch + 1
+  )
 
 head(titanic)
 ```
 
-# 3. Separate Passenger Names
-
-The `Name` column contains both last name and first name information. We can separate this column into two columns: `Last_name` and `First_name`.
+The `Name` variable contains both last names and first names in a single column. To make the data easier to analyze, we can separate this variable into two new columns.
 
 ```{r 05-strings-regex-separate-name}
 titanic <- titanic %>%
+  
   separate(
     col = Name,
     into = c("Last_name", "First_name"),
     sep = ","
   )
 
-head(titanic %>% select(Last_name, First_name))
+head(
+  titanic %>%
+    select(Last_name, First_name)
+)
 ```
 
-## 3.1 Remove Extra Spaces
-
-After separating the names, the `First_name` column may contain extra spaces at the beginning. We can remove these using `str_trim()`.
+After separating the names, some records contain extra spaces at the beginning of the `First_name` variable. These spaces can be removed using `str_trim()`.
 
 ```{r 05-strings-regex-trim-first-name}
 titanic <- titanic %>%
-  mutate(First_name = str_trim(First_name, side = "left"))
+  
+  mutate(
+    First_name = str_trim(
+      First_name,
+      side = "left"
+    )
+  )
 
-head(titanic %>% select(Last_name, First_name))
+head(
+  titanic %>%
+    select(Last_name, First_name)
+)
 ```
 
-# 4. Extract Titles Using Regex
+Cleaning whitespace is a small but important part of text processing because extra spaces can interfere with matching, grouping, and filtering operations.
 
-Passenger titles such as `Mr`, `Mrs`, `Miss`, and `Master` are stored inside the `First_name` column. We can extract them using `str_extract()`.
+## Extracting patterns with regular expressions
+
+Many text variables contain structured patterns that can be extracted using regular expressions, often called *regex*.
+
+In the Titanic dataset, passenger titles such as `"Mr"`, `"Mrs"`, `"Miss"`, and `"Master"` appear within the `First_name` variable. We can extract these titles using the `str_extract()` function.
 
 ```{r 05-strings-regex-extract-title}
 titanic <- titanic %>%
-  mutate(Title = str_extract(First_name, "^[^.]+"))
+  
+  mutate(
+    Title = str_extract(
+      First_name,
+      "^[^.]+"
+    )
+  )
 
-head(titanic %>% select(First_name, Title))
+head(
+  titanic %>%
+    select(First_name, Title)
+)
 ```
 
-## 4.1 Regex Explanation
+The regular expression `^[^.]+` can be interpreted as follows:
 
-The pattern `^[^.]+` means:
+- `^` indicates the beginning of the string;
+- `[^.]` means any character except a period; and
+- `+` means one or more occurrences of the previous pattern.
 
-- `^` starts matching at the beginning of the string.
-- `[^.]` means any character except a period.
-- `+` means one or more of the previous character pattern.
+Together, the expression extracts all characters from the beginning of the string until the first period is reached.
 
-Together, this extracts all characters from the start of the string until the first period.
+Regular expressions can initially appear intimidating, but they become extremely powerful once you begin recognizing common text patterns.
 
-# 5. Create a Function
+::: {.tip}
+When learning regular expressions, it is often helpful to interpret them one symbol at a time rather than trying to understand the entire pattern at once.
+:::
 
-Now we can turn the title-extraction steps into a reusable function.
+## Creating reusable functions
+
+When the same sequence of operations must be repeated multiple times, it is often useful to place the code inside a function.
+
+The following function trims whitespace and extracts passenger titles.
 
 ```{r 05-strings-regex-create-title-function}
 create_title <- function(firstname) {
+  
   firstname %>%
+    
     str_trim(side = "left") %>%
+    
     str_extract("^[^.]+")
 }
 ```
 
-## 5.1 Test the Function
+We can then apply the function directly to the dataset.
 
 ```{r 05-strings-regex-test-title-function}
 titanic <- titanic %>%
-  mutate(Title_from_function = create_title(First_name))
+  
+  mutate(
+    Title_from_function =
+      create_title(First_name)
+  )
 
-head(titanic %>% select(First_name, Title, Title_from_function))
+head(
+  titanic %>%
+    select(
+      First_name,
+      Title,
+      Title_from_function
+    )
+)
 ```
 
-# 6. Practice Question: Summarize Titanic Titles
+Creating functions improves readability and reduces repeated code, especially in large projects.
 
-Create a summary table showing the number of passengers in each title group.
+## Summarizing and visualizing categorical data
+
+Once titles have been extracted, we can summarize the number of passengers within each title group.
 
 ```{r 05-strings-regex-title-summary}
 title_summary <- titanic %>%
+  
   count(Title, sort = TRUE)
 
 title_summary
 ```
 
-## 6.1 Plot Titanic Titles
+We can also visualize the distribution using `ggplot2`.
 
 ```{r 05-strings-regex-plot-title-summary}
 title_summary %>%
-  ggplot(aes(x = reorder(Title, n), y = n)) +
+  
+  ggplot(
+    aes(
+      x = reorder(Title, n),
+      y = n
+    )
+  ) +
+  
   geom_col() +
+  
   coord_flip() +
+  
   labs(
     title = "Number of Titanic Passengers by Title",
     x = "Title",
@@ -153,9 +207,11 @@ title_summary %>%
   )
 ```
 
-# 7. WHO Data Example: Reshaping Data
+Visual summaries are often useful for identifying unusual categories, inconsistencies, or unexpected values within character variables.
 
-The `who` dataset contains tuberculosis cases by country, year, sex, age group, and diagnosis type. The dataset is included in the `tidyr` package, which is part of the tidyverse.
+## Reshaping complex datasets
+
+The WHO tuberculosis dataset provides an excellent example of why data reshaping is often necessary.
 
 ```{r 05-strings-regex-load-who-data}
 data(who)
@@ -163,23 +219,27 @@ data(who)
 glimpse(who)
 ```
 
-# 8. Why Reshape the WHO Data?
+Many column names in this dataset are not true variables. Instead, the column names themselves contain several pieces of information.
 
-Many columns in the WHO dataset are not true variables. Instead, their names contain several pieces of information, such as diagnosis type, sex, and age group.
+For example:
 
-For example, a column name like `new_sp_m014` contains:
+```text
+new_sp_m014
+```
 
-- `new`: new cases
-- `sp`: smear-positive pulmonary TB
-- `m`: male
-- `014`: age group 0–14
+contains:
 
-To make the dataset tidy, we need to reshape it from wide format to long format.
+- the diagnosis type;
+- the sex category; and
+- the age group.
 
-# 9. Pivot WHO Data from Wide to Long Format
+This structure violates the principles of tidy data because multiple variables are embedded inside the column names.
+
+To clean the dataset, we first reshape it from wide format into long format using `pivot_longer()`.
 
 ```{r 05-strings-regex-pivot-who-longer}
 who1 <- who %>%
+  
   pivot_longer(
     cols = new_sp_m014:newrel_f65,
     names_to = "key",
@@ -190,38 +250,45 @@ who1 <- who %>%
 who1
 ```
 
-# 10. Clean Inconsistent Column Names
-
-Some column names use `newrel` instead of `new_rel`. We fix this before separating the `key` column.
+After reshaping the data, we correct inconsistent variable naming.
 
 ```{r 05-strings-regex-clean-who-key}
 who2 <- who1 %>%
-  mutate(key = str_replace(key, "newrel", "new_rel"))
+  
+  mutate(
+    key = str_replace(
+      key,
+      "newrel",
+      "new_rel"
+    )
+  )
 
 who2
 ```
 
-# 11. Separate the Key Column
-
-The `key` column contains multiple pieces of information. We separate it into `new`, `type`, and `sexage`.
+The combined `key` variable can then be separated into multiple meaningful variables.
 
 ```{r 05-strings-regex-separate-who-key}
 who3 <- who2 %>%
+  
   separate(
     col = key,
-    into = c("new", "type", "sexage"),
+    into = c(
+      "new",
+      "type",
+      "sexage"
+    ),
     sep = "_"
   )
 
 who3
 ```
 
-# 12. Separate Sex and Age
-
-The `sexage` column combines sex and age group. We separate it after the first character.
+Finally, the `sexage` variable can be divided into separate sex and age variables.
 
 ```{r 05-strings-regex-separate-sex-age}
 who4 <- who3 %>%
+  
   separate(
     col = sexage,
     into = c("sex", "age"),
@@ -231,156 +298,123 @@ who4 <- who3 %>%
 who4
 ```
 
-# 13. Full WHO Cleaning Pipeline
-
-The full process can be written as one pipe.
+The entire cleaning workflow can also be written as one continuous pipeline.
 
 ```{r 05-strings-regex-full-who-pipeline}
 who_clean <- who %>%
+  
   pivot_longer(
     cols = new_sp_m014:newrel_f65,
     names_to = "key",
     values_to = "cases",
     values_drop_na = TRUE
   ) %>%
-  mutate(key = str_replace(key, "newrel", "new_rel")) %>%
-  separate(key, into = c("new", "type", "sexage"), sep = "_") %>%
-  select(-new, -iso2, -iso3) %>%
-  separate(sexage, into = c("sex", "age"), sep = 1)
+  
+  mutate(
+    key = str_replace(
+      key,
+      "newrel",
+      "new_rel"
+    )
+  ) %>%
+  
+  separate(
+    key,
+    into = c(
+      "new",
+      "type",
+      "sexage"
+    ),
+    sep = "_"
+  ) %>%
+  
+  select(
+    -new,
+    -iso2,
+    -iso3
+  ) %>%
+  
+  separate(
+    sexage,
+    into = c("sex", "age"),
+    sep = 1
+  )
 
 who_clean
 ```
 
-# 14. WHO Data Dictionary
+## Using regular expressions inside pivot_longer()
 
-The coded column names contain the following information:
-
-| Code | Meaning |
-|---|---|
-| `new` | New TB cases |
-| `rel` | Relapse cases |
-| `ep` | Extrapulmonary TB |
-| `sn` | Pulmonary TB, smear negative |
-| `sp` | Pulmonary TB, smear positive |
-| `m` | Male |
-| `f` | Female |
-| `014` | 0–14 years old |
-| `1524` | 15–24 years old |
-| `2534` | 25–34 years old |
-| `3544` | 35–44 years old |
-| `4554` | 45–54 years old |
-| `5564` | 55–64 years old |
-| `65` | 65 years or older |
-
-# 15. Regex Practice Question
-
-The following code reshapes the WHO dataset using a regular expression.
+An alternative approach uses regular expressions directly inside `pivot_longer()` to extract multiple variables at once.
 
 ```{r 05-strings-regex-regex-practice}
 who_longer <- who %>%
+  
   pivot_longer(
     cols = new_sp_m014:newrel_f65,
-    names_to = c("diagnosis", "gender", "age"),
-    names_pattern = "new_?(.*)_(.)(.*)",
+    
+    names_to = c(
+      "diagnosis",
+      "gender",
+      "age"
+    ),
+    
+    names_pattern =
+      "new_?(.*)_(.)(.*)",
+    
     values_to = "count",
+    
     values_drop_na = TRUE
   )
 
 who_longer
 ```
 
-## 15.1 Explanation of the Regex
+The regular expression used here contains several capture groups:
 
-The pattern `new_?(.*)_(.)(.*)` means:
+- `(.*)` extracts the diagnosis type;
+- `(.)` extracts one character representing sex; and
+- the final `(.*)` extracts the age group.
 
-- `new` matches the text `new` at the beginning.
-- `_?` means the underscore after `new` may or may not be present.
-- `(.*)` captures the diagnosis type, such as `sp`, `ep`, `sn`, or `rel`.
-- `_` matches the underscore before sex and age.
-- `(.)` captures one character for gender, such as `m` or `f`.
-- `(.*)` captures the remaining characters as the age group.
+These extracted components are automatically assigned to the variables listed in `names_to`.
 
-The brackets create capture groups. These captured parts are placed into the new columns listed in `names_to`.
+This approach demonstrates how regular expressions can be integrated directly into data reshaping workflows.
 
-# 16. Discussion Question: NA vs Zero
+## Missing values and interpretation
 
-In this practice, we used `values_drop_na = TRUE`. This removes missing values while reshaping the dataset.
+During reshaping, we used the argument:
 
-This can be reasonable when we know that missing values represent combinations that were not recorded in the dataset. However, an `NA` is not always the same as zero:
-
-- `NA` means the value is missing or unknown.
-- `0` means the value is known and equal to zero.
-
-Before dropping missing values, it is important to understand how missing values are used in the dataset.
-
-# 17. Additional Practice Questions
-
-Try answering the following questions using the cleaned datasets.
-
-## 17.1 Titanic Practice
-
-1. Which title appears most often in the Titanic dataset?
-2. How many unique titles are there?
-3. Create a bar plot of survival counts by sex.
-4. Create a summary table showing average family size by passenger class.
-
-## 17.2 WHO Practice
-
-1. How many total TB cases are recorded by sex?
-2. Which country has the highest number of recorded TB cases?
-3. Which age group has the highest number of recorded TB cases?
-4. Create a bar plot of total TB cases by age group.
-
-# 18. Example Solutions for Extra Practice
-
-## 18.1 Titanic: Survival Count by Sex
-
-```{r 05-strings-regex-titanic-survival-by-sex}
-titanic %>%
-  count(Sex, Survived) %>%
-  ggplot(aes(x = Sex, y = n, fill = Survived)) +
-  geom_col(position = "dodge") +
-  labs(
-    title = "Titanic Survival Count by Sex",
-    x = "Sex",
-    y = "Number of Passengers",
-    fill = "Survived"
-  )
+```r
+values_drop_na = TRUE
 ```
 
-## 18.2 WHO: Total Cases by Sex
+This removes rows containing missing values.
 
-```{r 05-strings-regex-who-cases-by-sex}
-who_clean %>%
-  group_by(sex) %>%
-  summarize(total_cases = sum(cases, na.rm = TRUE)) %>%
-  arrange(desc(total_cases))
-```
+However, it is important to remember that missing values are not always equivalent to zero values.
 
-## 18.3 WHO: Total Cases by Age Group
+An `NA` typically means that the value is unknown or unavailable, while a value of `0` indicates that the quantity is known and equal to zero.
 
-```{r 05-strings-regex-who-cases-by-age}
-who_clean %>%
-  group_by(age) %>%
-  summarize(total_cases = sum(cases, na.rm = TRUE)) %>%
-  arrange(desc(total_cases)) %>%
-  ggplot(aes(x = reorder(age, total_cases), y = total_cases)) +
-  geom_col() +
-  coord_flip() +
-  labs(
-    title = "Total TB Cases by Age Group",
-    x = "Age Group",
-    y = "Total Cases"
-  )
-```
+Understanding the meaning of missing values is an essential part of responsible data analysis.
 
-# 19. Key Takeaways
+::: {.warning}
+Never assume that missing values and zeros represent the same thing. Incorrect handling of missing data can substantially alter analytical results.
+:::
 
-In this practice, you learned how to:
+## Additional practice
 
-- Clean and separate character columns.
-- Use `stringr` functions to trim and extract text.
-- Use regular expressions to identify text patterns.
-- Reshape data from wide format to long format.
-- Convert coded column names into meaningful variables.
-- Summarize and visualize categorical data.
+The cleaned datasets created in this chapter can now be used for additional exploratory analysis.
+
+Possible exercises include:
+
+- identifying the most common passenger titles in the Titanic dataset;
+- creating survival summaries by sex or passenger class;
+- summarizing tuberculosis cases by age group or sex; and
+- visualizing categorical distributions using bar plots.
+
+These exercises help reinforce the connection between text cleaning, data reshaping, and exploratory analysis.
+
+## Chapter summary
+
+In this chapter, you learned how to work with character variables and regular expressions using the tidyverse and `stringr`. You cleaned and separated text variables, extracted patterns using regex, created reusable functions, reshaped wide datasets into tidy long-format structures, and interpreted coded variable names.
+
+These techniques are extremely important in real-world data management because many datasets contain poorly structured text variables and encoded information that must be cleaned before analysis can begin.
