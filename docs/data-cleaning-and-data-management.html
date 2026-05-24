@@ -2,50 +2,64 @@
 <html lang="" xml:lang="">
 <head>
 
-<meta charset="utf-8" />
-<meta name="generator" content="pandoc" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="Chapter 4 Data Cleaning and Data Management | Data Management with R" />
-<meta property="og:type" content="book" />
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Data Cleaning and Data Management | Data Management with R</title>
+  <meta name="description" content="Chapter 4 Data Cleaning and Data Management | Data Management with R" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
+  <meta property="og:title" content="Chapter 4 Data Cleaning and Data Management | Data Management with R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
 
-
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Data Cleaning and Data Management | Data Management with R" />
+  
+  
+  
 
 <meta name="author" content="Noushin Nabavi" />
 
+
 <meta name="date" content="2026-05-24" />
 
-
-<meta name="description" content="Chapter 4 Data Cleaning and Data Management | Data Management with R">
-
-<title>Chapter 4 Data Cleaning and Data Management | Data Management with R</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="joining-data.html"/>
+<link rel="next" href="strings-and-regular-expressions.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
-<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<style>h1 {font-size: 34px;}
-       h1.title {font-size: 38px;}
-       h2 {font-size: 30px;}
-       h3 {font-size: 24px;}
-       h4 {font-size: 18px;}
-       h5 {font-size: 16px;}
-       h6 {font-size: 12px;}
-       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
-       pre:not([class]) { background-color: white }</style>
-<script src="libs/navigation-1.1/tabsets.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
-<style type="text/css">code{white-space: pre;}</style>
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -104,162 +118,153 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 <style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
-
-
 
 <link rel="stylesheet" href="style.css" type="text/css" />
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
-img {
-  max-width:100%;
-  height: auto;
-}
-/* show arrow before summary tag as in bootstrap
-TODO: remove if bootstrap in updated in html_document (rmarkdown#1485) */
-details > summary {
-  display: list-item;
-  cursor: pointer;
-}
-</style>
 </head>
 
 <body>
 
-<div class="container-fluid main-container">
 
 
-<div class="row">
-<div class="col-sm-12">
-<div id="TOC">
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Data Management with R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i>Overview</a></li>
+<li class="chapter" data-level="" data-path="how-to-use-this-book.html"><a href="how-to-use-this-book.html"><i class="fa fa-check"></i>How to Use This Book</a></li>
+<li class="chapter" data-level="" data-path="recommended-chapter-flow.html"><a href="recommended-chapter-flow.html"><i class="fa fa-check"></i>Recommended Chapter Flow</a></li>
+<li class="chapter" data-level="" data-path="project-structure.html"><a href="project-structure.html"><i class="fa fa-check"></i>Project Structure</a></li>
+<li class="chapter" data-level="" data-path="required-r-packages.html"><a href="required-r-packages.html"><i class="fa fa-check"></i>Required R Packages</a></li>
+<li class="chapter" data-level="" data-path="building-the-book.html"><a href="building-the-book.html"><i class="fa fa-check"></i>Building the Book</a></li>
+<li class="chapter" data-level="" data-path="data-and-reproducibility-notes.html"><a href="data-and-reproducibility-notes.html"><i class="fa fa-check"></i>Data and Reproducibility Notes</a></li>
+<li class="chapter" data-level="" data-path="intended-audience.html"><a href="intended-audience.html"><i class="fa fa-check"></i>Intended Audience</a></li>
+<li class="chapter" data-level="" data-path="licence.html"><a href="licence.html"><i class="fa fa-check"></i>Licence</a></li>
+<li class="chapter" data-level="1" data-path="project-setup-and-reproducible-workflows.html"><a href="project-setup-and-reproducible-workflows.html"><i class="fa fa-check"></i><b>1</b> Project Setup and Reproducible Workflows</a>
 <ul>
-<li><a href="index.html#welcome" id="toc-welcome">Welcome</a></li>
-<li><a href="overview.html#overview" id="toc-overview">Overview</a></li>
-<li><a href="how-to-use-this-book.html#how-to-use-this-book" id="toc-how-to-use-this-book">How to Use This Book</a></li>
-<li><a href="recommended-chapter-flow.html#recommended-chapter-flow" id="toc-recommended-chapter-flow">Recommended Chapter Flow</a></li>
-<li><a href="project-structure.html#project-structure" id="toc-project-structure">Project Structure</a></li>
-<li><a href="required-r-packages.html#required-r-packages" id="toc-required-r-packages">Required R Packages</a></li>
-<li><a href="building-the-book.html#building-the-book" id="toc-building-the-book">Building the Book</a></li>
-<li><a href="data-and-reproducibility-notes.html#data-and-reproducibility-notes" id="toc-data-and-reproducibility-notes">Data and Reproducibility Notes</a></li>
-<li><a href="intended-audience.html#intended-audience" id="toc-intended-audience">Intended Audience</a></li>
-<li><a href="licence.html#licence" id="toc-licence">Licence</a></li>
-<li class="has-sub"><a href="project-setup-and-reproducible-workflows.html#project-setup-and-reproducible-workflows" id="toc-project-setup-and-reproducible-workflows"><span class="toc-section-number">1</span> Project Setup and Reproducible Workflows</a>
-<ul>
-<li><a href="project-setup-and-reproducible-workflows.html#organizing-a-reproducible-project" id="toc-organizing-a-reproducible-project"><span class="toc-section-number">1.1</span> Organizing a reproducible project</a></li>
-<li><a href="project-setup-and-reproducible-workflows.html#working-with-rstudio-projects-and-file-paths" id="toc-working-with-rstudio-projects-and-file-paths"><span class="toc-section-number">1.2</span> Working with RStudio Projects and file paths</a></li>
-<li><a href="project-setup-and-reproducible-workflows.html#naming-files-and-managing-outputs" id="toc-naming-files-and-managing-outputs"><span class="toc-section-number">1.3</span> Naming files and managing outputs</a></li>
-<li><a href="project-setup-and-reproducible-workflows.html#r-markdown-and-bookdown-workflows" id="toc-r-markdown-and-bookdown-workflows"><span class="toc-section-number">1.4</span> R Markdown and bookdown workflows</a></li>
-<li><a href="project-setup-and-reproducible-workflows.html#git-github-and-reproducible-analysis" id="toc-git-github-and-reproducible-analysis"><span class="toc-section-number">1.5</span> Git, GitHub, and reproducible analysis</a></li>
-<li><a href="project-setup-and-reproducible-workflows.html#chapter-summary" id="toc-chapter-summary"><span class="toc-section-number">1.6</span> Chapter summary</a></li>
+<li class="chapter" data-level="1.1" data-path="project-setup-and-reproducible-workflows.html"><a href="project-setup-and-reproducible-workflows.html#organizing-a-reproducible-project"><i class="fa fa-check"></i><b>1.1</b> Organizing a reproducible project</a></li>
+<li class="chapter" data-level="1.2" data-path="project-setup-and-reproducible-workflows.html"><a href="project-setup-and-reproducible-workflows.html#working-with-rstudio-projects-and-file-paths"><i class="fa fa-check"></i><b>1.2</b> Working with RStudio Projects and file paths</a></li>
+<li class="chapter" data-level="1.3" data-path="project-setup-and-reproducible-workflows.html"><a href="project-setup-and-reproducible-workflows.html#naming-files-and-managing-outputs"><i class="fa fa-check"></i><b>1.3</b> Naming files and managing outputs</a></li>
+<li class="chapter" data-level="1.4" data-path="project-setup-and-reproducible-workflows.html"><a href="project-setup-and-reproducible-workflows.html#r-markdown-and-bookdown-workflows"><i class="fa fa-check"></i><b>1.4</b> R Markdown and bookdown workflows</a></li>
+<li class="chapter" data-level="1.5" data-path="project-setup-and-reproducible-workflows.html"><a href="project-setup-and-reproducible-workflows.html#git-github-and-reproducible-analysis"><i class="fa fa-check"></i><b>1.5</b> Git, GitHub, and reproducible analysis</a></li>
+<li class="chapter" data-level="1.6" data-path="project-setup-and-reproducible-workflows.html"><a href="project-setup-and-reproducible-workflows.html#chapter-summary"><i class="fa fa-check"></i><b>1.6</b> Chapter summary</a></li>
 </ul></li>
-<li class="has-sub"><a href="tidyverse-basics.html#tidyverse-basics" id="toc-tidyverse-basics"><span class="toc-section-number">2</span> Tidyverse Basics</a>
+<li class="chapter" data-level="2" data-path="tidyverse-basics.html"><a href="tidyverse-basics.html"><i class="fa fa-check"></i><b>2</b> Tidyverse Basics</a>
 <ul>
-<li><a href="tidyverse-basics.html#loading-packages-and-reading-data" id="toc-loading-packages-and-reading-data"><span class="toc-section-number">2.1</span> Loading packages and reading data</a></li>
-<li><a href="tidyverse-basics.html#inspecting-data-frames" id="toc-inspecting-data-frames"><span class="toc-section-number">2.2</span> Inspecting data frames</a></li>
-<li><a href="tidyverse-basics.html#data-manipulation-with-dplyr" id="toc-data-manipulation-with-dplyr"><span class="toc-section-number">2.3</span> Data manipulation with dplyr</a></li>
-<li><a href="tidyverse-basics.html#practice-exercise" id="toc-practice-exercise"><span class="toc-section-number">2.4</span> Practice exercise</a></li>
-<li><a href="tidyverse-basics.html#chapter-summary-1" id="toc-chapter-summary-1"><span class="toc-section-number">2.5</span> Chapter summary</a></li>
+<li class="chapter" data-level="2.1" data-path="tidyverse-basics.html"><a href="tidyverse-basics.html#loading-packages-and-reading-data"><i class="fa fa-check"></i><b>2.1</b> Loading packages and reading data</a></li>
+<li class="chapter" data-level="2.2" data-path="tidyverse-basics.html"><a href="tidyverse-basics.html#inspecting-data-frames"><i class="fa fa-check"></i><b>2.2</b> Inspecting data frames</a></li>
+<li class="chapter" data-level="2.3" data-path="tidyverse-basics.html"><a href="tidyverse-basics.html#data-manipulation-with-dplyr"><i class="fa fa-check"></i><b>2.3</b> Data manipulation with dplyr</a></li>
+<li class="chapter" data-level="2.4" data-path="tidyverse-basics.html"><a href="tidyverse-basics.html#practice-exercise"><i class="fa fa-check"></i><b>2.4</b> Practice exercise</a></li>
+<li class="chapter" data-level="2.5" data-path="tidyverse-basics.html"><a href="tidyverse-basics.html#chapter-summary-1"><i class="fa fa-check"></i><b>2.5</b> Chapter summary</a></li>
 </ul></li>
-<li class="has-sub"><a href="joining-data.html#joining-data" id="toc-joining-data"><span class="toc-section-number">3</span> Joining Data</a>
+<li class="chapter" data-level="3" data-path="joining-data.html"><a href="joining-data.html"><i class="fa fa-check"></i><b>3</b> Joining Data</a>
 <ul>
-<li><a href="joining-data.html#understanding-join-keys" id="toc-understanding-join-keys"><span class="toc-section-number">3.1</span> Understanding join keys</a></li>
-<li><a href="joining-data.html#performing-joins-with-dplyr" id="toc-performing-joins-with-dplyr"><span class="toc-section-number">3.2</span> Performing joins with dplyr</a></li>
-<li><a href="joining-data.html#checking-for-duplicate-keys" id="toc-checking-for-duplicate-keys"><span class="toc-section-number">3.3</span> Checking for duplicate keys</a></li>
-<li><a href="joining-data.html#practical-workflow-for-joining-data" id="toc-practical-workflow-for-joining-data"><span class="toc-section-number">3.4</span> Practical workflow for joining data</a></li>
-<li><a href="joining-data.html#practice-exercise-1" id="toc-practice-exercise-1"><span class="toc-section-number">3.5</span> Practice exercise</a></li>
-<li><a href="joining-data.html#chapter-summary-2" id="toc-chapter-summary-2"><span class="toc-section-number">3.6</span> Chapter summary</a></li>
+<li class="chapter" data-level="3.1" data-path="joining-data.html"><a href="joining-data.html#understanding-join-keys"><i class="fa fa-check"></i><b>3.1</b> Understanding join keys</a></li>
+<li class="chapter" data-level="3.2" data-path="joining-data.html"><a href="joining-data.html#performing-joins-with-dplyr"><i class="fa fa-check"></i><b>3.2</b> Performing joins with dplyr</a></li>
+<li class="chapter" data-level="3.3" data-path="joining-data.html"><a href="joining-data.html#checking-for-duplicate-keys"><i class="fa fa-check"></i><b>3.3</b> Checking for duplicate keys</a></li>
+<li class="chapter" data-level="3.4" data-path="joining-data.html"><a href="joining-data.html#practical-workflow-for-joining-data"><i class="fa fa-check"></i><b>3.4</b> Practical workflow for joining data</a></li>
+<li class="chapter" data-level="3.5" data-path="joining-data.html"><a href="joining-data.html#practice-exercise-1"><i class="fa fa-check"></i><b>3.5</b> Practice exercise</a></li>
+<li class="chapter" data-level="3.6" data-path="joining-data.html"><a href="joining-data.html#chapter-summary-2"><i class="fa fa-check"></i><b>3.6</b> Chapter summary</a></li>
 </ul></li>
-<li class="has-sub"><a href="data-cleaning-and-data-management.html#data-cleaning-and-data-management" id="toc-data-cleaning-and-data-management"><span class="toc-section-number">4</span> Data Cleaning and Data Management</a>
+<li class="chapter" data-level="4" data-path="data-cleaning-and-data-management.html"><a href="data-cleaning-and-data-management.html"><i class="fa fa-check"></i><b>4</b> Data Cleaning and Data Management</a>
 <ul>
-<li><a href="data-cleaning-and-data-management.html#preparing-the-r-environment" id="toc-preparing-the-r-environment"><span class="toc-section-number">4.1</span> Preparing the R environment</a></li>
-<li><a href="data-cleaning-and-data-management.html#exploring-project-files" id="toc-exploring-project-files"><span class="toc-section-number">4.2</span> Exploring project files</a></li>
-<li><a href="data-cleaning-and-data-management.html#description-of-the-datasets" id="toc-description-of-the-datasets"><span class="toc-section-number">4.3</span> Description of the datasets</a></li>
-<li><a href="data-cleaning-and-data-management.html#importing-data-into-r" id="toc-importing-data-into-r"><span class="toc-section-number">4.4</span> Importing data into R</a></li>
-<li><a href="data-cleaning-and-data-management.html#inspecting-datasets" id="toc-inspecting-datasets"><span class="toc-section-number">4.5</span> Inspecting datasets</a></li>
-<li><a href="data-cleaning-and-data-management.html#exploring-and-validating-the-data" id="toc-exploring-and-validating-the-data"><span class="toc-section-number">4.6</span> Exploring and validating the data</a></li>
-<li><a href="data-cleaning-and-data-management.html#cleaning-variable-names-and-reshaping-data" id="toc-cleaning-variable-names-and-reshaping-data"><span class="toc-section-number">4.7</span> Cleaning variable names and reshaping data</a></li>
-<li><a href="data-cleaning-and-data-management.html#practical-considerations-for-r-markdown-workflows" id="toc-practical-considerations-for-r-markdown-workflows"><span class="toc-section-number">4.8</span> Practical considerations for R Markdown workflows</a></li>
-<li><a href="data-cleaning-and-data-management.html#chapter-summary-3" id="toc-chapter-summary-3"><span class="toc-section-number">4.9</span> Chapter summary</a></li>
+<li class="chapter" data-level="4.1" data-path="data-cleaning-and-data-management.html"><a href="data-cleaning-and-data-management.html#preparing-the-r-environment"><i class="fa fa-check"></i><b>4.1</b> Preparing the R environment</a></li>
+<li class="chapter" data-level="4.2" data-path="data-cleaning-and-data-management.html"><a href="data-cleaning-and-data-management.html#exploring-project-files"><i class="fa fa-check"></i><b>4.2</b> Exploring project files</a></li>
+<li class="chapter" data-level="4.3" data-path="data-cleaning-and-data-management.html"><a href="data-cleaning-and-data-management.html#description-of-the-datasets"><i class="fa fa-check"></i><b>4.3</b> Description of the datasets</a></li>
+<li class="chapter" data-level="4.4" data-path="data-cleaning-and-data-management.html"><a href="data-cleaning-and-data-management.html#importing-data-into-r"><i class="fa fa-check"></i><b>4.4</b> Importing data into R</a></li>
+<li class="chapter" data-level="4.5" data-path="data-cleaning-and-data-management.html"><a href="data-cleaning-and-data-management.html#inspecting-datasets"><i class="fa fa-check"></i><b>4.5</b> Inspecting datasets</a></li>
+<li class="chapter" data-level="4.6" data-path="data-cleaning-and-data-management.html"><a href="data-cleaning-and-data-management.html#exploring-and-validating-the-data"><i class="fa fa-check"></i><b>4.6</b> Exploring and validating the data</a></li>
+<li class="chapter" data-level="4.7" data-path="data-cleaning-and-data-management.html"><a href="data-cleaning-and-data-management.html#cleaning-variable-names-and-reshaping-data"><i class="fa fa-check"></i><b>4.7</b> Cleaning variable names and reshaping data</a></li>
+<li class="chapter" data-level="4.8" data-path="data-cleaning-and-data-management.html"><a href="data-cleaning-and-data-management.html#practical-considerations-for-r-markdown-workflows"><i class="fa fa-check"></i><b>4.8</b> Practical considerations for R Markdown workflows</a></li>
+<li class="chapter" data-level="4.9" data-path="data-cleaning-and-data-management.html"><a href="data-cleaning-and-data-management.html#chapter-summary-3"><i class="fa fa-check"></i><b>4.9</b> Chapter summary</a></li>
 </ul></li>
-<li class="has-sub"><a href="strings-and-regular-expressions.html#strings-and-regular-expressions" id="toc-strings-and-regular-expressions"><span class="toc-section-number">5</span> Strings and Regular Expressions</a>
+<li class="chapter" data-level="5" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html"><i class="fa fa-check"></i><b>5</b> Strings and Regular Expressions</a>
 <ul>
-<li><a href="strings-and-regular-expressions.html#working-with-character-data-in-r" id="toc-working-with-character-data-in-r"><span class="toc-section-number">5.1</span> Working with character data in R</a></li>
-<li><a href="strings-and-regular-expressions.html#cleaning-and-separating-character-variables" id="toc-cleaning-and-separating-character-variables"><span class="toc-section-number">5.2</span> Cleaning and separating character variables</a></li>
-<li><a href="strings-and-regular-expressions.html#extracting-patterns-with-regular-expressions" id="toc-extracting-patterns-with-regular-expressions"><span class="toc-section-number">5.3</span> Extracting patterns with regular expressions</a></li>
-<li><a href="strings-and-regular-expressions.html#creating-reusable-functions" id="toc-creating-reusable-functions"><span class="toc-section-number">5.4</span> Creating reusable functions</a></li>
-<li><a href="strings-and-regular-expressions.html#summarizing-and-visualizing-categorical-data" id="toc-summarizing-and-visualizing-categorical-data"><span class="toc-section-number">5.5</span> Summarizing and visualizing categorical data</a></li>
-<li><a href="strings-and-regular-expressions.html#reshaping-complex-datasets" id="toc-reshaping-complex-datasets"><span class="toc-section-number">5.6</span> Reshaping complex datasets</a></li>
-<li><a href="strings-and-regular-expressions.html#using-regular-expressions-inside-pivot_longer" id="toc-using-regular-expressions-inside-pivot_longer"><span class="toc-section-number">5.7</span> Using regular expressions inside pivot_longer()</a></li>
-<li><a href="strings-and-regular-expressions.html#missing-values-and-interpretation" id="toc-missing-values-and-interpretation"><span class="toc-section-number">5.8</span> Missing values and interpretation</a></li>
-<li><a href="strings-and-regular-expressions.html#additional-practice" id="toc-additional-practice"><span class="toc-section-number">5.9</span> Additional practice</a></li>
-<li><a href="strings-and-regular-expressions.html#chapter-summary-4" id="toc-chapter-summary-4"><span class="toc-section-number">5.10</span> Chapter summary</a></li>
+<li class="chapter" data-level="5.1" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html#working-with-character-data-in-r"><i class="fa fa-check"></i><b>5.1</b> Working with character data in R</a></li>
+<li class="chapter" data-level="5.2" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html#cleaning-and-separating-character-variables"><i class="fa fa-check"></i><b>5.2</b> Cleaning and separating character variables</a></li>
+<li class="chapter" data-level="5.3" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html#extracting-patterns-with-regular-expressions"><i class="fa fa-check"></i><b>5.3</b> Extracting patterns with regular expressions</a></li>
+<li class="chapter" data-level="5.4" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html#creating-reusable-functions"><i class="fa fa-check"></i><b>5.4</b> Creating reusable functions</a></li>
+<li class="chapter" data-level="5.5" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html#summarizing-and-visualizing-categorical-data"><i class="fa fa-check"></i><b>5.5</b> Summarizing and visualizing categorical data</a></li>
+<li class="chapter" data-level="5.6" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html#reshaping-complex-datasets"><i class="fa fa-check"></i><b>5.6</b> Reshaping complex datasets</a></li>
+<li class="chapter" data-level="5.7" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html#using-regular-expressions-inside-pivot_longer"><i class="fa fa-check"></i><b>5.7</b> Using regular expressions inside pivot_longer()</a></li>
+<li class="chapter" data-level="5.8" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html#missing-values-and-interpretation"><i class="fa fa-check"></i><b>5.8</b> Missing values and interpretation</a></li>
+<li class="chapter" data-level="5.9" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html#additional-practice"><i class="fa fa-check"></i><b>5.9</b> Additional practice</a></li>
+<li class="chapter" data-level="5.10" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html#chapter-summary-4"><i class="fa fa-check"></i><b>5.10</b> Chapter summary</a></li>
 </ul></li>
-<li class="has-sub"><a href="visualization-and-advanced-data-cleaning.html#visualization-and-advanced-data-cleaning" id="toc-visualization-and-advanced-data-cleaning"><span class="toc-section-number">6</span> Visualization and Advanced Data Cleaning</a>
+<li class="chapter" data-level="6" data-path="visualization-and-advanced-data-cleaning.html"><a href="visualization-and-advanced-data-cleaning.html"><i class="fa fa-check"></i><b>6</b> Visualization and Advanced Data Cleaning</a>
 <ul>
-<li><a href="visualization-and-advanced-data-cleaning.html#research-context-and-datasets" id="toc-research-context-and-datasets"><span class="toc-section-number">6.1</span> Research context and datasets</a></li>
-<li><a href="visualization-and-advanced-data-cleaning.html#reviewing-datasets-before-cleaning" id="toc-reviewing-datasets-before-cleaning"><span class="toc-section-number">6.2</span> Reviewing datasets before cleaning</a></li>
-<li><a href="visualization-and-advanced-data-cleaning.html#cleaning-and-reshaping-population-data" id="toc-cleaning-and-reshaping-population-data"><span class="toc-section-number">6.3</span> Cleaning and reshaping population data</a></li>
-<li><a href="visualization-and-advanced-data-cleaning.html#visualizing-population-data" id="toc-visualizing-population-data"><span class="toc-section-number">6.4</span> Visualizing population data</a></li>
-<li><a href="visualization-and-advanced-data-cleaning.html#identifying-join-keys" id="toc-identifying-join-keys"><span class="toc-section-number">6.5</span> Identifying join keys</a></li>
-<li><a href="visualization-and-advanced-data-cleaning.html#cleaning-mortality-data" id="toc-cleaning-mortality-data"><span class="toc-section-number">6.6</span> Cleaning mortality data</a></li>
-<li><a href="visualization-and-advanced-data-cleaning.html#handling-missing-and-inconsistent-values" id="toc-handling-missing-and-inconsistent-values"><span class="toc-section-number">6.7</span> Handling missing and inconsistent values</a></li>
-<li><a href="visualization-and-advanced-data-cleaning.html#creating-dates-and-calculating-age" id="toc-creating-dates-and-calculating-age"><span class="toc-section-number">6.8</span> Creating dates and calculating age</a></li>
-<li><a href="visualization-and-advanced-data-cleaning.html#imputing-missing-values" id="toc-imputing-missing-values"><span class="toc-section-number">6.9</span> Imputing missing values</a></li>
-<li><a href="visualization-and-advanced-data-cleaning.html#working-with-icd-10-codes" id="toc-working-with-icd-10-codes"><span class="toc-section-number">6.10</span> Working with ICD-10 codes</a></li>
-<li><a href="visualization-and-advanced-data-cleaning.html#visualizing-cleaned-mortality-data" id="toc-visualizing-cleaned-mortality-data"><span class="toc-section-number">6.11</span> Visualizing cleaned mortality data</a></li>
-<li><a href="visualization-and-advanced-data-cleaning.html#saving-cleaned-datasets" id="toc-saving-cleaned-datasets"><span class="toc-section-number">6.12</span> Saving cleaned datasets</a></li>
-<li><a href="visualization-and-advanced-data-cleaning.html#joining-datasets-and-validating-postal-codes" id="toc-joining-datasets-and-validating-postal-codes"><span class="toc-section-number">6.13</span> Joining datasets and validating postal codes</a></li>
-<li><a href="visualization-and-advanced-data-cleaning.html#final-assignment-guidance" id="toc-final-assignment-guidance"><span class="toc-section-number">6.14</span> Final assignment guidance</a></li>
-<li><a href="visualization-and-advanced-data-cleaning.html#chapter-summary-5" id="toc-chapter-summary-5"><span class="toc-section-number">6.15</span> Chapter summary</a></li>
+<li class="chapter" data-level="6.1" data-path="visualization-and-advanced-data-cleaning.html"><a href="visualization-and-advanced-data-cleaning.html#research-context-and-datasets"><i class="fa fa-check"></i><b>6.1</b> Research context and datasets</a></li>
+<li class="chapter" data-level="6.2" data-path="visualization-and-advanced-data-cleaning.html"><a href="visualization-and-advanced-data-cleaning.html#reviewing-datasets-before-cleaning"><i class="fa fa-check"></i><b>6.2</b> Reviewing datasets before cleaning</a></li>
+<li class="chapter" data-level="6.3" data-path="visualization-and-advanced-data-cleaning.html"><a href="visualization-and-advanced-data-cleaning.html#cleaning-and-reshaping-population-data"><i class="fa fa-check"></i><b>6.3</b> Cleaning and reshaping population data</a></li>
+<li class="chapter" data-level="6.4" data-path="visualization-and-advanced-data-cleaning.html"><a href="visualization-and-advanced-data-cleaning.html#visualizing-population-data"><i class="fa fa-check"></i><b>6.4</b> Visualizing population data</a></li>
+<li class="chapter" data-level="6.5" data-path="visualization-and-advanced-data-cleaning.html"><a href="visualization-and-advanced-data-cleaning.html#identifying-join-keys"><i class="fa fa-check"></i><b>6.5</b> Identifying join keys</a></li>
+<li class="chapter" data-level="6.6" data-path="visualization-and-advanced-data-cleaning.html"><a href="visualization-and-advanced-data-cleaning.html#cleaning-mortality-data"><i class="fa fa-check"></i><b>6.6</b> Cleaning mortality data</a></li>
+<li class="chapter" data-level="6.7" data-path="visualization-and-advanced-data-cleaning.html"><a href="visualization-and-advanced-data-cleaning.html#handling-missing-and-inconsistent-values"><i class="fa fa-check"></i><b>6.7</b> Handling missing and inconsistent values</a></li>
+<li class="chapter" data-level="6.8" data-path="visualization-and-advanced-data-cleaning.html"><a href="visualization-and-advanced-data-cleaning.html#creating-dates-and-calculating-age"><i class="fa fa-check"></i><b>6.8</b> Creating dates and calculating age</a></li>
+<li class="chapter" data-level="6.9" data-path="visualization-and-advanced-data-cleaning.html"><a href="visualization-and-advanced-data-cleaning.html#imputing-missing-values"><i class="fa fa-check"></i><b>6.9</b> Imputing missing values</a></li>
+<li class="chapter" data-level="6.10" data-path="visualization-and-advanced-data-cleaning.html"><a href="visualization-and-advanced-data-cleaning.html#working-with-icd-10-codes"><i class="fa fa-check"></i><b>6.10</b> Working with ICD-10 codes</a></li>
+<li class="chapter" data-level="6.11" data-path="visualization-and-advanced-data-cleaning.html"><a href="visualization-and-advanced-data-cleaning.html#visualizing-cleaned-mortality-data"><i class="fa fa-check"></i><b>6.11</b> Visualizing cleaned mortality data</a></li>
+<li class="chapter" data-level="6.12" data-path="visualization-and-advanced-data-cleaning.html"><a href="visualization-and-advanced-data-cleaning.html#saving-cleaned-datasets"><i class="fa fa-check"></i><b>6.12</b> Saving cleaned datasets</a></li>
+<li class="chapter" data-level="6.13" data-path="visualization-and-advanced-data-cleaning.html"><a href="visualization-and-advanced-data-cleaning.html#joining-datasets-and-validating-postal-codes"><i class="fa fa-check"></i><b>6.13</b> Joining datasets and validating postal codes</a></li>
+<li class="chapter" data-level="6.14" data-path="visualization-and-advanced-data-cleaning.html"><a href="visualization-and-advanced-data-cleaning.html#final-assignment-guidance"><i class="fa fa-check"></i><b>6.14</b> Final assignment guidance</a></li>
+<li class="chapter" data-level="6.15" data-path="visualization-and-advanced-data-cleaning.html"><a href="visualization-and-advanced-data-cleaning.html#chapter-summary-5"><i class="fa fa-check"></i><b>6.15</b> Chapter summary</a></li>
 </ul></li>
-<li class="has-sub"><a href="exploratory-analysis-project.html#exploratory-analysis-project" id="toc-exploratory-analysis-project"><span class="toc-section-number">7</span> Exploratory Analysis Project</a>
+<li class="chapter" data-level="7" data-path="exploratory-analysis-project.html"><a href="exploratory-analysis-project.html"><i class="fa fa-check"></i><b>7</b> Exploratory Analysis Project</a>
 <ul>
-<li><a href="exploratory-analysis-project.html#loading-libraries-and-importing-datasets" id="toc-loading-libraries-and-importing-datasets"><span class="toc-section-number">7.1</span> Loading libraries and importing datasets</a></li>
-<li><a href="exploratory-analysis-project.html#reviewing-dataset-structure" id="toc-reviewing-dataset-structure"><span class="toc-section-number">7.2</span> Reviewing dataset structure</a></li>
-<li><a href="exploratory-analysis-project.html#working-with-missing-values" id="toc-working-with-missing-values"><span class="toc-section-number">7.3</span> Working with missing values</a></li>
-<li><a href="exploratory-analysis-project.html#duplicate-records-and-cleaning-decisions" id="toc-duplicate-records-and-cleaning-decisions"><span class="toc-section-number">7.4</span> Duplicate records and cleaning decisions</a></li>
-<li><a href="exploratory-analysis-project.html#exploratory-visualization" id="toc-exploratory-visualization"><span class="toc-section-number">7.5</span> Exploratory visualization</a></li>
-<li><a href="exploratory-analysis-project.html#organizing-an-exploratory-analysis-report" id="toc-organizing-an-exploratory-analysis-report"><span class="toc-section-number">7.6</span> Organizing an exploratory analysis report</a></li>
-<li><a href="exploratory-analysis-project.html#practice-activity" id="toc-practice-activity"><span class="toc-section-number">7.7</span> Practice activity</a></li>
-<li><a href="exploratory-analysis-project.html#chapter-summary-6" id="toc-chapter-summary-6"><span class="toc-section-number">7.8</span> Chapter summary</a></li>
+<li class="chapter" data-level="7.1" data-path="exploratory-analysis-project.html"><a href="exploratory-analysis-project.html#loading-libraries-and-importing-datasets"><i class="fa fa-check"></i><b>7.1</b> Loading libraries and importing datasets</a></li>
+<li class="chapter" data-level="7.2" data-path="exploratory-analysis-project.html"><a href="exploratory-analysis-project.html#reviewing-dataset-structure"><i class="fa fa-check"></i><b>7.2</b> Reviewing dataset structure</a></li>
+<li class="chapter" data-level="7.3" data-path="exploratory-analysis-project.html"><a href="exploratory-analysis-project.html#working-with-missing-values"><i class="fa fa-check"></i><b>7.3</b> Working with missing values</a></li>
+<li class="chapter" data-level="7.4" data-path="exploratory-analysis-project.html"><a href="exploratory-analysis-project.html#duplicate-records-and-cleaning-decisions"><i class="fa fa-check"></i><b>7.4</b> Duplicate records and cleaning decisions</a></li>
+<li class="chapter" data-level="7.5" data-path="exploratory-analysis-project.html"><a href="exploratory-analysis-project.html#exploratory-visualization"><i class="fa fa-check"></i><b>7.5</b> Exploratory visualization</a></li>
+<li class="chapter" data-level="7.6" data-path="exploratory-analysis-project.html"><a href="exploratory-analysis-project.html#organizing-an-exploratory-analysis-report"><i class="fa fa-check"></i><b>7.6</b> Organizing an exploratory analysis report</a></li>
+<li class="chapter" data-level="7.7" data-path="exploratory-analysis-project.html"><a href="exploratory-analysis-project.html#practice-activity"><i class="fa fa-check"></i><b>7.7</b> Practice activity</a></li>
+<li class="chapter" data-level="7.8" data-path="exploratory-analysis-project.html"><a href="exploratory-analysis-project.html#chapter-summary-6"><i class="fa fa-check"></i><b>7.8</b> Chapter summary</a></li>
 </ul></li>
-<li class="has-sub"><a href="storyboarding-and-reporting.html#storyboarding-and-reporting" id="toc-storyboarding-and-reporting"><span class="toc-section-number">8</span> Storyboarding and Reporting</a>
+<li class="chapter" data-level="8" data-path="storyboarding-and-reporting.html"><a href="storyboarding-and-reporting.html"><i class="fa fa-check"></i><b>8</b> Storyboarding and Reporting</a>
 <ul>
-<li><a href="storyboarding-and-reporting.html#why-storyboarding-is-important" id="toc-why-storyboarding-is-important"><span class="toc-section-number">8.1</span> Why storyboarding is important</a></li>
-<li><a href="storyboarding-and-reporting.html#organizing-the-analytical-narrative" id="toc-organizing-the-analytical-narrative"><span class="toc-section-number">8.2</span> Organizing the analytical narrative</a></li>
-<li><a href="storyboarding-and-reporting.html#writing-interpretation-instead-of-only-showing-output" id="toc-writing-interpretation-instead-of-only-showing-output"><span class="toc-section-number">8.3</span> Writing interpretation instead of only showing output</a></li>
-<li><a href="storyboarding-and-reporting.html#separating-technical-details-from-reader-focused-explanations" id="toc-separating-technical-details-from-reader-focused-explanations"><span class="toc-section-number">8.4</span> Separating technical details from reader-focused explanations</a></li>
-<li><a href="storyboarding-and-reporting.html#building-a-polished-r-markdown-report" id="toc-building-a-polished-r-markdown-report"><span class="toc-section-number">8.5</span> Building a polished R Markdown report</a></li>
-<li><a href="storyboarding-and-reporting.html#example-interpretation-workflow" id="toc-example-interpretation-workflow"><span class="toc-section-number">8.6</span> Example interpretation workflow</a></li>
-<li><a href="storyboarding-and-reporting.html#practice-activity-1" id="toc-practice-activity-1"><span class="toc-section-number">8.7</span> Practice activity</a></li>
-<li><a href="storyboarding-and-reporting.html#chapter-summary-7" id="toc-chapter-summary-7"><span class="toc-section-number">8.8</span> Chapter summary</a></li>
+<li class="chapter" data-level="8.1" data-path="storyboarding-and-reporting.html"><a href="storyboarding-and-reporting.html#why-storyboarding-is-important"><i class="fa fa-check"></i><b>8.1</b> Why storyboarding is important</a></li>
+<li class="chapter" data-level="8.2" data-path="storyboarding-and-reporting.html"><a href="storyboarding-and-reporting.html#organizing-the-analytical-narrative"><i class="fa fa-check"></i><b>8.2</b> Organizing the analytical narrative</a></li>
+<li class="chapter" data-level="8.3" data-path="storyboarding-and-reporting.html"><a href="storyboarding-and-reporting.html#writing-interpretation-instead-of-only-showing-output"><i class="fa fa-check"></i><b>8.3</b> Writing interpretation instead of only showing output</a></li>
+<li class="chapter" data-level="8.4" data-path="storyboarding-and-reporting.html"><a href="storyboarding-and-reporting.html#separating-technical-details-from-reader-focused-explanations"><i class="fa fa-check"></i><b>8.4</b> Separating technical details from reader-focused explanations</a></li>
+<li class="chapter" data-level="8.5" data-path="storyboarding-and-reporting.html"><a href="storyboarding-and-reporting.html#building-a-polished-r-markdown-report"><i class="fa fa-check"></i><b>8.5</b> Building a polished R Markdown report</a></li>
+<li class="chapter" data-level="8.6" data-path="storyboarding-and-reporting.html"><a href="storyboarding-and-reporting.html#example-interpretation-workflow"><i class="fa fa-check"></i><b>8.6</b> Example interpretation workflow</a></li>
+<li class="chapter" data-level="8.7" data-path="storyboarding-and-reporting.html"><a href="storyboarding-and-reporting.html#practice-activity-1"><i class="fa fa-check"></i><b>8.7</b> Practice activity</a></li>
+<li class="chapter" data-level="8.8" data-path="storyboarding-and-reporting.html"><a href="storyboarding-and-reporting.html#chapter-summary-7"><i class="fa fa-check"></i><b>8.8</b> Chapter summary</a></li>
 </ul></li>
 </ul>
-</div>
-</div>
-</div>
-<div class="row">
-<div class="col-sm-12">
-<div id="data-cleaning-and-data-management" class="section level1" number="4">
-<h1><span class="header-section-number">Chapter 4</span> Data Cleaning and Data Management</h1>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Management with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-cleaning-and-data-management" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Data Cleaning and Data Management<a href="data-cleaning-and-data-management.html#data-cleaning-and-data-management" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Data cleaning is one of the most important stages of any analytical workflow. In real-world projects, raw data are rarely ready for analysis immediately after import. Datasets often contain inconsistent variable names, missing values, formatting issues, duplicate records, encoding problems, or variables stored in unsuitable formats.</p>
 <p>This chapter introduces several common data management tasks using the tidyverse. You will learn how to import multiple file types, inspect datasets, identify common data quality issues, reshape data into tidy formats, and recode variables into more useful forms.</p>
 <p>Although the datasets used in this course are simplified for teaching purposes, the workflow closely reflects many real-world data cleaning tasks encountered in epidemiology, environmental health, and population data analysis.</p>
-<div id="preparing-the-r-environment" class="section level2" number="4.1">
-<h2><span class="header-section-number">4.1</span> Preparing the R environment</h2>
+<div id="preparing-the-r-environment" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Preparing the R environment<a href="data-cleaning-and-data-management.html#preparing-the-r-environment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Before beginning any analysis, the required libraries should be loaded. For this chapter, we will primarily use packages from the tidyverse ecosystem, along with <code>ggplot2</code> and <code>readxl</code>.</p>
 <p>If these packages are not already installed on your computer, they can be installed using:</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="data-cleaning-and-data-management.html#cb28-1" tabindex="-1"></a><span class="fu">install.packages</span>(</span>
@@ -270,8 +275,8 @@ details > summary {
 <span id="cb29-2"><a href="data-cleaning-and-data-management.html#cb29-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb29-3"><a href="data-cleaning-and-data-management.html#cb29-3" tabindex="-1"></a><span class="fu">library</span>(readxl)</span></code></pre></div>
 </div>
-<div id="exploring-project-files" class="section level2" number="4.2">
-<h2><span class="header-section-number">4.2</span> Exploring project files</h2>
+<div id="exploring-project-files" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Exploring project files<a href="data-cleaning-and-data-management.html#exploring-project-files" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Before importing data, it is often useful to inspect the contents of the project folders. The <code>list.files()</code> function allows you to display all files stored within a directory.</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="data-cleaning-and-data-management.html#cb30-1" tabindex="-1"></a><span class="fu">list.files</span>(<span class="st">&quot;./Raw Data/&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Corr_2016 copy.csv&quot;            &quot;Corr_2016.csv&quot;                
@@ -284,9 +289,8 @@ details > summary {
 <span id="cb32-2"><a href="data-cleaning-and-data-management.html#cb32-2" tabindex="-1"></a>  <span class="st">&quot;./Raw Data/&quot;</span>,</span>
 <span id="cb32-3"><a href="data-cleaning-and-data-management.html#cb32-3" tabindex="-1"></a>  <span class="at">pattern =</span> <span class="st">&quot;.csv&quot;</span></span>
 <span id="cb32-4"><a href="data-cleaning-and-data-management.html#cb32-4" tabindex="-1"></a>)</span></code></pre></div>
-<pre><code>## [1] &quot;Corr_2016 copy.csv&quot;       &quot;Corr_2016.csv&quot;           
-## [3] &quot;Population_Estimates.csv&quot; &quot;titanic.csv&quot;             
-## [5] &quot;Weather_data.csv&quot;</code></pre>
+<pre><code>## [1] &quot;Corr_2016 copy.csv&quot;       &quot;Corr_2016.csv&quot;            &quot;Population_Estimates.csv&quot;
+## [4] &quot;titanic.csv&quot;              &quot;Weather_data.csv&quot;</code></pre>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="data-cleaning-and-data-management.html#cb34-1" tabindex="-1"></a><span class="fu">list.files</span>(</span>
 <span id="cb34-2"><a href="data-cleaning-and-data-management.html#cb34-2" tabindex="-1"></a>  <span class="st">&quot;./Raw Data/&quot;</span>,</span>
 <span id="cb34-3"><a href="data-cleaning-and-data-management.html#cb34-3" tabindex="-1"></a>  <span class="at">pattern =</span> <span class="st">&quot;.xlsx&quot;</span></span>
@@ -304,8 +308,8 @@ details > summary {
 <p>When working in R Markdown documents, avoid repeatedly running file extraction code unless necessary. Re-extracting files every time the document is knitted can slow down workflows and create duplicate files.</p>
 </div>
 </div>
-<div id="description-of-the-datasets" class="section level2" number="4.3">
-<h2><span class="header-section-number">4.3</span> Description of the datasets</h2>
+<div id="description-of-the-datasets" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Description of the datasets<a href="data-cleaning-and-data-management.html#description-of-the-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>This course uses four datasets that simulate a simplified population health analysis workflow.</p>
 <p>The mortality dataset contains records of deaths, including demographic information and ICD-10 cause-of-death codes. Although the dataset is based on realistic structures and counts, the data themselves are fictitious for teaching purposes.</p>
 <p>The population dataset contains estimates of population counts by age group, sex, and Health Service Delivery Area in British Columbia.</p>
@@ -313,8 +317,8 @@ details > summary {
 <p>The environmental dataset contains weather-related variables by postal code, including measures related to temperature and cold exposure.</p>
 <p>The overall analytical goal is to combine these datasets in order to calculate mortality rates and explore potential environmental relationships.</p>
 </div>
-<div id="importing-data-into-r" class="section level2" number="4.4">
-<h2><span class="header-section-number">4.4</span> Importing data into R</h2>
+<div id="importing-data-into-r" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Importing data into R<a href="data-cleaning-and-data-management.html#importing-data-into-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Different file formats require different import functions. The <code>readr</code> package is commonly used for <code>.csv</code> files, while Excel files require functions from the <code>readxl</code> package.</p>
 <p>The following code imports the datasets used in this chapter.</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="data-cleaning-and-data-management.html#cb37-1" tabindex="-1"></a>mort <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(</span>
@@ -326,13 +330,13 @@ details > summary {
 <span id="cb37-7"><a href="data-cleaning-and-data-management.html#cb37-7" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## New names:
 ## Rows: 51 Columns: 25
-## ── Column specification
-## ──────────────────────────────────────────────────────── Delimiter: &quot;,&quot; chr
-## (2): Health Service Delivery Area, Gender dbl (23): ...1, Year, &lt;1, 04-Jan,
-## 09-May, 14-Oct, 15-19, 20-24, 25-29, 30-34...
-## ℹ Use `spec()` to retrieve the full column specification for this data. ℹ
-## Specify the column types or set `show_col_types = FALSE` to quiet this message.
-## • `` -&gt; `...1`</code></pre>
+## -- Column specification
+## --------------------------------------------------------------------- Delimiter: &quot;,&quot; chr
+## (2): Health Service Delivery Area, Gender dbl (23): ...1, Year, &lt;1, 04-Jan, 09-May, 14-Oct,
+## 15-19, 20-24, 25-29, 30-34, 35-39, 40-4...
+## i Use `spec()` to retrieve the full column specification for this data. i Specify the column
+## types or set `show_col_types = FALSE` to quiet this message.
+## * `` -&gt; `...1`</code></pre>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="data-cleaning-and-data-management.html#cb39-1" tabindex="-1"></a>corr <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
 <span id="cb39-2"><a href="data-cleaning-and-data-management.html#cb39-2" tabindex="-1"></a>  <span class="st">&quot;./Raw Data/Corr_2016.csv&quot;</span>,</span>
 <span id="cb39-3"><a href="data-cleaning-and-data-management.html#cb39-3" tabindex="-1"></a>  <span class="at">locale =</span> readr<span class="sc">::</span><span class="fu">locale</span>(</span>
@@ -340,32 +344,32 @@ details > summary {
 <span id="cb39-5"><a href="data-cleaning-and-data-management.html#cb39-5" tabindex="-1"></a>  )</span>
 <span id="cb39-6"><a href="data-cleaning-and-data-management.html#cb39-6" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## Rows: 420963 Columns: 6
-## ── Column specification ────────────────────────────────────────────────────────
+## -- Column specification ---------------------------------------------------------------------
 ## Delimiter: &quot;,&quot;
 ## chr (2): hrname_english, hrname_french
 ## dbl (4): dbuid2016, csduid2016, hruid2017, dbpop2016
 ## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="data-cleaning-and-data-management.html#cb41-1" tabindex="-1"></a>env <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
 <span id="cb41-2"><a href="data-cleaning-and-data-management.html#cb41-2" tabindex="-1"></a>  <span class="st">&quot;./Raw Data/Weather_data.csv&quot;</span></span>
 <span id="cb41-3"><a href="data-cleaning-and-data-management.html#cb41-3" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## Rows: 116011 Columns: 8
-## ── Column specification ────────────────────────────────────────────────────────
+## -- Column specification ---------------------------------------------------------------------
 ## Delimiter: &quot;,&quot;
 ## chr (1): POSTALCODE12
-## dbl (7): WTHNRC12_01, WTHNRC12_02, WTHNRC12_03, WTHNRC12_04, WTHNRC12_05, WT...
+## dbl (7): WTHNRC12_01, WTHNRC12_02, WTHNRC12_03, WTHNRC12_04, WTHNRC12_05, WTHNRC12_06, WT...
 ## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <p>Notice that the correspondence file uses a specific text encoding. Encoding problems are common when datasets contain accented characters or multilingual text.</p>
 </div>
-<div id="inspecting-datasets" class="section level2" number="4.5">
-<h2><span class="header-section-number">4.5</span> Inspecting datasets</h2>
+<div id="inspecting-datasets" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> Inspecting datasets<a href="data-cleaning-and-data-management.html#inspecting-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>After importing data, it is important to examine the structure and contents of each dataset before beginning analysis.</p>
 <p>Several functions provide useful high-level summaries.</p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="data-cleaning-and-data-management.html#cb43-1" tabindex="-1"></a><span class="fu">str</span>(mort)</span></code></pre></div>
-<pre><code>## tibble [60,143 × 13] (S3: tbl_df/tbl/data.frame)
+<pre><code>## tibble [60,143 x 13] (S3: tbl_df/tbl/data.frame)
 ##  $ ID               : num [1:60143] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
 ##  $ Sex              : chr [1:60143] &quot;M&quot; &quot;F&quot; &quot;M&quot; &quot;M&quot; ...
 ##  $ Cause_of_death   : chr [1:60143] &quot;D47&quot; &quot;C34&quot; &quot;C26&quot; &quot;C16&quot; ...
@@ -388,32 +392,24 @@ details > summary {
 ##  3rd Qu.:1056221                                         3rd Qu.:4.715e+10  
 ##  Max.   :1080708                                         Max.   :6.208e+10  
 ##                                                          NA&#39;s   :4          
-##  Location_of_death Marital_status  Postalcode            B_year    
-##  Min.   :1.000     Min.   :1.0    Length:60143       Min.   :1827  
-##  1st Qu.:2.000     1st Qu.:1.0    Class :character   1st Qu.:1933  
-##  Median :4.000     Median :1.0    Mode  :character   Median :1941  
-##  Mean   :3.498     Mean   :1.5                       Mean   :1942  
-##  3rd Qu.:5.000     3rd Qu.:2.0                       3rd Qu.:1951  
-##  Max.   :6.000     Max.   :2.0                       Max.   :2016  
-##                                                      NA&#39;s   :24    
-##     B_month           B_day           D_year        D_month      
-##  Min.   : 1.000   Min.   : 1.00   Min.   :2016   Min.   : 1.000  
-##  1st Qu.: 4.000   1st Qu.: 8.00   1st Qu.:2016   1st Qu.: 4.000  
-##  Median : 7.000   Median :16.00   Median :2016   Median : 7.000  
-##  Mean   : 6.513   Mean   :15.74   Mean   :2016   Mean   : 6.521  
-##  3rd Qu.:10.000   3rd Qu.:23.00   3rd Qu.:2016   3rd Qu.: 9.000  
-##  Max.   :28.000   Max.   :31.00   Max.   :2016   Max.   :21.000  
-##  NA&#39;s   :26       NA&#39;s   :26                                     
-##      D_day      
-##  Min.   : 1.00  
-##  1st Qu.: 8.00  
-##  Median :16.00  
-##  Mean   :15.78  
-##  3rd Qu.:23.00  
-##  Max.   :31.00  
-## </code></pre>
+##  Location_of_death Marital_status  Postalcode            B_year        B_month      
+##  Min.   :1.000     Min.   :1.0    Length:60143       Min.   :1827   Min.   : 1.000  
+##  1st Qu.:2.000     1st Qu.:1.0    Class :character   1st Qu.:1933   1st Qu.: 4.000  
+##  Median :4.000     Median :1.0    Mode  :character   Median :1941   Median : 7.000  
+##  Mean   :3.498     Mean   :1.5                       Mean   :1942   Mean   : 6.513  
+##  3rd Qu.:5.000     3rd Qu.:2.0                       3rd Qu.:1951   3rd Qu.:10.000  
+##  Max.   :6.000     Max.   :2.0                       Max.   :2016   Max.   :28.000  
+##                                                      NA&#39;s   :24     NA&#39;s   :26      
+##      B_day           D_year        D_month           D_day      
+##  Min.   : 1.00   Min.   :2016   Min.   : 1.000   Min.   : 1.00  
+##  1st Qu.: 8.00   1st Qu.:2016   1st Qu.: 4.000   1st Qu.: 8.00  
+##  Median :16.00   Median :2016   Median : 7.000   Median :16.00  
+##  Mean   :15.74   Mean   :2016   Mean   : 6.521   Mean   :15.78  
+##  3rd Qu.:23.00   3rd Qu.:2016   3rd Qu.: 9.000   3rd Qu.:23.00  
+##  Max.   :31.00   Max.   :2016   Max.   :21.000   Max.   :31.00  
+##  NA&#39;s   :26</code></pre>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="data-cleaning-and-data-management.html#cb47-1" tabindex="-1"></a><span class="fu">str</span>(pop)</span></code></pre></div>
-<pre><code>## spc_tbl_ [51 × 25] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+<pre><code>## spc_tbl_ [51 x 25] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
 ##  $ ...1                        : num [1:51] 0 0 0 11 11 11 12 12 12 13 ...
 ##  $ Health Service Delivery Area: chr [1:51] &quot;British Columbia&quot; &quot;British Columbia&quot; &quot;British Columbia&quot; &quot;East Kootenay&quot; ...
 ##  $ Year                        : num [1:51] 2016 2016 2016 2016 2016 ...
@@ -476,41 +472,34 @@ details > summary {
 ##  Mean   :29.06                                Mean   :2016                     
 ##  3rd Qu.:42.00                                3rd Qu.:2016                     
 ##  Max.   :53.00                                Max.   :2016                     
-##        &lt;1            04-Jan           09-May           14-Oct      
-##  Min.   :  276   Min.   :  1356   Min.   :  1755   Min.   :  1811  
-##  1st Qu.:  714   1st Qu.:  3118   1st Qu.:  4194   1st Qu.:  3910  
-##  Median : 1425   Median :  5663   Median :  8002   Median :  7808  
-##  Mean   : 3510   Mean   : 14236   Mean   : 18362   Mean   : 18197  
-##  3rd Qu.: 2802   3rd Qu.: 11025   3rd Qu.: 15384   3rd Qu.: 15350  
-##  Max.   :44757   Max.   :181511   Max.   :234118   Max.   :232010  
-##      15-19            20-24            25-29            30-34       
-##  Min.   :  1919   Min.   :  1577   Min.   :  1640   Min.   :  2069  
-##  1st Qu.:  4240   1st Qu.:  4214   1st Qu.:  4169   1st Qu.:  4415  
-##  Median :  8836   Median :  9193   Median :  8646   Median :  8830  
-##  Mean   : 21386   Mean   : 25657   Mean   : 25019   Mean   : 25823  
-##  3rd Qu.: 17866   3rd Qu.: 22940   3rd Qu.: 21291   3rd Qu.: 22644  
-##  Max.   :272677   Max.   :327129   Max.   :318998   Max.   :329242  
-##      35-39            40-44            45-49            50-54       
-##  Min.   :  2092   Min.   :  2008   Min.   :  2040   Min.   :  2137  
-##  1st Qu.:  4572   1st Qu.:  4483   1st Qu.:  4859   1st Qu.:  5431  
-##  Median :  9490   Median :  9551   Median :  9930   Median : 10666  
-##  Mean   : 24593   Mean   : 23961   Mean   : 25759   Mean   : 27581  
-##  3rd Qu.: 21896   3rd Qu.: 21345   3rd Qu.: 23211   3rd Qu.: 24455  
-##  Max.   :313564   Max.   :305498   Max.   :328426   Max.   :351662  
-##      55-59            60-64            65-69            70-74       
-##  Min.   :  2038   Min.   :  1550   Min.   :  1119   Min.   :   784  
-##  1st Qu.:  5684   1st Qu.:  5349   1st Qu.:  5006   1st Qu.:  3628  
-##  Median : 10972   Median : 10698   Median : 10011   Median :  7256  
-##  Mean   : 27572   Mean   : 24834   Mean   : 22081   Mean   : 15922  
-##  3rd Qu.: 22498   3rd Qu.: 19486   3rd Qu.: 16891   3rd Qu.: 12128  
-##  Max.   :351545   Max.   :316631   Max.   :281537   Max.   :203011  
-##      75-79            80-84            85-89            90+         
-##  Min.   :   538   Min.   :   351   Min.   :  196   Min.   :  114.0  
-##  1st Qu.:  2332   1st Qu.:  1612   1st Qu.:  973   1st Qu.:  536.5  
-##  Median :  5026   Median :  3867   Median : 2636   Median : 1394.0  
-##  Mean   : 11509   Mean   :  8385   Mean   : 5466   Mean   : 3295.2  
-##  3rd Qu.:  9268   3rd Qu.:  6582   3rd Qu.: 4543   3rd Qu.: 2955.0  
-##  Max.   :146734   Max.   :106907   Max.   :69687   Max.   :42014.0  
+##        &lt;1            04-Jan           09-May           14-Oct           15-19       
+##  Min.   :  276   Min.   :  1356   Min.   :  1755   Min.   :  1811   Min.   :  1919  
+##  1st Qu.:  714   1st Qu.:  3118   1st Qu.:  4194   1st Qu.:  3910   1st Qu.:  4240  
+##  Median : 1425   Median :  5663   Median :  8002   Median :  7808   Median :  8836  
+##  Mean   : 3510   Mean   : 14236   Mean   : 18362   Mean   : 18197   Mean   : 21386  
+##  3rd Qu.: 2802   3rd Qu.: 11025   3rd Qu.: 15384   3rd Qu.: 15350   3rd Qu.: 17866  
+##  Max.   :44757   Max.   :181511   Max.   :234118   Max.   :232010   Max.   :272677  
+##      20-24            25-29            30-34            35-39            40-44       
+##  Min.   :  1577   Min.   :  1640   Min.   :  2069   Min.   :  2092   Min.   :  2008  
+##  1st Qu.:  4214   1st Qu.:  4169   1st Qu.:  4415   1st Qu.:  4572   1st Qu.:  4483  
+##  Median :  9193   Median :  8646   Median :  8830   Median :  9490   Median :  9551  
+##  Mean   : 25657   Mean   : 25019   Mean   : 25823   Mean   : 24593   Mean   : 23961  
+##  3rd Qu.: 22940   3rd Qu.: 21291   3rd Qu.: 22644   3rd Qu.: 21896   3rd Qu.: 21345  
+##  Max.   :327129   Max.   :318998   Max.   :329242   Max.   :313564   Max.   :305498  
+##      45-49            50-54            55-59            60-64            65-69       
+##  Min.   :  2040   Min.   :  2137   Min.   :  2038   Min.   :  1550   Min.   :  1119  
+##  1st Qu.:  4859   1st Qu.:  5431   1st Qu.:  5684   1st Qu.:  5349   1st Qu.:  5006  
+##  Median :  9930   Median : 10666   Median : 10972   Median : 10698   Median : 10011  
+##  Mean   : 25759   Mean   : 27581   Mean   : 27572   Mean   : 24834   Mean   : 22081  
+##  3rd Qu.: 23211   3rd Qu.: 24455   3rd Qu.: 22498   3rd Qu.: 19486   3rd Qu.: 16891  
+##  Max.   :328426   Max.   :351662   Max.   :351545   Max.   :316631   Max.   :281537  
+##      70-74            75-79            80-84            85-89            90+         
+##  Min.   :   784   Min.   :   538   Min.   :   351   Min.   :  196   Min.   :  114.0  
+##  1st Qu.:  3628   1st Qu.:  2332   1st Qu.:  1612   1st Qu.:  973   1st Qu.:  536.5  
+##  Median :  7256   Median :  5026   Median :  3867   Median : 2636   Median : 1394.0  
+##  Mean   : 15922   Mean   : 11509   Mean   :  8385   Mean   : 5466   Mean   : 3295.2  
+##  3rd Qu.: 12128   3rd Qu.:  9268   3rd Qu.:  6582   3rd Qu.: 4543   3rd Qu.: 2955.0  
+##  Max.   :203011   Max.   :146734   Max.   :106907   Max.   :69687   Max.   :42014.0  
 ##      Total        
 ##  Min.   :  32171  
 ##  1st Qu.:  70681  
@@ -519,7 +508,7 @@ details > summary {
 ##  3rd Qu.: 329569  
 ##  Max.   :4757658</code></pre>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="data-cleaning-and-data-management.html#cb51-1" tabindex="-1"></a><span class="fu">str</span>(corr)</span></code></pre></div>
-<pre><code>## spc_tbl_ [420,963 × 6] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+<pre><code>## spc_tbl_ [420,963 x 6] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
 ##  $ dbuid2016     : num [1:420963] 1e+10 1e+10 1e+10 1e+10 1e+10 ...
 ##  $ csduid2016    : num [1:420963] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
 ##  $ hruid2017     : num [1:420963] 1011 1011 1011 1011 1011 ...
@@ -537,24 +526,24 @@ details > summary {
 ##   .. )
 ##  - attr(*, &quot;problems&quot;)=&lt;externalptr&gt;</code></pre>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="data-cleaning-and-data-management.html#cb53-1" tabindex="-1"></a><span class="fu">summary</span>(corr)</span></code></pre></div>
-<pre><code>##    dbuid2016           csduid2016        hruid2017    hrname_english    
-##  Min.   :1.001e+10   Min.   :1001101   Min.   :1011   Length:420963     
-##  1st Qu.:2.466e+10   1st Qu.:2466023   1st Qu.:2414   Class :character  
-##  Median :3.558e+10   Median :3558090   Median :3595   Mode  :character  
-##  Mean   :3.856e+10   Mean   :3855572   Mean   :3856                     
-##  3rd Qu.:4.806e+10   3rd Qu.:4806016   3rd Qu.:4832                     
-##  Max.   :6.208e+10   Max.   :6208098   Max.   :6201                     
-##                                                                         
-##  hrname_french        dbpop2016      
-##  Length:420963      Min.   :   0.00  
-##  Class :character   1st Qu.:   5.00  
-##  Mode  :character   Median :  26.00  
-##                     Mean   :  69.44  
-##                     3rd Qu.:  77.00  
-##                     Max.   :7607.00  
-##                     NA&#39;s   :35</code></pre>
+<pre><code>##    dbuid2016           csduid2016        hruid2017    hrname_english     hrname_french     
+##  Min.   :1.001e+10   Min.   :1001101   Min.   :1011   Length:420963      Length:420963     
+##  1st Qu.:2.466e+10   1st Qu.:2466023   1st Qu.:2414   Class :character   Class :character  
+##  Median :3.558e+10   Median :3558090   Median :3595   Mode  :character   Mode  :character  
+##  Mean   :3.856e+10   Mean   :3855572   Mean   :3856                                        
+##  3rd Qu.:4.806e+10   3rd Qu.:4806016   3rd Qu.:4832                                        
+##  Max.   :6.208e+10   Max.   :6208098   Max.   :6201                                        
+##                                                                                            
+##    dbpop2016      
+##  Min.   :   0.00  
+##  1st Qu.:   5.00  
+##  Median :  26.00  
+##  Mean   :  69.44  
+##  3rd Qu.:  77.00  
+##  Max.   :7607.00  
+##  NA&#39;s   :35</code></pre>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="data-cleaning-and-data-management.html#cb55-1" tabindex="-1"></a><span class="fu">str</span>(env)</span></code></pre></div>
-<pre><code>## spc_tbl_ [116,011 × 8] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+<pre><code>## spc_tbl_ [116,011 x 8] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
 ##  $ POSTALCODE12: chr [1:116011] &quot;V0C1E0&quot; &quot;V0C1W0&quot; &quot;V0C2X0&quot; &quot;V0C2Z0&quot; ...
 ##  $ WTHNRC12_01 : num [1:116011] 27.1 30.3 28.2 28.7 23.1 ...
 ##  $ WTHNRC12_02 : num [1:116011] -46.7 -46 -42.3 -44.9 -35 ...
@@ -576,38 +565,38 @@ details > summary {
 ##   .. )
 ##  - attr(*, &quot;problems&quot;)=&lt;externalptr&gt;</code></pre>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="data-cleaning-and-data-management.html#cb57-1" tabindex="-1"></a><span class="fu">summary</span>(env)</span></code></pre></div>
-<pre><code>##  POSTALCODE12        WTHNRC12_01     WTHNRC12_02      WTHNRC12_03    
-##  Length:116011      Min.   :19.28   Min.   :-46.74   Min.   :-2.605  
-##  Class :character   1st Qu.:31.07   1st Qu.:-11.44   1st Qu.: 9.693  
-##  Mode  :character   Median :31.28   Median : -8.40   Median :10.140  
-##                     Mean   :31.62   Mean   :-11.67   Mean   : 9.573  
-##                     3rd Qu.:31.76   3rd Qu.: -7.49   3rd Qu.:10.449  
-##                     Max.   :39.07   Max.   : -4.48   Max.   :10.551  
-##   WTHNRC12_04      WTHNRC12_05      WTHNRC12_06      WTHNRC12_07    
-##  Min.   : 2.913   Min.   :-8.122   Min.   : 4.336   Min.   : 104.6  
-##  1st Qu.:13.454   1st Qu.: 5.750   1st Qu.: 6.936   1st Qu.:1072.1  
-##  Median :13.887   Median : 6.612   Median : 7.151   Median :1316.4  
-##  Mean   :13.521   Mean   : 5.625   Mean   : 7.896   Mean   :1110.7  
-##  3rd Qu.:14.006   3rd Qu.: 6.893   3rd Qu.: 7.935   3rd Qu.:1399.0  
-##  Max.   :16.227   Max.   : 7.132   Max.   :13.498   Max.   :3076.5</code></pre>
+<pre><code>##  POSTALCODE12        WTHNRC12_01     WTHNRC12_02      WTHNRC12_03      WTHNRC12_04    
+##  Length:116011      Min.   :19.28   Min.   :-46.74   Min.   :-2.605   Min.   : 2.913  
+##  Class :character   1st Qu.:31.07   1st Qu.:-11.44   1st Qu.: 9.693   1st Qu.:13.454  
+##  Mode  :character   Median :31.28   Median : -8.40   Median :10.140   Median :13.887  
+##                     Mean   :31.62   Mean   :-11.67   Mean   : 9.573   Mean   :13.521  
+##                     3rd Qu.:31.76   3rd Qu.: -7.49   3rd Qu.:10.449   3rd Qu.:14.006  
+##                     Max.   :39.07   Max.   : -4.48   Max.   :10.551   Max.   :16.227  
+##   WTHNRC12_05      WTHNRC12_06      WTHNRC12_07    
+##  Min.   :-8.122   Min.   : 4.336   Min.   : 104.6  
+##  1st Qu.: 5.750   1st Qu.: 6.936   1st Qu.:1072.1  
+##  Median : 6.612   Median : 7.151   Median :1316.4  
+##  Mean   : 5.625   Mean   : 7.896   Mean   :1110.7  
+##  3rd Qu.: 6.893   3rd Qu.: 7.935   3rd Qu.:1399.0  
+##  Max.   : 7.132   Max.   :13.498   Max.   :3076.5</code></pre>
 <p>The <code>str()</code> function displays the structure of the dataset, including variable types and dimensions. The <code>summary()</code> function provides summary statistics and quick descriptive information.</p>
 <p>Another useful function is <code>glimpse()</code> from <code>dplyr</code>.</p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="data-cleaning-and-data-management.html#cb59-1" tabindex="-1"></a><span class="fu">glimpse</span>(mort)</span></code></pre></div>
 <pre><code>## Rows: 60,143
 ## Columns: 13
-## $ ID                &lt;dbl&gt; 1000001, 1000002, 1000003, 1000004, 1000005, 1000006…
-## $ Sex               &lt;chr&gt; &quot;M&quot;, &quot;F&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;M&quot;, &quot;F…
-## $ Cause_of_death    &lt;chr&gt; &quot;D47&quot;, &quot;C34&quot;, &quot;C26&quot;, &quot;C16&quot;, &quot;C22&quot;, &quot;C50&quot;, &quot;C85&quot;, &quot;C5…
-## $ dbuid2016         &lt;dbl&gt; 13070175019, 48060924001, 35204502002, 24663048013, …
-## $ Location_of_death &lt;dbl&gt; 5, 3, 6, 1, 6, 5, 4, 1, 3, 2, 5, 1, 3, 4, 1, 5, 2, 6…
-## $ Marital_status    &lt;dbl&gt; 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2…
-## $ Postalcode        &lt;chr&gt; &quot;E1A1E9&quot;, &quot;T2E0T2&quot;, &quot;M4J1L1&quot;, &quot;H9H1B4&quot;, &quot;J2W2B6&quot;, &quot;L…
-## $ B_year            &lt;dbl&gt; 1943, 1943, 1953, 1923, 1931, 1933, 1918, 1972, 1922…
-## $ B_month           &lt;dbl&gt; 7, 5, 8, 6, 8, 11, 5, 8, 7, 2, 11, 3, 5, 9, 8, 12, 5…
-## $ B_day             &lt;dbl&gt; 8, 22, 9, 14, 8, 4, 20, 18, 23, 7, 8, 6, 1, 8, 14, 3…
-## $ D_year            &lt;dbl&gt; 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016…
-## $ D_month           &lt;dbl&gt; 9, 12, 4, 11, 4, 2, 2, 6, 5, 1, 2, 10, 6, 2, 7, 8, 6…
-## $ D_day             &lt;dbl&gt; 22, 14, 21, 21, 4, 6, 9, 13, 25, 16, 22, 17, 15, 7, …</code></pre>
+## $ ID                &lt;dbl&gt; 1000001, 1000002, 1000003, 1000004, 1000005, 1000006, 1000007, 10~
+## $ Sex               &lt;chr&gt; &quot;M&quot;, &quot;F&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;M&quot;, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, ~
+## $ Cause_of_death    &lt;chr&gt; &quot;D47&quot;, &quot;C34&quot;, &quot;C26&quot;, &quot;C16&quot;, &quot;C22&quot;, &quot;C50&quot;, &quot;C85&quot;, &quot;C56&quot;, &quot;C64&quot;, &quot;C~
+## $ dbuid2016         &lt;dbl&gt; 13070175019, 48060924001, 35204502002, 24663048013, 24560249013, ~
+## $ Location_of_death &lt;dbl&gt; 5, 3, 6, 1, 6, 5, 4, 1, 3, 2, 5, 1, 3, 4, 1, 5, 2, 6, 1, 1, 2, 5,~
+## $ Marital_status    &lt;dbl&gt; 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1, 1, 1, 2,~
+## $ Postalcode        &lt;chr&gt; &quot;E1A1E9&quot;, &quot;T2E0T2&quot;, &quot;M4J1L1&quot;, &quot;H9H1B4&quot;, &quot;J2W2B6&quot;, &quot;L8H2K1&quot;, &quot;N9Y3~
+## $ B_year            &lt;dbl&gt; 1943, 1943, 1953, 1923, 1931, 1933, 1918, 1972, 1922, 1953, 1978,~
+## $ B_month           &lt;dbl&gt; 7, 5, 8, 6, 8, 11, 5, 8, 7, 2, 11, 3, 5, 9, 8, 12, 5, 11, 9, 4, 5~
+## $ B_day             &lt;dbl&gt; 8, 22, 9, 14, 8, 4, 20, 18, 23, 7, 8, 6, 1, 8, 14, 31, 22, 4, 11,~
+## $ D_year            &lt;dbl&gt; 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016,~
+## $ D_month           &lt;dbl&gt; 9, 12, 4, 11, 4, 2, 2, 6, 5, 1, 2, 10, 6, 2, 7, 8, 6, 2, 5, 9, 10~
+## $ D_day             &lt;dbl&gt; 22, 14, 21, 21, 4, 6, 9, 13, 25, 16, 22, 17, 15, 7, 9, 7, 20, 7, ~</code></pre>
 <p>Compared with <code>str()</code>, <code>glimpse()</code> often provides a cleaner and easier-to-read overview of the data frame.</p>
 <p>Initial data inspection is one of the most important parts of data cleaning because it helps identify:</p>
 <ul>
@@ -618,8 +607,8 @@ details > summary {
 <li>unexpected values.</li>
 </ul>
 </div>
-<div id="exploring-and-validating-the-data" class="section level2" number="4.6">
-<h2><span class="header-section-number">4.6</span> Exploring and validating the data</h2>
+<div id="exploring-and-validating-the-data" class="section level2 hasAnchor" number="4.6">
+<h2><span class="header-section-number">4.6</span> Exploring and validating the data<a href="data-cleaning-and-data-management.html#exploring-and-validating-the-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A useful next step is performing simple exploratory checks to understand the datasets more fully.</p>
 <p>For example, we can identify all health regions in the correspondence dataset.</p>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="data-cleaning-and-data-management.html#cb61-1" tabindex="-1"></a>corr <span class="sc">%&gt;%</span></span>
@@ -633,7 +622,7 @@ details > summary {
 <span id="cb61-9"><a href="data-cleaning-and-data-management.html#cb61-9" tabindex="-1"></a>    )</span>
 <span id="cb61-10"><a href="data-cleaning-and-data-management.html#cb61-10" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
 <span id="cb61-11"><a href="data-cleaning-and-data-management.html#cb61-11" tabindex="-1"></a>  <span class="fu">arrange</span>(hrname_english)</span></code></pre></div>
-<pre><code>## # A tibble: 96 × 1
+<pre><code>## # A tibble: 96 x 1
 ##    hrname_english                                       
 ##    &lt;chr&gt;                                                
 ##  1 Athabasca Health Authority                           
@@ -646,7 +635,7 @@ details > summary {
 ##  8 City of Hamilton Health Unit                         
 ##  9 City of Toronto Health Unit                          
 ## 10 Cypress Regional Health Authority                    
-## # ℹ 86 more rows</code></pre>
+## # i 86 more rows</code></pre>
 <p>When working with multilingual datasets, encoding issues may cause characters to display incorrectly. Re-importing the file using the appropriate encoding often resolves these problems.</p>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="data-cleaning-and-data-management.html#cb63-1" tabindex="-1"></a>corr <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
 <span id="cb63-2"><a href="data-cleaning-and-data-management.html#cb63-2" tabindex="-1"></a>  <span class="st">&quot;./Raw Data/Corr_2016.csv&quot;</span>,</span>
@@ -655,17 +644,17 @@ details > summary {
 <span id="cb63-5"><a href="data-cleaning-and-data-management.html#cb63-5" tabindex="-1"></a>  )</span>
 <span id="cb63-6"><a href="data-cleaning-and-data-management.html#cb63-6" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## Rows: 420963 Columns: 6
-## ── Column specification ────────────────────────────────────────────────────────
+## -- Column specification ---------------------------------------------------------------------
 ## Delimiter: &quot;,&quot;
 ## chr (2): hrname_english, hrname_french
 ## dbl (4): dbuid2016, csduid2016, hruid2017, dbpop2016
 ## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="data-cleaning-and-data-management.html#cb65-1" tabindex="-1"></a>corr <span class="sc">%&gt;%</span></span>
 <span id="cb65-2"><a href="data-cleaning-and-data-management.html#cb65-2" tabindex="-1"></a>  <span class="fu">distinct</span>(hrname_english) <span class="sc">%&gt;%</span></span>
 <span id="cb65-3"><a href="data-cleaning-and-data-management.html#cb65-3" tabindex="-1"></a>  <span class="fu">arrange</span>(hrname_english)</span></code></pre></div>
-<pre><code>## # A tibble: 96 × 1
+<pre><code>## # A tibble: 96 x 1
 ##    hrname_english                                       
 ##    &lt;chr&gt;                                                
 ##  1 Athabasca Health Authority                           
@@ -678,7 +667,7 @@ details > summary {
 ##  8 City of Hamilton Health Unit                         
 ##  9 City of Toronto Health Unit                          
 ## 10 Cypress Regional Health Authority                    
-## # ℹ 86 more rows</code></pre>
+## # i 86 more rows</code></pre>
 <p>We can also calculate the number of health regions in the dataset.</p>
 <div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="data-cleaning-and-data-management.html#cb67-1" tabindex="-1"></a>no_regions <span class="ot">&lt;-</span> corr <span class="sc">%&gt;%</span></span>
 <span id="cb67-2"><a href="data-cleaning-and-data-management.html#cb67-2" tabindex="-1"></a>  <span class="fu">distinct</span>(hrname_english) <span class="sc">%&gt;%</span></span>
@@ -687,7 +676,7 @@ details > summary {
 <p>Additional exploratory summaries can help validate the imported data.</p>
 <div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="data-cleaning-and-data-management.html#cb68-1" tabindex="-1"></a>mort <span class="sc">%&gt;%</span></span>
 <span id="cb68-2"><a href="data-cleaning-and-data-management.html#cb68-2" tabindex="-1"></a>  <span class="fu">count</span>(Sex)</span></code></pre></div>
-<pre><code>## # A tibble: 3 × 2
+<pre><code>## # A tibble: 3 x 2
 ##   Sex       n
 ##   &lt;chr&gt; &lt;int&gt;
 ## 1 F     28630
@@ -697,14 +686,14 @@ details > summary {
 <span id="cb70-2"><a href="data-cleaning-and-data-management.html#cb70-2" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
 <span id="cb70-3"><a href="data-cleaning-and-data-management.html#cb70-3" tabindex="-1"></a>    <span class="at">Total_below_1 =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">&lt;1</span><span class="st">`</span>)</span>
 <span id="cb70-4"><a href="data-cleaning-and-data-management.html#cb70-4" tabindex="-1"></a>  )</span></code></pre></div>
-<pre><code>## # A tibble: 1 × 1
+<pre><code>## # A tibble: 1 x 1
 ##   Total_below_1
 ##           &lt;dbl&gt;
 ## 1        179028</code></pre>
 <p>These simple checks help verify that the datasets were imported correctly and that the variables contain plausible values.</p>
 </div>
-<div id="cleaning-variable-names-and-reshaping-data" class="section level2" number="4.7">
-<h2><span class="header-section-number">4.7</span> Cleaning variable names and reshaping data</h2>
+<div id="cleaning-variable-names-and-reshaping-data" class="section level2 hasAnchor" number="4.7">
+<h2><span class="header-section-number">4.7</span> Cleaning variable names and reshaping data<a href="data-cleaning-and-data-management.html#cleaning-variable-names-and-reshaping-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>One common issue in real-world datasets is poorly formatted variable names. Variables that begin with numbers or contain symbols can make coding more difficult.</p>
 <p>For example:</p>
 <div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="data-cleaning-and-data-management.html#cb72-1" tabindex="-1"></a><span class="fu">names</span>(pop)</span></code></pre></div>
@@ -764,7 +753,7 @@ details > summary {
 <span id="cb77-17"><a href="data-cleaning-and-data-management.html#cb77-17" tabindex="-1"></a>  )</span>
 <span id="cb77-18"><a href="data-cleaning-and-data-management.html#cb77-18" tabindex="-1"></a></span>
 <span id="cb77-19"><a href="data-cleaning-and-data-management.html#cb77-19" tabindex="-1"></a>pop_long</span></code></pre></div>
-<pre><code>## # A tibble: 1,071 × 5
+<pre><code>## # A tibble: 1,071 x 5
 ##    `Health Service Delivery Area`  Year Gender Age     Value
 ##    &lt;chr&gt;                          &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;dbl&gt;
 ##  1 British Columbia                2016 M      ...1        0
@@ -777,7 +766,7 @@ details > summary {
 ##  8 British Columbia                2016 M      25-29  159609
 ##  9 British Columbia                2016 M      30-34  162416
 ## 10 British Columbia                2016 M      35-39  155936
-## # ℹ 1,061 more rows</code></pre>
+## # i 1,061 more rows</code></pre>
 <p>The resulting dataset stores age groups within a single variable rather than across many separate columns.</p>
 <p>After reshaping the data, some values may still require cleaning or recoding. The <code>case_when()</code> function is often used for this purpose.</p>
 <div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="data-cleaning-and-data-management.html#cb79-1" tabindex="-1"></a>pop_long <span class="ot">&lt;-</span> pop_long <span class="sc">%&gt;%</span></span>
@@ -817,7 +806,7 @@ details > summary {
 <span id="cb80-23"><a href="data-cleaning-and-data-management.html#cb80-23" tabindex="-1"></a>      Age <span class="sc">==</span> <span class="st">&quot;14-Oct&quot;</span> <span class="sc">~</span> <span class="st">&quot;10-14&quot;</span></span>
 <span id="cb80-24"><a href="data-cleaning-and-data-management.html#cb80-24" tabindex="-1"></a>    )</span>
 <span id="cb80-25"><a href="data-cleaning-and-data-management.html#cb80-25" tabindex="-1"></a>  )</span></code></pre></div>
-<pre><code>## # A tibble: 1,071 × 5
+<pre><code>## # A tibble: 1,071 x 5
 ##    `Health Service Delivery Area`  Year Gender Age    Value
 ##    &lt;chr&gt;                          &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt;
 ##  1 British Columbia                2016 M      &lt;NA&gt;       0
@@ -830,42 +819,84 @@ details > summary {
 ##  8 British Columbia                2016 M      &lt;NA&gt;  159609
 ##  9 British Columbia                2016 M      &lt;NA&gt;  162416
 ## 10 British Columbia                2016 M      &lt;NA&gt;  155936
-## # ℹ 1,061 more rows</code></pre>
+## # i 1,061 more rows</code></pre>
 <div class="warning">
 <p>Always verify the output after recoding variables. Small coding mistakes can unintentionally convert valid values into missing values.</p>
 </div>
 </div>
-<div id="practical-considerations-for-r-markdown-workflows" class="section level2" number="4.8">
-<h2><span class="header-section-number">4.8</span> Practical considerations for R Markdown workflows</h2>
+<div id="practical-considerations-for-r-markdown-workflows" class="section level2 hasAnchor" number="4.8">
+<h2><span class="header-section-number">4.8</span> Practical considerations for R Markdown workflows<a href="data-cleaning-and-data-management.html#practical-considerations-for-r-markdown-workflows" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>When working with R Markdown documents, remember that every code chunk is executed again during knitting. Code that modifies files, unzips folders, or downloads data should therefore be used carefully.</p>
 <p>As projects grow larger, keeping code organized and avoiding repeated operations becomes increasingly important for reproducible workflows.</p>
 <p>You should also begin thinking about how analyses are documented. A good R Markdown document not only produces correct outputs, but also explains the reasoning behind each analytical step.</p>
 </div>
-<div id="chapter-summary-3" class="section level2" number="4.9">
-<h2><span class="header-section-number">4.9</span> Chapter summary</h2>
+<div id="chapter-summary-3" class="section level2 hasAnchor" number="4.9">
+<h2><span class="header-section-number">4.9</span> Chapter summary<a href="data-cleaning-and-data-management.html#chapter-summary-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In this chapter, you learned several important data cleaning and management techniques using the tidyverse. You imported multiple datasets, explored project files, inspected dataset structures, handled encoding issues, cleaned variable names, reshaped data into tidy formats, and recoded variables using <code>case_when()</code>.</p>
 <p>These skills form the foundation of reproducible data analysis workflows and will be used extensively throughout the remainder of the course.</p>
 
 </div>
 </div>
-<p style="text-align: center;">
-<a href="joining-data.html"><button class="btn btn-default">Previous</button></a>
-<a href="strings-and-regular-expressions.html"><button class="btn btn-default">Next</button></a>
-</p>
-</div>
-</div>
+            </section>
 
-
-</div>
-
+          </div>
+        </div>
+      </div>
+<a href="joining-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="strings-and-regular-expressions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
-
-// add bootstrap table styles to pandoc tables
-$(document).ready(function () {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["data-management-with-r.pdf", "data-management-with-r.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
 });
-
+});
 </script>
 
 </body>
+
 </html>

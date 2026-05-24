@@ -2,50 +2,64 @@
 <html lang="" xml:lang="">
 <head>
 
-<meta charset="utf-8" />
-<meta name="generator" content="pandoc" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="Chapter 6 Visualization and Advanced Data Cleaning | Data Management with R" />
-<meta property="og:type" content="book" />
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 6 Visualization and Advanced Data Cleaning | Data Management with R</title>
+  <meta name="description" content="Chapter 6 Visualization and Advanced Data Cleaning | Data Management with R" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
+  <meta property="og:title" content="Chapter 6 Visualization and Advanced Data Cleaning | Data Management with R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
 
-
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 6 Visualization and Advanced Data Cleaning | Data Management with R" />
+  
+  
+  
 
 <meta name="author" content="Noushin Nabavi" />
 
+
 <meta name="date" content="2026-05-24" />
 
-
-<meta name="description" content="Chapter 6 Visualization and Advanced Data Cleaning | Data Management with R">
-
-<title>Chapter 6 Visualization and Advanced Data Cleaning | Data Management with R</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="strings-and-regular-expressions.html"/>
+<link rel="next" href="exploratory-analysis-project.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
-<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<style>h1 {font-size: 34px;}
-       h1.title {font-size: 38px;}
-       h2 {font-size: 30px;}
-       h3 {font-size: 24px;}
-       h4 {font-size: 18px;}
-       h5 {font-size: 16px;}
-       h6 {font-size: 12px;}
-       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
-       pre:not([class]) { background-color: white }</style>
-<script src="libs/navigation-1.1/tabsets.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
-<style type="text/css">code{white-space: pre;}</style>
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -104,163 +118,154 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 <style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
-
-
 
 <link rel="stylesheet" href="style.css" type="text/css" />
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
-img {
-  max-width:100%;
-  height: auto;
-}
-/* show arrow before summary tag as in bootstrap
-TODO: remove if bootstrap in updated in html_document (rmarkdown#1485) */
-details > summary {
-  display: list-item;
-  cursor: pointer;
-}
-</style>
 </head>
 
 <body>
 
-<div class="container-fluid main-container">
 
 
-<div class="row">
-<div class="col-sm-12">
-<div id="TOC">
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Data Management with R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i>Overview</a></li>
+<li class="chapter" data-level="" data-path="how-to-use-this-book.html"><a href="how-to-use-this-book.html"><i class="fa fa-check"></i>How to Use This Book</a></li>
+<li class="chapter" data-level="" data-path="recommended-chapter-flow.html"><a href="recommended-chapter-flow.html"><i class="fa fa-check"></i>Recommended Chapter Flow</a></li>
+<li class="chapter" data-level="" data-path="project-structure.html"><a href="project-structure.html"><i class="fa fa-check"></i>Project Structure</a></li>
+<li class="chapter" data-level="" data-path="required-r-packages.html"><a href="required-r-packages.html"><i class="fa fa-check"></i>Required R Packages</a></li>
+<li class="chapter" data-level="" data-path="building-the-book.html"><a href="building-the-book.html"><i class="fa fa-check"></i>Building the Book</a></li>
+<li class="chapter" data-level="" data-path="data-and-reproducibility-notes.html"><a href="data-and-reproducibility-notes.html"><i class="fa fa-check"></i>Data and Reproducibility Notes</a></li>
+<li class="chapter" data-level="" data-path="intended-audience.html"><a href="intended-audience.html"><i class="fa fa-check"></i>Intended Audience</a></li>
+<li class="chapter" data-level="" data-path="licence.html"><a href="licence.html"><i class="fa fa-check"></i>Licence</a></li>
+<li class="chapter" data-level="1" data-path="project-setup-and-reproducible-workflows.html"><a href="project-setup-and-reproducible-workflows.html"><i class="fa fa-check"></i><b>1</b> Project Setup and Reproducible Workflows</a>
 <ul>
-<li><a href="index.html#welcome" id="toc-welcome">Welcome</a></li>
-<li><a href="overview.html#overview" id="toc-overview">Overview</a></li>
-<li><a href="how-to-use-this-book.html#how-to-use-this-book" id="toc-how-to-use-this-book">How to Use This Book</a></li>
-<li><a href="recommended-chapter-flow.html#recommended-chapter-flow" id="toc-recommended-chapter-flow">Recommended Chapter Flow</a></li>
-<li><a href="project-structure.html#project-structure" id="toc-project-structure">Project Structure</a></li>
-<li><a href="required-r-packages.html#required-r-packages" id="toc-required-r-packages">Required R Packages</a></li>
-<li><a href="building-the-book.html#building-the-book" id="toc-building-the-book">Building the Book</a></li>
-<li><a href="data-and-reproducibility-notes.html#data-and-reproducibility-notes" id="toc-data-and-reproducibility-notes">Data and Reproducibility Notes</a></li>
-<li><a href="intended-audience.html#intended-audience" id="toc-intended-audience">Intended Audience</a></li>
-<li><a href="licence.html#licence" id="toc-licence">Licence</a></li>
-<li class="has-sub"><a href="project-setup-and-reproducible-workflows.html#project-setup-and-reproducible-workflows" id="toc-project-setup-and-reproducible-workflows"><span class="toc-section-number">1</span> Project Setup and Reproducible Workflows</a>
-<ul>
-<li><a href="project-setup-and-reproducible-workflows.html#organizing-a-reproducible-project" id="toc-organizing-a-reproducible-project"><span class="toc-section-number">1.1</span> Organizing a reproducible project</a></li>
-<li><a href="project-setup-and-reproducible-workflows.html#working-with-rstudio-projects-and-file-paths" id="toc-working-with-rstudio-projects-and-file-paths"><span class="toc-section-number">1.2</span> Working with RStudio Projects and file paths</a></li>
-<li><a href="project-setup-and-reproducible-workflows.html#naming-files-and-managing-outputs" id="toc-naming-files-and-managing-outputs"><span class="toc-section-number">1.3</span> Naming files and managing outputs</a></li>
-<li><a href="project-setup-and-reproducible-workflows.html#r-markdown-and-bookdown-workflows" id="toc-r-markdown-and-bookdown-workflows"><span class="toc-section-number">1.4</span> R Markdown and bookdown workflows</a></li>
-<li><a href="project-setup-and-reproducible-workflows.html#git-github-and-reproducible-analysis" id="toc-git-github-and-reproducible-analysis"><span class="toc-section-number">1.5</span> Git, GitHub, and reproducible analysis</a></li>
-<li><a href="project-setup-and-reproducible-workflows.html#chapter-summary" id="toc-chapter-summary"><span class="toc-section-number">1.6</span> Chapter summary</a></li>
+<li class="chapter" data-level="1.1" data-path="project-setup-and-reproducible-workflows.html"><a href="project-setup-and-reproducible-workflows.html#organizing-a-reproducible-project"><i class="fa fa-check"></i><b>1.1</b> Organizing a reproducible project</a></li>
+<li class="chapter" data-level="1.2" data-path="project-setup-and-reproducible-workflows.html"><a href="project-setup-and-reproducible-workflows.html#working-with-rstudio-projects-and-file-paths"><i class="fa fa-check"></i><b>1.2</b> Working with RStudio Projects and file paths</a></li>
+<li class="chapter" data-level="1.3" data-path="project-setup-and-reproducible-workflows.html"><a href="project-setup-and-reproducible-workflows.html#naming-files-and-managing-outputs"><i class="fa fa-check"></i><b>1.3</b> Naming files and managing outputs</a></li>
+<li class="chapter" data-level="1.4" data-path="project-setup-and-reproducible-workflows.html"><a href="project-setup-and-reproducible-workflows.html#r-markdown-and-bookdown-workflows"><i class="fa fa-check"></i><b>1.4</b> R Markdown and bookdown workflows</a></li>
+<li class="chapter" data-level="1.5" data-path="project-setup-and-reproducible-workflows.html"><a href="project-setup-and-reproducible-workflows.html#git-github-and-reproducible-analysis"><i class="fa fa-check"></i><b>1.5</b> Git, GitHub, and reproducible analysis</a></li>
+<li class="chapter" data-level="1.6" data-path="project-setup-and-reproducible-workflows.html"><a href="project-setup-and-reproducible-workflows.html#chapter-summary"><i class="fa fa-check"></i><b>1.6</b> Chapter summary</a></li>
 </ul></li>
-<li class="has-sub"><a href="tidyverse-basics.html#tidyverse-basics" id="toc-tidyverse-basics"><span class="toc-section-number">2</span> Tidyverse Basics</a>
+<li class="chapter" data-level="2" data-path="tidyverse-basics.html"><a href="tidyverse-basics.html"><i class="fa fa-check"></i><b>2</b> Tidyverse Basics</a>
 <ul>
-<li><a href="tidyverse-basics.html#loading-packages-and-reading-data" id="toc-loading-packages-and-reading-data"><span class="toc-section-number">2.1</span> Loading packages and reading data</a></li>
-<li><a href="tidyverse-basics.html#inspecting-data-frames" id="toc-inspecting-data-frames"><span class="toc-section-number">2.2</span> Inspecting data frames</a></li>
-<li><a href="tidyverse-basics.html#data-manipulation-with-dplyr" id="toc-data-manipulation-with-dplyr"><span class="toc-section-number">2.3</span> Data manipulation with dplyr</a></li>
-<li><a href="tidyverse-basics.html#practice-exercise" id="toc-practice-exercise"><span class="toc-section-number">2.4</span> Practice exercise</a></li>
-<li><a href="tidyverse-basics.html#chapter-summary-1" id="toc-chapter-summary-1"><span class="toc-section-number">2.5</span> Chapter summary</a></li>
+<li class="chapter" data-level="2.1" data-path="tidyverse-basics.html"><a href="tidyverse-basics.html#loading-packages-and-reading-data"><i class="fa fa-check"></i><b>2.1</b> Loading packages and reading data</a></li>
+<li class="chapter" data-level="2.2" data-path="tidyverse-basics.html"><a href="tidyverse-basics.html#inspecting-data-frames"><i class="fa fa-check"></i><b>2.2</b> Inspecting data frames</a></li>
+<li class="chapter" data-level="2.3" data-path="tidyverse-basics.html"><a href="tidyverse-basics.html#data-manipulation-with-dplyr"><i class="fa fa-check"></i><b>2.3</b> Data manipulation with dplyr</a></li>
+<li class="chapter" data-level="2.4" data-path="tidyverse-basics.html"><a href="tidyverse-basics.html#practice-exercise"><i class="fa fa-check"></i><b>2.4</b> Practice exercise</a></li>
+<li class="chapter" data-level="2.5" data-path="tidyverse-basics.html"><a href="tidyverse-basics.html#chapter-summary-1"><i class="fa fa-check"></i><b>2.5</b> Chapter summary</a></li>
 </ul></li>
-<li class="has-sub"><a href="joining-data.html#joining-data" id="toc-joining-data"><span class="toc-section-number">3</span> Joining Data</a>
+<li class="chapter" data-level="3" data-path="joining-data.html"><a href="joining-data.html"><i class="fa fa-check"></i><b>3</b> Joining Data</a>
 <ul>
-<li><a href="joining-data.html#understanding-join-keys" id="toc-understanding-join-keys"><span class="toc-section-number">3.1</span> Understanding join keys</a></li>
-<li><a href="joining-data.html#performing-joins-with-dplyr" id="toc-performing-joins-with-dplyr"><span class="toc-section-number">3.2</span> Performing joins with dplyr</a></li>
-<li><a href="joining-data.html#checking-for-duplicate-keys" id="toc-checking-for-duplicate-keys"><span class="toc-section-number">3.3</span> Checking for duplicate keys</a></li>
-<li><a href="joining-data.html#practical-workflow-for-joining-data" id="toc-practical-workflow-for-joining-data"><span class="toc-section-number">3.4</span> Practical workflow for joining data</a></li>
-<li><a href="joining-data.html#practice-exercise-1" id="toc-practice-exercise-1"><span class="toc-section-number">3.5</span> Practice exercise</a></li>
-<li><a href="joining-data.html#chapter-summary-2" id="toc-chapter-summary-2"><span class="toc-section-number">3.6</span> Chapter summary</a></li>
+<li class="chapter" data-level="3.1" data-path="joining-data.html"><a href="joining-data.html#understanding-join-keys"><i class="fa fa-check"></i><b>3.1</b> Understanding join keys</a></li>
+<li class="chapter" data-level="3.2" data-path="joining-data.html"><a href="joining-data.html#performing-joins-with-dplyr"><i class="fa fa-check"></i><b>3.2</b> Performing joins with dplyr</a></li>
+<li class="chapter" data-level="3.3" data-path="joining-data.html"><a href="joining-data.html#checking-for-duplicate-keys"><i class="fa fa-check"></i><b>3.3</b> Checking for duplicate keys</a></li>
+<li class="chapter" data-level="3.4" data-path="joining-data.html"><a href="joining-data.html#practical-workflow-for-joining-data"><i class="fa fa-check"></i><b>3.4</b> Practical workflow for joining data</a></li>
+<li class="chapter" data-level="3.5" data-path="joining-data.html"><a href="joining-data.html#practice-exercise-1"><i class="fa fa-check"></i><b>3.5</b> Practice exercise</a></li>
+<li class="chapter" data-level="3.6" data-path="joining-data.html"><a href="joining-data.html#chapter-summary-2"><i class="fa fa-check"></i><b>3.6</b> Chapter summary</a></li>
 </ul></li>
-<li class="has-sub"><a href="data-cleaning-and-data-management.html#data-cleaning-and-data-management" id="toc-data-cleaning-and-data-management"><span class="toc-section-number">4</span> Data Cleaning and Data Management</a>
+<li class="chapter" data-level="4" data-path="data-cleaning-and-data-management.html"><a href="data-cleaning-and-data-management.html"><i class="fa fa-check"></i><b>4</b> Data Cleaning and Data Management</a>
 <ul>
-<li><a href="data-cleaning-and-data-management.html#preparing-the-r-environment" id="toc-preparing-the-r-environment"><span class="toc-section-number">4.1</span> Preparing the R environment</a></li>
-<li><a href="data-cleaning-and-data-management.html#exploring-project-files" id="toc-exploring-project-files"><span class="toc-section-number">4.2</span> Exploring project files</a></li>
-<li><a href="data-cleaning-and-data-management.html#description-of-the-datasets" id="toc-description-of-the-datasets"><span class="toc-section-number">4.3</span> Description of the datasets</a></li>
-<li><a href="data-cleaning-and-data-management.html#importing-data-into-r" id="toc-importing-data-into-r"><span class="toc-section-number">4.4</span> Importing data into R</a></li>
-<li><a href="data-cleaning-and-data-management.html#inspecting-datasets" id="toc-inspecting-datasets"><span class="toc-section-number">4.5</span> Inspecting datasets</a></li>
-<li><a href="data-cleaning-and-data-management.html#exploring-and-validating-the-data" id="toc-exploring-and-validating-the-data"><span class="toc-section-number">4.6</span> Exploring and validating the data</a></li>
-<li><a href="data-cleaning-and-data-management.html#cleaning-variable-names-and-reshaping-data" id="toc-cleaning-variable-names-and-reshaping-data"><span class="toc-section-number">4.7</span> Cleaning variable names and reshaping data</a></li>
-<li><a href="data-cleaning-and-data-management.html#practical-considerations-for-r-markdown-workflows" id="toc-practical-considerations-for-r-markdown-workflows"><span class="toc-section-number">4.8</span> Practical considerations for R Markdown workflows</a></li>
-<li><a href="data-cleaning-and-data-management.html#chapter-summary-3" id="toc-chapter-summary-3"><span class="toc-section-number">4.9</span> Chapter summary</a></li>
+<li class="chapter" data-level="4.1" data-path="data-cleaning-and-data-management.html"><a href="data-cleaning-and-data-management.html#preparing-the-r-environment"><i class="fa fa-check"></i><b>4.1</b> Preparing the R environment</a></li>
+<li class="chapter" data-level="4.2" data-path="data-cleaning-and-data-management.html"><a href="data-cleaning-and-data-management.html#exploring-project-files"><i class="fa fa-check"></i><b>4.2</b> Exploring project files</a></li>
+<li class="chapter" data-level="4.3" data-path="data-cleaning-and-data-management.html"><a href="data-cleaning-and-data-management.html#description-of-the-datasets"><i class="fa fa-check"></i><b>4.3</b> Description of the datasets</a></li>
+<li class="chapter" data-level="4.4" data-path="data-cleaning-and-data-management.html"><a href="data-cleaning-and-data-management.html#importing-data-into-r"><i class="fa fa-check"></i><b>4.4</b> Importing data into R</a></li>
+<li class="chapter" data-level="4.5" data-path="data-cleaning-and-data-management.html"><a href="data-cleaning-and-data-management.html#inspecting-datasets"><i class="fa fa-check"></i><b>4.5</b> Inspecting datasets</a></li>
+<li class="chapter" data-level="4.6" data-path="data-cleaning-and-data-management.html"><a href="data-cleaning-and-data-management.html#exploring-and-validating-the-data"><i class="fa fa-check"></i><b>4.6</b> Exploring and validating the data</a></li>
+<li class="chapter" data-level="4.7" data-path="data-cleaning-and-data-management.html"><a href="data-cleaning-and-data-management.html#cleaning-variable-names-and-reshaping-data"><i class="fa fa-check"></i><b>4.7</b> Cleaning variable names and reshaping data</a></li>
+<li class="chapter" data-level="4.8" data-path="data-cleaning-and-data-management.html"><a href="data-cleaning-and-data-management.html#practical-considerations-for-r-markdown-workflows"><i class="fa fa-check"></i><b>4.8</b> Practical considerations for R Markdown workflows</a></li>
+<li class="chapter" data-level="4.9" data-path="data-cleaning-and-data-management.html"><a href="data-cleaning-and-data-management.html#chapter-summary-3"><i class="fa fa-check"></i><b>4.9</b> Chapter summary</a></li>
 </ul></li>
-<li class="has-sub"><a href="strings-and-regular-expressions.html#strings-and-regular-expressions" id="toc-strings-and-regular-expressions"><span class="toc-section-number">5</span> Strings and Regular Expressions</a>
+<li class="chapter" data-level="5" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html"><i class="fa fa-check"></i><b>5</b> Strings and Regular Expressions</a>
 <ul>
-<li><a href="strings-and-regular-expressions.html#working-with-character-data-in-r" id="toc-working-with-character-data-in-r"><span class="toc-section-number">5.1</span> Working with character data in R</a></li>
-<li><a href="strings-and-regular-expressions.html#cleaning-and-separating-character-variables" id="toc-cleaning-and-separating-character-variables"><span class="toc-section-number">5.2</span> Cleaning and separating character variables</a></li>
-<li><a href="strings-and-regular-expressions.html#extracting-patterns-with-regular-expressions" id="toc-extracting-patterns-with-regular-expressions"><span class="toc-section-number">5.3</span> Extracting patterns with regular expressions</a></li>
-<li><a href="strings-and-regular-expressions.html#creating-reusable-functions" id="toc-creating-reusable-functions"><span class="toc-section-number">5.4</span> Creating reusable functions</a></li>
-<li><a href="strings-and-regular-expressions.html#summarizing-and-visualizing-categorical-data" id="toc-summarizing-and-visualizing-categorical-data"><span class="toc-section-number">5.5</span> Summarizing and visualizing categorical data</a></li>
-<li><a href="strings-and-regular-expressions.html#reshaping-complex-datasets" id="toc-reshaping-complex-datasets"><span class="toc-section-number">5.6</span> Reshaping complex datasets</a></li>
-<li><a href="strings-and-regular-expressions.html#using-regular-expressions-inside-pivot_longer" id="toc-using-regular-expressions-inside-pivot_longer"><span class="toc-section-number">5.7</span> Using regular expressions inside pivot_longer()</a></li>
-<li><a href="strings-and-regular-expressions.html#missing-values-and-interpretation" id="toc-missing-values-and-interpretation"><span class="toc-section-number">5.8</span> Missing values and interpretation</a></li>
-<li><a href="strings-and-regular-expressions.html#additional-practice" id="toc-additional-practice"><span class="toc-section-number">5.9</span> Additional practice</a></li>
-<li><a href="strings-and-regular-expressions.html#chapter-summary-4" id="toc-chapter-summary-4"><span class="toc-section-number">5.10</span> Chapter summary</a></li>
+<li class="chapter" data-level="5.1" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html#working-with-character-data-in-r"><i class="fa fa-check"></i><b>5.1</b> Working with character data in R</a></li>
+<li class="chapter" data-level="5.2" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html#cleaning-and-separating-character-variables"><i class="fa fa-check"></i><b>5.2</b> Cleaning and separating character variables</a></li>
+<li class="chapter" data-level="5.3" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html#extracting-patterns-with-regular-expressions"><i class="fa fa-check"></i><b>5.3</b> Extracting patterns with regular expressions</a></li>
+<li class="chapter" data-level="5.4" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html#creating-reusable-functions"><i class="fa fa-check"></i><b>5.4</b> Creating reusable functions</a></li>
+<li class="chapter" data-level="5.5" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html#summarizing-and-visualizing-categorical-data"><i class="fa fa-check"></i><b>5.5</b> Summarizing and visualizing categorical data</a></li>
+<li class="chapter" data-level="5.6" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html#reshaping-complex-datasets"><i class="fa fa-check"></i><b>5.6</b> Reshaping complex datasets</a></li>
+<li class="chapter" data-level="5.7" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html#using-regular-expressions-inside-pivot_longer"><i class="fa fa-check"></i><b>5.7</b> Using regular expressions inside pivot_longer()</a></li>
+<li class="chapter" data-level="5.8" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html#missing-values-and-interpretation"><i class="fa fa-check"></i><b>5.8</b> Missing values and interpretation</a></li>
+<li class="chapter" data-level="5.9" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html#additional-practice"><i class="fa fa-check"></i><b>5.9</b> Additional practice</a></li>
+<li class="chapter" data-level="5.10" data-path="strings-and-regular-expressions.html"><a href="strings-and-regular-expressions.html#chapter-summary-4"><i class="fa fa-check"></i><b>5.10</b> Chapter summary</a></li>
 </ul></li>
-<li class="has-sub"><a href="visualization-and-advanced-data-cleaning.html#visualization-and-advanced-data-cleaning" id="toc-visualization-and-advanced-data-cleaning"><span class="toc-section-number">6</span> Visualization and Advanced Data Cleaning</a>
+<li class="chapter" data-level="6" data-path="visualization-and-advanced-data-cleaning.html"><a href="visualization-and-advanced-data-cleaning.html"><i class="fa fa-check"></i><b>6</b> Visualization and Advanced Data Cleaning</a>
 <ul>
-<li><a href="visualization-and-advanced-data-cleaning.html#research-context-and-datasets" id="toc-research-context-and-datasets"><span class="toc-section-number">6.1</span> Research context and datasets</a></li>
-<li><a href="visualization-and-advanced-data-cleaning.html#reviewing-datasets-before-cleaning" id="toc-reviewing-datasets-before-cleaning"><span class="toc-section-number">6.2</span> Reviewing datasets before cleaning</a></li>
-<li><a href="visualization-and-advanced-data-cleaning.html#cleaning-and-reshaping-population-data" id="toc-cleaning-and-reshaping-population-data"><span class="toc-section-number">6.3</span> Cleaning and reshaping population data</a></li>
-<li><a href="visualization-and-advanced-data-cleaning.html#visualizing-population-data" id="toc-visualizing-population-data"><span class="toc-section-number">6.4</span> Visualizing population data</a></li>
-<li><a href="visualization-and-advanced-data-cleaning.html#identifying-join-keys" id="toc-identifying-join-keys"><span class="toc-section-number">6.5</span> Identifying join keys</a></li>
-<li><a href="visualization-and-advanced-data-cleaning.html#cleaning-mortality-data" id="toc-cleaning-mortality-data"><span class="toc-section-number">6.6</span> Cleaning mortality data</a></li>
-<li><a href="visualization-and-advanced-data-cleaning.html#handling-missing-and-inconsistent-values" id="toc-handling-missing-and-inconsistent-values"><span class="toc-section-number">6.7</span> Handling missing and inconsistent values</a></li>
-<li><a href="visualization-and-advanced-data-cleaning.html#creating-dates-and-calculating-age" id="toc-creating-dates-and-calculating-age"><span class="toc-section-number">6.8</span> Creating dates and calculating age</a></li>
-<li><a href="visualization-and-advanced-data-cleaning.html#imputing-missing-values" id="toc-imputing-missing-values"><span class="toc-section-number">6.9</span> Imputing missing values</a></li>
-<li><a href="visualization-and-advanced-data-cleaning.html#working-with-icd-10-codes" id="toc-working-with-icd-10-codes"><span class="toc-section-number">6.10</span> Working with ICD-10 codes</a></li>
-<li><a href="visualization-and-advanced-data-cleaning.html#visualizing-cleaned-mortality-data" id="toc-visualizing-cleaned-mortality-data"><span class="toc-section-number">6.11</span> Visualizing cleaned mortality data</a></li>
-<li><a href="visualization-and-advanced-data-cleaning.html#saving-cleaned-datasets" id="toc-saving-cleaned-datasets"><span class="toc-section-number">6.12</span> Saving cleaned datasets</a></li>
-<li><a href="visualization-and-advanced-data-cleaning.html#joining-datasets-and-validating-postal-codes" id="toc-joining-datasets-and-validating-postal-codes"><span class="toc-section-number">6.13</span> Joining datasets and validating postal codes</a></li>
-<li><a href="visualization-and-advanced-data-cleaning.html#final-assignment-guidance" id="toc-final-assignment-guidance"><span class="toc-section-number">6.14</span> Final assignment guidance</a></li>
-<li><a href="visualization-and-advanced-data-cleaning.html#chapter-summary-5" id="toc-chapter-summary-5"><span class="toc-section-number">6.15</span> Chapter summary</a></li>
+<li class="chapter" data-level="6.1" data-path="visualization-and-advanced-data-cleaning.html"><a href="visualization-and-advanced-data-cleaning.html#research-context-and-datasets"><i class="fa fa-check"></i><b>6.1</b> Research context and datasets</a></li>
+<li class="chapter" data-level="6.2" data-path="visualization-and-advanced-data-cleaning.html"><a href="visualization-and-advanced-data-cleaning.html#reviewing-datasets-before-cleaning"><i class="fa fa-check"></i><b>6.2</b> Reviewing datasets before cleaning</a></li>
+<li class="chapter" data-level="6.3" data-path="visualization-and-advanced-data-cleaning.html"><a href="visualization-and-advanced-data-cleaning.html#cleaning-and-reshaping-population-data"><i class="fa fa-check"></i><b>6.3</b> Cleaning and reshaping population data</a></li>
+<li class="chapter" data-level="6.4" data-path="visualization-and-advanced-data-cleaning.html"><a href="visualization-and-advanced-data-cleaning.html#visualizing-population-data"><i class="fa fa-check"></i><b>6.4</b> Visualizing population data</a></li>
+<li class="chapter" data-level="6.5" data-path="visualization-and-advanced-data-cleaning.html"><a href="visualization-and-advanced-data-cleaning.html#identifying-join-keys"><i class="fa fa-check"></i><b>6.5</b> Identifying join keys</a></li>
+<li class="chapter" data-level="6.6" data-path="visualization-and-advanced-data-cleaning.html"><a href="visualization-and-advanced-data-cleaning.html#cleaning-mortality-data"><i class="fa fa-check"></i><b>6.6</b> Cleaning mortality data</a></li>
+<li class="chapter" data-level="6.7" data-path="visualization-and-advanced-data-cleaning.html"><a href="visualization-and-advanced-data-cleaning.html#handling-missing-and-inconsistent-values"><i class="fa fa-check"></i><b>6.7</b> Handling missing and inconsistent values</a></li>
+<li class="chapter" data-level="6.8" data-path="visualization-and-advanced-data-cleaning.html"><a href="visualization-and-advanced-data-cleaning.html#creating-dates-and-calculating-age"><i class="fa fa-check"></i><b>6.8</b> Creating dates and calculating age</a></li>
+<li class="chapter" data-level="6.9" data-path="visualization-and-advanced-data-cleaning.html"><a href="visualization-and-advanced-data-cleaning.html#imputing-missing-values"><i class="fa fa-check"></i><b>6.9</b> Imputing missing values</a></li>
+<li class="chapter" data-level="6.10" data-path="visualization-and-advanced-data-cleaning.html"><a href="visualization-and-advanced-data-cleaning.html#working-with-icd-10-codes"><i class="fa fa-check"></i><b>6.10</b> Working with ICD-10 codes</a></li>
+<li class="chapter" data-level="6.11" data-path="visualization-and-advanced-data-cleaning.html"><a href="visualization-and-advanced-data-cleaning.html#visualizing-cleaned-mortality-data"><i class="fa fa-check"></i><b>6.11</b> Visualizing cleaned mortality data</a></li>
+<li class="chapter" data-level="6.12" data-path="visualization-and-advanced-data-cleaning.html"><a href="visualization-and-advanced-data-cleaning.html#saving-cleaned-datasets"><i class="fa fa-check"></i><b>6.12</b> Saving cleaned datasets</a></li>
+<li class="chapter" data-level="6.13" data-path="visualization-and-advanced-data-cleaning.html"><a href="visualization-and-advanced-data-cleaning.html#joining-datasets-and-validating-postal-codes"><i class="fa fa-check"></i><b>6.13</b> Joining datasets and validating postal codes</a></li>
+<li class="chapter" data-level="6.14" data-path="visualization-and-advanced-data-cleaning.html"><a href="visualization-and-advanced-data-cleaning.html#final-assignment-guidance"><i class="fa fa-check"></i><b>6.14</b> Final assignment guidance</a></li>
+<li class="chapter" data-level="6.15" data-path="visualization-and-advanced-data-cleaning.html"><a href="visualization-and-advanced-data-cleaning.html#chapter-summary-5"><i class="fa fa-check"></i><b>6.15</b> Chapter summary</a></li>
 </ul></li>
-<li class="has-sub"><a href="exploratory-analysis-project.html#exploratory-analysis-project" id="toc-exploratory-analysis-project"><span class="toc-section-number">7</span> Exploratory Analysis Project</a>
+<li class="chapter" data-level="7" data-path="exploratory-analysis-project.html"><a href="exploratory-analysis-project.html"><i class="fa fa-check"></i><b>7</b> Exploratory Analysis Project</a>
 <ul>
-<li><a href="exploratory-analysis-project.html#loading-libraries-and-importing-datasets" id="toc-loading-libraries-and-importing-datasets"><span class="toc-section-number">7.1</span> Loading libraries and importing datasets</a></li>
-<li><a href="exploratory-analysis-project.html#reviewing-dataset-structure" id="toc-reviewing-dataset-structure"><span class="toc-section-number">7.2</span> Reviewing dataset structure</a></li>
-<li><a href="exploratory-analysis-project.html#working-with-missing-values" id="toc-working-with-missing-values"><span class="toc-section-number">7.3</span> Working with missing values</a></li>
-<li><a href="exploratory-analysis-project.html#duplicate-records-and-cleaning-decisions" id="toc-duplicate-records-and-cleaning-decisions"><span class="toc-section-number">7.4</span> Duplicate records and cleaning decisions</a></li>
-<li><a href="exploratory-analysis-project.html#exploratory-visualization" id="toc-exploratory-visualization"><span class="toc-section-number">7.5</span> Exploratory visualization</a></li>
-<li><a href="exploratory-analysis-project.html#organizing-an-exploratory-analysis-report" id="toc-organizing-an-exploratory-analysis-report"><span class="toc-section-number">7.6</span> Organizing an exploratory analysis report</a></li>
-<li><a href="exploratory-analysis-project.html#practice-activity" id="toc-practice-activity"><span class="toc-section-number">7.7</span> Practice activity</a></li>
-<li><a href="exploratory-analysis-project.html#chapter-summary-6" id="toc-chapter-summary-6"><span class="toc-section-number">7.8</span> Chapter summary</a></li>
+<li class="chapter" data-level="7.1" data-path="exploratory-analysis-project.html"><a href="exploratory-analysis-project.html#loading-libraries-and-importing-datasets"><i class="fa fa-check"></i><b>7.1</b> Loading libraries and importing datasets</a></li>
+<li class="chapter" data-level="7.2" data-path="exploratory-analysis-project.html"><a href="exploratory-analysis-project.html#reviewing-dataset-structure"><i class="fa fa-check"></i><b>7.2</b> Reviewing dataset structure</a></li>
+<li class="chapter" data-level="7.3" data-path="exploratory-analysis-project.html"><a href="exploratory-analysis-project.html#working-with-missing-values"><i class="fa fa-check"></i><b>7.3</b> Working with missing values</a></li>
+<li class="chapter" data-level="7.4" data-path="exploratory-analysis-project.html"><a href="exploratory-analysis-project.html#duplicate-records-and-cleaning-decisions"><i class="fa fa-check"></i><b>7.4</b> Duplicate records and cleaning decisions</a></li>
+<li class="chapter" data-level="7.5" data-path="exploratory-analysis-project.html"><a href="exploratory-analysis-project.html#exploratory-visualization"><i class="fa fa-check"></i><b>7.5</b> Exploratory visualization</a></li>
+<li class="chapter" data-level="7.6" data-path="exploratory-analysis-project.html"><a href="exploratory-analysis-project.html#organizing-an-exploratory-analysis-report"><i class="fa fa-check"></i><b>7.6</b> Organizing an exploratory analysis report</a></li>
+<li class="chapter" data-level="7.7" data-path="exploratory-analysis-project.html"><a href="exploratory-analysis-project.html#practice-activity"><i class="fa fa-check"></i><b>7.7</b> Practice activity</a></li>
+<li class="chapter" data-level="7.8" data-path="exploratory-analysis-project.html"><a href="exploratory-analysis-project.html#chapter-summary-6"><i class="fa fa-check"></i><b>7.8</b> Chapter summary</a></li>
 </ul></li>
-<li class="has-sub"><a href="storyboarding-and-reporting.html#storyboarding-and-reporting" id="toc-storyboarding-and-reporting"><span class="toc-section-number">8</span> Storyboarding and Reporting</a>
+<li class="chapter" data-level="8" data-path="storyboarding-and-reporting.html"><a href="storyboarding-and-reporting.html"><i class="fa fa-check"></i><b>8</b> Storyboarding and Reporting</a>
 <ul>
-<li><a href="storyboarding-and-reporting.html#why-storyboarding-is-important" id="toc-why-storyboarding-is-important"><span class="toc-section-number">8.1</span> Why storyboarding is important</a></li>
-<li><a href="storyboarding-and-reporting.html#organizing-the-analytical-narrative" id="toc-organizing-the-analytical-narrative"><span class="toc-section-number">8.2</span> Organizing the analytical narrative</a></li>
-<li><a href="storyboarding-and-reporting.html#writing-interpretation-instead-of-only-showing-output" id="toc-writing-interpretation-instead-of-only-showing-output"><span class="toc-section-number">8.3</span> Writing interpretation instead of only showing output</a></li>
-<li><a href="storyboarding-and-reporting.html#separating-technical-details-from-reader-focused-explanations" id="toc-separating-technical-details-from-reader-focused-explanations"><span class="toc-section-number">8.4</span> Separating technical details from reader-focused explanations</a></li>
-<li><a href="storyboarding-and-reporting.html#building-a-polished-r-markdown-report" id="toc-building-a-polished-r-markdown-report"><span class="toc-section-number">8.5</span> Building a polished R Markdown report</a></li>
-<li><a href="storyboarding-and-reporting.html#example-interpretation-workflow" id="toc-example-interpretation-workflow"><span class="toc-section-number">8.6</span> Example interpretation workflow</a></li>
-<li><a href="storyboarding-and-reporting.html#practice-activity-1" id="toc-practice-activity-1"><span class="toc-section-number">8.7</span> Practice activity</a></li>
-<li><a href="storyboarding-and-reporting.html#chapter-summary-7" id="toc-chapter-summary-7"><span class="toc-section-number">8.8</span> Chapter summary</a></li>
+<li class="chapter" data-level="8.1" data-path="storyboarding-and-reporting.html"><a href="storyboarding-and-reporting.html#why-storyboarding-is-important"><i class="fa fa-check"></i><b>8.1</b> Why storyboarding is important</a></li>
+<li class="chapter" data-level="8.2" data-path="storyboarding-and-reporting.html"><a href="storyboarding-and-reporting.html#organizing-the-analytical-narrative"><i class="fa fa-check"></i><b>8.2</b> Organizing the analytical narrative</a></li>
+<li class="chapter" data-level="8.3" data-path="storyboarding-and-reporting.html"><a href="storyboarding-and-reporting.html#writing-interpretation-instead-of-only-showing-output"><i class="fa fa-check"></i><b>8.3</b> Writing interpretation instead of only showing output</a></li>
+<li class="chapter" data-level="8.4" data-path="storyboarding-and-reporting.html"><a href="storyboarding-and-reporting.html#separating-technical-details-from-reader-focused-explanations"><i class="fa fa-check"></i><b>8.4</b> Separating technical details from reader-focused explanations</a></li>
+<li class="chapter" data-level="8.5" data-path="storyboarding-and-reporting.html"><a href="storyboarding-and-reporting.html#building-a-polished-r-markdown-report"><i class="fa fa-check"></i><b>8.5</b> Building a polished R Markdown report</a></li>
+<li class="chapter" data-level="8.6" data-path="storyboarding-and-reporting.html"><a href="storyboarding-and-reporting.html#example-interpretation-workflow"><i class="fa fa-check"></i><b>8.6</b> Example interpretation workflow</a></li>
+<li class="chapter" data-level="8.7" data-path="storyboarding-and-reporting.html"><a href="storyboarding-and-reporting.html#practice-activity-1"><i class="fa fa-check"></i><b>8.7</b> Practice activity</a></li>
+<li class="chapter" data-level="8.8" data-path="storyboarding-and-reporting.html"><a href="storyboarding-and-reporting.html#chapter-summary-7"><i class="fa fa-check"></i><b>8.8</b> Chapter summary</a></li>
 </ul></li>
 </ul>
-</div>
-</div>
-</div>
-<div class="row">
-<div class="col-sm-12">
-<div id="visualization-and-advanced-data-cleaning" class="section level1" number="6">
-<h1><span class="header-section-number">Chapter 6</span> Visualization and Advanced Data Cleaning</h1>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Management with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="visualization-and-advanced-data-cleaning" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Chapter 6</span> Visualization and Advanced Data Cleaning<a href="visualization-and-advanced-data-cleaning.html#visualization-and-advanced-data-cleaning" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>In previous chapters, we focused on importing, cleaning, reshaping, and joining datasets using the tidyverse. In this chapter, we extend those workflows by introducing exploratory visualization and more advanced data-cleaning techniques commonly used in population health and environmental data analysis.</p>
 <p>The overall objective is to prepare several datasets for later analytical work involving cancer mortality, population estimates, geographic correspondence files, and environmental exposure data. Along the way, we will review common challenges such as missing values, inconsistent variable names, duplicate records, invalid dates, and poorly formatted identifiers.</p>
 <p>Although the datasets used in this course are simplified for teaching purposes, the workflow closely reflects the types of cleaning and preparation steps encountered in real-world epidemiological and environmental health projects.</p>
 <p>The chapter also introduces several important visualization techniques using <code>ggplot2</code>, which will help you explore and validate your cleaned datasets.</p>
-<div id="research-context-and-datasets" class="section level2" number="6.1">
-<h2><span class="header-section-number">6.1</span> Research context and datasets</h2>
+<div id="research-context-and-datasets" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Research context and datasets<a href="visualization-and-advanced-data-cleaning.html#research-context-and-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The exercises in this chapter are motivated by two simplified research questions.</p>
 <p>The first analysis investigates age- and sex-specific cancer mortality rates by health region in British Columbia. The second analysis explores whether environmental exposure variables can be linked to mortality data in order to perform a simplified odds-ratio analysis.</p>
 <p>In practice, incidence or cancer case data would generally be preferable to mortality data for exposure studies. However, the emphasis of this course is on data cleaning and management rather than formal epidemiological interpretation.</p>
@@ -286,13 +291,13 @@ details > summary {
 <span id="cb115-7"><a href="visualization-and-advanced-data-cleaning.html#cb115-7" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## New names:
 ## Rows: 51 Columns: 25
-## ── Column specification
-## ──────────────────────────────────────────────────────── Delimiter: &quot;,&quot; chr
-## (2): Health Service Delivery Area, Gender dbl (23): ...1, Year, &lt;1, 04-Jan,
-## 09-May, 14-Oct, 15-19, 20-24, 25-29, 30-34...
-## ℹ Use `spec()` to retrieve the full column specification for this data. ℹ
-## Specify the column types or set `show_col_types = FALSE` to quiet this message.
-## • `` -&gt; `...1`</code></pre>
+## -- Column specification
+## --------------------------------------------------------------------- Delimiter: &quot;,&quot; chr
+## (2): Health Service Delivery Area, Gender dbl (23): ...1, Year, &lt;1, 04-Jan, 09-May, 14-Oct,
+## 15-19, 20-24, 25-29, 30-34, 35-39, 40-4...
+## i Use `spec()` to retrieve the full column specification for this data. i Specify the column
+## types or set `show_col_types = FALSE` to quiet this message.
+## * `` -&gt; `...1`</code></pre>
 <div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="visualization-and-advanced-data-cleaning.html#cb117-1" tabindex="-1"></a>corr <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
 <span id="cb117-2"><a href="visualization-and-advanced-data-cleaning.html#cb117-2" tabindex="-1"></a>  <span class="st">&quot;./Raw Data/Corr_2016.csv&quot;</span>,</span>
 <span id="cb117-3"><a href="visualization-and-advanced-data-cleaning.html#cb117-3" tabindex="-1"></a>  <span class="at">locale =</span> readr<span class="sc">::</span><span class="fu">locale</span>(</span>
@@ -300,27 +305,27 @@ details > summary {
 <span id="cb117-5"><a href="visualization-and-advanced-data-cleaning.html#cb117-5" tabindex="-1"></a>  )</span>
 <span id="cb117-6"><a href="visualization-and-advanced-data-cleaning.html#cb117-6" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## Rows: 420963 Columns: 6
-## ── Column specification ────────────────────────────────────────────────────────
+## -- Column specification ---------------------------------------------------------------------
 ## Delimiter: &quot;,&quot;
 ## chr (2): hrname_english, hrname_french
 ## dbl (4): dbuid2016, csduid2016, hruid2017, dbpop2016
 ## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="visualization-and-advanced-data-cleaning.html#cb119-1" tabindex="-1"></a>env <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
 <span id="cb119-2"><a href="visualization-and-advanced-data-cleaning.html#cb119-2" tabindex="-1"></a>  <span class="st">&quot;./Raw Data/Weather_data.csv&quot;</span></span>
 <span id="cb119-3"><a href="visualization-and-advanced-data-cleaning.html#cb119-3" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## Rows: 116011 Columns: 8
-## ── Column specification ────────────────────────────────────────────────────────
+## -- Column specification ---------------------------------------------------------------------
 ## Delimiter: &quot;,&quot;
 ## chr (1): POSTALCODE12
-## dbl (7): WTHNRC12_01, WTHNRC12_02, WTHNRC12_03, WTHNRC12_04, WTHNRC12_05, WT...
+## dbl (7): WTHNRC12_01, WTHNRC12_02, WTHNRC12_03, WTHNRC12_04, WTHNRC12_05, WTHNRC12_06, WT...
 ## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<div id="reviewing-datasets-before-cleaning" class="section level2" number="6.2">
-<h2><span class="header-section-number">6.2</span> Reviewing datasets before cleaning</h2>
+<div id="reviewing-datasets-before-cleaning" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Reviewing datasets before cleaning<a href="visualization-and-advanced-data-cleaning.html#reviewing-datasets-before-cleaning" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Before modifying any dataset, it is important to understand its overall structure. Initial exploratory review often helps identify unexpected variable names, missing values, duplicate records, or formatting inconsistencies.</p>
 <p>We first create a list containing all datasets.</p>
 <div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="visualization-and-advanced-data-cleaning.html#cb121-1" tabindex="-1"></a>data_list <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
@@ -338,7 +343,7 @@ details > summary {
 <span id="cb122-6"><a href="visualization-and-advanced-data-cleaning.html#cb122-6" tabindex="-1"></a>  ),</span>
 <span id="cb122-7"><a href="visualization-and-advanced-data-cleaning.html#cb122-7" tabindex="-1"></a>  <span class="at">.id =</span> <span class="st">&quot;dataset&quot;</span></span>
 <span id="cb122-8"><a href="visualization-and-advanced-data-cleaning.html#cb122-8" tabindex="-1"></a>)</span></code></pre></div>
-<pre><code>## # A tibble: 4 × 3
+<pre><code>## # A tibble: 4 x 3
 ##   dataset   rows columns
 ##   &lt;chr&gt;    &lt;int&gt;   &lt;int&gt;
 ## 1 mort     60143      13
@@ -348,10 +353,9 @@ details > summary {
 <p>Column names can also be inspected.</p>
 <div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="visualization-and-advanced-data-cleaning.html#cb124-1" tabindex="-1"></a><span class="fu">map</span>(data_list, names)</span></code></pre></div>
 <pre><code>## $mort
-##  [1] &quot;ID&quot;                &quot;Sex&quot;               &quot;Cause_of_death&quot;   
-##  [4] &quot;dbuid2016&quot;         &quot;Location_of_death&quot; &quot;Marital_status&quot;   
-##  [7] &quot;Postalcode&quot;        &quot;B_year&quot;            &quot;B_month&quot;          
-## [10] &quot;B_day&quot;             &quot;D_year&quot;            &quot;D_month&quot;          
+##  [1] &quot;ID&quot;                &quot;Sex&quot;               &quot;Cause_of_death&quot;    &quot;dbuid2016&quot;        
+##  [5] &quot;Location_of_death&quot; &quot;Marital_status&quot;    &quot;Postalcode&quot;        &quot;B_year&quot;           
+##  [9] &quot;B_month&quot;           &quot;B_day&quot;             &quot;D_year&quot;            &quot;D_month&quot;          
 ## [13] &quot;D_day&quot;            
 ## 
 ## $pop
@@ -370,73 +374,61 @@ details > summary {
 ## [25] &quot;Total&quot;                       
 ## 
 ## $corr
-## [1] &quot;dbuid2016&quot;      &quot;csduid2016&quot;     &quot;hruid2017&quot;      &quot;hrname_english&quot;
-## [5] &quot;hrname_french&quot;  &quot;dbpop2016&quot;     
+## [1] &quot;dbuid2016&quot;      &quot;csduid2016&quot;     &quot;hruid2017&quot;      &quot;hrname_english&quot; &quot;hrname_french&quot; 
+## [6] &quot;dbpop2016&quot;     
 ## 
 ## $env
-## [1] &quot;POSTALCODE12&quot; &quot;WTHNRC12_01&quot;  &quot;WTHNRC12_02&quot;  &quot;WTHNRC12_03&quot;  &quot;WTHNRC12_04&quot; 
-## [6] &quot;WTHNRC12_05&quot;  &quot;WTHNRC12_06&quot;  &quot;WTHNRC12_07&quot;</code></pre>
+## [1] &quot;POSTALCODE12&quot; &quot;WTHNRC12_01&quot;  &quot;WTHNRC12_02&quot;  &quot;WTHNRC12_03&quot;  &quot;WTHNRC12_04&quot;  &quot;WTHNRC12_05&quot; 
+## [7] &quot;WTHNRC12_06&quot;  &quot;WTHNRC12_07&quot;</code></pre>
 <p>Finally, we summarize missing values across datasets.</p>
 <div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="visualization-and-advanced-data-cleaning.html#cb126-1" tabindex="-1"></a><span class="fu">map</span>(</span>
 <span id="cb126-2"><a href="visualization-and-advanced-data-cleaning.html#cb126-2" tabindex="-1"></a>  data_list,</span>
 <span id="cb126-3"><a href="visualization-and-advanced-data-cleaning.html#cb126-3" tabindex="-1"></a>  <span class="sc">~</span> <span class="fu">map_int</span>(.x, <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(.x)))</span>
 <span id="cb126-4"><a href="visualization-and-advanced-data-cleaning.html#cb126-4" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## $mort
-##                ID               Sex    Cause_of_death         dbuid2016 
-##                 0                13                 0                 4 
-## Location_of_death    Marital_status        Postalcode            B_year 
-##                 0                 0                 6                24 
-##           B_month             B_day            D_year           D_month 
-##                26                26                 0                 0 
-##             D_day 
-##                 0 
+##                ID               Sex    Cause_of_death         dbuid2016 Location_of_death 
+##                 0                13                 0                 4                 0 
+##    Marital_status        Postalcode            B_year           B_month             B_day 
+##                 0                 6                24                26                26 
+##            D_year           D_month             D_day 
+##                 0                 0                 0 
 ## 
 ## $pop
-##                         ...1 Health Service Delivery Area 
-##                            0                            0 
-##                         Year                       Gender 
-##                            0                            0 
-##                           &lt;1                       04-Jan 
-##                            0                            0 
-##                       09-May                       14-Oct 
-##                            0                            0 
-##                        15-19                        20-24 
-##                            0                            0 
-##                        25-29                        30-34 
-##                            0                            0 
-##                        35-39                        40-44 
-##                            0                            0 
-##                        45-49                        50-54 
-##                            0                            0 
-##                        55-59                        60-64 
-##                            0                            0 
-##                        65-69                        70-74 
-##                            0                            0 
-##                        75-79                        80-84 
-##                            0                            0 
-##                        85-89                          90+ 
-##                            0                            0 
+##                         ...1 Health Service Delivery Area                         Year 
+##                            0                            0                            0 
+##                       Gender                           &lt;1                       04-Jan 
+##                            0                            0                            0 
+##                       09-May                       14-Oct                        15-19 
+##                            0                            0                            0 
+##                        20-24                        25-29                        30-34 
+##                            0                            0                            0 
+##                        35-39                        40-44                        45-49 
+##                            0                            0                            0 
+##                        50-54                        55-59                        60-64 
+##                            0                            0                            0 
+##                        65-69                        70-74                        75-79 
+##                            0                            0                            0 
+##                        80-84                        85-89                          90+ 
+##                            0                            0                            0 
 ##                        Total 
 ##                            0 
 ## 
 ## $corr
-##      dbuid2016     csduid2016      hruid2017 hrname_english  hrname_french 
-##              0              0              0              0              0 
-##      dbpop2016 
-##             35 
+##      dbuid2016     csduid2016      hruid2017 hrname_english  hrname_french      dbpop2016 
+##              0              0              0              0              0             35 
 ## 
 ## $env
-## POSTALCODE12  WTHNRC12_01  WTHNRC12_02  WTHNRC12_03  WTHNRC12_04  WTHNRC12_05 
-##            0            0            0            0            0            0 
-##  WTHNRC12_06  WTHNRC12_07 
-##            0            0</code></pre>
+## POSTALCODE12  WTHNRC12_01  WTHNRC12_02  WTHNRC12_03  WTHNRC12_04  WTHNRC12_05  WTHNRC12_06 
+##            0            0            0            0            0            0            0 
+##  WTHNRC12_07 
+##            0</code></pre>
 <p>Early exploratory review is one of the most important stages of data cleaning because it helps identify potential problems before they propagate through the analysis workflow.</p>
 <div class="tip">
 <p>Always inspect datasets immediately after import. Many analytical problems originate from unnoticed import issues, incorrect variable types, or unexpected missing values.</p>
 </div>
 </div>
-<div id="cleaning-and-reshaping-population-data" class="section level2" number="6.3">
-<h2><span class="header-section-number">6.3</span> Cleaning and reshaping population data</h2>
+<div id="cleaning-and-reshaping-population-data" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Cleaning and reshaping population data<a href="visualization-and-advanced-data-cleaning.html#cleaning-and-reshaping-population-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The population dataset is currently stored in a wide format, where age groups appear as separate columns. Although this structure may be useful for spreadsheets, it is less convenient for visualization and analysis.</p>
 <p>A tidy long-format structure is generally easier to work with in R.</p>
 <p>We first reshape the dataset using <code>pivot_longer()</code>.</p>
@@ -468,7 +460,7 @@ details > summary {
 <span id="cb128-26"><a href="visualization-and-advanced-data-cleaning.html#cb128-26" tabindex="-1"></a>  )</span>
 <span id="cb128-27"><a href="visualization-and-advanced-data-cleaning.html#cb128-27" tabindex="-1"></a></span>
 <span id="cb128-28"><a href="visualization-and-advanced-data-cleaning.html#cb128-28" tabindex="-1"></a>pop_long</span></code></pre></div>
-<pre><code>## # A tibble: 1,071 × 5
+<pre><code>## # A tibble: 1,071 x 5
 ##    `Health Service Delivery Area`  Year Gender Age   Population
 ##    &lt;chr&gt;                          &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;      &lt;dbl&gt;
 ##  1 British Columbia                2016 M      ...1           0
@@ -481,7 +473,7 @@ details > summary {
 ##  8 British Columbia                2016 M      25-29     159609
 ##  9 British Columbia                2016 M      30-34     162416
 ## 10 British Columbia                2016 M      35-39     155936
-## # ℹ 1,061 more rows</code></pre>
+## # i 1,061 more rows</code></pre>
 <p>Some variable names are unnecessarily long or contain spaces, so we simplify them.</p>
 <div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="visualization-and-advanced-data-cleaning.html#cb130-1" tabindex="-1"></a>pop_long <span class="ot">&lt;-</span> pop_long <span class="sc">%&gt;%</span></span>
 <span id="cb130-2"><a href="visualization-and-advanced-data-cleaning.html#cb130-2" tabindex="-1"></a>  </span>
@@ -492,7 +484,7 @@ details > summary {
 <span id="cb130-7"><a href="visualization-and-advanced-data-cleaning.html#cb130-7" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Year)</span>
 <span id="cb130-8"><a href="visualization-and-advanced-data-cleaning.html#cb130-8" tabindex="-1"></a></span>
 <span id="cb130-9"><a href="visualization-and-advanced-data-cleaning.html#cb130-9" tabindex="-1"></a>pop_long</span></code></pre></div>
-<pre><code>## # A tibble: 1,071 × 4
+<pre><code>## # A tibble: 1,071 x 4
 ##    HSDA             Gender Age   Population
 ##    &lt;chr&gt;            &lt;chr&gt;  &lt;chr&gt;      &lt;dbl&gt;
 ##  1 British Columbia M      ...1           0
@@ -505,14 +497,14 @@ details > summary {
 ##  8 British Columbia M      25-29     159609
 ##  9 British Columbia M      30-34     162416
 ## 10 British Columbia M      35-39     155936
-## # ℹ 1,061 more rows</code></pre>
+## # i 1,061 more rows</code></pre>
 <p>For this example, we focus on total population counts only.</p>
 <div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="visualization-and-advanced-data-cleaning.html#cb132-1" tabindex="-1"></a>pop_total <span class="ot">&lt;-</span> pop_long <span class="sc">%&gt;%</span></span>
 <span id="cb132-2"><a href="visualization-and-advanced-data-cleaning.html#cb132-2" tabindex="-1"></a>  </span>
 <span id="cb132-3"><a href="visualization-and-advanced-data-cleaning.html#cb132-3" tabindex="-1"></a>  <span class="fu">filter</span>(Gender <span class="sc">==</span> <span class="st">&quot;T&quot;</span>)</span>
 <span id="cb132-4"><a href="visualization-and-advanced-data-cleaning.html#cb132-4" tabindex="-1"></a></span>
 <span id="cb132-5"><a href="visualization-and-advanced-data-cleaning.html#cb132-5" tabindex="-1"></a>pop_total</span></code></pre></div>
-<pre><code>## # A tibble: 357 × 4
+<pre><code>## # A tibble: 357 x 4
 ##    HSDA             Gender Age   Population
 ##    &lt;chr&gt;            &lt;chr&gt;  &lt;chr&gt;      &lt;dbl&gt;
 ##  1 British Columbia T      ...1           0
@@ -525,10 +517,10 @@ details > summary {
 ##  8 British Columbia T      25-29     318998
 ##  9 British Columbia T      30-34     329242
 ## 10 British Columbia T      35-39     313564
-## # ℹ 347 more rows</code></pre>
+## # i 347 more rows</code></pre>
 </div>
-<div id="visualizing-population-data" class="section level2" number="6.4">
-<h2><span class="header-section-number">6.4</span> Visualizing population data</h2>
+<div id="visualizing-population-data" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> Visualizing population data<a href="visualization-and-advanced-data-cleaning.html#visualizing-population-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Visualization is an important part of exploratory analysis because it helps reveal trends, inconsistencies, and unusual values that may not be obvious in tables alone.</p>
 <p>The following line plot displays population counts across age groups by HSDA.</p>
 <div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="visualization-and-advanced-data-cleaning.html#cb134-1" tabindex="-1"></a>pop_total <span class="sc">%&gt;%</span></span>
@@ -621,15 +613,14 @@ details > summary {
 <span id="cb136-27"><a href="visualization-and-advanced-data-cleaning.html#cb136-27" tabindex="-1"></a>  )</span></code></pre></div>
 <p><img src="data-management-with-r_files/figure-html/06-visualization-population-facets-1.png" alt="" width="672" /></p>
 </div>
-<div id="identifying-join-keys" class="section level2" number="6.5">
-<h2><span class="header-section-number">6.5</span> Identifying join keys</h2>
+<div id="identifying-join-keys" class="section level2 hasAnchor" number="6.5">
+<h2><span class="header-section-number">6.5</span> Identifying join keys<a href="visualization-and-advanced-data-cleaning.html#identifying-join-keys" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Before combining datasets, it is important to identify variables that can serve as join keys.</p>
 <div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="visualization-and-advanced-data-cleaning.html#cb137-1" tabindex="-1"></a><span class="fu">map</span>(data_list, names)</span></code></pre></div>
 <pre><code>## $mort
-##  [1] &quot;ID&quot;                &quot;Sex&quot;               &quot;Cause_of_death&quot;   
-##  [4] &quot;dbuid2016&quot;         &quot;Location_of_death&quot; &quot;Marital_status&quot;   
-##  [7] &quot;Postalcode&quot;        &quot;B_year&quot;            &quot;B_month&quot;          
-## [10] &quot;B_day&quot;             &quot;D_year&quot;            &quot;D_month&quot;          
+##  [1] &quot;ID&quot;                &quot;Sex&quot;               &quot;Cause_of_death&quot;    &quot;dbuid2016&quot;        
+##  [5] &quot;Location_of_death&quot; &quot;Marital_status&quot;    &quot;Postalcode&quot;        &quot;B_year&quot;           
+##  [9] &quot;B_month&quot;           &quot;B_day&quot;             &quot;D_year&quot;            &quot;D_month&quot;          
 ## [13] &quot;D_day&quot;            
 ## 
 ## $pop
@@ -648,12 +639,12 @@ details > summary {
 ## [25] &quot;Total&quot;                       
 ## 
 ## $corr
-## [1] &quot;dbuid2016&quot;      &quot;csduid2016&quot;     &quot;hruid2017&quot;      &quot;hrname_english&quot;
-## [5] &quot;hrname_french&quot;  &quot;dbpop2016&quot;     
+## [1] &quot;dbuid2016&quot;      &quot;csduid2016&quot;     &quot;hruid2017&quot;      &quot;hrname_english&quot; &quot;hrname_french&quot; 
+## [6] &quot;dbpop2016&quot;     
 ## 
 ## $env
-## [1] &quot;POSTALCODE12&quot; &quot;WTHNRC12_01&quot;  &quot;WTHNRC12_02&quot;  &quot;WTHNRC12_03&quot;  &quot;WTHNRC12_04&quot; 
-## [6] &quot;WTHNRC12_05&quot;  &quot;WTHNRC12_06&quot;  &quot;WTHNRC12_07&quot;</code></pre>
+## [1] &quot;POSTALCODE12&quot; &quot;WTHNRC12_01&quot;  &quot;WTHNRC12_02&quot;  &quot;WTHNRC12_03&quot;  &quot;WTHNRC12_04&quot;  &quot;WTHNRC12_05&quot; 
+## [7] &quot;WTHNRC12_06&quot;  &quot;WTHNRC12_07&quot;</code></pre>
 <p>Possible join paths include:</p>
 <ul>
 <li>joining mortality data to the correspondence file using <code>dbuid2016</code>;</li>
@@ -665,8 +656,8 @@ details > summary {
 <p>Incorrect joins are one of the most common causes of duplicate records and analytical errors in real-world projects.</p>
 </div>
 </div>
-<div id="cleaning-mortality-data" class="section level2" number="6.6">
-<h2><span class="header-section-number">6.6</span> Cleaning mortality data</h2>
+<div id="cleaning-mortality-data" class="section level2 hasAnchor" number="6.6">
+<h2><span class="header-section-number">6.6</span> Cleaning mortality data<a href="visualization-and-advanced-data-cleaning.html#cleaning-mortality-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We now begin cleaning the mortality dataset.</p>
 <p>Variables not required for the current analysis are removed.</p>
 <div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="visualization-and-advanced-data-cleaning.html#cb139-1" tabindex="-1"></a>rates <span class="ot">&lt;-</span> mort <span class="sc">%&gt;%</span></span>
@@ -679,21 +670,20 @@ details > summary {
 <span id="cb139-8"><a href="visualization-and-advanced-data-cleaning.html#cb139-8" tabindex="-1"></a>  )</span>
 <span id="cb139-9"><a href="visualization-and-advanced-data-cleaning.html#cb139-9" tabindex="-1"></a></span>
 <span id="cb139-10"><a href="visualization-and-advanced-data-cleaning.html#cb139-10" tabindex="-1"></a>rates</span></code></pre></div>
-<pre><code>## # A tibble: 60,143 × 11
-##         ID Sex   Cause_of_death dbuid2016 Postalcode B_year B_month B_day D_year
-##      &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-##  1 1000001 M     D47              1.31e10 E1A1E9       1943       7     8   2016
-##  2 1000002 F     C34              4.81e10 T2E0T2       1943       5    22   2016
-##  3 1000003 M     C26              3.52e10 M4J1L1       1953       8     9   2016
-##  4 1000004 M     C16              2.47e10 H9H1B4       1923       6    14   2016
-##  5 1000005 M     C22              2.46e10 J2W2B6       1931       8     8   2016
-##  6 1000006 F     C50              3.53e10 L8H2K1       1933      11     4   2016
-##  7 1000007 F     C85              3.54e10 N9Y3X5       1918       5    20   2016
-##  8 1000008 F     C56              3.53e10 L8H7G2       1972       8    18   2016
-##  9 1000009 F     C64              2.47e10 H9P2B3       1922       7    23   2016
-## 10 1000010 M     C22              4.81e10 T5M1G2       1953       2     7   2016
-## # ℹ 60,133 more rows
-## # ℹ 2 more variables: D_month &lt;dbl&gt;, D_day &lt;dbl&gt;</code></pre>
+<pre><code>## # A tibble: 60,143 x 11
+##        ID Sex   Cause_of_death dbuid2016 Postalcode B_year B_month B_day D_year D_month D_day
+##     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+##  1 1.00e6 M     D47              1.31e10 E1A1E9       1943       7     8   2016       9    22
+##  2 1.00e6 F     C34              4.81e10 T2E0T2       1943       5    22   2016      12    14
+##  3 1.00e6 M     C26              3.52e10 M4J1L1       1953       8     9   2016       4    21
+##  4 1.00e6 M     C16              2.47e10 H9H1B4       1923       6    14   2016      11    21
+##  5 1.00e6 M     C22              2.46e10 J2W2B6       1931       8     8   2016       4     4
+##  6 1.00e6 F     C50              3.53e10 L8H2K1       1933      11     4   2016       2     6
+##  7 1.00e6 F     C85              3.54e10 N9Y3X5       1918       5    20   2016       2     9
+##  8 1.00e6 F     C56              3.53e10 L8H7G2       1972       8    18   2016       6    13
+##  9 1.00e6 F     C64              2.47e10 H9P2B3       1922       7    23   2016       5    25
+## 10 1.00e6 M     C22              4.81e10 T5M1G2       1953       2     7   2016       1    16
+## # i 60,133 more rows</code></pre>
 <p>Duplicate records should also be identified and reviewed.</p>
 <div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="visualization-and-advanced-data-cleaning.html#cb141-1" tabindex="-1"></a>rates_dup <span class="ot">&lt;-</span> rates <span class="sc">%&gt;%</span></span>
 <span id="cb141-2"><a href="visualization-and-advanced-data-cleaning.html#cb141-2" tabindex="-1"></a>  </span>
@@ -702,7 +692,7 @@ details > summary {
 <span id="cb141-5"><a href="visualization-and-advanced-data-cleaning.html#cb141-5" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">1</span>)</span>
 <span id="cb141-6"><a href="visualization-and-advanced-data-cleaning.html#cb141-6" tabindex="-1"></a></span>
 <span id="cb141-7"><a href="visualization-and-advanced-data-cleaning.html#cb141-7" tabindex="-1"></a>rates_dup</span></code></pre></div>
-<pre><code>## # A tibble: 23 × 2
+<pre><code>## # A tibble: 23 x 2
 ##         ID     n
 ##      &lt;dbl&gt; &lt;int&gt;
 ##  1 1000170     2
@@ -715,32 +705,31 @@ details > summary {
 ##  8 1005245     2
 ##  9 1008199     2
 ## 10 1012433     2
-## # ℹ 13 more rows</code></pre>
+## # i 13 more rows</code></pre>
 <div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="visualization-and-advanced-data-cleaning.html#cb143-1" tabindex="-1"></a>rates <span class="sc">%&gt;%</span></span>
 <span id="cb143-2"><a href="visualization-and-advanced-data-cleaning.html#cb143-2" tabindex="-1"></a>  </span>
 <span id="cb143-3"><a href="visualization-and-advanced-data-cleaning.html#cb143-3" tabindex="-1"></a>  <span class="fu">filter</span>(ID <span class="sc">%in%</span> rates_dup<span class="sc">$</span>ID)</span></code></pre></div>
-<pre><code>## # A tibble: 47 × 11
-##         ID Sex   Cause_of_death dbuid2016 Postalcode B_year B_month B_day D_year
-##      &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-##  1 1000170 F     C91              1.21e10 B4V1T1       1922       7    25   2016
-##  2 1000170 F     C91              1.21e10 B4V1T1       1922       7    25   2016
-##  3 1000662 M     C34              2.47e10 J7P4H7       1965       3    29   2016
-##  4 1000662 M     C34              2.47e10 J7P4H7       1965       3    29   2016
-##  5 1001349 M     C16              2.44e10 G9A5H9       1961       4     6   2016
-##  6 1001349 M     C16              2.44e10 G9A5H9       1961       4     6   2016
-##  7 1001352 M     C24              4.80e10 T1B3E3       1956      12    27   2016
-##  8 1001352 M     C24              4.80e10 T1B3E3       1956      12    27   2016
-##  9 1004287 M     C34              3.53e10 N4S2E1       1949       2    18   2016
-## 10 1004287 M     C34              3.53e10 N4S2E1       1949       2    18   2016
-## # ℹ 37 more rows
-## # ℹ 2 more variables: D_month &lt;dbl&gt;, D_day &lt;dbl&gt;</code></pre>
+<pre><code>## # A tibble: 47 x 11
+##        ID Sex   Cause_of_death dbuid2016 Postalcode B_year B_month B_day D_year D_month D_day
+##     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+##  1 1.00e6 F     C91              1.21e10 B4V1T1       1922       7    25   2016       7    22
+##  2 1.00e6 F     C91              1.21e10 B4V1T1       1922       7    25   2016       7    22
+##  3 1.00e6 M     C34              2.47e10 J7P4H7       1965       3    29   2016       5     2
+##  4 1.00e6 M     C34              2.47e10 J7P4H7       1965       3    29   2016       5     2
+##  5 1.00e6 M     C16              2.44e10 G9A5H9       1961       4     6   2016       5    24
+##  6 1.00e6 M     C16              2.44e10 G9A5H9       1961       4     6   2016       5    24
+##  7 1.00e6 M     C24              4.80e10 T1B3E3       1956      12    27   2016       4    28
+##  8 1.00e6 M     C24              4.80e10 T1B3E3       1956      12    27   2016       4    28
+##  9 1.00e6 M     C34              3.53e10 N4S2E1       1949       2    18   2016       1    19
+## 10 1.00e6 M     C34              3.53e10 N4S2E1       1949       2    18   2016       1    19
+## # i 37 more rows</code></pre>
 <p>After inspection, duplicates can be removed.</p>
 <div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="visualization-and-advanced-data-cleaning.html#cb145-1" tabindex="-1"></a>rates <span class="ot">&lt;-</span> rates <span class="sc">%&gt;%</span></span>
 <span id="cb145-2"><a href="visualization-and-advanced-data-cleaning.html#cb145-2" tabindex="-1"></a>  </span>
 <span id="cb145-3"><a href="visualization-and-advanced-data-cleaning.html#cb145-3" tabindex="-1"></a>  <span class="fu">distinct</span>()</span></code></pre></div>
 </div>
-<div id="handling-missing-and-inconsistent-values" class="section level2" number="6.7">
-<h2><span class="header-section-number">6.7</span> Handling missing and inconsistent values</h2>
+<div id="handling-missing-and-inconsistent-values" class="section level2 hasAnchor" number="6.7">
+<h2><span class="header-section-number">6.7</span> Handling missing and inconsistent values<a href="visualization-and-advanced-data-cleaning.html#handling-missing-and-inconsistent-values" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Missing values and data-entry problems are common in administrative datasets.</p>
 <p>We begin by examining birth year distributions.</p>
 <div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="visualization-and-advanced-data-cleaning.html#cb146-1" tabindex="-1"></a>rates <span class="sc">%&gt;%</span></span>
@@ -758,8 +747,7 @@ details > summary {
 <span id="cb146-13"><a href="visualization-and-advanced-data-cleaning.html#cb146-13" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb146-14"><a href="visualization-and-advanced-data-cleaning.html#cb146-14" tabindex="-1"></a>  </span>
 <span id="cb146-15"><a href="visualization-and-advanced-data-cleaning.html#cb146-15" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
-<pre><code>## Warning: Removed 24 rows containing non-finite outside the scale range
-## (`stat_bin()`).</code></pre>
+<pre><code>## Warning: Removed 24 rows containing non-finite outside the scale range (`stat_bin()`).</code></pre>
 <p><img src="data-management-with-r_files/figure-html/06-visualization-check-birth-year-1.png" alt="" width="672" /></p>
 <p>Some birth years before 1905 are likely data-entry errors. For this exercise, we assume these values should belong to the twentieth century.</p>
 <div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="visualization-and-advanced-data-cleaning.html#cb148-1" tabindex="-1"></a>rates <span class="ot">&lt;-</span> rates <span class="sc">%&gt;%</span></span>
@@ -786,7 +774,7 @@ details > summary {
 <p>We also inspect death months and days.</p>
 <div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="visualization-and-advanced-data-cleaning.html#cb149-1" tabindex="-1"></a>rates <span class="sc">%&gt;%</span></span>
 <span id="cb149-2"><a href="visualization-and-advanced-data-cleaning.html#cb149-2" tabindex="-1"></a>  <span class="fu">count</span>(D_month)</span></code></pre></div>
-<pre><code>## # A tibble: 17 × 2
+<pre><code>## # A tibble: 17 x 2
 ##    D_month     n
 ##      &lt;dbl&gt; &lt;int&gt;
 ##  1       1  5088
@@ -818,7 +806,7 @@ details > summary {
 <span id="cb151-10"><a href="visualization-and-advanced-data-cleaning.html#cb151-10" tabindex="-1"></a></span>
 <span id="cb151-11"><a href="visualization-and-advanced-data-cleaning.html#cb151-11" tabindex="-1"></a>rates <span class="sc">%&gt;%</span></span>
 <span id="cb151-12"><a href="visualization-and-advanced-data-cleaning.html#cb151-12" tabindex="-1"></a>  <span class="fu">count</span>(D_month)</span></code></pre></div>
-<pre><code>## # A tibble: 12 × 2
+<pre><code>## # A tibble: 12 x 2
 ##    D_month     n
 ##      &lt;dbl&gt; &lt;int&gt;
 ##  1       1  5088
@@ -835,7 +823,7 @@ details > summary {
 ## 12      12  5070</code></pre>
 <div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="visualization-and-advanced-data-cleaning.html#cb153-1" tabindex="-1"></a>rates <span class="sc">%&gt;%</span></span>
 <span id="cb153-2"><a href="visualization-and-advanced-data-cleaning.html#cb153-2" tabindex="-1"></a>  <span class="fu">count</span>(D_day)</span></code></pre></div>
-<pre><code>## # A tibble: 31 × 2
+<pre><code>## # A tibble: 31 x 2
 ##    D_day     n
 ##    &lt;dbl&gt; &lt;int&gt;
 ##  1     1  1954
@@ -848,10 +836,10 @@ details > summary {
 ##  8     8  1966
 ##  9     9  1956
 ## 10    10  1903
-## # ℹ 21 more rows</code></pre>
+## # i 21 more rows</code></pre>
 <div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="visualization-and-advanced-data-cleaning.html#cb155-1" tabindex="-1"></a>rates <span class="sc">%&gt;%</span></span>
 <span id="cb155-2"><a href="visualization-and-advanced-data-cleaning.html#cb155-2" tabindex="-1"></a>  <span class="fu">count</span>(B_day)</span></code></pre></div>
-<pre><code>## # A tibble: 31 × 2
+<pre><code>## # A tibble: 31 x 2
 ##    B_day     n
 ##    &lt;dbl&gt; &lt;int&gt;
 ##  1     1  1979
@@ -864,10 +852,10 @@ details > summary {
 ##  8     8  1960
 ##  9     9  1942
 ## 10    10  1995
-## # ℹ 21 more rows</code></pre>
+## # i 21 more rows</code></pre>
 </div>
-<div id="creating-dates-and-calculating-age" class="section level2" number="6.8">
-<h2><span class="header-section-number">6.8</span> Creating dates and calculating age</h2>
+<div id="creating-dates-and-calculating-age" class="section level2 hasAnchor" number="6.8">
+<h2><span class="header-section-number">6.8</span> Creating dates and calculating age<a href="visualization-and-advanced-data-cleaning.html#creating-dates-and-calculating-age" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The <code>lubridate</code> package simplifies date handling in R.</p>
 <p>We create dates of birth and death and then calculate age.</p>
 <div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="visualization-and-advanced-data-cleaning.html#cb157-1" tabindex="-1"></a>rates <span class="ot">&lt;-</span> rates <span class="sc">%&gt;%</span></span>
@@ -900,7 +888,7 @@ details > summary {
 <span id="cb157-28"><a href="visualization-and-advanced-data-cleaning.html#cb157-28" tabindex="-1"></a>    )</span>
 <span id="cb157-29"><a href="visualization-and-advanced-data-cleaning.html#cb157-29" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>## Warning: There was 1 warning in `mutate()`.
-## ℹ In argument: `DOB = as_date(str_c(B_year, B_month, B_day, sep = &quot;-&quot;))`.
+## i In argument: `DOB = as_date(str_c(B_year, B_month, B_day, sep = &quot;-&quot;))`.
 ## Caused by warning:
 ## !  6 failed to parse.</code></pre>
 <div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="visualization-and-advanced-data-cleaning.html#cb159-1" tabindex="-1"></a><span class="fu">range</span>(rates<span class="sc">$</span>Age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
@@ -910,12 +898,12 @@ details > summary {
 <span id="cb161-2"><a href="visualization-and-advanced-data-cleaning.html#cb161-2" tabindex="-1"></a>  rates,</span>
 <span id="cb161-3"><a href="visualization-and-advanced-data-cleaning.html#cb161-3" tabindex="-1"></a>  <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(.x))</span>
 <span id="cb161-4"><a href="visualization-and-advanced-data-cleaning.html#cb161-4" tabindex="-1"></a>)</span></code></pre></div>
-<pre><code>##             ID            Sex Cause_of_death      dbuid2016     Postalcode 
-##              0             13              0              4              6 
-##         B_year        B_month          B_day         D_year        D_month 
-##             24              0              0              0              0 
-##          D_day            DOB            DOD            Age 
-##              0             30              0             30</code></pre>
+<pre><code>##             ID            Sex Cause_of_death      dbuid2016     Postalcode         B_year 
+##              0             13              0              4              6             24 
+##        B_month          B_day         D_year        D_month          D_day            DOB 
+##              0              0              0              0              0             30 
+##            DOD            Age 
+##              0             30</code></pre>
 <div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="visualization-and-advanced-data-cleaning.html#cb163-1" tabindex="-1"></a>rates <span class="sc">%&gt;%</span></span>
 <span id="cb163-2"><a href="visualization-and-advanced-data-cleaning.html#cb163-2" tabindex="-1"></a>  </span>
 <span id="cb163-3"><a href="visualization-and-advanced-data-cleaning.html#cb163-3" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
@@ -924,22 +912,21 @@ details > summary {
 <span id="cb163-6"><a href="visualization-and-advanced-data-cleaning.html#cb163-6" tabindex="-1"></a>      is.na</span>
 <span id="cb163-7"><a href="visualization-and-advanced-data-cleaning.html#cb163-7" tabindex="-1"></a>    )</span>
 <span id="cb163-8"><a href="visualization-and-advanced-data-cleaning.html#cb163-8" tabindex="-1"></a>  )</span></code></pre></div>
-<pre><code>## # A tibble: 53 × 14
-##         ID Sex   Cause_of_death dbuid2016 Postalcode B_year B_month B_day D_year
-##      &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-##  1 1000185 F     C85              5.94e10 V4V2G1         NA       6    15   2016
-##  2 1000345 &lt;NA&gt;  C19              5.92e10 V3W1S7       1964       4    22   2016
-##  3 1001139 F     C50              5.95e10 V0J0B5         NA       6    15   2016
-##  4 1001262 M     C25              5.92e10 &lt;NA&gt;         1952       1    25   2016
-##  5 1001402 F     C34              5.94e10 V1E1V2         NA       7    11   2016
-##  6 1001696 &lt;NA&gt;  C34              5.92e10 V8T4P6       1931       8     6   2016
-##  7 1001964 M     C61              5.92e10 &lt;NA&gt;         1948       1    22   2016
-##  8 1002150 M     C26              5.91e10 V2P6S3         NA       6    15   2016
-##  9 1003446 F     C34              5.92e10 V8T4E5         NA       6    15   2016
-## 10 1004221 M     C34              5.92e10 V8V4V6         NA       6    15   2016
-## # ℹ 43 more rows
-## # ℹ 5 more variables: D_month &lt;dbl&gt;, D_day &lt;dbl&gt;, DOB &lt;date&gt;, DOD &lt;date&gt;,
-## #   Age &lt;dbl&gt;</code></pre>
+<pre><code>## # A tibble: 53 x 14
+##        ID Sex   Cause_of_death dbuid2016 Postalcode B_year B_month B_day D_year D_month D_day
+##     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+##  1 1.00e6 F     C85              5.94e10 V4V2G1         NA       6    15   2016      11     2
+##  2 1.00e6 &lt;NA&gt;  C19              5.92e10 V3W1S7       1964       4    22   2016       9    23
+##  3 1.00e6 F     C50              5.95e10 V0J0B5         NA       6    15   2016       6     6
+##  4 1.00e6 M     C25              5.92e10 &lt;NA&gt;         1952       1    25   2016       5     2
+##  5 1.00e6 F     C34              5.94e10 V1E1V2         NA       7    11   2016       8    18
+##  6 1.00e6 &lt;NA&gt;  C34              5.92e10 V8T4P6       1931       8     6   2016      10    16
+##  7 1.00e6 M     C61              5.92e10 &lt;NA&gt;         1948       1    22   2016       3    17
+##  8 1.00e6 M     C26              5.91e10 V2P6S3         NA       6    15   2016       2    22
+##  9 1.00e6 F     C34              5.92e10 V8T4E5         NA       6    15   2016      10    10
+## 10 1.00e6 M     C34              5.92e10 V8V4V6         NA       6    15   2016      10    28
+## # i 43 more rows
+## # i 3 more variables: DOB &lt;date&gt;, DOD &lt;date&gt;, Age &lt;dbl&gt;</code></pre>
 <p>Records missing essential identifiers are removed.</p>
 <div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="visualization-and-advanced-data-cleaning.html#cb165-1" tabindex="-1"></a>rates <span class="ot">&lt;-</span> rates <span class="sc">%&gt;%</span></span>
 <span id="cb165-2"><a href="visualization-and-advanced-data-cleaning.html#cb165-2" tabindex="-1"></a>  </span>
@@ -948,8 +935,8 @@ details > summary {
 <span id="cb165-5"><a href="visualization-and-advanced-data-cleaning.html#cb165-5" tabindex="-1"></a>    dbuid2016</span>
 <span id="cb165-6"><a href="visualization-and-advanced-data-cleaning.html#cb165-6" tabindex="-1"></a>  )</span></code></pre></div>
 </div>
-<div id="imputing-missing-values" class="section level2" number="6.9">
-<h2><span class="header-section-number">6.9</span> Imputing missing values</h2>
+<div id="imputing-missing-values" class="section level2 hasAnchor" number="6.9">
+<h2><span class="header-section-number">6.9</span> Imputing missing values<a href="visualization-and-advanced-data-cleaning.html#imputing-missing-values" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>For demonstration purposes, missing sex values are randomly imputed.</p>
 <div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="visualization-and-advanced-data-cleaning.html#cb166-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
 <span id="cb166-2"><a href="visualization-and-advanced-data-cleaning.html#cb166-2" tabindex="-1"></a></span>
@@ -969,7 +956,7 @@ details > summary {
 <span id="cb166-16"><a href="visualization-and-advanced-data-cleaning.html#cb166-16" tabindex="-1"></a></span>
 <span id="cb166-17"><a href="visualization-and-advanced-data-cleaning.html#cb166-17" tabindex="-1"></a>rates <span class="sc">%&gt;%</span></span>
 <span id="cb166-18"><a href="visualization-and-advanced-data-cleaning.html#cb166-18" tabindex="-1"></a>  <span class="fu">count</span>(Sex)</span></code></pre></div>
-<pre><code>## # A tibble: 2 × 2
+<pre><code>## # A tibble: 2 x 2
 ##   Sex       n
 ##   &lt;fct&gt; &lt;int&gt;
 ## 1 F     28617
@@ -979,8 +966,8 @@ details > summary {
 <p>Random imputation can introduce bias into analyses. Always document assumptions and cleaning decisions clearly.</p>
 </div>
 </div>
-<div id="working-with-icd-10-codes" class="section level2" number="6.10">
-<h2><span class="header-section-number">6.10</span> Working with ICD-10 codes</h2>
+<div id="working-with-icd-10-codes" class="section level2 hasAnchor" number="6.10">
+<h2><span class="header-section-number">6.10</span> Working with ICD-10 codes<a href="visualization-and-advanced-data-cleaning.html#working-with-icd-10-codes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Cause-of-death variables often contain coded medical classifications.</p>
 <p>We separate ICD-10 codes into letter and numeric components.</p>
 <div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="visualization-and-advanced-data-cleaning.html#cb168-1" tabindex="-1"></a>rates <span class="ot">&lt;-</span> rates <span class="sc">%&gt;%</span></span>
@@ -998,7 +985,7 @@ details > summary {
 <span id="cb168-13"><a href="visualization-and-advanced-data-cleaning.html#cb168-13" tabindex="-1"></a></span>
 <span id="cb168-14"><a href="visualization-and-advanced-data-cleaning.html#cb168-14" tabindex="-1"></a>rates <span class="sc">%&gt;%</span></span>
 <span id="cb168-15"><a href="visualization-and-advanced-data-cleaning.html#cb168-15" tabindex="-1"></a>  <span class="fu">count</span>(letter)</span></code></pre></div>
-<pre><code>## # A tibble: 2 × 2
+<pre><code>## # A tibble: 2 x 2
 ##   letter     n
 ##   &lt;chr&gt;  &lt;int&gt;
 ## 1 C      58916
@@ -1040,7 +1027,7 @@ details > summary {
 <span id="cb171-30"><a href="visualization-and-advanced-data-cleaning.html#cb171-30" tabindex="-1"></a></span>
 <span id="cb171-31"><a href="visualization-and-advanced-data-cleaning.html#cb171-31" tabindex="-1"></a>rates <span class="sc">%&gt;%</span></span>
 <span id="cb171-32"><a href="visualization-and-advanced-data-cleaning.html#cb171-32" tabindex="-1"></a>  <span class="fu">count</span>(CauseCat_label)</span></code></pre></div>
-<pre><code>## # A tibble: 5 × 2
+<pre><code>## # A tibble: 5 x 2
 ##   CauseCat_label        n
 ##   &lt;chr&gt;             &lt;int&gt;
 ## 1 Breast cancer      4003
@@ -1050,7 +1037,7 @@ details > summary {
 ## 5 Prostate cancer    3107</code></pre>
 <div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="visualization-and-advanced-data-cleaning.html#cb173-1" tabindex="-1"></a>rates <span class="sc">%&gt;%</span></span>
 <span id="cb173-2"><a href="visualization-and-advanced-data-cleaning.html#cb173-2" tabindex="-1"></a>  <span class="fu">count</span>(AgeCat)</span></code></pre></div>
-<pre><code>## # A tibble: 11 × 2
+<pre><code>## # A tibble: 11 x 2
 ##    AgeCat       n
 ##    &lt;fct&gt;    &lt;int&gt;
 ##  1 [0,10)      66
@@ -1065,8 +1052,8 @@ details > summary {
 ## 10 [90,130]  5667
 ## 11 &lt;NA&gt;         6</code></pre>
 </div>
-<div id="visualizing-cleaned-mortality-data" class="section level2" number="6.11">
-<h2><span class="header-section-number">6.11</span> Visualizing cleaned mortality data</h2>
+<div id="visualizing-cleaned-mortality-data" class="section level2 hasAnchor" number="6.11">
+<h2><span class="header-section-number">6.11</span> Visualizing cleaned mortality data<a href="visualization-and-advanced-data-cleaning.html#visualizing-cleaned-mortality-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>After cleaning the mortality data, we can explore the distributions visually.</p>
 <div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="visualization-and-advanced-data-cleaning.html#cb175-1" tabindex="-1"></a>rates <span class="sc">%&gt;%</span></span>
 <span id="cb175-2"><a href="visualization-and-advanced-data-cleaning.html#cb175-2" tabindex="-1"></a>  </span>
@@ -1122,8 +1109,8 @@ details > summary {
 <span id="cb176-29"><a href="visualization-and-advanced-data-cleaning.html#cb176-29" tabindex="-1"></a>  )</span></code></pre></div>
 <p><img src="data-management-with-r_files/figure-html/06-visualization-age-category-plot-1.png" alt="" width="672" /></p>
 </div>
-<div id="saving-cleaned-datasets" class="section level2" number="6.12">
-<h2><span class="header-section-number">6.12</span> Saving cleaned datasets</h2>
+<div id="saving-cleaned-datasets" class="section level2 hasAnchor" number="6.12">
+<h2><span class="header-section-number">6.12</span> Saving cleaned datasets<a href="visualization-and-advanced-data-cleaning.html#saving-cleaned-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Cleaned outputs should always be saved separately from raw data.</p>
 <p>We first create an output folder if it does not already exist.</p>
 <div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="visualization-and-advanced-data-cleaning.html#cb177-1" tabindex="-1"></a><span class="fu">dir.create</span>(</span>
@@ -1160,7 +1147,7 @@ details > summary {
 <span id="cb179-22"><a href="visualization-and-advanced-data-cleaning.html#cb179-22" tabindex="-1"></a>  )</span>
 <span id="cb179-23"><a href="visualization-and-advanced-data-cleaning.html#cb179-23" tabindex="-1"></a></span>
 <span id="cb179-24"><a href="visualization-and-advanced-data-cleaning.html#cb179-24" tabindex="-1"></a>env_clean</span></code></pre></div>
-<pre><code>## # A tibble: 116,011 × 4
+<pre><code>## # A tibble: 116,011 x 4
 ##    Postal_code max_temp min_temp exposure
 ##    &lt;chr&gt;          &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
 ##  1 V0C1E0          2.91    -8.12        1
@@ -1173,14 +1160,14 @@ details > summary {
 ##  8 V0J1K0          4.71    -5.34        1
 ##  9 V0B1A1          4.91    -4.42        1
 ## 10 V0B1T6          4.91    -4.42        1
-## # ℹ 116,001 more rows</code></pre>
+## # i 116,001 more rows</code></pre>
 <div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="visualization-and-advanced-data-cleaning.html#cb181-1" tabindex="-1"></a><span class="fu">write_csv</span>(</span>
 <span id="cb181-2"><a href="visualization-and-advanced-data-cleaning.html#cb181-2" tabindex="-1"></a>  env_clean,</span>
 <span id="cb181-3"><a href="visualization-and-advanced-data-cleaning.html#cb181-3" tabindex="-1"></a>  <span class="st">&quot;./Outputs/exposures.csv&quot;</span></span>
 <span id="cb181-4"><a href="visualization-and-advanced-data-cleaning.html#cb181-4" tabindex="-1"></a>)</span></code></pre></div>
 </div>
-<div id="joining-datasets-and-validating-postal-codes" class="section level2" number="6.13">
-<h2><span class="header-section-number">6.13</span> Joining datasets and validating postal codes</h2>
+<div id="joining-datasets-and-validating-postal-codes" class="section level2 hasAnchor" number="6.13">
+<h2><span class="header-section-number">6.13</span> Joining datasets and validating postal codes<a href="visualization-and-advanced-data-cleaning.html#joining-datasets-and-validating-postal-codes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The mortality dataset can now be joined to the correspondence file.</p>
 <div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="visualization-and-advanced-data-cleaning.html#cb182-1" tabindex="-1"></a>analysis1 <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(</span>
 <span id="cb182-2"><a href="visualization-and-advanced-data-cleaning.html#cb182-2" tabindex="-1"></a>  rates,</span>
@@ -1189,24 +1176,23 @@ details > summary {
 <span id="cb182-5"><a href="visualization-and-advanced-data-cleaning.html#cb182-5" tabindex="-1"></a>)</span>
 <span id="cb182-6"><a href="visualization-and-advanced-data-cleaning.html#cb182-6" tabindex="-1"></a></span>
 <span id="cb182-7"><a href="visualization-and-advanced-data-cleaning.html#cb182-7" tabindex="-1"></a>analysis1</span></code></pre></div>
-<pre><code>## # A tibble: 48,682 × 24
-##        ID Sex   Cause_of_death letter number dbuid2016 Postalcode B_year B_month
-##     &lt;dbl&gt; &lt;fct&gt; &lt;chr&gt;          &lt;chr&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt;
-##  1 1.00e6 F     C34            C          34   4.81e10 T2E0T2       1943       5
-##  2 1.00e6 M     C26            C          26   3.52e10 M4J1L1       1953       8
-##  3 1.00e6 M     C16            C          16   2.47e10 H9H1B4       1923       6
-##  4 1.00e6 M     C22            C          22   2.46e10 J2W2B6       1931       8
-##  5 1.00e6 F     C50            C          50   3.53e10 L8H2K1       1933      11
-##  6 1.00e6 F     C85            C          85   3.54e10 N9Y3X5       1918       5
-##  7 1.00e6 F     C56            C          56   3.53e10 L8H7G2       1972       8
-##  8 1.00e6 F     C64            C          64   2.47e10 H9P2B3       1922       7
-##  9 1.00e6 M     C22            C          22   4.81e10 T5M1G2       1953       2
-## 10 1.00e6 F     C50            C          50   1.21e10 B3A4B2       1978      11
-## # ℹ 48,672 more rows
-## # ℹ 15 more variables: B_day &lt;dbl&gt;, D_year &lt;dbl&gt;, D_month &lt;dbl&gt;, D_day &lt;dbl&gt;,
-## #   DOB &lt;date&gt;, DOD &lt;date&gt;, Age &lt;dbl&gt;, CauseCat &lt;dbl&gt;, CauseCat_label &lt;chr&gt;,
-## #   AgeCat &lt;fct&gt;, csduid2016 &lt;dbl&gt;, hruid2017 &lt;dbl&gt;, hrname_english &lt;chr&gt;,
-## #   hrname_french &lt;chr&gt;, dbpop2016 &lt;dbl&gt;</code></pre>
+<pre><code>## # A tibble: 48,682 x 24
+##        ID Sex   Cause_of_death letter number dbuid2016 Postalcode B_year B_month B_day D_year
+##     &lt;dbl&gt; &lt;fct&gt; &lt;chr&gt;          &lt;chr&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+##  1 1.00e6 F     C34            C          34   4.81e10 T2E0T2       1943       5    22   2016
+##  2 1.00e6 M     C26            C          26   3.52e10 M4J1L1       1953       8     9   2016
+##  3 1.00e6 M     C16            C          16   2.47e10 H9H1B4       1923       6    14   2016
+##  4 1.00e6 M     C22            C          22   2.46e10 J2W2B6       1931       8     8   2016
+##  5 1.00e6 F     C50            C          50   3.53e10 L8H2K1       1933      11     4   2016
+##  6 1.00e6 F     C85            C          85   3.54e10 N9Y3X5       1918       5    20   2016
+##  7 1.00e6 F     C56            C          56   3.53e10 L8H7G2       1972       8    18   2016
+##  8 1.00e6 F     C64            C          64   2.47e10 H9P2B3       1922       7    23   2016
+##  9 1.00e6 M     C22            C          22   4.81e10 T5M1G2       1953       2     7   2016
+## 10 1.00e6 F     C50            C          50   1.21e10 B3A4B2       1978      11     8   2016
+## # i 48,672 more rows
+## # i 13 more variables: D_month &lt;dbl&gt;, D_day &lt;dbl&gt;, DOB &lt;date&gt;, DOD &lt;date&gt;, Age &lt;dbl&gt;,
+## #   CauseCat &lt;dbl&gt;, CauseCat_label &lt;chr&gt;, AgeCat &lt;fct&gt;, csduid2016 &lt;dbl&gt;, hruid2017 &lt;dbl&gt;,
+## #   hrname_english &lt;chr&gt;, hrname_french &lt;chr&gt;, dbpop2016 &lt;dbl&gt;</code></pre>
 <p>Postal codes should also be standardized before linkage.</p>
 <div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="visualization-and-advanced-data-cleaning.html#cb184-1" tabindex="-1"></a>rates <span class="ot">&lt;-</span> rates <span class="sc">%&gt;%</span></span>
 <span id="cb184-2"><a href="visualization-and-advanced-data-cleaning.html#cb184-2" tabindex="-1"></a>  </span>
@@ -1241,13 +1227,11 @@ details > summary {
 <span id="cb185-17"><a href="visualization-and-advanced-data-cleaning.html#cb185-17" tabindex="-1"></a>    Postalcode,</span>
 <span id="cb185-18"><a href="visualization-and-advanced-data-cleaning.html#cb185-18" tabindex="-1"></a>    Postalcode_clean</span>
 <span id="cb185-19"><a href="visualization-and-advanced-data-cleaning.html#cb185-19" tabindex="-1"></a>  )</span></code></pre></div>
-<pre><code>## Warning: Using one column matrices in `filter()` or `filter_out()` was deprecated in
-## dplyr 1.1.0.
-## ℹ Please use one dimensional logical vectors instead.
-## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-## generated.</code></pre>
+<pre><code>## Warning: Using one column matrices in `filter()` or `filter_out()` was deprecated in dplyr 1.1.0.
+## i Please use one dimensional logical vectors instead.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</code></pre>
 <div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="visualization-and-advanced-data-cleaning.html#cb187-1" tabindex="-1"></a>postal_issues</span></code></pre></div>
-<pre><code>## # A tibble: 38 × 3
+<pre><code>## # A tibble: 38 x 3
 ##         ID Postalcode Postalcode_clean
 ##      &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;           
 ##  1 1000103 V2A6X      V2A6X           
@@ -1260,11 +1244,11 @@ details > summary {
 ##  8 1003432 V2SOA4     V2SOA4          
 ##  9 1003907 VOB1HO     VOB1HO          
 ## 10 1004334 VOB1G8     VOB1G8          
-## # ℹ 28 more rows</code></pre>
+## # i 28 more rows</code></pre>
 <p>Regular-expression validation is an extremely useful technique for detecting formatting problems in identifiers such as postal codes, phone numbers, or IDs.</p>
 </div>
-<div id="final-assignment-guidance" class="section level2" number="6.14">
-<h2><span class="header-section-number">6.14</span> Final assignment guidance</h2>
+<div id="final-assignment-guidance" class="section level2 hasAnchor" number="6.14">
+<h2><span class="header-section-number">6.14</span> Final assignment guidance<a href="visualization-and-advanced-data-cleaning.html#final-assignment-guidance" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>As you continue building analytical workflows, begin organizing your work into separate exploratory data analysis documents.</p>
 <p>Each analysis file should clearly explain:</p>
 <ul>
@@ -1276,31 +1260,73 @@ details > summary {
 </ul>
 <p>A well-documented workflow is just as important as the analysis itself.</p>
 </div>
-<div id="chapter-summary-5" class="section level2" number="6.15">
-<h2><span class="header-section-number">6.15</span> Chapter summary</h2>
+<div id="chapter-summary-5" class="section level2 hasAnchor" number="6.15">
+<h2><span class="header-section-number">6.15</span> Chapter summary<a href="visualization-and-advanced-data-cleaning.html#chapter-summary-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In this chapter, you expanded your data management workflow by combining advanced cleaning techniques with exploratory visualization. You reviewed datasets, reshaped population data, created visualizations, identified join keys, cleaned mortality and environmental datasets, handled missing values, validated identifiers, and created cleaned outputs for later analysis.</p>
 <p>These workflows form the foundation of reproducible analytical projects and closely resemble the types of preparation steps required in real-world public health and environmental data analysis.</p>
 
 </div>
 </div>
-<p style="text-align: center;">
-<a href="strings-and-regular-expressions.html"><button class="btn btn-default">Previous</button></a>
-<a href="exploratory-analysis-project.html"><button class="btn btn-default">Next</button></a>
-</p>
-</div>
-</div>
+            </section>
 
-
-</div>
-
+          </div>
+        </div>
+      </div>
+<a href="strings-and-regular-expressions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="exploratory-analysis-project.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
-
-// add bootstrap table styles to pandoc tables
-$(document).ready(function () {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["data-management-with-r.pdf", "data-management-with-r.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
 });
-
+});
 </script>
 
 </body>
+
 </html>
