@@ -1,6 +1,7 @@
 book_filename: "data-management-with-r"
 output_dir: "docs"
 delete_merged_file: true
+clean: ["data-management-with-r_files"]
 language:
   ui:
     chapter_name: "Chapter "

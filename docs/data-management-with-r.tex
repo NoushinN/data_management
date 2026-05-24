@@ -1077,19 +1077,61 @@ The following code imports the datasets used in this chapter.
 \NormalTok{pop }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}
   \StringTok{"./Raw Data/Population\_Estimates.csv"}
 \NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+## New names:
+## Rows: 51 Columns: 25
+## -- Column specification
+## -------------------------------------------------------- Delimiter: "," chr
+## (2): Health Service Delivery Area, Gender dbl (23): ...1, Year, <1, 04-Jan,
+## 09-May, 14-Oct, 15-19, 20-24, 25-29, 30-34...
+## i Use `spec()` to retrieve the full column specification for this data. i
+## Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## * `` -> `...1`
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{corr }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}
   \StringTok{"./Raw Data/Corr\_2016.csv"}\NormalTok{,}
   \AttributeTok{locale =}\NormalTok{ readr}\SpecialCharTok{::}\FunctionTok{locale}\NormalTok{(}
     \AttributeTok{encoding =} \StringTok{"latin1"}
 \NormalTok{  )}
 \NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+## Rows: 420963 Columns: 6
+## -- Column specification --------------------------------------------------------
+## Delimiter: ","
+## chr (2): hrname_english, hrname_french
+## dbl (4): dbuid2016, csduid2016, hruid2017, dbpop2016
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{env }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}
   \StringTok{"./Raw Data/Weather\_data.csv"}
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## Rows: 116011 Columns: 8
+## -- Column specification --------------------------------------------------------
+## Delimiter: ","
+## chr (1): POSTALCODE12
+## dbl (7): WTHNRC12_01, WTHNRC12_02, WTHNRC12_03, WTHNRC12_04, WTHNRC12_05, WT...
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+\end{verbatim}
 
 Notice that the correspondence file uses a specific text encoding. Encoding problems are common when datasets contain accented characters or multilingual text.
 
@@ -1484,7 +1526,22 @@ When working with multilingual datasets, encoding issues may cause characters to
     \AttributeTok{encoding =} \StringTok{"latin1"}
 \NormalTok{  )}
 \NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+## Rows: 420963 Columns: 6
+## -- Column specification --------------------------------------------------------
+## Delimiter: ","
+## chr (2): hrname_english, hrname_french
+## dbl (4): dbuid2016, csduid2016, hruid2017, dbpop2016
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{corr }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{distinct}\NormalTok{(hrname\_english) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{arrange}\NormalTok{(hrname\_english)}
@@ -2536,19 +2593,61 @@ Next, we import the datasets into R.
 \NormalTok{pop }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}
   \StringTok{"./Raw Data/Population\_Estimates.csv"}
 \NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+## New names:
+## Rows: 51 Columns: 25
+## -- Column specification
+## -------------------------------------------------------- Delimiter: "," chr
+## (2): Health Service Delivery Area, Gender dbl (23): ...1, Year, <1, 04-Jan,
+## 09-May, 14-Oct, 15-19, 20-24, 25-29, 30-34...
+## i Use `spec()` to retrieve the full column specification for this data. i
+## Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## * `` -> `...1`
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{corr }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}
   \StringTok{"./Raw Data/Corr\_2016.csv"}\NormalTok{,}
   \AttributeTok{locale =}\NormalTok{ readr}\SpecialCharTok{::}\FunctionTok{locale}\NormalTok{(}
     \AttributeTok{encoding =} \StringTok{"latin1"}
 \NormalTok{  )}
 \NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+## Rows: 420963 Columns: 6
+## -- Column specification --------------------------------------------------------
+## Delimiter: ","
+## chr (2): hrname_english, hrname_french
+## dbl (4): dbuid2016, csduid2016, hruid2017, dbpop2016
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{env }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}
   \StringTok{"./Raw Data/Weather\_data.csv"}
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## Rows: 116011 Columns: 8
+## -- Column specification --------------------------------------------------------
+## Delimiter: ","
+## chr (1): POSTALCODE12
+## dbl (7): WTHNRC12_01, WTHNRC12_02, WTHNRC12_03, WTHNRC12_04, WTHNRC12_05, WT...
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+\end{verbatim}
 
 \section{Reviewing datasets before cleaning}\label{reviewing-datasets-before-cleaning}
 
@@ -3124,6 +3223,11 @@ We begin by examining birth year distributions.
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+## Warning: Removed 24 rows containing non-finite outside the scale range
+## (`stat_bin()`).
+\end{verbatim}
+
 \includegraphics{data-management-with-r_files/data-management-with-r_files/figure-latex/06-visualization-check-birth-year-1.pdf}
 
 Some birth years before 1905 are likely data-entry errors. For this exercise, we assume these values should belong to the twentieth century.
@@ -3306,7 +3410,18 @@ We create dates of birth and death and then calculate age.
       \FunctionTok{as.numeric}\NormalTok{(Age)}
 \NormalTok{    )}
 \NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+## Warning: There was 1 warning in `mutate()`.
+## i In argument: `DOB = as_date(str_c(B_year, B_month, B_day, sep = "-"))`.
+## Caused by warning:
+## !  6 failed to parse.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \FunctionTok{range}\NormalTok{(rates}\SpecialCharTok{$}\NormalTok{Age, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -3769,7 +3884,19 @@ We can then identify postal codes that do not follow the expected Canadian forma
 \NormalTok{    Postalcode,}
 \NormalTok{    Postalcode\_clean}
 \NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+## Warning: Using one column matrices in `filter()` or `filter_out()` was deprecated in
+## dplyr 1.1.0.
+## i Please use one dimensional logical vectors instead.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{postal\_issues}
 \end{Highlighting}
 \end{Shaded}

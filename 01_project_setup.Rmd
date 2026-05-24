@@ -1,11 +1,3 @@
-```{r 01-project-setup-setup, include=FALSE}
-knitr::opts_chunk$set(
-  echo = TRUE,
-  message = FALSE,
-  warning = FALSE
-)
-```
-
 # Project Setup and Reproducible Workflows
 
 A well-organized project structure is one of the foundations of reproducible data analysis. In real-world projects, data files, scripts, figures, notes, reports, and outputs can quickly become difficult to manage if they are not organized consistently. Poor organization often leads to broken file paths, duplicated work, missing outputs, and confusion about which version of a file should be used.
