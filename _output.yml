@@ -1,13 +1,18 @@
 bookdown::gitbook:
   css: style.css
   split_by: chapter
+  includes:
+    in_header: google-analytics.html
   config:
     toc:
       before: |
         <li><a href="./">Data Management with R</a></li>
       collapse: section
     download: ["pdf", "epub"]
-bookdown::html_book:
-  css: style.css
-  includes:
-    in_header: google-analytics.html
+
+bookdown::pdf_book:
+  latex_engine: xelatex
+  toc: true
+  number_sections: true
+
+bookdown::epub_book: default
