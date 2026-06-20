@@ -1,0 +1,4521 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  11pt,
+  oneside]{book}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
+  \fi
+  % set entry spacing
+  \setlength{\itemsep}{#2\baselineskip}}}
+ {\end{list}}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Data Management with R},
+  pdfauthor={Noushin Nabavi},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Data Management with R}
+\author{Noushin Nabavi}
+\date{2026-06-20}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{1}
+\tableofcontents
+}
+\chapter*{Welcome}\label{welcome}
+\addcontentsline{toc}{chapter}{Welcome}
+
+This book provides practical teaching materials and examples for \textbf{data management and reproducible analysis using R}. The focus is on building clear, structured, and repeatable workflows for working with data in an applied setting.
+
+The materials are designed for learners who are developing confidence with R, RStudio Projects, the tidyverse, R Markdown, and bookdown. The examples use instructional datasets and emphasize the process of preparing, cleaning, joining, reshaping, visualizing, and communicating data.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\chapter*{Overview}\label{overview}
+\addcontentsline{toc}{chapter}{Overview}
+
+This book helps learners:
+
+\begin{itemize}
+\tightlist
+\item
+  Develop practical data-wrangling skills using the tidyverse
+\item
+  Apply reproducible project structures for consistent analysis
+\item
+  Work with tidy data principles
+\item
+  Read, clean, reshape, and join datasets
+\item
+  Use strings, dates, and regular expressions in data cleaning
+\item
+  Create clear tables, figures, and analysis outputs
+\item
+  Communicate results through R Markdown, bookdown, dashboards, and storyboards
+\end{itemize}
+
+The goal is not advanced statistical modelling. Instead, the emphasis is on building reliable workflows that support clear, organized, and reproducible analysis.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\chapter*{How to Use This Book}\label{how-to-use-this-book}
+\addcontentsline{toc}{chapter}{How to Use This Book}
+
+Each chapter introduces a data management topic and includes worked examples, code chunks, explanations, and practice activities. Learners are encouraged to:
+
+\begin{itemize}
+\tightlist
+\item
+  Read each section carefully
+\item
+  Run the code chunks in RStudio
+\item
+  Modify examples to test their understanding
+\item
+  Keep raw data unchanged
+\item
+  Save generated outputs in the \texttt{Outputs/} folder
+\item
+  Use clear file names and reproducible project structure
+\end{itemize}
+
+The chapters are intended to be followed in order, but individual chapters can also be used as standalone reference materials.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\chapter*{Recommended Chapter Flow}\label{recommended-chapter-flow}
+\addcontentsline{toc}{chapter}{Recommended Chapter Flow}
+
+The book is organized into the following learning sequence:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Project Setup}\\
+  Set up an RStudio Project, organize folders, and understand reproducible workflows.
+\item
+  \textbf{Tidyverse Basics}\\
+  Learn core tidyverse functions for reading, selecting, filtering, mutating, and summarizing data.
+\item
+  \textbf{Joining Data}\\
+  Practice combining datasets using keys and joins, with examples from the Titanic dataset.
+\item
+  \textbf{Data Cleaning}\\
+  Work with raw files, column names, missing values, reshaping, and structured cleaning steps.
+\item
+  \textbf{Strings and Regular Expressions}\\
+  Use \texttt{stringr}, \texttt{separate()}, \texttt{str\_extract()}, and regex patterns to clean and parse text data.
+\item
+  \textbf{Data Visualization}\\
+  Create clear visual summaries using \texttt{ggplot2}, including line plots, bar charts, and grouped visualizations.
+\item
+  \textbf{Exploratory Data Analysis}\\
+  Build an organized EDA workflow using summaries, plots, missing-value checks, and data validation.
+\item
+  \textbf{Communicating Results}\\
+  Use storyboards, dashboards, and reporting structure to communicate data insights clearly.
+\end{enumerate}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\chapter*{Project Structure}\label{project-structure}
+\addcontentsline{toc}{chapter}{Project Structure}
+
+A recommended project structure is shown below:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{project/}
+\NormalTok{│}
+\NormalTok{├── index.Rmd}
+\NormalTok{├── 01\_project\_setup.Rmd}
+\NormalTok{├── 02\_tidyverse\_basics.Rmd}
+\NormalTok{├── 03\_joining\_data.Rmd}
+\NormalTok{├── 04\_data\_cleaning.Rmd}
+\NormalTok{├── 05\_strings\_regex.Rmd}
+\NormalTok{├── 06\_visualization.Rmd}
+\NormalTok{├── 07\_tidyverse\_analysis.Rmd}
+\NormalTok{├── 08\_storyboard.Rmd}
+\NormalTok{│}
+\NormalTok{├── \_bookdown.yml}
+\NormalTok{├── \_output.yml}
+\NormalTok{├── style.css}
+\NormalTok{├── data\_management.Rproj}
+\NormalTok{│}
+\NormalTok{├── Raw Data/}
+\NormalTok{├── Outputs/}
+\NormalTok{├── docs/}
+\NormalTok{├── archive/}
+\NormalTok{│}
+\NormalTok{├── README.md}
+\NormalTok{├── LICENSE}
+\NormalTok{└── .gitignore}
+\end{Highlighting}
+\end{Shaded}
+
+Raw data should remain in \texttt{Raw\ Data/}. Files created by analysis should be saved in \texttt{Outputs/}. Rendered book files can be saved in \texttt{docs/} if the book is being published with GitHub Pages.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\chapter*{Required R Packages}\label{required-r-packages}
+\addcontentsline{toc}{chapter}{Required R Packages}
+
+The book uses several R packages, including:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{install.packages}\NormalTok{(}\FunctionTok{c}\NormalTok{(}
+  \StringTok{"bookdown"}\NormalTok{,}
+  \StringTok{"tidyverse"}\NormalTok{,}
+  \StringTok{"ggplot2"}\NormalTok{,}
+  \StringTok{"readxl"}\NormalTok{,}
+  \StringTok{"lubridate"}\NormalTok{,}
+  \StringTok{"stringr"}\NormalTok{,}
+  \StringTok{"purrr"}\NormalTok{,}
+  \StringTok{"knitr"}\NormalTok{,}
+  \StringTok{"kableExtra"}\NormalTok{,}
+  \StringTok{"here"}\NormalTok{,}
+  \StringTok{"flexdashboard"}
+\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+Load commonly used packages with:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(readxl)}
+\FunctionTok{library}\NormalTok{(lubridate)}
+\FunctionTok{library}\NormalTok{(stringr)}
+\FunctionTok{library}\NormalTok{(purrr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\chapter*{Building the Book}\label{building-the-book}
+\addcontentsline{toc}{chapter}{Building the Book}
+
+To build the book from RStudio, open the project file:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data\_management.Rproj}
+\end{Highlighting}
+\end{Shaded}
+
+Then use the \textbf{Build Book} option in the Build pane.
+
+You can also render the book from the R console:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bookdown}\SpecialCharTok{::}\FunctionTok{render\_book}\NormalTok{(}\StringTok{"index.Rmd"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\chapter*{Data and Reproducibility Notes}\label{data-and-reproducibility-notes}
+\addcontentsline{toc}{chapter}{Data and Reproducibility Notes}
+
+This project uses relative file paths and a structured folder system. This makes the work easier to share, rerun, and maintain.
+
+Recommended practices:
+
+\begin{itemize}
+\tightlist
+\item
+  Do not edit raw data files directly
+\item
+  Keep all raw datasets in \texttt{Raw\ Data/}
+\item
+  Save processed files in \texttt{Outputs/}
+\item
+  Use clear and consistent file names
+\item
+  Use RStudio Projects to keep paths stable
+\item
+  Comment code where needed
+\item
+  Keep analysis steps in a logical order
+\end{itemize}
+
+All datasets used in the course are simulated, fictitious, or instructional only. They are intended for teaching data management concepts, not for drawing real-world research conclusions.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\chapter*{Intended Audience}\label{intended-audience}
+\addcontentsline{toc}{chapter}{Intended Audience}
+
+This book is intended for learners who have basic familiarity with R and RStudio and want to build stronger applied data management skills. It can be used for:
+
+\begin{itemize}
+\tightlist
+\item
+  Self-guided learning
+\item
+  Training workshops
+\item
+  Teaching support materials
+\item
+  Practice exercises
+\item
+  Templates for reproducible workflows
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\chapter*{Licence}\label{licence}
+\addcontentsline{toc}{chapter}{Licence}
+
+For educational use. See \texttt{LICENSE} for details.
+
+If referencing this project, please cite: Nabavi, N. \emph{Data Management with R: Practical Teaching Materials for Reproducible Data Wrangling and Analysis}. {[}\href{https://doi.org/10.5281/zenodo.20750322}{DOI}
+
+\chapter{Project Setup and Reproducible Workflows}\label{project-setup-and-reproducible-workflows}
+
+A well-organized project structure is one of the foundations of reproducible data analysis. In real-world projects, data files, scripts, figures, notes, reports, and outputs can quickly become difficult to manage if they are not organized consistently. Poor organization often leads to broken file paths, duplicated work, missing outputs, and confusion about which version of a file should be used.
+
+This chapter introduces a simple workflow for organizing R projects using RStudio Projects, relative file paths, R Markdown, and bookdown. The goal is not only to keep files tidy, but also to make analyses easier to reproduce, easier to review, and easier to share with others.
+
+By the end of this chapter, you should be able to create a structured RStudio project, organize files into logical folders, work with relative file paths, and understand the role of Git and GitHub in reproducible workflows.
+
+\section{Organizing a reproducible project}\label{organizing-a-reproducible-project}
+
+A typical data analysis project includes several different types of files. These often include raw datasets, cleaned datasets, R scripts, figures, tables, notes, and reports. Without a clear structure, projects can quickly become difficult to navigate and maintain.
+
+A good project structure helps you keep related files together and reduces the likelihood of errors. It also makes collaboration easier because other users can understand the workflow more quickly. Bookdown provides a framework for creating reproducible books and technical documents directly from R Markdown files Xie (\citeproc{ref-xie2016}{2016}). Reproducible workflows are an important component of modern data analysis Xie (\citeproc{ref-xie2015}{2015}).
+
+For this course, all work should be placed inside a single main project folder. Within that folder, separate folders should be created for raw data, generated outputs, reports, and archived material.
+
+A recommended structure is shown below.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Data{-}Management{-}with{-}R/}
+\NormalTok{│}
+\NormalTok{├── data\_management.Rproj}
+\NormalTok{├── index.Rmd}
+\NormalTok{├── 01\_project\_setup.Rmd}
+\NormalTok{├── 02\_tidyverse\_basics.Rmd}
+\NormalTok{├── 03\_joining\_data.Rmd}
+\NormalTok{├── 04\_data\_cleaning.Rmd}
+\NormalTok{├── 05\_strings\_regex.Rmd}
+\NormalTok{├── 06\_visualization.Rmd}
+\NormalTok{├── 07\_exploratory\_analysis.Rmd}
+\NormalTok{├── 08\_storyboard\_reporting.Rmd}
+\NormalTok{│}
+\NormalTok{├── Raw Data/}
+\NormalTok{├── Outputs/}
+\NormalTok{├── docs/}
+\NormalTok{├── archive/}
+\NormalTok{│}
+\NormalTok{├── \_bookdown.yml}
+\NormalTok{├── \_output.yml}
+\NormalTok{├── style.css}
+\NormalTok{├── README.md}
+\NormalTok{├── LICENSE}
+\NormalTok{└── .gitignore}
+\end{Highlighting}
+\end{Shaded}
+
+The \texttt{.Rproj} file allows RStudio to recognize the project and automatically set the correct working directory. The \texttt{.Rmd} files contain the book chapters, while the \texttt{Raw\ Data/} folder stores original datasets that should remain unchanged throughout the analysis process.
+
+The \texttt{Outputs/} folder should contain generated files such as cleaned datasets, tables, and figures. The \texttt{docs/} folder stores the rendered bookdown website, while the \texttt{archive/} folder can be used for old drafts or unused material that should not be deleted permanently.
+
+The \texttt{\_bookdown.yml} file controls the order of chapters and output settings, and \texttt{\_output.yml} controls formatting options for the final rendered book.
+
+One of the most common beginner mistakes in R is working with files scattered across different folders. Keeping all project files inside a single RStudio Project helps avoid many file path and working directory problems.
+
+\section{Working with RStudio Projects and file paths}\label{working-with-rstudio-projects-and-file-paths}
+
+An RStudio Project provides a dedicated working environment for a single analysis or course. Instead of opening individual files manually from different folders, the entire project can be opened through the \texttt{.Rproj} file.
+
+To create a new project in RStudio, select \textbf{File \textgreater{} New Project} and either create a new directory or connect to an existing folder. Once the project is created, opening the \texttt{.Rproj} file automatically sets the project folder as the working directory.
+
+Using projects becomes especially important when working with file paths. Many beginners use absolute file paths that only work on their own computer. For example:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{read\_csv}\NormalTok{(}\StringTok{"C:/Users/YourName/Desktop/Data/Population\_Estimates.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Although this works locally, the path will fail on another computer because the directory structure is different.
+
+Instead, use relative paths that begin from the project folder:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{read\_csv}\NormalTok{(}\StringTok{"./Raw Data/Population\_Estimates.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Relative paths make projects portable and reproducible because the code can run correctly on different computers as long as the project structure remains the same.
+
+Another useful approach is to use the \texttt{here} package:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(here)}
+
+\FunctionTok{read\_csv}\NormalTok{(}
+  \FunctionTok{here}\NormalTok{(}\StringTok{"Raw Data"}\NormalTok{, }\StringTok{"Population\_Estimates.csv"}\NormalTok{)}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Both approaches are acceptable, but the important idea is to avoid hard-coded computer-specific paths whenever possible.
+
+\section{Naming files and managing outputs}\label{naming-files-and-managing-outputs}
+
+Consistent file names make projects easier to understand and maintain. File names should be short, descriptive, and predictable. Spaces are usually avoided because they can create problems in some programming environments, so underscores are preferred instead.
+
+Examples of clear file names include:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{01\_project\_setup.Rmd}
+\NormalTok{02\_tidyverse\_basics.Rmd}
+\NormalTok{cancer\_rates.csv}
+\NormalTok{air\_quality\_summary.csv}
+\end{Highlighting}
+\end{Shaded}
+
+Avoid vague names such as:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{final\_version2\_revised\_NEW.Rmd}
+\end{Highlighting}
+\end{Shaded}
+
+As projects grow, unclear naming conventions can make it difficult to determine which files are current and which files are outdated.
+
+It is also important to separate raw data from generated outputs. Raw datasets should remain unchanged so that the original source data is always preserved. Cleaned datasets, transformed files, tables, and figures should instead be written to the \texttt{Outputs/} folder.
+
+For example:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rates\_clean }\OtherTok{\textless{}{-}}\NormalTok{ rates }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(letter }\SpecialCharTok{==} \StringTok{"C"}\NormalTok{)}
+
+\FunctionTok{write\_csv}\NormalTok{(}
+\NormalTok{  rates\_clean,}
+  \StringTok{"./Outputs/cancer\_rates\_clean.csv"}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+This workflow creates a clear separation between original data and processed outputs, which improves reproducibility and transparency.
+
+Avoid manually editing files inside the \texttt{Raw\ Data/} folder. If data cleaning is required, create a cleaned version in the \texttt{Outputs/} folder instead.
+
+\section{R Markdown and bookdown workflows}\label{r-markdown-and-bookdown-workflows}
+
+R Markdown combines text, code, and results within a single document. This makes it possible to explain the purpose of an analysis while also showing the code and outputs used to produce the results.
+
+In this course, each major topic is stored in a separate \texttt{.Rmd} file, and bookdown combines these files into a single website or book.
+
+The order of chapters is controlled by \texttt{\_bookdown.yml}. A typical configuration looks like this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{book\_filename}\KeywordTok{:}\AttributeTok{ }\StringTok{"data{-}management{-}with{-}r"}
+\FunctionTok{output\_dir}\KeywordTok{:}\AttributeTok{ }\StringTok{"docs"}
+
+\FunctionTok{rmd\_files}\KeywordTok{:}
+\AttributeTok{  }\KeywordTok{{-}}\AttributeTok{ }\StringTok{"index.Rmd"}
+\AttributeTok{  }\KeywordTok{{-}}\AttributeTok{ }\StringTok{"01\_project\_setup.Rmd"}
+\AttributeTok{  }\KeywordTok{{-}}\AttributeTok{ }\StringTok{"02\_tidyverse\_basics.Rmd"}
+\AttributeTok{  }\KeywordTok{{-}}\AttributeTok{ }\StringTok{"03\_joining\_data.Rmd"}
+\AttributeTok{  }\KeywordTok{{-}}\AttributeTok{ }\StringTok{"04\_data\_cleaning.Rmd"}
+\AttributeTok{  }\KeywordTok{{-}}\AttributeTok{ }\StringTok{"05\_strings\_regex.Rmd"}
+\AttributeTok{  }\KeywordTok{{-}}\AttributeTok{ }\StringTok{"06\_visualization.Rmd"}
+\AttributeTok{  }\KeywordTok{{-}}\AttributeTok{ }\StringTok{"07\_exploratory\_analysis.Rmd"}
+\AttributeTok{  }\KeywordTok{{-}}\AttributeTok{ }\StringTok{"08\_storyboard\_reporting.Rmd"}
+\end{Highlighting}
+\end{Shaded}
+
+Inside each chapter file, only one top-level heading should normally be used:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\# Chapter Title}
+\end{Highlighting}
+\end{Shaded}
+
+Subsections should use lower heading levels:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\#\# Section}
+\FunctionTok{\#\#\# Subsection}
+\end{Highlighting}
+\end{Shaded}
+
+Using multiple \texttt{\#} headings inside the same file causes bookdown to incorrectly interpret them as separate chapters, which leads to a disorganized sidebar and navigation structure.
+
+A typical R Markdown workflow often follows a consistent sequence:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Introduce the purpose of the analysis.
+\item
+  Load the required packages.
+\item
+  Read the data.
+\item
+  Clean or transform the data.
+\item
+  Create summaries, tables, or figures.
+\item
+  Explain the results.
+\item
+  Save outputs if needed.
+\end{enumerate}
+
+This structure helps readers understand not only what the code does, but also why each step is being performed.
+
+\section{Git, GitHub, and reproducible analysis}\label{git-github-and-reproducible-analysis}
+
+As projects become larger and more collaborative, version control becomes increasingly important. Git is a version control system that tracks changes made to files over time, while GitHub provides an online platform for storing and sharing Git repositories.
+
+Using Git and GitHub allows you to maintain a history of your work, recover earlier versions of files, collaborate with others safely, and create a backup of your project outside your local computer.
+
+RStudio includes built-in Git support, allowing Git operations to be performed directly within the RStudio interface.
+
+The recommended workflow is:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Create a GitHub repository.
+\item
+  Clone the repository into an RStudio Project.
+\item
+  Edit files locally.
+\item
+  Commit changes regularly.
+\item
+  Push updates back to GitHub.
+\end{enumerate}
+
+For detailed guidance, the online resource \emph{Happy Git with R} provides an excellent introduction:
+
+\url{https://happygitwithr.com/}
+
+Git and GitHub are strongly recommended for reproducible workflows, but they are not mandatory for completing this course. You can still complete all workshop activities locally using RStudio Projects and bookdown.
+
+\section{Chapter summary}\label{chapter-summary}
+
+In this chapter, you learned how to organize a reproducible R project using RStudio Projects, relative paths, R Markdown, and bookdown. You also learned how to separate raw data from generated outputs, organize chapter files consistently, and structure projects in a way that improves reproducibility and collaboration.
+
+A clean project structure makes analyses easier to understand, easier to maintain, and easier to share with others. As projects grow larger and more complex, good organizational practices become increasingly important.
+
+\chapter{Tidyverse Basics}\label{tidyverse-basics}
+
+The \textbf{tidyverse} is a collection of R packages designed for data science and data analysis. These packages provide a consistent and readable approach for importing, cleaning, transforming, visualizing, and analyzing data. In practice, the tidyverse is widely used because it allows complex workflows to be written in a clear and organized way. The tidyverse ecosystem is widely used for data science workflows Wickham, Çetinkaya-Rundel, and Grolemund (\citeproc{ref-wickham2023}{2023}).
+
+In this chapter, you will learn how to load tidyverse packages, read datasets into R, inspect data frames, and perform common data manipulation tasks using \texttt{dplyr}. By the end of the chapter, you should feel comfortable performing basic exploratory data analysis and creating simple data transformation pipelines.
+
+\section{Loading packages and reading data}\label{loading-packages-and-reading-data}
+
+Before working with data in R, the required packages must first be loaded. The \texttt{tidyverse} package includes several commonly used packages such as \texttt{dplyr}, \texttt{ggplot2}, \texttt{readr}, and \texttt{tidyr}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+In most projects, the first analytical step is reading raw data into R. Throughout this course, raw datasets should be stored inside the \texttt{Raw\ Data/} folder introduced in the previous chapter.
+
+The example below demonstrates how to read a \texttt{.csv} file using \texttt{read\_csv()} from the \texttt{readr} package.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{example\_data }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}
+  \StringTok{"./Raw Data/example.csv"}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Using relative paths helps keep projects reproducible because the code can run correctly on different computers as long as the project structure remains consistent.
+
+One of the most common beginner problems in R involves incorrect working directories or broken file paths. Using RStudio Projects and relative paths helps avoid many of these issues.
+
+\section{Inspecting data frames}\label{inspecting-data-frames}
+
+After importing a dataset, it is important to understand its structure before beginning any analysis. This step is often called \emph{data inspection} or \emph{exploratory inspection}.
+
+Several functions are useful for quickly examining a data frame.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{glimpse}\NormalTok{(example\_data)}
+
+\FunctionTok{summary}\NormalTok{(example\_data)}
+
+\FunctionTok{dim}\NormalTok{(example\_data)}
+
+\FunctionTok{names}\NormalTok{(example\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+The \texttt{glimpse()} function provides a compact overview of the dataset structure, including variable names and data types. The \texttt{summary()} function generates summary statistics for each variable, while \texttt{dim()} returns the number of rows and columns in the dataset. The \texttt{names()} function lists all variable names.
+
+Inspecting data early in the workflow helps identify potential issues such as missing values, incorrect variable types, or unexpected column names.
+
+\section{Data manipulation with dplyr}\label{data-manipulation-with-dplyr}
+
+One of the most powerful features of the tidyverse is the \texttt{dplyr} package, which provides functions for manipulating and transforming data frames.
+
+Data manipulation workflows are commonly built using the pipe operator \texttt{\%\textgreater{}\%}. The pipe sends the output of one step directly into the next step, making code easier to read and understand.
+
+The example below demonstrates several commonly used \texttt{dplyr} verbs.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{example\_data }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{select}\NormalTok{(column\_1, column\_2) }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{filter}\NormalTok{(column\_1 }\SpecialCharTok{==} \StringTok{"value"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{new\_column =}\NormalTok{ column\_2 }\SpecialCharTok{*} \DecValTok{2}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{group\_by}\NormalTok{(column\_1) }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{summarize}\NormalTok{(}
+    \AttributeTok{total =} \FunctionTok{sum}\NormalTok{(new\_column, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+In this workflow:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{select()} chooses specific columns from the dataset.
+\item
+  \texttt{filter()} keeps only rows that satisfy a condition.
+\item
+  \texttt{mutate()} creates a new variable.
+\item
+  \texttt{group\_by()} creates groups within the data.
+\item
+  \texttt{summarize()} calculates summary statistics for each group.
+\end{itemize}
+
+Together, these functions form the foundation of many data analysis workflows in R.
+
+The pipe operator \texttt{\%\textgreater{}\%} can be interpreted as ``then.'' Reading pipelines from top to bottom often makes the analysis logic easier to follow.
+
+\section{Practice exercise}\label{practice-exercise}
+
+To reinforce the concepts introduced in this chapter, try completing the following short exercise using one of your own datasets or a practice dataset provided in the course materials.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Import a \texttt{.csv} dataset from the \texttt{Raw\ Data/} folder.
+\item
+  Use \texttt{glimpse()} and \texttt{summary()} to inspect the dataset.
+\item
+  Select several variables of interest.
+\item
+  Filter the data to one category or group.
+\item
+  Create a new variable using \texttt{mutate()}.
+\item
+  Calculate a simple summary statistic using \texttt{summarize()}.
+\end{enumerate}
+
+As you practice these steps, focus not only on writing code that works, but also on creating workflows that are readable, organized, and reproducible.
+
+\section{Chapter summary}\label{chapter-summary-1}
+
+In this chapter, you were introduced to the tidyverse and several core tools used in modern R workflows. You learned how to load packages, import datasets, inspect data frames, and manipulate data using common \texttt{dplyr} functions.
+
+These foundational skills will be used throughout the remainder of the course for data cleaning, visualization, exploratory analysis, and reporting.
+
+\chapter{Joining Data}\label{joining-data}
+
+In many real-world projects, data are stored across multiple datasets rather than in a single table. For example, one file may contain patient demographic information, while another contains laboratory results or medication records. To perform meaningful analysis, these datasets often need to be combined into a single data frame.
+
+The process of combining datasets based on one or more shared variables is called a \emph{join}. In the tidyverse, joins are commonly performed using functions from the \texttt{dplyr} package. Understanding how joins work is an essential skill in data management because incorrect joins can easily introduce duplicate rows, missing information, or inaccurate results.
+
+In this chapter, you will learn how to identify join keys, understand common join relationships, and use functions such as \texttt{left\_join()} and \texttt{inner\_join()} to combine datasets safely and effectively. The \texttt{dplyr} package provides powerful tools for joining relational datasets Wickham et al. (\citeproc{ref-dplyr}{2026}).
+
+\section{Understanding join keys}\label{understanding-join-keys}
+
+A join works by matching rows between two datasets using one or more shared variables called \emph{keys}. A key is typically an identifier such as a patient ID, employee number, postal code, or year.
+
+The example below creates two small datasets that share a common variable called \texttt{key}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{tribble}\NormalTok{(}
+  \SpecialCharTok{\textasciitilde{}}\NormalTok{key, }\SpecialCharTok{\textasciitilde{}}\NormalTok{val\_x,}
+     \DecValTok{1}\NormalTok{, }\StringTok{"x1"}\NormalTok{,}
+     \DecValTok{2}\NormalTok{, }\StringTok{"x2"}\NormalTok{,}
+     \DecValTok{2}\NormalTok{, }\StringTok{"x3"}\NormalTok{,}
+     \DecValTok{1}\NormalTok{, }\StringTok{"x4"}
+\NormalTok{)}
+
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{tribble}\NormalTok{(}
+  \SpecialCharTok{\textasciitilde{}}\NormalTok{key, }\SpecialCharTok{\textasciitilde{}}\NormalTok{val\_y,}
+     \DecValTok{1}\NormalTok{, }\StringTok{"y1"}\NormalTok{,}
+     \DecValTok{2}\NormalTok{, }\StringTok{"y2"}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+In this example, the variable \texttt{key} is used to connect the two tables. Dataset \texttt{x} contains multiple rows for some keys, while dataset \texttt{y} contains only one row for each key.
+
+Before performing joins, it is important to understand the relationship between the datasets. Common relationships include:
+
+\begin{itemize}
+\tightlist
+\item
+  one-to-one relationships, where each key appears only once in both tables;
+\item
+  one-to-many relationships, where one table contains repeated keys; and
+\item
+  many-to-many relationships, where both tables contain duplicate keys.
+\end{itemize}
+
+Understanding these relationships is important because joins involving duplicate keys can unexpectedly increase the number of rows in the final dataset.
+
+\section{Performing joins with dplyr}\label{performing-joins-with-dplyr}
+
+One of the most commonly used joins is the \texttt{left\_join()}. A left join keeps all rows from the first dataset and adds matching information from the second dataset whenever a match is found.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{left\_join}\NormalTok{(x, y, }\AttributeTok{by =} \StringTok{"key"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 4 x 3
+##     key val_x val_y
+##   <dbl> <chr> <chr>
+## 1     1 x1    y1   
+## 2     2 x2    y2   
+## 3     2 x3    y2   
+## 4     1 x4    y1
+\end{verbatim}
+
+In this example, every row from dataset \texttt{x} is preserved. The values from \texttt{y} are added based on matching values of \texttt{key}.
+
+Another commonly used join is the \texttt{inner\_join()}, which keeps only rows that have matches in both datasets.
+
+Different join functions are useful for different analytical situations:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{left\_join()} keeps all rows from the left table;
+\item
+  \texttt{inner\_join()} keeps only matched rows;
+\item
+  \texttt{right\_join()} keeps all rows from the right table;
+\item
+  \texttt{full\_join()} keeps all rows from both tables; and
+\item
+  \texttt{anti\_join()} identifies rows that do not have matching values in another dataset.
+\end{itemize}
+
+In practice, \texttt{left\_join()} is often the safest starting point because it preserves the structure of the main dataset while adding additional variables from another table.
+
+When performing joins, always think carefully about which dataset should be considered the ``main'' table. The order of tables in a join can affect the final result.
+
+\section{Checking for duplicate keys}\label{checking-for-duplicate-keys}
+
+Before joining datasets, it is good practice to verify whether the join key is unique. Duplicate keys are one of the most common causes of unexpected results during data merging.
+
+The following code counts the number of times each key appears in both datasets.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{count}\NormalTok{(key) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(n }\SpecialCharTok{\textgreater{}} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2 x 2
+##     key     n
+##   <dbl> <int>
+## 1     1     2
+## 2     2     2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{count}\NormalTok{(key) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(n }\SpecialCharTok{\textgreater{}} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 0 x 2
+## # i 2 variables: key <dbl>, n <int>
+\end{verbatim}
+
+In dataset \texttt{x}, some keys appear more than once, while dataset \texttt{y} contains unique keys. This means the join represents a one-to-many relationship.
+
+If both datasets contain duplicate keys, the join may create many-to-many relationships, which can dramatically increase the number of rows in the output dataset.
+
+Always inspect duplicate keys before performing joins on large datasets. Unexpected duplication is one of the most common data management errors in real-world projects.
+
+Another useful function is \texttt{anti\_join()}, which identifies rows in one dataset that do not have matching values in another dataset.
+
+For example:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{anti\_join}\NormalTok{(x, y, }\AttributeTok{by =} \StringTok{"key"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+This can help identify missing IDs, unmatched records, or inconsistencies between datasets.
+
+\section{Practical workflow for joining data}\label{practical-workflow-for-joining-data}
+
+In real-world projects, joining datasets often follows a consistent workflow:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Identify the key variable used to connect the datasets.
+\item
+  Inspect both datasets for duplicate keys or missing values.
+\item
+  Decide which join type is appropriate.
+\item
+  Perform the join.
+\item
+  Verify the number of rows before and after joining.
+\item
+  Inspect the final dataset for unexpected duplication or missing values.
+\end{enumerate}
+
+Developing careful habits during joins is extremely important because join-related errors can propagate through the remainder of an analysis and affect final results.
+
+\section{Practice exercise}\label{practice-exercise-1}
+
+To reinforce the concepts introduced in this chapter, create two small datasets with a shared key variable and experiment with different join functions.
+
+Try the following:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Perform a \texttt{left\_join()} and compare the output with an \texttt{inner\_join()}.
+\item
+  Add duplicate keys to one or both datasets and observe how the number of rows changes.
+\item
+  Use \texttt{anti\_join()} to identify unmatched records.
+\item
+  Compare the dimensions of the datasets before and after joining.
+\end{enumerate}
+
+As you work through these exercises, focus not only on obtaining the correct output, but also on understanding why the number of rows changes under different join relationships.
+
+\section{Chapter summary}\label{chapter-summary-2}
+
+In this chapter, you learned how datasets can be combined using joins in \texttt{dplyr}. You were introduced to join keys, common join relationships, and several important join functions including \texttt{left\_join()}, \texttt{inner\_join()}, and \texttt{anti\_join()}.
+
+You also learned why checking for duplicate keys is an essential part of reproducible data management workflows. Careful inspection of joins helps prevent data duplication, missing records, and inaccurate analytical results.
+
+\chapter{Data Cleaning and Data Management}\label{data-cleaning-and-data-management}
+
+Data cleaning is one of the most important stages of any analytical workflow. In real-world projects, raw data are rarely ready for analysis immediately after import. Datasets often contain inconsistent variable names, missing values, formatting issues, duplicate records, encoding problems, or variables stored in unsuitable formats.
+
+This chapter introduces several common data management tasks using the tidyverse. You will learn how to import multiple file types, inspect datasets, identify common data quality issues, reshape data into tidy formats, and recode variables into more useful forms.
+
+Although the datasets used in this course are simplified for teaching purposes, the workflow closely reflects many real-world data cleaning tasks encountered in epidemiology, environmental health, and population data analysis.
+
+\section{Preparing the R environment}\label{preparing-the-r-environment}
+
+Before beginning any analysis, the required libraries should be loaded. For this chapter, we will primarily use packages from the tidyverse ecosystem, along with \texttt{ggplot2} and \texttt{readxl}.
+
+If these packages are not already installed on your computer, they can be installed using:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{install.packages}\NormalTok{(}
+  \FunctionTok{c}\NormalTok{(}\StringTok{"tidyverse"}\NormalTok{, }\StringTok{"ggplot2"}\NormalTok{, }\StringTok{"readxl"}\NormalTok{)}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Once installed, the libraries can be loaded into the R session.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(readxl)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Exploring project files}\label{exploring-project-files}
+
+Before importing data, it is often useful to inspect the contents of the project folders. The \texttt{list.files()} function allows you to display all files stored within a directory.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{list.files}\NormalTok{(}\StringTok{"./Raw Data/"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Corr_2016 copy.csv"           
+## [2] "Corr_2016.csv"                
+## [3] "Data Dictionary - Blank.xlsx" 
+## [4] "Data Dictionary - Filled.xlsx"
+## [5] "deaths_2016.xlsx"             
+## [6] "Population_Estimates.csv"     
+## [7] "titanic.csv"                  
+## [8] "Titantic_DataDictionary.xlsx" 
+## [9] "Weather_data.csv"
+\end{verbatim}
+
+You can also search for specific file types using the \texttt{pattern} argument.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{list.files}\NormalTok{(}
+  \StringTok{"./Raw Data/"}\NormalTok{,}
+  \AttributeTok{pattern =} \StringTok{".csv"}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Corr_2016 copy.csv"       "Corr_2016.csv"           
+## [3] "Population_Estimates.csv" "titanic.csv"             
+## [5] "Weather_data.csv"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{list.files}\NormalTok{(}
+  \StringTok{"./Raw Data/"}\NormalTok{,}
+  \AttributeTok{pattern =} \StringTok{".xlsx"}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Data Dictionary - Blank.xlsx" 
+## [2] "Data Dictionary - Filled.xlsx"
+## [3] "deaths_2016.xlsx"             
+## [4] "Titantic_DataDictionary.xlsx"
+\end{verbatim}
+
+Functions such as \texttt{list.files()} are frequently overlooked by beginners, but they become extremely useful when working with large projects that contain many datasets or outputs.
+
+Some datasets may also be stored in compressed \texttt{.zip} files. These files should typically be extracted before analysis.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{unzip}\NormalTok{(}
+  \StringTok{"./Raw Data/Corr\_2016.zip"}\NormalTok{,}
+  \AttributeTok{exdir =} \StringTok{"./Raw Data"}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+The \texttt{exdir} argument specifies the folder where the extracted files should be saved. Since files only need to be unzipped once, this code is often commented out after the extraction is complete.
+
+When working in R Markdown documents, avoid repeatedly running file extraction code unless necessary. Re-extracting files every time the document is knitted can slow down workflows and create duplicate files.
+
+\section{Description of the datasets}\label{description-of-the-datasets}
+
+This course uses four datasets that simulate a simplified population health analysis workflow.
+
+The mortality dataset contains records of deaths, including demographic information and ICD-10 cause-of-death codes. Although the dataset is based on realistic structures and counts, the data themselves are fictitious for teaching purposes.
+
+The population dataset contains estimates of population counts by age group, sex, and Health Service Delivery Area in British Columbia.
+
+The correspondence dataset links lower geographic units to larger health regions and service delivery areas. Correspondence files are commonly used in population health and environmental research because they allow different geographic datasets to be connected.
+
+The environmental dataset contains weather-related variables by postal code, including measures related to temperature and cold exposure.
+
+The overall analytical goal is to combine these datasets in order to calculate mortality rates and explore potential environmental relationships.
+
+\section{Importing data into R}\label{importing-data-into-r}
+
+Different file formats require different import functions. The \texttt{readr} package is commonly used for \texttt{.csv} files, while Excel files require functions from the \texttt{readxl} package.
+
+The following code imports the datasets used in this chapter.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mort }\OtherTok{\textless{}{-}} \FunctionTok{read\_excel}\NormalTok{(}
+  \StringTok{"./Raw Data/deaths\_2016.xlsx"}
+\NormalTok{)}
+
+\NormalTok{pop }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}
+  \StringTok{"./Raw Data/Population\_Estimates.csv"}
+\NormalTok{)}
+
+\NormalTok{corr }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}
+  \StringTok{"./Raw Data/Corr\_2016.csv"}\NormalTok{,}
+  \AttributeTok{locale =}\NormalTok{ readr}\SpecialCharTok{::}\FunctionTok{locale}\NormalTok{(}
+    \AttributeTok{encoding =} \StringTok{"latin1"}
+\NormalTok{  )}
+\NormalTok{)}
+
+\NormalTok{env }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}
+  \StringTok{"./Raw Data/Weather\_data.csv"}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Notice that the correspondence file uses a specific text encoding. Encoding problems are common when datasets contain accented characters or multilingual text.
+
+\section{Inspecting datasets}\label{inspecting-datasets}
+
+After importing data, it is important to examine the structure and contents of each dataset before beginning analysis.
+
+Several functions provide useful high-level summaries.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{str}\NormalTok{(mort)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## tibble [60,143 x 13] (S3: tbl_df/tbl/data.frame)
+##  $ ID               : num [1:60143] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
+##  $ Sex              : chr [1:60143] "M" "F" "M" "M" ...
+##  $ Cause_of_death   : chr [1:60143] "D47" "C34" "C26" "C16" ...
+##  $ dbuid2016        : num [1:60143] 1.31e+10 4.81e+10 3.52e+10 2.47e+10 2.46e+10 ...
+##  $ Location_of_death: num [1:60143] 5 3 6 1 6 5 4 1 3 2 ...
+##  $ Marital_status   : num [1:60143] 1 1 2 1 1 1 1 1 1 2 ...
+##  $ Postalcode       : chr [1:60143] "E1A1E9" "T2E0T2" "M4J1L1" "H9H1B4" ...
+##  $ B_year           : num [1:60143] 1943 1943 1953 1923 1931 ...
+##  $ B_month          : num [1:60143] 7 5 8 6 8 11 5 8 7 2 ...
+##  $ B_day            : num [1:60143] 8 22 9 14 8 4 20 18 23 7 ...
+##  $ D_year           : num [1:60143] 2016 2016 2016 2016 2016 ...
+##  $ D_month          : num [1:60143] 9 12 4 11 4 2 2 6 5 1 ...
+##  $ D_day            : num [1:60143] 22 14 21 21 4 6 9 13 25 16 ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(mort)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        ID              Sex            Cause_of_death    
+##  Min.   :1000001   Length:60143       Length:60143      
+##  1st Qu.:1016187   Class :character   Class :character  
+##  Median :1034842   Mode  :character   Mode  :character  
+##  Mean   :1036699                                        
+##  3rd Qu.:1056221                                        
+##  Max.   :1080708                                        
+##                                                         
+##    dbuid2016         Location_of_death Marital_status
+##  Min.   :1.001e+10   Min.   :1.000     Min.   :1.0   
+##  1st Qu.:2.466e+10   1st Qu.:2.000     1st Qu.:1.0   
+##  Median :3.521e+10   Median :4.000     Median :1.0   
+##  Mean   :3.642e+10   Mean   :3.498     Mean   :1.5   
+##  3rd Qu.:4.715e+10   3rd Qu.:5.000     3rd Qu.:2.0   
+##  Max.   :6.208e+10   Max.   :6.000     Max.   :2.0   
+##  NA's   :4                                           
+##   Postalcode            B_year        B_month      
+##  Length:60143       Min.   :1827   Min.   : 1.000  
+##  Class :character   1st Qu.:1933   1st Qu.: 4.000  
+##  Mode  :character   Median :1941   Median : 7.000  
+##                     Mean   :1942   Mean   : 6.513  
+##                     3rd Qu.:1951   3rd Qu.:10.000  
+##                     Max.   :2016   Max.   :28.000  
+##                     NA's   :24     NA's   :26      
+##      B_day           D_year        D_month      
+##  Min.   : 1.00   Min.   :2016   Min.   : 1.000  
+##  1st Qu.: 8.00   1st Qu.:2016   1st Qu.: 4.000  
+##  Median :16.00   Median :2016   Median : 7.000  
+##  Mean   :15.74   Mean   :2016   Mean   : 6.521  
+##  3rd Qu.:23.00   3rd Qu.:2016   3rd Qu.: 9.000  
+##  Max.   :31.00   Max.   :2016   Max.   :21.000  
+##  NA's   :26                                     
+##      D_day      
+##  Min.   : 1.00  
+##  1st Qu.: 8.00  
+##  Median :16.00  
+##  Mean   :15.78  
+##  3rd Qu.:23.00  
+##  Max.   :31.00  
+## 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dplyr}\SpecialCharTok{::}\FunctionTok{glimpse}\NormalTok{(pop, }\AttributeTok{width =} \DecValTok{60}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Rows: 51
+## Columns: 25
+## $ ...1                           <dbl> 0, 0, 0, 11, 11, 11~
+## $ `Health Service Delivery Area` <chr> "British Columbia",~
+## $ Year                           <dbl> 2016, 2016, 2016, 2~
+## $ Gender                         <chr> "M", "F", "T", "M",~
+## $ `<1`                           <dbl> 22997, 21760, 44757~
+## $ `04-Jan`                       <dbl> 93211, 88300, 18151~
+## $ `09-May`                       <dbl> 121341, 112777, 234~
+## $ `14-Oct`                       <dbl> 119586, 112424, 232~
+## $ `15-19`                        <dbl> 140451, 132226, 272~
+## $ `20-24`                        <dbl> 170968, 156161, 327~
+## $ `25-29`                        <dbl> 159609, 159389, 318~
+## $ `30-34`                        <dbl> 162416, 166826, 329~
+## $ `35-39`                        <dbl> 155936, 157628, 313~
+## $ `40-44`                        <dbl> 151311, 154187, 305~
+## $ `45-49`                        <dbl> 161823, 166603, 328~
+## $ `50-54`                        <dbl> 172367, 179295, 351~
+## $ `55-59`                        <dbl> 172667, 178878, 351~
+## $ `60-64`                        <dbl> 156654, 159977, 316~
+## $ `65-69`                        <dbl> 139068, 142469, 281~
+## $ `70-74`                        <dbl> 99527, 103484, 2030~
+## $ `75-79`                        <dbl> 69574, 77160, 14673~
+## $ `80-84`                        <dbl> 49268, 57639, 10690~
+## $ `85-89`                        <dbl> 28898, 40789, 69687~
+## $ `90+`                          <dbl> 13366, 28648, 42014~
+## $ Total                          <dbl> 2361038, 2396620, 4~
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(pop)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       ...1       Health Service Delivery Area
+##  Min.   : 0.00   Length:51                   
+##  1st Qu.:14.00   Class :character            
+##  Median :31.00   Mode  :character            
+##  Mean   :29.06                               
+##  3rd Qu.:42.00                               
+##  Max.   :53.00                               
+##       Year         Gender                <1       
+##  Min.   :2016   Length:51          Min.   :  276  
+##  1st Qu.:2016   Class :character   1st Qu.:  714  
+##  Median :2016   Mode  :character   Median : 1425  
+##  Mean   :2016                      Mean   : 3510  
+##  3rd Qu.:2016                      3rd Qu.: 2802  
+##  Max.   :2016                      Max.   :44757  
+##      04-Jan           09-May           14-Oct      
+##  Min.   :  1356   Min.   :  1755   Min.   :  1811  
+##  1st Qu.:  3118   1st Qu.:  4194   1st Qu.:  3910  
+##  Median :  5663   Median :  8002   Median :  7808  
+##  Mean   : 14236   Mean   : 18362   Mean   : 18197  
+##  3rd Qu.: 11025   3rd Qu.: 15384   3rd Qu.: 15350  
+##  Max.   :181511   Max.   :234118   Max.   :232010  
+##      15-19            20-24            25-29       
+##  Min.   :  1919   Min.   :  1577   Min.   :  1640  
+##  1st Qu.:  4240   1st Qu.:  4214   1st Qu.:  4169  
+##  Median :  8836   Median :  9193   Median :  8646  
+##  Mean   : 21386   Mean   : 25657   Mean   : 25019  
+##  3rd Qu.: 17866   3rd Qu.: 22940   3rd Qu.: 21291  
+##  Max.   :272677   Max.   :327129   Max.   :318998  
+##      30-34            35-39            40-44       
+##  Min.   :  2069   Min.   :  2092   Min.   :  2008  
+##  1st Qu.:  4415   1st Qu.:  4572   1st Qu.:  4483  
+##  Median :  8830   Median :  9490   Median :  9551  
+##  Mean   : 25823   Mean   : 24593   Mean   : 23961  
+##  3rd Qu.: 22644   3rd Qu.: 21896   3rd Qu.: 21345  
+##  Max.   :329242   Max.   :313564   Max.   :305498  
+##      45-49            50-54            55-59       
+##  Min.   :  2040   Min.   :  2137   Min.   :  2038  
+##  1st Qu.:  4859   1st Qu.:  5431   1st Qu.:  5684  
+##  Median :  9930   Median : 10666   Median : 10972  
+##  Mean   : 25759   Mean   : 27581   Mean   : 27572  
+##  3rd Qu.: 23211   3rd Qu.: 24455   3rd Qu.: 22498  
+##  Max.   :328426   Max.   :351662   Max.   :351545  
+##      60-64            65-69            70-74       
+##  Min.   :  1550   Min.   :  1119   Min.   :   784  
+##  1st Qu.:  5349   1st Qu.:  5006   1st Qu.:  3628  
+##  Median : 10698   Median : 10011   Median :  7256  
+##  Mean   : 24834   Mean   : 22081   Mean   : 15922  
+##  3rd Qu.: 19486   3rd Qu.: 16891   3rd Qu.: 12128  
+##  Max.   :316631   Max.   :281537   Max.   :203011  
+##      75-79            80-84            85-89      
+##  Min.   :   538   Min.   :   351   Min.   :  196  
+##  1st Qu.:  2332   1st Qu.:  1612   1st Qu.:  973  
+##  Median :  5026   Median :  3867   Median : 2636  
+##  Mean   : 11509   Mean   :  8385   Mean   : 5466  
+##  3rd Qu.:  9268   3rd Qu.:  6582   3rd Qu.: 4543  
+##  Max.   :146734   Max.   :106907   Max.   :69687  
+##       90+              Total        
+##  Min.   :  114.0   Min.   :  32171  
+##  1st Qu.:  536.5   1st Qu.:  70681  
+##  Median : 1394.0   Median : 145321  
+##  Mean   : 3295.2   Mean   : 373150  
+##  3rd Qu.: 2955.0   3rd Qu.: 329569  
+##  Max.   :42014.0   Max.   :4757658
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dplyr}\SpecialCharTok{::}\FunctionTok{glimpse}\NormalTok{(corr, }\AttributeTok{width =} \DecValTok{60}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Rows: 420,963
+## Columns: 6
+## $ dbuid2016      <dbl> 10010165001, 10010165002, 100101650~
+## $ csduid2016     <dbl> 1001519, 1001519, 1001519, 1001519,~
+## $ hruid2017      <dbl> 1011, 1011, 1011, 1011, 1011, 1011,~
+## $ hrname_english <chr> "Eastern Regional Health Authority"~
+## $ hrname_french  <chr> "Eastern Regional Health Authority"~
+## $ dbpop2016      <dbl> 160, 25, 268, 53, 71, 217, 39, 120,~
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(corr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    dbuid2016           csduid2016        hruid2017   
+##  Min.   :1.001e+10   Min.   :1001101   Min.   :1011  
+##  1st Qu.:2.466e+10   1st Qu.:2466023   1st Qu.:2414  
+##  Median :3.558e+10   Median :3558090   Median :3595  
+##  Mean   :3.856e+10   Mean   :3855572   Mean   :3856  
+##  3rd Qu.:4.806e+10   3rd Qu.:4806016   3rd Qu.:4832  
+##  Max.   :6.208e+10   Max.   :6208098   Max.   :6201  
+##                                                      
+##  hrname_english     hrname_french        dbpop2016      
+##  Length:420963      Length:420963      Min.   :   0.00  
+##  Class :character   Class :character   1st Qu.:   5.00  
+##  Mode  :character   Mode  :character   Median :  26.00  
+##                                        Mean   :  69.44  
+##                                        3rd Qu.:  77.00  
+##                                        Max.   :7607.00  
+##                                        NA's   :35
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{str}\NormalTok{(env)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## spc_tbl_ [116,011 x 8] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+##  $ POSTALCODE12: chr [1:116011] "V0C1E0" "V0C1W0" "V0C2X0" "V0C2Z0" ...
+##  $ WTHNRC12_01 : num [1:116011] 27.1 30.3 28.2 28.7 23.1 ...
+##  $ WTHNRC12_02 : num [1:116011] -46.7 -46 -42.3 -44.9 -35 ...
+##  $ WTHNRC12_03 : num [1:116011] -2.605 -1.868 -1.963 -1.286 0.338 ...
+##  $ WTHNRC12_04 : num [1:116011] 2.91 3.92 4.01 4.32 4.33 ...
+##  $ WTHNRC12_05 : num [1:116011] -8.12 -7.65 -7.93 -6.89 -3.65 ...
+##  $ WTHNRC12_06 : num [1:116011] 11.04 11.57 11.94 11.2 7.98 ...
+##  $ WTHNRC12_07 : num [1:116011] 171 198 248 175 310 ...
+##  - attr(*, "spec")=
+##   .. cols(
+##   ..   POSTALCODE12 = col_character(),
+##   ..   WTHNRC12_01 = col_double(),
+##   ..   WTHNRC12_02 = col_double(),
+##   ..   WTHNRC12_03 = col_double(),
+##   ..   WTHNRC12_04 = col_double(),
+##   ..   WTHNRC12_05 = col_double(),
+##   ..   WTHNRC12_06 = col_double(),
+##   ..   WTHNRC12_07 = col_double()
+##   .. )
+##  - attr(*, "problems")=<externalptr>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(env)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  POSTALCODE12        WTHNRC12_01     WTHNRC12_02    
+##  Length:116011      Min.   :19.28   Min.   :-46.74  
+##  Class :character   1st Qu.:31.07   1st Qu.:-11.44  
+##  Mode  :character   Median :31.28   Median : -8.40  
+##                     Mean   :31.62   Mean   :-11.67  
+##                     3rd Qu.:31.76   3rd Qu.: -7.49  
+##                     Max.   :39.07   Max.   : -4.48  
+##   WTHNRC12_03      WTHNRC12_04      WTHNRC12_05    
+##  Min.   :-2.605   Min.   : 2.913   Min.   :-8.122  
+##  1st Qu.: 9.693   1st Qu.:13.454   1st Qu.: 5.750  
+##  Median :10.140   Median :13.887   Median : 6.612  
+##  Mean   : 9.573   Mean   :13.521   Mean   : 5.625  
+##  3rd Qu.:10.449   3rd Qu.:14.006   3rd Qu.: 6.893  
+##  Max.   :10.551   Max.   :16.227   Max.   : 7.132  
+##   WTHNRC12_06      WTHNRC12_07    
+##  Min.   : 4.336   Min.   : 104.6  
+##  1st Qu.: 6.936   1st Qu.:1072.1  
+##  Median : 7.151   Median :1316.4  
+##  Mean   : 7.896   Mean   :1110.7  
+##  3rd Qu.: 7.935   3rd Qu.:1399.0  
+##  Max.   :13.498   Max.   :3076.5
+\end{verbatim}
+
+The \texttt{str()} function displays the structure of the dataset, including variable types and dimensions. The \texttt{summary()} function provides summary statistics and quick descriptive information.
+
+Another useful function is \texttt{glimpse()} from \texttt{dplyr}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{glimpse}\NormalTok{(mort)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Rows: 60,143
+## Columns: 13
+## $ ID                <dbl> 1000001, 1000002, 1000003, 10000~
+## $ Sex               <chr> "M", "F", "M", "M", "M", "F", "F~
+## $ Cause_of_death    <chr> "D47", "C34", "C26", "C16", "C22~
+## $ dbuid2016         <dbl> 13070175019, 48060924001, 352045~
+## $ Location_of_death <dbl> 5, 3, 6, 1, 6, 5, 4, 1, 3, 2, 5,~
+## $ Marital_status    <dbl> 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 2,~
+## $ Postalcode        <chr> "E1A1E9", "T2E0T2", "M4J1L1", "H~
+## $ B_year            <dbl> 1943, 1943, 1953, 1923, 1931, 19~
+## $ B_month           <dbl> 7, 5, 8, 6, 8, 11, 5, 8, 7, 2, 1~
+## $ B_day             <dbl> 8, 22, 9, 14, 8, 4, 20, 18, 23, ~
+## $ D_year            <dbl> 2016, 2016, 2016, 2016, 2016, 20~
+## $ D_month           <dbl> 9, 12, 4, 11, 4, 2, 2, 6, 5, 1, ~
+## $ D_day             <dbl> 22, 14, 21, 21, 4, 6, 9, 13, 25,~
+\end{verbatim}
+
+Compared with \texttt{str()}, \texttt{glimpse()} often provides a cleaner and easier-to-read overview of the data frame.
+
+Initial data inspection is one of the most important parts of data cleaning because it helps identify:
+
+\begin{itemize}
+\tightlist
+\item
+  missing values;
+\item
+  unusual variable names;
+\item
+  incorrect data types;
+\item
+  inconsistent formatting; and
+\item
+  unexpected values.
+\end{itemize}
+
+\section{Exploring and validating the data}\label{exploring-and-validating-the-data}
+
+A useful next step is performing simple exploratory checks to understand the datasets more fully.
+
+For example, we can identify all health regions in the correspondence dataset.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{corr }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{distinct}\NormalTok{(hrname\_english) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{hrname\_english =} \FunctionTok{iconv}\NormalTok{(}
+\NormalTok{      hrname\_english,}
+      \AttributeTok{from =} \StringTok{"latin1"}\NormalTok{,}
+      \AttributeTok{to =} \StringTok{"UTF{-}8"}\NormalTok{,}
+      \AttributeTok{sub =} \StringTok{""}
+\NormalTok{    )}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{arrange}\NormalTok{(hrname\_english)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 96 x 1
+##    hrname_english                                       
+##    <chr>                                                
+##  1 Athabasca Health Authority                           
+##  2 Brant County Health Unit                             
+##  3 Calgary Zone                                         
+##  4 Central Regional Health Authority                    
+##  5 Central Vancouver Island Health Service Delivery Area
+##  6 Central Zone                                         
+##  7 Chatham-Kent Health Unit                             
+##  8 City of Hamilton Health Unit                         
+##  9 City of Toronto Health Unit                          
+## 10 Cypress Regional Health Authority                    
+## # i 86 more rows
+\end{verbatim}
+
+When working with multilingual datasets, encoding issues may cause characters to display incorrectly. Re-importing the file using the appropriate encoding often resolves these problems.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{corr }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}
+  \StringTok{"./Raw Data/Corr\_2016.csv"}\NormalTok{,}
+  \AttributeTok{locale =}\NormalTok{ readr}\SpecialCharTok{::}\FunctionTok{locale}\NormalTok{(}
+    \AttributeTok{encoding =} \StringTok{"latin1"}
+\NormalTok{  )}
+\NormalTok{)}
+
+\NormalTok{corr }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{distinct}\NormalTok{(hrname\_english) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{arrange}\NormalTok{(hrname\_english)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 96 x 1
+##    hrname_english                                       
+##    <chr>                                                
+##  1 Athabasca Health Authority                           
+##  2 Brant County Health Unit                             
+##  3 Calgary Zone                                         
+##  4 Central Regional Health Authority                    
+##  5 Central Vancouver Island Health Service Delivery Area
+##  6 Central Zone                                         
+##  7 Chatham-Kent Health Unit                             
+##  8 City of Hamilton Health Unit                         
+##  9 City of Toronto Health Unit                          
+## 10 Cypress Regional Health Authority                    
+## # i 86 more rows
+\end{verbatim}
+
+We can also calculate the number of health regions in the dataset.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{no\_regions }\OtherTok{\textless{}{-}}\NormalTok{ corr }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{distinct}\NormalTok{(hrname\_english) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{nrow}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+There are 96 health regions in the correspondence dataset.
+
+Additional exploratory summaries can help validate the imported data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mort }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{count}\NormalTok{(Sex)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 3 x 2
+##   Sex       n
+##   <chr> <int>
+## 1 F     28630
+## 2 M     31500
+## 3 <NA>     13
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pop }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarize}\NormalTok{(}
+    \AttributeTok{Total\_below\_1 =} \FunctionTok{sum}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{\textless{}1}\StringTok{\textasciigrave{}}\NormalTok{)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 1
+##   Total_below_1
+##           <dbl>
+## 1        179028
+\end{verbatim}
+
+These simple checks help verify that the datasets were imported correctly and that the variables contain plausible values.
+
+\section{Cleaning variable names and reshaping data}\label{cleaning-variable-names-and-reshaping-data}
+
+One common issue in real-world datasets is poorly formatted variable names. Variables that begin with numbers or contain symbols can make coding more difficult.
+
+For example:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{names}\NormalTok{(pop)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "...1"                        
+##  [2] "Health Service Delivery Area"
+##  [3] "Year"                        
+##  [4] "Gender"                      
+##  [5] "<1"                          
+##  [6] "04-Jan"                      
+##  [7] "09-May"                      
+##  [8] "14-Oct"                      
+##  [9] "15-19"                       
+## [10] "20-24"                       
+## [11] "25-29"                       
+## [12] "30-34"                       
+## [13] "35-39"                       
+## [14] "40-44"                       
+## [15] "45-49"                       
+## [16] "50-54"                       
+## [17] "55-59"                       
+## [18] "60-64"                       
+## [19] "65-69"                       
+## [20] "70-74"                       
+## [21] "75-79"                       
+## [22] "80-84"                       
+## [23] "85-89"                       
+## [24] "90+"                         
+## [25] "Total"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{colnames}\NormalTok{(pop)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "...1"                        
+##  [2] "Health Service Delivery Area"
+##  [3] "Year"                        
+##  [4] "Gender"                      
+##  [5] "<1"                          
+##  [6] "04-Jan"                      
+##  [7] "09-May"                      
+##  [8] "14-Oct"                      
+##  [9] "15-19"                       
+## [10] "20-24"                       
+## [11] "25-29"                       
+## [12] "30-34"                       
+## [13] "35-39"                       
+## [14] "40-44"                       
+## [15] "45-49"                       
+## [16] "50-54"                       
+## [17] "55-59"                       
+## [18] "60-64"                       
+## [19] "65-69"                       
+## [20] "70-74"                       
+## [21] "75-79"                       
+## [22] "80-84"                       
+## [23] "85-89"                       
+## [24] "90+"                         
+## [25] "Total"
+\end{verbatim}
+
+Some age-group variables contain names such as \texttt{"04-Jan"} or \texttt{"09-May"}, which are not ideal variable names for analysis.The \texttt{janitor} package is also useful for cleaning messy column names and inspecting datasets Firke (\citeproc{ref-janitor}{2026}).
+
+One approach is to rename problematic variables directly.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pop2 }\OtherTok{\textless{}{-}}\NormalTok{ pop }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{rename}\NormalTok{(}
+    \StringTok{"01{-}04"} \OtherTok{=} \StringTok{"04{-}Jan"}\NormalTok{,}
+    \StringTok{"05{-}09"} \OtherTok{=} \StringTok{"09{-}May"}\NormalTok{,}
+    \StringTok{"10{-}14"} \OtherTok{=} \StringTok{"14{-}Oct"}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+Another important data-cleaning task is reshaping data into a \emph{tidy} format. In tidy data, each variable has its own column, each observation has its own row, and each value occupies a single cell.
+
+The \texttt{pivot\_longer()} function is commonly used to convert wide datasets into long format.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pop\_long }\OtherTok{\textless{}{-}}\NormalTok{ pop }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{select}\NormalTok{(}
+    \SpecialCharTok{{-}}\FunctionTok{any\_of}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"X1"}\NormalTok{, }\StringTok{"Total"}\NormalTok{))}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{pivot\_longer}\NormalTok{(}
+    \AttributeTok{cols =} \SpecialCharTok{{-}}\FunctionTok{any\_of}\NormalTok{(}
+      \FunctionTok{c}\NormalTok{(}
+        \StringTok{"Year"}\NormalTok{,}
+        \StringTok{"Gender"}\NormalTok{,}
+        \StringTok{"Health Service Delivery Area"}
+\NormalTok{      )}
+\NormalTok{    ),}
+    \AttributeTok{names\_to =} \StringTok{"Age"}\NormalTok{,}
+    \AttributeTok{values\_to =} \StringTok{"Value"}
+\NormalTok{  )}
+
+\NormalTok{pop\_long}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,071 x 5
+##    `Health Service Delivery Area`  Year Gender Age     Value
+##    <chr>                          <dbl> <chr>  <chr>   <dbl>
+##  1 British Columbia                2016 M      ...1        0
+##  2 British Columbia                2016 M      <1      22997
+##  3 British Columbia                2016 M      04-Jan  93211
+##  4 British Columbia                2016 M      09-May 121341
+##  5 British Columbia                2016 M      14-Oct 119586
+##  6 British Columbia                2016 M      15-19  140451
+##  7 British Columbia                2016 M      20-24  170968
+##  8 British Columbia                2016 M      25-29  159609
+##  9 British Columbia                2016 M      30-34  162416
+## 10 British Columbia                2016 M      35-39  155936
+## # i 1,061 more rows
+\end{verbatim}
+
+The resulting dataset stores age groups within a single variable rather than across many separate columns.
+
+After reshaping the data, some values may still require cleaning or recoding. The \texttt{case\_when()} function is often used for this purpose.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pop\_long }\OtherTok{\textless{}{-}}\NormalTok{ pop\_long }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{Age =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      Age }\SpecialCharTok{==} \StringTok{"04{-}Jan"} \SpecialCharTok{\textasciitilde{}} \StringTok{"01{-}04"}\NormalTok{,}
+\NormalTok{      Age }\SpecialCharTok{==} \StringTok{"09{-}May"} \SpecialCharTok{\textasciitilde{}} \StringTok{"05{-}09"}\NormalTok{,}
+\NormalTok{      Age }\SpecialCharTok{==} \StringTok{"14{-}Oct"} \SpecialCharTok{\textasciitilde{}} \StringTok{"10{-}14"}\NormalTok{,}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}}\NormalTok{ Age}
+\NormalTok{    )}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+The final line, \texttt{TRUE\ \textasciitilde{}\ Age}, is important because it preserves all values that do not match the earlier conditions.
+
+If this line is removed, unmatched rows become missing values.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pop }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{select}\NormalTok{(}
+    \SpecialCharTok{{-}}\FunctionTok{any\_of}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"X1"}\NormalTok{, }\StringTok{"Total"}\NormalTok{))}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{pivot\_longer}\NormalTok{(}
+    \AttributeTok{cols =} \SpecialCharTok{{-}}\FunctionTok{any\_of}\NormalTok{(}
+      \FunctionTok{c}\NormalTok{(}
+        \StringTok{"Year"}\NormalTok{,}
+        \StringTok{"Gender"}\NormalTok{,}
+        \StringTok{"Health Service Delivery Area"}
+\NormalTok{      )}
+\NormalTok{    ),}
+    \AttributeTok{names\_to =} \StringTok{"Age"}\NormalTok{,}
+    \AttributeTok{values\_to =} \StringTok{"Value"}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{Age =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      Age }\SpecialCharTok{==} \StringTok{"04{-}Jan"} \SpecialCharTok{\textasciitilde{}} \StringTok{"01{-}04"}\NormalTok{,}
+\NormalTok{      Age }\SpecialCharTok{==} \StringTok{"09{-}May"} \SpecialCharTok{\textasciitilde{}} \StringTok{"05{-}09"}\NormalTok{,}
+\NormalTok{      Age }\SpecialCharTok{==} \StringTok{"14{-}Oct"} \SpecialCharTok{\textasciitilde{}} \StringTok{"10{-}14"}
+\NormalTok{    )}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,071 x 5
+##    `Health Service Delivery Area`  Year Gender Age    Value
+##    <chr>                          <dbl> <chr>  <chr>  <dbl>
+##  1 British Columbia                2016 M      <NA>       0
+##  2 British Columbia                2016 M      <NA>   22997
+##  3 British Columbia                2016 M      01-04  93211
+##  4 British Columbia                2016 M      05-09 121341
+##  5 British Columbia                2016 M      10-14 119586
+##  6 British Columbia                2016 M      <NA>  140451
+##  7 British Columbia                2016 M      <NA>  170968
+##  8 British Columbia                2016 M      <NA>  159609
+##  9 British Columbia                2016 M      <NA>  162416
+## 10 British Columbia                2016 M      <NA>  155936
+## # i 1,061 more rows
+\end{verbatim}
+
+Always verify the output after recoding variables. Small coding mistakes can unintentionally convert valid values into missing values.
+
+\section{Practical considerations for R Markdown workflows}\label{practical-considerations-for-r-markdown-workflows}
+
+When working with R Markdown documents, remember that every code chunk is executed again during knitting. Code that modifies files, unzips folders, or downloads data should therefore be used carefully.
+
+As projects grow larger, keeping code organized and avoiding repeated operations becomes increasingly important for reproducible workflows.
+
+You should also begin thinking about how analyses are documented. A good R Markdown document not only produces correct outputs, but also explains the reasoning behind each analytical step.
+
+\section{Chapter summary}\label{chapter-summary-3}
+
+In this chapter, you learned several important data cleaning and management techniques using the tidyverse. You imported multiple datasets, explored project files, inspected dataset structures, handled encoding issues, cleaned variable names, reshaped data into tidy formats, and recoded variables using \texttt{case\_when()}.
+
+These skills form the foundation of reproducible data analysis workflows and will be used extensively throughout the remainder of the course.
+
+\chapter{Strings and Regular Expressions}\label{strings-and-regular-expressions}
+
+Character variables are extremely common in real-world datasets. Names, addresses, postal codes, diagnostic codes, survey responses, and file names are all examples of text-based data that often require cleaning before analysis can begin.
+
+This chapter introduces tools for working with strings and regular expressions in R using the tidyverse and the \texttt{stringr} package. You will learn how to separate text variables into multiple columns, remove unnecessary spaces, extract patterns from text, reshape complex datasets, and use regular expressions to identify meaningful information hidden inside character strings. The \texttt{stringr} package simplifies many common string operations in R Wickham (\citeproc{ref-stringr}{2026b}).
+
+In addition to text cleaning, this chapter also introduces important data reshaping techniques using \texttt{pivot\_longer()}, which is commonly used to convert messy wide-format datasets into tidy long-format structures suitable for analysis.
+
+\section{Working with character data in R}\label{working-with-character-data-in-r}
+
+The tidyverse includes several useful tools for working with text data. In this chapter, we will primarily use functions from \texttt{stringr}, which provides a consistent and readable framework for string manipulation.
+
+Begin by loading the required libraries.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(stringr)}
+\end{Highlighting}
+\end{Shaded}
+
+Throughout this chapter, we will work with two example datasets:
+
+\begin{itemize}
+\tightlist
+\item
+  the Titanic dataset, which will be used to practice cleaning names and extracting passenger titles; and
+\item
+  the WHO tuberculosis dataset, which will be used to demonstrate reshaping and decoding complex variable names.
+\end{itemize}
+
+\section{Cleaning and separating character variables}\label{cleaning-and-separating-character-variables}
+
+The Titanic dataset contains a variable called \texttt{Name}, which stores multiple pieces of information within a single text field.
+
+We begin by importing the data and converting selected variables into factors.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{titanic }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}
+  \StringTok{"./Raw Data/titanic.csv"}\NormalTok{,}
+  \AttributeTok{col\_types =} \FunctionTok{cols}\NormalTok{(}
+    \AttributeTok{Survived =} \FunctionTok{col\_factor}\NormalTok{(),}
+    \AttributeTok{Sex =} \FunctionTok{col\_factor}\NormalTok{()}
+\NormalTok{  )}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Before working with the names, we perform a small amount of initial cleaning. Records with missing survival information are removed, and a new variable called \texttt{family\_size} is created.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{titanic }\OtherTok{\textless{}{-}}\NormalTok{ titanic }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(Survived)) }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{family\_size =}\NormalTok{ SibSp }\SpecialCharTok{+}\NormalTok{ Parch }\SpecialCharTok{+} \DecValTok{1}
+\NormalTok{  )}
+
+\FunctionTok{head}\NormalTok{(titanic)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 13
+##   PassengerId Survived Pclass Name   Sex     Age SibSp Parch
+##         <dbl> <fct>     <dbl> <chr>  <fct> <dbl> <dbl> <dbl>
+## 1           1 0             3 Braun~ male     22     1     0
+## 2           2 1             1 Cumin~ fema~    38     1     0
+## 3           3 1             3 Heikk~ fema~    26     0     0
+## 4           4 1             1 Futre~ fema~    35     1     0
+## 5           5 0             3 Allen~ male     35     0     0
+## 6           6 0             3 Moran~ male     NA     0     0
+## # i 5 more variables: Ticket <chr>, Fare <dbl>,
+## #   Cabin <chr>, Embarked <chr>, family_size <dbl>
+\end{verbatim}
+
+The \texttt{Name} variable contains both last names and first names in a single column. To make the data easier to analyze, we can separate this variable into two new columns.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{titanic }\OtherTok{\textless{}{-}}\NormalTok{ titanic }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{separate}\NormalTok{(}
+    \AttributeTok{col =}\NormalTok{ Name,}
+    \AttributeTok{into =} \FunctionTok{c}\NormalTok{(}\StringTok{"Last\_name"}\NormalTok{, }\StringTok{"First\_name"}\NormalTok{),}
+    \AttributeTok{sep =} \StringTok{","}
+\NormalTok{  )}
+
+\FunctionTok{head}\NormalTok{(}
+\NormalTok{  titanic }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{select}\NormalTok{(Last\_name, First\_name)}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 2
+##   Last_name First_name                                   
+##   <chr>     <chr>                                        
+## 1 Braund    " Mr. Owen Harris"                           
+## 2 Cumings   " Mrs. John Bradley (Florence Briggs Thayer)"
+## 3 Heikkinen " Miss. Laina"                               
+## 4 Futrelle  " Mrs. Jacques Heath (Lily May Peel)"        
+## 5 Allen     " Mr. William Henry"                         
+## 6 Moran     " Mr. James"
+\end{verbatim}
+
+After separating the names, some records contain extra spaces at the beginning of the \texttt{First\_name} variable. These spaces can be removed using \texttt{str\_trim()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{titanic }\OtherTok{\textless{}{-}}\NormalTok{ titanic }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{First\_name =} \FunctionTok{str\_trim}\NormalTok{(}
+\NormalTok{      First\_name,}
+      \AttributeTok{side =} \StringTok{"left"}
+\NormalTok{    )}
+\NormalTok{  )}
+
+\FunctionTok{head}\NormalTok{(}
+\NormalTok{  titanic }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{select}\NormalTok{(Last\_name, First\_name)}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 2
+##   Last_name First_name                                
+##   <chr>     <chr>                                     
+## 1 Braund    Mr. Owen Harris                           
+## 2 Cumings   Mrs. John Bradley (Florence Briggs Thayer)
+## 3 Heikkinen Miss. Laina                               
+## 4 Futrelle  Mrs. Jacques Heath (Lily May Peel)        
+## 5 Allen     Mr. William Henry                         
+## 6 Moran     Mr. James
+\end{verbatim}
+
+Cleaning whitespace is a small but important part of text processing because extra spaces can interfere with matching, grouping, and filtering operations.
+
+\section{Extracting patterns with regular expressions}\label{extracting-patterns-with-regular-expressions}
+
+Many text variables contain structured patterns that can be extracted using regular expressions, often called \emph{regex}.
+
+In the Titanic dataset, passenger titles such as \texttt{"Mr"}, \texttt{"Mrs"}, \texttt{"Miss"}, and \texttt{"Master"} appear within the \texttt{First\_name} variable. We can extract these titles using the \texttt{str\_extract()} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{titanic }\OtherTok{\textless{}{-}}\NormalTok{ titanic }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{Title =} \FunctionTok{str\_extract}\NormalTok{(}
+\NormalTok{      First\_name,}
+      \StringTok{"\^{}[\^{}.]+"}
+\NormalTok{    )}
+\NormalTok{  )}
+
+\FunctionTok{head}\NormalTok{(}
+\NormalTok{  titanic }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{select}\NormalTok{(First\_name, Title)}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 2
+##   First_name                                 Title
+##   <chr>                                      <chr>
+## 1 Mr. Owen Harris                            Mr   
+## 2 Mrs. John Bradley (Florence Briggs Thayer) Mrs  
+## 3 Miss. Laina                                Miss 
+## 4 Mrs. Jacques Heath (Lily May Peel)         Mrs  
+## 5 Mr. William Henry                          Mr   
+## 6 Mr. James                                  Mr
+\end{verbatim}
+
+The regular expression \texttt{\^{}{[}\^{}.{]}+} can be interpreted as follows:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{\^{}} indicates the beginning of the string;
+\item
+  \texttt{{[}\^{}.{]}} means any character except a period; and
+\item
+  \texttt{+} means one or more occurrences of the previous pattern.
+\end{itemize}
+
+Together, the expression extracts all characters from the beginning of the string until the first period is reached.
+
+Regular expressions can initially appear intimidating, but they become extremely powerful once you begin recognizing common text patterns.
+
+When learning regular expressions, it is often helpful to interpret them one symbol at a time rather than trying to understand the entire pattern at once.
+
+\section{Creating reusable functions}\label{creating-reusable-functions}
+
+When the same sequence of operations must be repeated multiple times, it is often useful to place the code inside a function.
+
+The following function trims whitespace and extracts passenger titles.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{create\_title }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(firstname) \{}
+  
+\NormalTok{  firstname }\SpecialCharTok{\%\textgreater{}\%}
+    
+    \FunctionTok{str\_trim}\NormalTok{(}\AttributeTok{side =} \StringTok{"left"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    
+    \FunctionTok{str\_extract}\NormalTok{(}\StringTok{"\^{}[\^{}.]+"}\NormalTok{)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+We can then apply the function directly to the dataset.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{titanic }\OtherTok{\textless{}{-}}\NormalTok{ titanic }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{Title\_from\_function =}
+      \FunctionTok{create\_title}\NormalTok{(First\_name)}
+\NormalTok{  )}
+
+\FunctionTok{head}\NormalTok{(}
+\NormalTok{  titanic }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{select}\NormalTok{(}
+\NormalTok{      First\_name,}
+\NormalTok{      Title,}
+\NormalTok{      Title\_from\_function}
+\NormalTok{    )}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 3
+##   First_name                       Title Title_from_function
+##   <chr>                            <chr> <chr>              
+## 1 Mr. Owen Harris                  Mr    Mr                 
+## 2 Mrs. John Bradley (Florence Bri~ Mrs   Mrs                
+## 3 Miss. Laina                      Miss  Miss               
+## 4 Mrs. Jacques Heath (Lily May Pe~ Mrs   Mrs                
+## 5 Mr. William Henry                Mr    Mr                 
+## 6 Mr. James                        Mr    Mr
+\end{verbatim}
+
+Creating functions improves readability and reduces repeated code, especially in large projects.
+
+\section{Summarizing and visualizing categorical data}\label{summarizing-and-visualizing-categorical-data}
+
+Once titles have been extracted, we can summarize the number of passengers within each title group.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{title\_summary }\OtherTok{\textless{}{-}}\NormalTok{ titanic }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{count}\NormalTok{(Title, }\AttributeTok{sort =} \ConstantTok{TRUE}\NormalTok{)}
+
+\NormalTok{title\_summary}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 17 x 2
+##    Title            n
+##    <chr>        <int>
+##  1 Mr             517
+##  2 Miss           182
+##  3 Mrs            125
+##  4 Master          40
+##  5 Dr               7
+##  6 Rev              6
+##  7 Col              2
+##  8 Major            2
+##  9 Mlle             2
+## 10 Capt             1
+## 11 Don              1
+## 12 Jonkheer         1
+## 13 Lady             1
+## 14 Mme              1
+## 15 Ms               1
+## 16 Sir              1
+## 17 the Countess     1
+\end{verbatim}
+
+We can also visualize the distribution using \texttt{ggplot2}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{title\_summary }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{ggplot}\NormalTok{(}
+    \FunctionTok{aes}\NormalTok{(}
+      \AttributeTok{x =} \FunctionTok{reorder}\NormalTok{(Title, n),}
+      \AttributeTok{y =}\NormalTok{ n}
+\NormalTok{    )}
+\NormalTok{  ) }\SpecialCharTok{+}
+  
+  \FunctionTok{geom\_col}\NormalTok{() }\SpecialCharTok{+}
+  
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Number of Titanic Passengers by Title"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Title"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Number of Passengers"}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{data-management-with-r_files/data-management-with-r_files/figure-latex/05-strings-regex-plot-title-summary-1.pdf}
+
+Visual summaries are often useful for identifying unusual categories, inconsistencies, or unexpected values within character variables.
+
+\section{Reshaping complex datasets}\label{reshaping-complex-datasets}
+
+The WHO tuberculosis dataset provides an excellent example of why data reshaping is often necessary.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{data}\NormalTok{(who)}
+
+\FunctionTok{glimpse}\NormalTok{(who)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Rows: 7,240
+## Columns: 60
+## $ country      <chr> "Afghanistan", "Afghanistan", "Afghan~
+## $ iso2         <chr> "AF", "AF", "AF", "AF", "AF", "AF", "~
+## $ iso3         <chr> "AFG", "AFG", "AFG", "AFG", "AFG", "A~
+## $ year         <dbl> 1980, 1981, 1982, 1983, 1984, 1985, 1~
+## $ new_sp_m014  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_sp_m1524 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_sp_m2534 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_sp_m3544 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_sp_m4554 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_sp_m5564 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_sp_m65   <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_sp_f014  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_sp_f1524 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_sp_f2534 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_sp_f3544 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_sp_f4554 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_sp_f5564 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_sp_f65   <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_sn_m014  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_sn_m1524 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_sn_m2534 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_sn_m3544 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_sn_m4554 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_sn_m5564 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_sn_m65   <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_sn_f014  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_sn_f1524 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_sn_f2534 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_sn_f3544 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_sn_f4554 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_sn_f5564 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_sn_f65   <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_ep_m014  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_ep_m1524 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_ep_m2534 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_ep_m3544 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_ep_m4554 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_ep_m5564 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_ep_m65   <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_ep_f014  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_ep_f1524 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_ep_f2534 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_ep_f3544 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_ep_f4554 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_ep_f5564 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ new_ep_f65   <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ newrel_m014  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ newrel_m1524 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ newrel_m2534 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ newrel_m3544 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ newrel_m4554 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ newrel_m5564 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ newrel_m65   <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ newrel_f014  <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ newrel_f1524 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ newrel_f2534 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ newrel_f3544 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ newrel_f4554 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ newrel_f5564 <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+## $ newrel_f65   <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+\end{verbatim}
+
+Many column names in this dataset are not true variables. Instead, the column names themselves contain several pieces of information.
+
+For example:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{new\_sp\_m014}
+\end{Highlighting}
+\end{Shaded}
+
+contains:
+
+\begin{itemize}
+\tightlist
+\item
+  the diagnosis type;
+\item
+  the sex category; and
+\item
+  the age group.
+\end{itemize}
+
+This structure violates the principles of tidy data because multiple variables are embedded inside the column names.
+
+To clean the dataset, we first reshape it from wide format into long format using \texttt{pivot\_longer()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{who1 }\OtherTok{\textless{}{-}}\NormalTok{ who }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{pivot\_longer}\NormalTok{(}
+    \AttributeTok{cols =}\NormalTok{ new\_sp\_m014}\SpecialCharTok{:}\NormalTok{newrel\_f65,}
+    \AttributeTok{names\_to =} \StringTok{"key"}\NormalTok{,}
+    \AttributeTok{values\_to =} \StringTok{"cases"}\NormalTok{,}
+    \AttributeTok{values\_drop\_na =} \ConstantTok{TRUE}
+\NormalTok{  )}
+
+\NormalTok{who1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 76,046 x 6
+##    country     iso2  iso3   year key          cases
+##    <chr>       <chr> <chr> <dbl> <chr>        <dbl>
+##  1 Afghanistan AF    AFG    1997 new_sp_m014      0
+##  2 Afghanistan AF    AFG    1997 new_sp_m1524    10
+##  3 Afghanistan AF    AFG    1997 new_sp_m2534     6
+##  4 Afghanistan AF    AFG    1997 new_sp_m3544     3
+##  5 Afghanistan AF    AFG    1997 new_sp_m4554     5
+##  6 Afghanistan AF    AFG    1997 new_sp_m5564     2
+##  7 Afghanistan AF    AFG    1997 new_sp_m65       0
+##  8 Afghanistan AF    AFG    1997 new_sp_f014      5
+##  9 Afghanistan AF    AFG    1997 new_sp_f1524    38
+## 10 Afghanistan AF    AFG    1997 new_sp_f2534    36
+## # i 76,036 more rows
+\end{verbatim}
+
+After reshaping the data, we correct inconsistent variable naming.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{who2 }\OtherTok{\textless{}{-}}\NormalTok{ who1 }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{key =} \FunctionTok{str\_replace}\NormalTok{(}
+\NormalTok{      key,}
+      \StringTok{"newrel"}\NormalTok{,}
+      \StringTok{"new\_rel"}
+\NormalTok{    )}
+\NormalTok{  )}
+
+\NormalTok{who2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 76,046 x 6
+##    country     iso2  iso3   year key          cases
+##    <chr>       <chr> <chr> <dbl> <chr>        <dbl>
+##  1 Afghanistan AF    AFG    1997 new_sp_m014      0
+##  2 Afghanistan AF    AFG    1997 new_sp_m1524    10
+##  3 Afghanistan AF    AFG    1997 new_sp_m2534     6
+##  4 Afghanistan AF    AFG    1997 new_sp_m3544     3
+##  5 Afghanistan AF    AFG    1997 new_sp_m4554     5
+##  6 Afghanistan AF    AFG    1997 new_sp_m5564     2
+##  7 Afghanistan AF    AFG    1997 new_sp_m65       0
+##  8 Afghanistan AF    AFG    1997 new_sp_f014      5
+##  9 Afghanistan AF    AFG    1997 new_sp_f1524    38
+## 10 Afghanistan AF    AFG    1997 new_sp_f2534    36
+## # i 76,036 more rows
+\end{verbatim}
+
+The combined \texttt{key} variable can then be separated into multiple meaningful variables.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{who3 }\OtherTok{\textless{}{-}}\NormalTok{ who2 }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{separate}\NormalTok{(}
+    \AttributeTok{col =}\NormalTok{ key,}
+    \AttributeTok{into =} \FunctionTok{c}\NormalTok{(}
+      \StringTok{"new"}\NormalTok{,}
+      \StringTok{"type"}\NormalTok{,}
+      \StringTok{"sexage"}
+\NormalTok{    ),}
+    \AttributeTok{sep =} \StringTok{"\_"}
+\NormalTok{  )}
+
+\NormalTok{who3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 76,046 x 8
+##    country     iso2  iso3   year new   type  sexage cases
+##    <chr>       <chr> <chr> <dbl> <chr> <chr> <chr>  <dbl>
+##  1 Afghanistan AF    AFG    1997 new   sp    m014       0
+##  2 Afghanistan AF    AFG    1997 new   sp    m1524     10
+##  3 Afghanistan AF    AFG    1997 new   sp    m2534      6
+##  4 Afghanistan AF    AFG    1997 new   sp    m3544      3
+##  5 Afghanistan AF    AFG    1997 new   sp    m4554      5
+##  6 Afghanistan AF    AFG    1997 new   sp    m5564      2
+##  7 Afghanistan AF    AFG    1997 new   sp    m65        0
+##  8 Afghanistan AF    AFG    1997 new   sp    f014       5
+##  9 Afghanistan AF    AFG    1997 new   sp    f1524     38
+## 10 Afghanistan AF    AFG    1997 new   sp    f2534     36
+## # i 76,036 more rows
+\end{verbatim}
+
+Finally, the \texttt{sexage} variable can be divided into separate sex and age variables.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{who4 }\OtherTok{\textless{}{-}}\NormalTok{ who3 }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{separate}\NormalTok{(}
+    \AttributeTok{col =}\NormalTok{ sexage,}
+    \AttributeTok{into =} \FunctionTok{c}\NormalTok{(}\StringTok{"sex"}\NormalTok{, }\StringTok{"age"}\NormalTok{),}
+    \AttributeTok{sep =} \DecValTok{1}
+\NormalTok{  )}
+
+\NormalTok{who4}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 76,046 x 9
+##    country   iso2  iso3   year new   type  sex   age   cases
+##    <chr>     <chr> <chr> <dbl> <chr> <chr> <chr> <chr> <dbl>
+##  1 Afghanis~ AF    AFG    1997 new   sp    m     014       0
+##  2 Afghanis~ AF    AFG    1997 new   sp    m     1524     10
+##  3 Afghanis~ AF    AFG    1997 new   sp    m     2534      6
+##  4 Afghanis~ AF    AFG    1997 new   sp    m     3544      3
+##  5 Afghanis~ AF    AFG    1997 new   sp    m     4554      5
+##  6 Afghanis~ AF    AFG    1997 new   sp    m     5564      2
+##  7 Afghanis~ AF    AFG    1997 new   sp    m     65        0
+##  8 Afghanis~ AF    AFG    1997 new   sp    f     014       5
+##  9 Afghanis~ AF    AFG    1997 new   sp    f     1524     38
+## 10 Afghanis~ AF    AFG    1997 new   sp    f     2534     36
+## # i 76,036 more rows
+\end{verbatim}
+
+The entire cleaning workflow can also be written as one continuous pipeline.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{who\_clean }\OtherTok{\textless{}{-}}\NormalTok{ who }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{pivot\_longer}\NormalTok{(}
+    \AttributeTok{cols =}\NormalTok{ new\_sp\_m014}\SpecialCharTok{:}\NormalTok{newrel\_f65,}
+    \AttributeTok{names\_to =} \StringTok{"key"}\NormalTok{,}
+    \AttributeTok{values\_to =} \StringTok{"cases"}\NormalTok{,}
+    \AttributeTok{values\_drop\_na =} \ConstantTok{TRUE}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{key =} \FunctionTok{str\_replace}\NormalTok{(}
+\NormalTok{      key,}
+      \StringTok{"newrel"}\NormalTok{,}
+      \StringTok{"new\_rel"}
+\NormalTok{    )}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{separate}\NormalTok{(}
+\NormalTok{    key,}
+    \AttributeTok{into =} \FunctionTok{c}\NormalTok{(}
+      \StringTok{"new"}\NormalTok{,}
+      \StringTok{"type"}\NormalTok{,}
+      \StringTok{"sexage"}
+\NormalTok{    ),}
+    \AttributeTok{sep =} \StringTok{"\_"}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{select}\NormalTok{(}
+    \SpecialCharTok{{-}}\NormalTok{new,}
+    \SpecialCharTok{{-}}\NormalTok{iso2,}
+    \SpecialCharTok{{-}}\NormalTok{iso3}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{separate}\NormalTok{(}
+\NormalTok{    sexage,}
+    \AttributeTok{into =} \FunctionTok{c}\NormalTok{(}\StringTok{"sex"}\NormalTok{, }\StringTok{"age"}\NormalTok{),}
+    \AttributeTok{sep =} \DecValTok{1}
+\NormalTok{  )}
+
+\NormalTok{who\_clean}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 76,046 x 6
+##    country      year type  sex   age   cases
+##    <chr>       <dbl> <chr> <chr> <chr> <dbl>
+##  1 Afghanistan  1997 sp    m     014       0
+##  2 Afghanistan  1997 sp    m     1524     10
+##  3 Afghanistan  1997 sp    m     2534      6
+##  4 Afghanistan  1997 sp    m     3544      3
+##  5 Afghanistan  1997 sp    m     4554      5
+##  6 Afghanistan  1997 sp    m     5564      2
+##  7 Afghanistan  1997 sp    m     65        0
+##  8 Afghanistan  1997 sp    f     014       5
+##  9 Afghanistan  1997 sp    f     1524     38
+## 10 Afghanistan  1997 sp    f     2534     36
+## # i 76,036 more rows
+\end{verbatim}
+
+\section{Using regular expressions inside pivot\_longer()}\label{using-regular-expressions-inside-pivot_longer}
+
+An alternative approach uses regular expressions directly inside \texttt{pivot\_longer()} to extract multiple variables at once.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{who\_longer }\OtherTok{\textless{}{-}}\NormalTok{ who }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{pivot\_longer}\NormalTok{(}
+    \AttributeTok{cols =}\NormalTok{ new\_sp\_m014}\SpecialCharTok{:}\NormalTok{newrel\_f65,}
+    
+    \AttributeTok{names\_to =} \FunctionTok{c}\NormalTok{(}
+      \StringTok{"diagnosis"}\NormalTok{,}
+      \StringTok{"gender"}\NormalTok{,}
+      \StringTok{"age"}
+\NormalTok{    ),}
+    
+    \AttributeTok{names\_pattern =}
+      \StringTok{"new\_?(.*)\_(.)(.*)"}\NormalTok{,}
+    
+    \AttributeTok{values\_to =} \StringTok{"count"}\NormalTok{,}
+    
+    \AttributeTok{values\_drop\_na =} \ConstantTok{TRUE}
+\NormalTok{  )}
+
+\NormalTok{who\_longer}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 76,046 x 8
+##    country    iso2  iso3   year diagnosis gender age   count
+##    <chr>      <chr> <chr> <dbl> <chr>     <chr>  <chr> <dbl>
+##  1 Afghanist~ AF    AFG    1997 sp        m      014       0
+##  2 Afghanist~ AF    AFG    1997 sp        m      1524     10
+##  3 Afghanist~ AF    AFG    1997 sp        m      2534      6
+##  4 Afghanist~ AF    AFG    1997 sp        m      3544      3
+##  5 Afghanist~ AF    AFG    1997 sp        m      4554      5
+##  6 Afghanist~ AF    AFG    1997 sp        m      5564      2
+##  7 Afghanist~ AF    AFG    1997 sp        m      65        0
+##  8 Afghanist~ AF    AFG    1997 sp        f      014       5
+##  9 Afghanist~ AF    AFG    1997 sp        f      1524     38
+## 10 Afghanist~ AF    AFG    1997 sp        f      2534     36
+## # i 76,036 more rows
+\end{verbatim}
+
+The regular expression used here contains several capture groups:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{(.*)} extracts the diagnosis type;
+\item
+  \texttt{(.)} extracts one character representing sex; and
+\item
+  the final \texttt{(.*)} extracts the age group.
+\end{itemize}
+
+These extracted components are automatically assigned to the variables listed in \texttt{names\_to}.
+
+This approach demonstrates how regular expressions can be integrated directly into data reshaping workflows.
+
+\section{Missing values and interpretation}\label{missing-values-and-interpretation}
+
+During reshaping, we used the argument:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{values\_drop\_na }\OtherTok{=} \ConstantTok{TRUE}
+\end{Highlighting}
+\end{Shaded}
+
+This removes rows containing missing values.
+
+However, it is important to remember that missing values are not always equivalent to zero values.
+
+An \texttt{NA} typically means that the value is unknown or unavailable, while a value of \texttt{0} indicates that the quantity is known and equal to zero.
+
+Understanding the meaning of missing values is an essential part of responsible data analysis.
+
+Never assume that missing values and zeros represent the same thing. Incorrect handling of missing data can substantially alter analytical results.
+
+\section{Additional practice}\label{additional-practice}
+
+The cleaned datasets created in this chapter can now be used for additional exploratory analysis.
+
+Possible exercises include:
+
+\begin{itemize}
+\tightlist
+\item
+  identifying the most common passenger titles in the Titanic dataset;
+\item
+  creating survival summaries by sex or passenger class;
+\item
+  summarizing tuberculosis cases by age group or sex; and
+\item
+  visualizing categorical distributions using bar plots.
+\end{itemize}
+
+These exercises help reinforce the connection between text cleaning, data reshaping, and exploratory analysis.
+
+\section{Chapter summary}\label{chapter-summary-4}
+
+In this chapter, you learned how to work with character variables and regular expressions using the tidyverse and \texttt{stringr}. You cleaned and separated text variables, extracted patterns using regex, created reusable functions, reshaped wide datasets into tidy long-format structures, and interpreted coded variable names.
+
+These techniques are extremely important in real-world data management because many datasets contain poorly structured text variables and encoded information that must be cleaned before analysis can begin.
+
+\chapter{Visualization and Advanced Data Cleaning}\label{visualization-and-advanced-data-cleaning}
+
+In previous chapters, we focused on importing, cleaning, reshaping, and joining datasets using the tidyverse. In this chapter, we extend those workflows by introducing exploratory visualization and more advanced data-cleaning techniques commonly used in population health and environmental data analysis.
+
+The overall objective is to prepare several datasets for later analytical work involving cancer mortality, population estimates, geographic correspondence files, and environmental exposure data. Along the way, we will review common challenges such as missing values, inconsistent variable names, duplicate records, invalid dates, and poorly formatted identifiers.
+
+Although the datasets used in this course are simplified for teaching purposes, the workflow closely reflects the types of cleaning and preparation steps encountered in real-world epidemiological and environmental health projects.
+
+The chapter also introduces several important visualization techniques using \texttt{ggplot2}, which will help you explore and validate your cleaned datasets. The \texttt{ggplot2} package is based on the Grammar of Graphics framework Wickham (\citeproc{ref-wickham2017}{2017}). Data visualization in this book is primarily based on the \texttt{ggplot2} package Wickham (\citeproc{ref-ggplot2pkg}{2026a}).
+
+\section{Research context and datasets}\label{research-context-and-datasets}
+
+The exercises in this chapter are motivated by two simplified research questions.
+
+The first analysis investigates age- and sex-specific cancer mortality rates by health region in British Columbia. The second analysis explores whether environmental exposure variables can be linked to mortality data in order to perform a simplified odds-ratio analysis.
+
+In practice, incidence or cancer case data would generally be preferable to mortality data for exposure studies. However, the emphasis of this course is on data cleaning and management rather than formal epidemiological interpretation.
+
+Four datasets will be used throughout the chapter:
+
+\begin{itemize}
+\tightlist
+\item
+  a mortality dataset containing fictitious death records;
+\item
+  a population dataset containing age- and sex-specific population estimates;
+\item
+  a geographic correspondence file linking dissemination blocks to health regions; and
+\item
+  an environmental dataset containing weather variables by postal code.
+\end{itemize}
+
+We begin by loading the required libraries.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(readxl)}
+\FunctionTok{library}\NormalTok{(lubridate)}
+\FunctionTok{library}\NormalTok{(stringr)}
+\end{Highlighting}
+\end{Shaded}
+
+Next, we import the datasets into R.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mort }\OtherTok{\textless{}{-}} \FunctionTok{read\_excel}\NormalTok{(}
+  \StringTok{"./Raw Data/deaths\_2016.xlsx"}
+\NormalTok{)}
+
+\NormalTok{pop }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}
+  \StringTok{"./Raw Data/Population\_Estimates.csv"}
+\NormalTok{)}
+
+\NormalTok{corr }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}
+  \StringTok{"./Raw Data/Corr\_2016.csv"}\NormalTok{,}
+  \AttributeTok{locale =}\NormalTok{ readr}\SpecialCharTok{::}\FunctionTok{locale}\NormalTok{(}
+    \AttributeTok{encoding =} \StringTok{"latin1"}
+\NormalTok{  )}
+\NormalTok{)}
+
+\NormalTok{env }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}
+  \StringTok{"./Raw Data/Weather\_data.csv"}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Reviewing datasets before cleaning}\label{reviewing-datasets-before-cleaning}
+
+Before modifying any dataset, it is important to understand its overall structure. Initial exploratory review often helps identify unexpected variable names, missing values, duplicate records, or formatting inconsistencies.
+
+We first create a list containing all datasets.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data\_list }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}
+  \AttributeTok{mort =}\NormalTok{ mort,}
+  \AttributeTok{pop =}\NormalTok{ pop,}
+  \AttributeTok{corr =}\NormalTok{ corr,}
+  \AttributeTok{env =}\NormalTok{ env}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+We can then quickly review dataset dimensions.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{map\_dfr}\NormalTok{(}
+\NormalTok{  data\_list,}
+  \SpecialCharTok{\textasciitilde{}} \FunctionTok{tibble}\NormalTok{(}
+    \AttributeTok{rows =} \FunctionTok{nrow}\NormalTok{(.x),}
+    \AttributeTok{columns =} \FunctionTok{ncol}\NormalTok{(.x)}
+\NormalTok{  ),}
+  \AttributeTok{.id =} \StringTok{"dataset"}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 4 x 3
+##   dataset   rows columns
+##   <chr>    <int>   <int>
+## 1 mort     60143      13
+## 2 pop         51      25
+## 3 corr    420963       6
+## 4 env     116011       8
+\end{verbatim}
+
+Column names can also be inspected.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{map}\NormalTok{(data\_list, names)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $mort
+##  [1] "ID"                "Sex"              
+##  [3] "Cause_of_death"    "dbuid2016"        
+##  [5] "Location_of_death" "Marital_status"   
+##  [7] "Postalcode"        "B_year"           
+##  [9] "B_month"           "B_day"            
+## [11] "D_year"            "D_month"          
+## [13] "D_day"            
+## 
+## $pop
+##  [1] "...1"                        
+##  [2] "Health Service Delivery Area"
+##  [3] "Year"                        
+##  [4] "Gender"                      
+##  [5] "<1"                          
+##  [6] "04-Jan"                      
+##  [7] "09-May"                      
+##  [8] "14-Oct"                      
+##  [9] "15-19"                       
+## [10] "20-24"                       
+## [11] "25-29"                       
+## [12] "30-34"                       
+## [13] "35-39"                       
+## [14] "40-44"                       
+## [15] "45-49"                       
+## [16] "50-54"                       
+## [17] "55-59"                       
+## [18] "60-64"                       
+## [19] "65-69"                       
+## [20] "70-74"                       
+## [21] "75-79"                       
+## [22] "80-84"                       
+## [23] "85-89"                       
+## [24] "90+"                         
+## [25] "Total"                       
+## 
+## $corr
+## [1] "dbuid2016"      "csduid2016"     "hruid2017"     
+## [4] "hrname_english" "hrname_french"  "dbpop2016"     
+## 
+## $env
+## [1] "POSTALCODE12" "WTHNRC12_01"  "WTHNRC12_02" 
+## [4] "WTHNRC12_03"  "WTHNRC12_04"  "WTHNRC12_05" 
+## [7] "WTHNRC12_06"  "WTHNRC12_07"
+\end{verbatim}
+
+Finally, we summarize missing values across datasets.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{map}\NormalTok{(}
+\NormalTok{  data\_list,}
+  \SpecialCharTok{\textasciitilde{}} \FunctionTok{map\_int}\NormalTok{(.x, }\SpecialCharTok{\textasciitilde{}} \FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(.x)))}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $mort
+##                ID               Sex    Cause_of_death 
+##                 0                13                 0 
+##         dbuid2016 Location_of_death    Marital_status 
+##                 4                 0                 0 
+##        Postalcode            B_year           B_month 
+##                 6                24                26 
+##             B_day            D_year           D_month 
+##                26                 0                 0 
+##             D_day 
+##                 0 
+## 
+## $pop
+##                         ...1 Health Service Delivery Area 
+##                            0                            0 
+##                         Year                       Gender 
+##                            0                            0 
+##                           <1                       04-Jan 
+##                            0                            0 
+##                       09-May                       14-Oct 
+##                            0                            0 
+##                        15-19                        20-24 
+##                            0                            0 
+##                        25-29                        30-34 
+##                            0                            0 
+##                        35-39                        40-44 
+##                            0                            0 
+##                        45-49                        50-54 
+##                            0                            0 
+##                        55-59                        60-64 
+##                            0                            0 
+##                        65-69                        70-74 
+##                            0                            0 
+##                        75-79                        80-84 
+##                            0                            0 
+##                        85-89                          90+ 
+##                            0                            0 
+##                        Total 
+##                            0 
+## 
+## $corr
+##      dbuid2016     csduid2016      hruid2017 hrname_english 
+##              0              0              0              0 
+##  hrname_french      dbpop2016 
+##              0             35 
+## 
+## $env
+## POSTALCODE12  WTHNRC12_01  WTHNRC12_02  WTHNRC12_03 
+##            0            0            0            0 
+##  WTHNRC12_04  WTHNRC12_05  WTHNRC12_06  WTHNRC12_07 
+##            0            0            0            0
+\end{verbatim}
+
+Early exploratory review is one of the most important stages of data cleaning because it helps identify potential problems before they propagate through the analysis workflow.
+
+Always inspect datasets immediately after import. Many analytical problems originate from unnoticed import issues, incorrect variable types, or unexpected missing values.
+
+\section{Cleaning and reshaping population data}\label{cleaning-and-reshaping-population-data}
+
+The population dataset is currently stored in a wide format, where age groups appear as separate columns. Although this structure may be useful for spreadsheets, it is less convenient for visualization and analysis.
+
+A tidy long-format structure is generally easier to work with in R.
+
+We first reshape the dataset using \texttt{pivot\_longer()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pop\_long }\OtherTok{\textless{}{-}}\NormalTok{ pop }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{select}\NormalTok{(}
+    \SpecialCharTok{{-}}\FunctionTok{any\_of}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"X1"}\NormalTok{, }\StringTok{"Total"}\NormalTok{))}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{pivot\_longer}\NormalTok{(}
+    \AttributeTok{cols =} \SpecialCharTok{{-}}\FunctionTok{any\_of}\NormalTok{(}
+      \FunctionTok{c}\NormalTok{(}
+        \StringTok{"Year"}\NormalTok{,}
+        \StringTok{"Gender"}\NormalTok{,}
+        \StringTok{"Health Service Delivery Area"}
+\NormalTok{      )}
+\NormalTok{    ),}
+    \AttributeTok{names\_to =} \StringTok{"Age"}\NormalTok{,}
+    \AttributeTok{values\_to =} \StringTok{"Population"}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{Age =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      Age }\SpecialCharTok{==} \StringTok{"04{-}Jan"} \SpecialCharTok{\textasciitilde{}} \StringTok{"01{-}04"}\NormalTok{,}
+\NormalTok{      Age }\SpecialCharTok{==} \StringTok{"09{-}May"} \SpecialCharTok{\textasciitilde{}} \StringTok{"05{-}09"}\NormalTok{,}
+\NormalTok{      Age }\SpecialCharTok{==} \StringTok{"14{-}Oct"} \SpecialCharTok{\textasciitilde{}} \StringTok{"10{-}14"}\NormalTok{,}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}}\NormalTok{ Age}
+\NormalTok{    )}
+\NormalTok{  )}
+
+\NormalTok{pop\_long}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,071 x 5
+##    Health Service Delivery A~1  Year Gender Age   Population
+##    <chr>                       <dbl> <chr>  <chr>      <dbl>
+##  1 British Columbia             2016 M      ...1           0
+##  2 British Columbia             2016 M      <1         22997
+##  3 British Columbia             2016 M      01-04      93211
+##  4 British Columbia             2016 M      05-09     121341
+##  5 British Columbia             2016 M      10-14     119586
+##  6 British Columbia             2016 M      15-19     140451
+##  7 British Columbia             2016 M      20-24     170968
+##  8 British Columbia             2016 M      25-29     159609
+##  9 British Columbia             2016 M      30-34     162416
+## 10 British Columbia             2016 M      35-39     155936
+## # i 1,061 more rows
+## # i abbreviated name: 1: `Health Service Delivery Area`
+\end{verbatim}
+
+Some variable names are unnecessarily long or contain spaces, so we simplify them.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pop\_long }\OtherTok{\textless{}{-}}\NormalTok{ pop\_long }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{rename}\NormalTok{(}
+    \AttributeTok{HSDA =} \StringTok{\textasciigrave{}}\AttributeTok{Health Service Delivery Area}\StringTok{\textasciigrave{}}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{Year)}
+
+\NormalTok{pop\_long}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,071 x 4
+##    HSDA             Gender Age   Population
+##    <chr>            <chr>  <chr>      <dbl>
+##  1 British Columbia M      ...1           0
+##  2 British Columbia M      <1         22997
+##  3 British Columbia M      01-04      93211
+##  4 British Columbia M      05-09     121341
+##  5 British Columbia M      10-14     119586
+##  6 British Columbia M      15-19     140451
+##  7 British Columbia M      20-24     170968
+##  8 British Columbia M      25-29     159609
+##  9 British Columbia M      30-34     162416
+## 10 British Columbia M      35-39     155936
+## # i 1,061 more rows
+\end{verbatim}
+
+For this example, we focus on total population counts only.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pop\_total }\OtherTok{\textless{}{-}}\NormalTok{ pop\_long }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{filter}\NormalTok{(Gender }\SpecialCharTok{==} \StringTok{"T"}\NormalTok{)}
+
+\NormalTok{pop\_total}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 357 x 4
+##    HSDA             Gender Age   Population
+##    <chr>            <chr>  <chr>      <dbl>
+##  1 British Columbia T      ...1           0
+##  2 British Columbia T      <1         44757
+##  3 British Columbia T      01-04     181511
+##  4 British Columbia T      05-09     234118
+##  5 British Columbia T      10-14     232010
+##  6 British Columbia T      15-19     272677
+##  7 British Columbia T      20-24     327129
+##  8 British Columbia T      25-29     318998
+##  9 British Columbia T      30-34     329242
+## 10 British Columbia T      35-39     313564
+## # i 347 more rows
+\end{verbatim}
+
+\section{Visualizing population data}\label{visualizing-population-data}
+
+Visualization is an important part of exploratory analysis because it helps reveal trends, inconsistencies, and unusual values that may not be obvious in tables alone.
+
+The following line plot displays population counts across age groups by HSDA.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pop\_total }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}
+    \FunctionTok{aes}\NormalTok{(}
+      \AttributeTok{x =}\NormalTok{ Age,}
+      \AttributeTok{y =}\NormalTok{ Population,}
+      \AttributeTok{group =}\NormalTok{ HSDA,}
+      \AttributeTok{colour =}\NormalTok{ HSDA}
+\NormalTok{    )}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \FloatTok{1.5}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}
+    \AttributeTok{breaks =}\NormalTok{ scales}\SpecialCharTok{::}\FunctionTok{breaks\_pretty}\NormalTok{(}\AttributeTok{n =} \DecValTok{5}\NormalTok{),}
+    \AttributeTok{labels =}\NormalTok{ scales}\SpecialCharTok{::}\FunctionTok{label\_comma}\NormalTok{()}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Population by Age Group and HSDA"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Age group"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Population"}\NormalTok{,}
+    \AttributeTok{colour =} \StringTok{"HSDA"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}
+    \AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}
+      \AttributeTok{angle =} \DecValTok{45}\NormalTok{,}
+      \AttributeTok{hjust =} \DecValTok{1}\NormalTok{,}
+      \AttributeTok{size =} \DecValTok{8}
+\NormalTok{    ),}
+    \AttributeTok{axis.text.y =} \FunctionTok{element\_text}\NormalTok{(}
+      \AttributeTok{size =} \DecValTok{8}
+\NormalTok{    ),}
+    \AttributeTok{legend.text =} \FunctionTok{element\_text}\NormalTok{(}
+      \AttributeTok{size =} \DecValTok{7}
+\NormalTok{    ),}
+    \AttributeTok{legend.title =} \FunctionTok{element\_text}\NormalTok{(}
+      \AttributeTok{size =} \DecValTok{8}
+\NormalTok{    )}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics[width=1\linewidth]{data-management-with-r_files/figure-latex/06-visualization-population-line-plot-1}
+
+Because age groups are categorical rather than continuous, a bar plot may sometimes be easier to interpret.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pop\_total }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}
+    \FunctionTok{aes}\NormalTok{(}
+      \AttributeTok{x =}\NormalTok{ Age,}
+      \AttributeTok{y =}\NormalTok{ Population,}
+      \AttributeTok{fill =}\NormalTok{ HSDA}
+\NormalTok{    )}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{geom\_col}\NormalTok{(}
+    \AttributeTok{position =} \StringTok{"dodge"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}
+    \AttributeTok{breaks =}\NormalTok{ scales}\SpecialCharTok{::}\FunctionTok{breaks\_pretty}\NormalTok{(}\AttributeTok{n =} \DecValTok{5}\NormalTok{),}
+    \AttributeTok{labels =}\NormalTok{ scales}\SpecialCharTok{::}\FunctionTok{label\_comma}\NormalTok{()}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Population Distribution by Age Group and HSDA"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Age group"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Population"}\NormalTok{,}
+    \AttributeTok{fill =} \StringTok{"HSDA"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}
+    \AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}
+      \AttributeTok{angle =} \DecValTok{45}\NormalTok{,}
+      \AttributeTok{hjust =} \DecValTok{1}\NormalTok{,}
+      \AttributeTok{size =} \DecValTok{8}
+\NormalTok{    ),}
+    \AttributeTok{axis.text.y =} \FunctionTok{element\_text}\NormalTok{(}
+      \AttributeTok{size =} \DecValTok{8}
+\NormalTok{    ),}
+    \AttributeTok{legend.text =} \FunctionTok{element\_text}\NormalTok{(}
+      \AttributeTok{size =} \DecValTok{7}
+\NormalTok{    ),}
+    \AttributeTok{legend.title =} \FunctionTok{element\_text}\NormalTok{(}
+      \AttributeTok{size =} \DecValTok{8}
+\NormalTok{    )}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics[width=1\linewidth]{data-management-with-r_files/figure-latex/06-visualization-population-bar-plot-1}
+
+When plots become crowded, faceting can improve readability.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pop\_total }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}
+    \FunctionTok{aes}\NormalTok{(}
+      \AttributeTok{x =}\NormalTok{ Age,}
+      \AttributeTok{y =}\NormalTok{ Population}
+\NormalTok{    )}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{geom\_col}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}
+    \SpecialCharTok{\textasciitilde{}}\NormalTok{ HSDA,}
+    \AttributeTok{ncol =} \DecValTok{2}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}
+    \AttributeTok{breaks =}\NormalTok{ scales}\SpecialCharTok{::}\FunctionTok{breaks\_pretty}\NormalTok{(}\AttributeTok{n =} \DecValTok{4}\NormalTok{),}
+    \AttributeTok{labels =}\NormalTok{ scales}\SpecialCharTok{::}\FunctionTok{label\_comma}\NormalTok{()}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Population by Age Group for Each HSDA"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Age group"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Population"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}
+    \AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}
+      \AttributeTok{angle =} \DecValTok{45}\NormalTok{,}
+      \AttributeTok{hjust =} \DecValTok{1}\NormalTok{,}
+      \AttributeTok{size =} \DecValTok{7}
+\NormalTok{    ),}
+    \AttributeTok{axis.text.y =} \FunctionTok{element\_text}\NormalTok{(}
+      \AttributeTok{size =} \DecValTok{7}
+\NormalTok{    ),}
+    \AttributeTok{strip.text =} \FunctionTok{element\_text}\NormalTok{(}
+      \AttributeTok{size =} \DecValTok{8}
+\NormalTok{    ),}
+    \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}
+      \AttributeTok{size =} \DecValTok{11}
+\NormalTok{    )}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics[width=1\linewidth]{data-management-with-r_files/figure-latex/06-visualization-population-facets-1}
+\#\# Identifying join keys
+
+Before combining datasets, it is important to identify variables that can serve as join keys.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{map}\NormalTok{(data\_list, names)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $mort
+##  [1] "ID"                "Sex"              
+##  [3] "Cause_of_death"    "dbuid2016"        
+##  [5] "Location_of_death" "Marital_status"   
+##  [7] "Postalcode"        "B_year"           
+##  [9] "B_month"           "B_day"            
+## [11] "D_year"            "D_month"          
+## [13] "D_day"            
+## 
+## $pop
+##  [1] "...1"                        
+##  [2] "Health Service Delivery Area"
+##  [3] "Year"                        
+##  [4] "Gender"                      
+##  [5] "<1"                          
+##  [6] "04-Jan"                      
+##  [7] "09-May"                      
+##  [8] "14-Oct"                      
+##  [9] "15-19"                       
+## [10] "20-24"                       
+## [11] "25-29"                       
+## [12] "30-34"                       
+## [13] "35-39"                       
+## [14] "40-44"                       
+## [15] "45-49"                       
+## [16] "50-54"                       
+## [17] "55-59"                       
+## [18] "60-64"                       
+## [19] "65-69"                       
+## [20] "70-74"                       
+## [21] "75-79"                       
+## [22] "80-84"                       
+## [23] "85-89"                       
+## [24] "90+"                         
+## [25] "Total"                       
+## 
+## $corr
+## [1] "dbuid2016"      "csduid2016"     "hruid2017"     
+## [4] "hrname_english" "hrname_french"  "dbpop2016"     
+## 
+## $env
+## [1] "POSTALCODE12" "WTHNRC12_01"  "WTHNRC12_02" 
+## [4] "WTHNRC12_03"  "WTHNRC12_04"  "WTHNRC12_05" 
+## [7] "WTHNRC12_06"  "WTHNRC12_07"
+\end{verbatim}
+
+Possible join paths include:
+
+\begin{itemize}
+\tightlist
+\item
+  joining mortality data to the correspondence file using \texttt{dbuid2016};
+\item
+  joining population data to geographic information using HSDA-related variables; and
+\item
+  linking environmental data to mortality records using postal codes.
+\end{itemize}
+
+Before performing joins, always inspect whether the key variables are unique and consistently formatted.
+
+Incorrect joins are one of the most common causes of duplicate records and analytical errors in real-world projects.
+
+\section{Cleaning mortality data}\label{cleaning-mortality-data}
+
+We now begin cleaning the mortality dataset.
+
+Variables not required for the current analysis are removed.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rates }\OtherTok{\textless{}{-}}\NormalTok{ mort }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{select}\NormalTok{(}
+    \SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}
+\NormalTok{      Location\_of\_death,}
+\NormalTok{      Marital\_status}
+\NormalTok{    )}
+\NormalTok{  )}
+
+\NormalTok{rates}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 60,143 x 11
+##         ID Sex   Cause_of_death  dbuid2016 Postalcode B_year
+##      <dbl> <chr> <chr>               <dbl> <chr>       <dbl>
+##  1 1000001 M     D47               1.31e10 E1A1E9       1943
+##  2 1000002 F     C34               4.81e10 T2E0T2       1943
+##  3 1000003 M     C26               3.52e10 M4J1L1       1953
+##  4 1000004 M     C16               2.47e10 H9H1B4       1923
+##  5 1000005 M     C22               2.46e10 J2W2B6       1931
+##  6 1000006 F     C50               3.53e10 L8H2K1       1933
+##  7 1000007 F     C85               3.54e10 N9Y3X5       1918
+##  8 1000008 F     C56               3.53e10 L8H7G2       1972
+##  9 1000009 F     C64               2.47e10 H9P2B3       1922
+## 10 1000010 M     C22               4.81e10 T5M1G2       1953
+## # i 60,133 more rows
+## # i 5 more variables: B_month <dbl>, B_day <dbl>,
+## #   D_year <dbl>, D_month <dbl>, D_day <dbl>
+\end{verbatim}
+
+Duplicate records should also be identified and reviewed.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rates\_dup }\OtherTok{\textless{}{-}}\NormalTok{ rates }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{count}\NormalTok{(ID) }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{filter}\NormalTok{(n }\SpecialCharTok{\textgreater{}} \DecValTok{1}\NormalTok{)}
+
+\NormalTok{rates\_dup}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 23 x 2
+##         ID     n
+##      <dbl> <int>
+##  1 1000170     2
+##  2 1000662     2
+##  3 1001349     2
+##  4 1001352     2
+##  5 1004287     2
+##  6 1004618     2
+##  7 1004869     2
+##  8 1005245     2
+##  9 1008199     2
+## 10 1012433     2
+## # i 13 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rates }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{filter}\NormalTok{(ID }\SpecialCharTok{\%in\%}\NormalTok{ rates\_dup}\SpecialCharTok{$}\NormalTok{ID)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 47 x 11
+##         ID Sex   Cause_of_death  dbuid2016 Postalcode B_year
+##      <dbl> <chr> <chr>               <dbl> <chr>       <dbl>
+##  1 1000170 F     C91               1.21e10 B4V1T1       1922
+##  2 1000170 F     C91               1.21e10 B4V1T1       1922
+##  3 1000662 M     C34               2.47e10 J7P4H7       1965
+##  4 1000662 M     C34               2.47e10 J7P4H7       1965
+##  5 1001349 M     C16               2.44e10 G9A5H9       1961
+##  6 1001349 M     C16               2.44e10 G9A5H9       1961
+##  7 1001352 M     C24               4.80e10 T1B3E3       1956
+##  8 1001352 M     C24               4.80e10 T1B3E3       1956
+##  9 1004287 M     C34               3.53e10 N4S2E1       1949
+## 10 1004287 M     C34               3.53e10 N4S2E1       1949
+## # i 37 more rows
+## # i 5 more variables: B_month <dbl>, B_day <dbl>,
+## #   D_year <dbl>, D_month <dbl>, D_day <dbl>
+\end{verbatim}
+
+After inspection, duplicates can be removed.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rates }\OtherTok{\textless{}{-}}\NormalTok{ rates }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{distinct}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Handling missing and inconsistent values}\label{handling-missing-and-inconsistent-values}
+
+Missing values and data-entry problems are common in administrative datasets.
+
+We begin by examining birth year distributions.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rates }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{ggplot}\NormalTok{(}
+    \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ B\_year)}
+\NormalTok{  ) }\SpecialCharTok{+}
+  
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{binwidth =} \DecValTok{5}\NormalTok{) }\SpecialCharTok{+}
+  
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Distribution of Birth Year"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Birth year"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Count"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{data-management-with-r_files/data-management-with-r_files/figure-latex/06-visualization-check-birth-year-1.pdf}
+
+Some birth years before 1905 are likely data-entry errors. For this exercise, we assume these values should belong to the twentieth century.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rates }\OtherTok{\textless{}{-}}\NormalTok{ rates }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{B\_year =} \FunctionTok{if\_else}\NormalTok{(}
+\NormalTok{      B\_year }\SpecialCharTok{\textless{}} \DecValTok{1905}\NormalTok{,}
+\NormalTok{      B\_year }\SpecialCharTok{+} \DecValTok{100}\NormalTok{,}
+\NormalTok{      B\_year}
+\NormalTok{    ),}
+    
+    \AttributeTok{B\_month =} \FunctionTok{if\_else}\NormalTok{(}
+      \FunctionTok{is.na}\NormalTok{(B\_month),}
+      \DecValTok{6}\NormalTok{,}
+\NormalTok{      B\_month}
+\NormalTok{    ),}
+    
+    \AttributeTok{B\_day =} \FunctionTok{if\_else}\NormalTok{(}
+      \FunctionTok{is.na}\NormalTok{(B\_day),}
+      \DecValTok{15}\NormalTok{,}
+\NormalTok{      B\_day}
+\NormalTok{    )}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+We also inspect death months and days.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rates }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{count}\NormalTok{(D\_month)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 17 x 2
+##    D_month     n
+##      <dbl> <int>
+##  1       1  5088
+##  2       2  4677
+##  3       3  5056
+##  4       4  4880
+##  5       5  5108
+##  6       6  5015
+##  7       7  5147
+##  8       8  5195
+##  9       9  4927
+## 10      10  5038
+## 11      11  4913
+## 12      12  5070
+## 13      16     1
+## 14      17     1
+## 15      18     2
+## 16      19     1
+## 17      21     1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rates }\OtherTok{\textless{}{-}}\NormalTok{ rates }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{D\_month =} \FunctionTok{if\_else}\NormalTok{(}
+\NormalTok{      D\_month }\SpecialCharTok{\textgreater{}} \DecValTok{12}\NormalTok{,}
+      \DecValTok{6}\NormalTok{,}
+\NormalTok{      D\_month}
+\NormalTok{    )}
+\NormalTok{  )}
+
+\NormalTok{rates }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{count}\NormalTok{(D\_month)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 12 x 2
+##    D_month     n
+##      <dbl> <int>
+##  1       1  5088
+##  2       2  4677
+##  3       3  5056
+##  4       4  4880
+##  5       5  5108
+##  6       6  5021
+##  7       7  5147
+##  8       8  5195
+##  9       9  4927
+## 10      10  5038
+## 11      11  4913
+## 12      12  5070
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rates }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{count}\NormalTok{(D\_day)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 31 x 2
+##    D_day     n
+##    <dbl> <int>
+##  1     1  1954
+##  2     2  1996
+##  3     3  1972
+##  4     4  2022
+##  5     5  1929
+##  6     6  1960
+##  7     7  1986
+##  8     8  1966
+##  9     9  1956
+## 10    10  1903
+## # i 21 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rates }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{count}\NormalTok{(B\_day)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 31 x 2
+##    B_day     n
+##    <dbl> <int>
+##  1     1  1979
+##  2     2  2029
+##  3     3  1949
+##  4     4  1937
+##  5     5  1916
+##  6     6  1877
+##  7     7  2001
+##  8     8  1960
+##  9     9  1942
+## 10    10  1995
+## # i 21 more rows
+\end{verbatim}
+
+\section{Creating dates and calculating age}\label{creating-dates-and-calculating-age}
+
+The \texttt{lubridate} package simplifies date handling in R.
+
+We create dates of birth and death and then calculate age.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rates }\OtherTok{\textless{}{-}}\NormalTok{ rates }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{DOB =} \FunctionTok{as\_date}\NormalTok{(}
+      \FunctionTok{str\_c}\NormalTok{(}
+\NormalTok{        B\_year,}
+\NormalTok{        B\_month,}
+\NormalTok{        B\_day,}
+        \AttributeTok{sep =} \StringTok{"{-}"}
+\NormalTok{      )}
+\NormalTok{    ),}
+    
+    \AttributeTok{DOD =} \FunctionTok{as\_date}\NormalTok{(}
+      \FunctionTok{str\_c}\NormalTok{(}
+\NormalTok{        D\_year,}
+\NormalTok{        D\_month,}
+\NormalTok{        D\_day,}
+        \AttributeTok{sep =} \StringTok{"{-}"}
+\NormalTok{      )}
+\NormalTok{    ),}
+    
+    \AttributeTok{Age =} \FunctionTok{year}\NormalTok{(DOD) }\SpecialCharTok{{-}} \FunctionTok{year}\NormalTok{(DOB),}
+    
+    \AttributeTok{Age =} \FunctionTok{if\_else}\NormalTok{(}
+\NormalTok{      Age }\SpecialCharTok{\textless{}} \DecValTok{0}\NormalTok{,}
+      \FloatTok{0.5}\NormalTok{,}
+      \FunctionTok{as.numeric}\NormalTok{(Age)}
+\NormalTok{    )}
+\NormalTok{  )}
+
+\FunctionTok{range}\NormalTok{(rates}\SpecialCharTok{$}\NormalTok{Age, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]   0 111
+\end{verbatim}
+
+Remaining missing values can then be inspected.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{map\_int}\NormalTok{(}
+\NormalTok{  rates,}
+  \SpecialCharTok{\textasciitilde{}} \FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(.x))}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             ID            Sex Cause_of_death      dbuid2016 
+##              0             13              0              4 
+##     Postalcode         B_year        B_month          B_day 
+##              6             24              0              0 
+##         D_year        D_month          D_day            DOB 
+##              0              0              0             30 
+##            DOD            Age 
+##              0             30
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rates }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{filter}\NormalTok{(}
+    \FunctionTok{if\_any}\NormalTok{(}
+      \FunctionTok{everything}\NormalTok{(),}
+\NormalTok{      is.na}
+\NormalTok{    )}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 53 x 14
+##         ID Sex   Cause_of_death  dbuid2016 Postalcode B_year
+##      <dbl> <chr> <chr>               <dbl> <chr>       <dbl>
+##  1 1000185 F     C85               5.94e10 V4V2G1         NA
+##  2 1000345 <NA>  C19               5.92e10 V3W1S7       1964
+##  3 1001139 F     C50               5.95e10 V0J0B5         NA
+##  4 1001262 M     C25               5.92e10 <NA>         1952
+##  5 1001402 F     C34               5.94e10 V1E1V2         NA
+##  6 1001696 <NA>  C34               5.92e10 V8T4P6       1931
+##  7 1001964 M     C61               5.92e10 <NA>         1948
+##  8 1002150 M     C26               5.91e10 V2P6S3         NA
+##  9 1003446 F     C34               5.92e10 V8T4E5         NA
+## 10 1004221 M     C34               5.92e10 V8V4V6         NA
+## # i 43 more rows
+## # i 8 more variables: B_month <dbl>, B_day <dbl>,
+## #   D_year <dbl>, D_month <dbl>, D_day <dbl>, DOB <date>,
+## #   DOD <date>, Age <dbl>
+\end{verbatim}
+
+Records missing essential identifiers are removed.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rates }\OtherTok{\textless{}{-}}\NormalTok{ rates }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{drop\_na}\NormalTok{(}
+\NormalTok{    B\_year,}
+\NormalTok{    dbuid2016}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Imputing missing values}\label{imputing-missing-values}
+
+For demonstration purposes, missing sex values are randomly imputed.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+
+\NormalTok{missing\_sex\_index }\OtherTok{\textless{}{-}} \FunctionTok{is.na}\NormalTok{(rates}\SpecialCharTok{$}\NormalTok{Sex)}
+
+\NormalTok{missing\_sex\_count }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(missing\_sex\_index)}
+
+\NormalTok{rates}\SpecialCharTok{$}\NormalTok{Sex }\OtherTok{\textless{}{-}} \FunctionTok{as.character}\NormalTok{(rates}\SpecialCharTok{$}\NormalTok{Sex)}
+
+\NormalTok{rates}\SpecialCharTok{$}\NormalTok{Sex[missing\_sex\_index] }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}
+  \FunctionTok{c}\NormalTok{(}\StringTok{"M"}\NormalTok{, }\StringTok{"F"}\NormalTok{),}
+  \AttributeTok{size =}\NormalTok{ missing\_sex\_count,}
+  \AttributeTok{replace =} \ConstantTok{TRUE}
+\NormalTok{)}
+
+\NormalTok{rates}\SpecialCharTok{$}\NormalTok{Sex }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(rates}\SpecialCharTok{$}\NormalTok{Sex)}
+
+\NormalTok{rates }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{count}\NormalTok{(Sex)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2 x 2
+##   Sex       n
+##   <fct> <int>
+## 1 F     28617
+## 2 M     31475
+\end{verbatim}
+
+Although this approach is useful for teaching purposes, real-world imputation should be performed much more carefully.
+
+Random imputation can introduce bias into analyses. Always document assumptions and cleaning decisions clearly.
+
+\section{Working with ICD-10 codes}\label{working-with-icd-10-codes}
+
+Cause-of-death variables often contain coded medical classifications.
+
+We separate ICD-10 codes into letter and numeric components.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rates }\OtherTok{\textless{}{-}}\NormalTok{ rates }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{extract}\NormalTok{(}
+\NormalTok{    Cause\_of\_death,}
+    \AttributeTok{into =} \FunctionTok{c}\NormalTok{(}\StringTok{"letter"}\NormalTok{, }\StringTok{"number"}\NormalTok{),}
+    \AttributeTok{regex =} \StringTok{"([A{-}Z]+)([0{-}9]+)"}\NormalTok{,}
+    \AttributeTok{remove =} \ConstantTok{FALSE}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{number =} \FunctionTok{as.numeric}\NormalTok{(number)}
+\NormalTok{  )}
+
+\NormalTok{rates }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{count}\NormalTok{(letter)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2 x 2
+##   letter     n
+##   <chr>  <int>
+## 1 C      58916
+## 2 D       1176
+\end{verbatim}
+
+Cancer-related mortality records are identified using ICD-10 codes beginning with \texttt{"C"}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rates }\OtherTok{\textless{}{-}}\NormalTok{ rates }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{filter}\NormalTok{(letter }\SpecialCharTok{==} \StringTok{"C"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+We then classify cancer categories and age groups.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rates }\OtherTok{\textless{}{-}}\NormalTok{ rates }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{CauseCat =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      number }\SpecialCharTok{==} \DecValTok{50} \SpecialCharTok{\textasciitilde{}} \DecValTok{1}\NormalTok{,}
+\NormalTok{      number }\SpecialCharTok{==} \DecValTok{61} \SpecialCharTok{\textasciitilde{}} \DecValTok{2}\NormalTok{,}
+\NormalTok{      number }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\DecValTok{33}\NormalTok{, }\DecValTok{34}\NormalTok{) }\SpecialCharTok{\textasciitilde{}} \DecValTok{3}\NormalTok{,}
+\NormalTok{      number }\SpecialCharTok{\%in\%} \DecValTok{18}\SpecialCharTok{:}\DecValTok{21} \SpecialCharTok{\textasciitilde{}} \DecValTok{4}\NormalTok{,}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \DecValTok{5}
+\NormalTok{    ),}
+    
+    \AttributeTok{CauseCat\_label =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      CauseCat }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"Breast cancer"}\NormalTok{,}
+\NormalTok{      CauseCat }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"Prostate cancer"}\NormalTok{,}
+\NormalTok{      CauseCat }\SpecialCharTok{==} \DecValTok{3} \SpecialCharTok{\textasciitilde{}} \StringTok{"Lung cancer"}\NormalTok{,}
+\NormalTok{      CauseCat }\SpecialCharTok{==} \DecValTok{4} \SpecialCharTok{\textasciitilde{}} \StringTok{"Colorectal cancer"}\NormalTok{,}
+\NormalTok{      CauseCat }\SpecialCharTok{==} \DecValTok{5} \SpecialCharTok{\textasciitilde{}} \StringTok{"Other cancer"}
+\NormalTok{    ),}
+    
+    \AttributeTok{AgeCat =} \FunctionTok{cut}\NormalTok{(}
+\NormalTok{      Age,}
+      \AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}
+        \DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{20}\NormalTok{, }\DecValTok{30}\NormalTok{, }\DecValTok{40}\NormalTok{,}
+        \DecValTok{50}\NormalTok{, }\DecValTok{60}\NormalTok{, }\DecValTok{70}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{90}\NormalTok{, }\DecValTok{130}
+\NormalTok{      ),}
+      \AttributeTok{include.lowest =} \ConstantTok{TRUE}\NormalTok{,}
+      \AttributeTok{right =} \ConstantTok{FALSE}
+\NormalTok{    )}
+\NormalTok{  )}
+
+\NormalTok{rates }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{count}\NormalTok{(CauseCat\_label)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 5 x 2
+##   CauseCat_label        n
+##   <chr>             <int>
+## 1 Breast cancer      4003
+## 2 Colorectal cancer  6564
+## 3 Lung cancer       14914
+## 4 Other cancer      30328
+## 5 Prostate cancer    3107
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rates }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{count}\NormalTok{(AgeCat)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 11 x 2
+##    AgeCat       n
+##    <fct>    <int>
+##  1 [0,10)      66
+##  2 [10,20)     81
+##  3 [20,30)    148
+##  4 [30,40)    459
+##  5 [40,50)   1522
+##  6 [50,60)   5866
+##  7 [60,70)  13086
+##  8 [70,80)  16495
+##  9 [80,90)  15520
+## 10 [90,130]  5667
+## 11 <NA>         6
+\end{verbatim}
+
+\section{Visualizing cleaned mortality data}\label{visualizing-cleaned-mortality-data}
+
+After cleaning the mortality data, we can explore the distributions visually.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rates }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{count}\NormalTok{(CauseCat\_label) }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{ggplot}\NormalTok{(}
+    \FunctionTok{aes}\NormalTok{(}
+      \AttributeTok{x =} \FunctionTok{reorder}\NormalTok{(CauseCat\_label, n),}
+      \AttributeTok{y =}\NormalTok{ n}
+\NormalTok{    )}
+\NormalTok{  ) }\SpecialCharTok{+}
+  
+  \FunctionTok{geom\_col}\NormalTok{() }\SpecialCharTok{+}
+  
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Cancer Deaths by Cancer Category"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Cancer category"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Number of deaths"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{data-management-with-r_files/data-management-with-r_files/figure-latex/06-visualization-cancer-category-plot-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rates }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{count}\NormalTok{(AgeCat, Sex) }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{ggplot}\NormalTok{(}
+    \FunctionTok{aes}\NormalTok{(}
+      \AttributeTok{x =}\NormalTok{ AgeCat,}
+      \AttributeTok{y =}\NormalTok{ n,}
+      \AttributeTok{fill =}\NormalTok{ Sex}
+\NormalTok{    )}
+\NormalTok{  ) }\SpecialCharTok{+}
+  
+  \FunctionTok{geom\_col}\NormalTok{(}\AttributeTok{position =} \StringTok{"dodge"}\NormalTok{) }\SpecialCharTok{+}
+  
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Cancer Deaths by Age Group and Sex"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Age group"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Number of deaths"}\NormalTok{,}
+    \AttributeTok{fill =} \StringTok{"Sex"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  
+  \FunctionTok{theme}\NormalTok{(}
+    \AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}
+      \AttributeTok{angle =} \DecValTok{45}\NormalTok{,}
+      \AttributeTok{hjust =} \DecValTok{1}
+\NormalTok{    )}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{data-management-with-r_files/data-management-with-r_files/figure-latex/06-visualization-age-category-plot-1.pdf}
+
+\section{Saving cleaned datasets}\label{saving-cleaned-datasets}
+
+Cleaned outputs should always be saved separately from raw data.
+
+We first create an output folder if it does not already exist.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dir.create}\NormalTok{(}
+  \StringTok{"./Outputs"}\NormalTok{,}
+  \AttributeTok{showWarnings =} \ConstantTok{FALSE}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+We then save the cleaned mortality data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{write\_csv}\NormalTok{(}
+\NormalTok{  rates,}
+  \StringTok{"./Outputs/Cancer\_rates.csv"}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Environmental exposure data can also be cleaned and saved.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{env\_clean }\OtherTok{\textless{}{-}}\NormalTok{ env }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{select}\NormalTok{(}
+\NormalTok{    POSTALCODE12,}
+\NormalTok{    WTHNRC12\_04,}
+\NormalTok{    WTHNRC12\_05}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{rename}\NormalTok{(}
+    \AttributeTok{Postal\_code =}\NormalTok{ POSTALCODE12,}
+    \AttributeTok{max\_temp =}\NormalTok{ WTHNRC12\_04,}
+    \AttributeTok{min\_temp =}\NormalTok{ WTHNRC12\_05}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{exposure =} \FunctionTok{if\_else}\NormalTok{(}
+\NormalTok{      max\_temp }\SpecialCharTok{\textless{}} \DecValTok{10} \SpecialCharTok{\&}
+\NormalTok{      min\_temp }\SpecialCharTok{\textless{}} \SpecialCharTok{{-}}\DecValTok{3}\NormalTok{,}
+      \DecValTok{1}\NormalTok{,}
+      \DecValTok{0}
+\NormalTok{    )}
+\NormalTok{  )}
+
+\NormalTok{env\_clean}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 116,011 x 4
+##    Postal_code max_temp min_temp exposure
+##    <chr>          <dbl>    <dbl>    <dbl>
+##  1 V0C1E0          2.91    -8.12        1
+##  2 V0C1W0          3.92    -7.65        1
+##  3 V0C2X0          4.01    -7.93        1
+##  4 V0C2Z0          4.32    -6.89        1
+##  5 V0T1W0          4.33    -3.65        1
+##  6 V0W1A0          4.51    -4.92        1
+##  7 V0C1L0          4.58    -6.14        1
+##  8 V0J1K0          4.71    -5.34        1
+##  9 V0B1A1          4.91    -4.42        1
+## 10 V0B1T6          4.91    -4.42        1
+## # i 116,001 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{write\_csv}\NormalTok{(}
+\NormalTok{  env\_clean,}
+  \StringTok{"./Outputs/exposures.csv"}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Joining datasets and validating postal codes}\label{joining-datasets-and-validating-postal-codes}
+
+The mortality dataset can now be joined to the correspondence file.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{analysis1 }\OtherTok{\textless{}{-}} \FunctionTok{inner\_join}\NormalTok{(}
+\NormalTok{  rates,}
+\NormalTok{  corr,}
+  \AttributeTok{by =} \StringTok{"dbuid2016"}
+\NormalTok{)}
+
+\NormalTok{analysis1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 48,682 x 24
+##         ID Sex   Cause_of_death letter number   dbuid2016
+##      <dbl> <fct> <chr>          <chr>   <dbl>       <dbl>
+##  1 1000002 F     C34            C          34 48060924001
+##  2 1000003 M     C26            C          26 35204502002
+##  3 1000004 M     C16            C          16 24663048013
+##  4 1000005 M     C22            C          22 24560249013
+##  5 1000006 F     C50            C          50 35250845002
+##  6 1000007 F     C85            C          85 35370763005
+##  7 1000008 F     C56            C          56 35250788003
+##  8 1000009 F     C64            C          64 24662429005
+##  9 1000010 M     C22            C          22 48111094001
+## 10 1000011 F     C50            C          50 12090210002
+## # i 48,672 more rows
+## # i 18 more variables: Postalcode <chr>, B_year <dbl>,
+## #   B_month <dbl>, B_day <dbl>, D_year <dbl>,
+## #   D_month <dbl>, D_day <dbl>, DOB <date>, DOD <date>,
+## #   Age <dbl>, CauseCat <dbl>, CauseCat_label <chr>,
+## #   AgeCat <fct>, csduid2016 <dbl>, hruid2017 <dbl>,
+## #   hrname_english <chr>, hrname_french <chr>, ...
+\end{verbatim}
+
+Postal codes should also be standardized before linkage.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rates }\OtherTok{\textless{}{-}}\NormalTok{ rates }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{Postalcode\_clean =}
+\NormalTok{      Postalcode }\SpecialCharTok{\%\textgreater{}\%}
+      
+      \FunctionTok{str\_to\_upper}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+      
+      \FunctionTok{str\_replace\_all}\NormalTok{(}
+        \StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{s+"}\NormalTok{,}
+        \StringTok{""}
+\NormalTok{      )}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+We can then identify postal codes that do not follow the expected Canadian format.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{postal\_pattern }\OtherTok{\textless{}{-}}
+  \StringTok{"\^{}(?!.*[DFIOQU])[A{-}VXY][0{-}9][A{-}Z][0{-}9][A{-}Z][0{-}9]$"}
+
+\NormalTok{postal\_issues }\OtherTok{\textless{}{-}}\NormalTok{ rates }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{filter}\NormalTok{(}
+    \FunctionTok{is.na}\NormalTok{(}
+      \FunctionTok{str\_match}\NormalTok{(}
+\NormalTok{        Postalcode\_clean,}
+\NormalTok{        postal\_pattern}
+\NormalTok{      )}
+\NormalTok{    )}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{select}\NormalTok{(}
+\NormalTok{    ID,}
+\NormalTok{    Postalcode,}
+\NormalTok{    Postalcode\_clean}
+\NormalTok{  )}
+
+\NormalTok{postal\_issues}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 38 x 3
+##         ID Postalcode Postalcode_clean
+##      <dbl> <chr>      <chr>           
+##  1 1000103 V2A6X      V2A6X           
+##  2 1000695 V5S2HY     V5S2HY          
+##  3 1000760 V6Y1ML     V6Y1ML          
+##  4 1000896 VOC1HO     VOC1HO          
+##  5 1001210 V0ROB8     V0ROB8          
+##  6 1001262 <NA>       <NA>            
+##  7 1001964 <NA>       <NA>            
+##  8 1003432 V2SOA4     V2SOA4          
+##  9 1003907 VOB1HO     VOB1HO          
+## 10 1004334 VOB1G8     VOB1G8          
+## # i 28 more rows
+\end{verbatim}
+
+Regular-expression validation is an extremely useful technique for detecting formatting problems in identifiers such as postal codes, phone numbers, or IDs.
+
+\section{Final assignment guidance}\label{final-assignment-guidance}
+
+As you continue building analytical workflows, begin organizing your work into separate exploratory data analysis documents.
+
+Each analysis file should clearly explain:
+
+\begin{itemize}
+\tightlist
+\item
+  the datasets being used;
+\item
+  the cleaning and validation steps performed;
+\item
+  assumptions made during cleaning;
+\item
+  how missing values were handled; and
+\item
+  how outputs were generated.
+\end{itemize}
+
+A well-documented workflow is just as important as the analysis itself.
+
+\section{Chapter summary}\label{chapter-summary-5}
+
+In this chapter, you expanded your data management workflow by combining advanced cleaning techniques with exploratory visualization. You reviewed datasets, reshaped population data, created visualizations, identified join keys, cleaned mortality and environmental datasets, handled missing values, validated identifiers, and created cleaned outputs for later analysis.
+
+These workflows form the foundation of reproducible analytical projects and closely resemble the types of preparation steps required in real-world public health and environmental data analysis.
+
+\chapter{Exploratory Analysis Project}\label{exploratory-analysis-project}
+
+In previous chapters, we focused on importing, cleaning, reshaping, joining, and visualizing datasets using the tidyverse. This chapter brings those individual skills together into a more complete exploratory analysis workflow.
+
+The purpose of exploratory analysis is not to produce final analytical results, but rather to understand the structure and quality of the data before formal analysis begins. A well-prepared exploratory analysis document should allow a colleague, manager, or future researcher to understand the datasets being used, the cleaning decisions that were made, and the reasoning behind those decisions.
+
+In practice, exploratory analysis is one of the most important stages of a data project because many analytical problems can be identified early through careful inspection of the data.
+
+By the end of this chapter, you should be able to organize multiple datasets into a reproducible workflow, summarize dataset structures, evaluate missing values, create reusable functions, and communicate cleaning decisions clearly using R Markdown.
+
+\section{Loading libraries and importing datasets}\label{loading-libraries-and-importing-datasets}
+
+We begin by loading the libraries used throughout the exploratory analysis workflow.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(readxl)}
+\FunctionTok{library}\NormalTok{(lubridate)}
+\end{Highlighting}
+\end{Shaded}
+
+The datasets used in this project include mortality records, population estimates, geographic correspondence files, and environmental exposure data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mort }\OtherTok{\textless{}{-}} \FunctionTok{read\_excel}\NormalTok{(}
+  \StringTok{"./Raw Data/deaths\_2016.xlsx"}
+\NormalTok{)}
+
+\NormalTok{pop }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}
+  \StringTok{"./Raw Data/Population\_Estimates.csv"}
+\NormalTok{)}
+
+\NormalTok{corr }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}
+  \StringTok{"./Raw Data/Corr\_2016.csv"}\NormalTok{,}
+  \AttributeTok{locale =}\NormalTok{ readr}\SpecialCharTok{::}\FunctionTok{locale}\NormalTok{(}
+    \AttributeTok{encoding =} \StringTok{"latin1"}
+\NormalTok{  )}
+\NormalTok{)}
+
+\NormalTok{env }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}
+  \StringTok{"./Raw Data/Weather\_data.csv"}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+When working with multiple datasets, it is often helpful to place them into a single list structure. This makes it easier to apply functions repeatedly across all datasets using tools from the \texttt{purrr} package.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data\_list }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}
+  \AttributeTok{mortality =}\NormalTok{ mort,}
+  \AttributeTok{population =}\NormalTok{ pop,}
+  \AttributeTok{correspondence =}\NormalTok{ corr,}
+  \AttributeTok{environment =}\NormalTok{ env}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Reviewing dataset structure}\label{reviewing-dataset-structure}
+
+A good exploratory analysis begins with understanding the basic structure of each dataset. Important questions include:
+
+\begin{itemize}
+\tightlist
+\item
+  How many rows and columns are present?
+\item
+  What variables are available?
+\item
+  Are there obvious missing values?
+\item
+  Are the variable types correct?
+\item
+  Are there unusual or unexpected values?
+\end{itemize}
+
+The \texttt{map()} function allows us to apply the same operation across all datasets efficiently. The \texttt{skimr} package can also generate compact summaries for exploratory data analysis Waring et al. (\citeproc{ref-skimr}{2026}).
+
+For example, we can review dataset dimensions.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{map}\NormalTok{(data\_list, dim)}
+
+\FunctionTok{map}\NormalTok{(data\_list, nrow)}
+
+\FunctionTok{map}\NormalTok{(data\_list, ncol)}
+\end{Highlighting}
+\end{Shaded}
+
+We can also inspect variable names.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{map}\NormalTok{(data\_list, names)}
+\end{Highlighting}
+\end{Shaded}
+
+Functions such as \texttt{glimpse()} and \texttt{summary()} are also useful during exploratory review.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{map}\NormalTok{(data\_list, glimpse)}
+
+\FunctionTok{map}\NormalTok{(data\_list, summary)}
+\end{Highlighting}
+\end{Shaded}
+
+These exploratory checks often reveal problems early in the workflow, including inconsistent variable naming, missing values, incorrect data types, or unusual coding structures.
+
+One of the most common mistakes in data analysis is beginning formal analysis before fully understanding the structure and quality of the data.
+
+\section{Working with missing values}\label{working-with-missing-values}
+
+Missing data are extremely common in real-world datasets. Before deciding how to handle missing values, it is important to understand how frequently they occur and whether they appear systematically within specific variables.
+
+Instead of repeatedly writing the same code for each dataset, we can create a reusable function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{count\_missing }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(data) \{}
+  
+\NormalTok{  data }\SpecialCharTok{\%\textgreater{}\%}
+    
+    \FunctionTok{summarize}\NormalTok{(}
+      \FunctionTok{across}\NormalTok{(}
+        \FunctionTok{everything}\NormalTok{(),}
+        \SpecialCharTok{\textasciitilde{}} \FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(.))}
+\NormalTok{      )}
+\NormalTok{    )}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+This function calculates the number of missing values for every variable in a dataset.
+
+We can then apply the function across all datasets.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{map}\NormalTok{(data\_list, count\_missing)}
+\end{Highlighting}
+\end{Shaded}
+
+Reusable functions improve efficiency, reduce duplicated code, and make workflows easier to maintain.
+
+It is also important to remember that missing values are not always random. In some cases, missingness may indicate systematic collection problems, unavailable information, or meaningful absence of data.
+
+Never remove missing values automatically without first understanding why they are missing and whether the missingness may influence the analysis.
+
+\section{Duplicate records and cleaning decisions}\label{duplicate-records-and-cleaning-decisions}
+
+In addition to missing values, duplicate records should also be investigated during exploratory analysis.
+
+For example:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mort }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{count}\NormalTok{(ID) }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{filter}\NormalTok{(n }\SpecialCharTok{\textgreater{}} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Duplicate records can arise from data-entry errors, repeated imports, or incorrect joins. Identifying these issues early helps prevent inflated counts and inaccurate results later in the workflow.
+
+As cleaning decisions are made, they should be documented clearly in plain language. Good documentation is one of the defining features of reproducible analysis.
+
+For example, instead of writing only code comments such as:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# fixed dates}
+\end{Highlighting}
+\end{Shaded}
+
+it is better to explain the reasoning more clearly:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Birth years before 1905 were assumed to be data{-}entry errors}
+\CommentTok{\# and adjusted forward by 100 years.}
+\end{Highlighting}
+\end{Shaded}
+
+Clear explanations help future users understand not only \emph{what} changes were made, but also \emph{why} those changes were considered appropriate.
+
+\section{Exploratory visualization}\label{exploratory-visualization}
+
+Visualization is another important component of exploratory analysis. Simple plots can quickly reveal outliers, skewed distributions, missing categories, or unusual relationships between variables.
+
+For example, histograms are useful for examining continuous variables.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mort }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{ggplot}\NormalTok{(}
+    \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ B\_year)}
+\NormalTok{  ) }\SpecialCharTok{+}
+  
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{binwidth =} \DecValTok{5}\NormalTok{) }\SpecialCharTok{+}
+  
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Distribution of Birth Year"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Birth year"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Count"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+Bar plots are often useful for categorical variables.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mort }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{count}\NormalTok{(Sex) }\SpecialCharTok{\%\textgreater{}\%}
+  
+  \FunctionTok{ggplot}\NormalTok{(}
+    \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Sex, }\AttributeTok{y =}\NormalTok{ n)}
+\NormalTok{  ) }\SpecialCharTok{+}
+  
+  \FunctionTok{geom\_col}\NormalTok{() }\SpecialCharTok{+}
+  
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Distribution of Sex"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Sex"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Count"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+Exploratory visualizations do not need to be highly polished. Their primary purpose is to help you understand the data and identify potential problems.
+
+\section{Organizing an exploratory analysis report}\label{organizing-an-exploratory-analysis-report}
+
+A well-structured exploratory analysis document should guide the reader logically through the datasets and cleaning workflow.
+
+Although the exact structure may vary between projects, most exploratory analysis reports include the following components:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  A short description of the project purpose and research questions.
+\item
+  A description of the datasets being used.
+\item
+  Summary information about dataset dimensions and structure.
+\item
+  Explanations of important variables.
+\item
+  Missing-value summaries and duplicate checks.
+\item
+  Cleaning and transformation decisions.
+\item
+  Initial visualizations and descriptive summaries.
+\item
+  A brief discussion of key findings and remaining data issues.
+\item
+  Proposed next steps for future analysis.
+\end{enumerate}
+
+The goal is not to create a perfect final report, but rather to create a clear and reproducible record of the exploratory workflow.
+
+\section{Practice activity}\label{practice-activity}
+
+Create a new R Markdown document called:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{exploratory\_analysis.Rmd}
+\end{Highlighting}
+\end{Shaded}
+
+Use the structure introduced in this chapter to build a short exploratory analysis report for the datasets used throughout the course.
+
+Your report should include:
+
+\begin{itemize}
+\tightlist
+\item
+  at least one table summarizing dataset dimensions;
+\item
+  one missing-value summary;
+\item
+  at least one visualization;
+\item
+  a short explanation of cleaning decisions; and
+\item
+  clear comments describing major analytical steps.
+\end{itemize}
+
+As you write the document, focus on clarity and reproducibility. Imagine that another analyst will need to understand and continue your work in the future.
+
+\section{Chapter summary}\label{chapter-summary-6}
+
+In this chapter, you combined many of the skills introduced earlier in the course into a more complete exploratory analysis workflow. You organized datasets into reusable structures, summarized dimensions and variable information, evaluated missing values, created reusable functions, checked for duplicate records, and produced simple exploratory visualizations.
+
+Most importantly, you practiced documenting cleaning decisions and analytical reasoning in a way that supports reproducibility and collaboration. Exploratory analysis is not simply a preliminary step before ``real analysis''; it is a critical stage that shapes the quality and reliability of all later results.
+
+\chapter{Storyboarding and Reporting}\label{storyboarding-and-reporting}
+
+Data analysis is not only about writing code and generating outputs. An important part of any analytical workflow is communicating the results clearly to other people. Even a technically correct analysis can become ineffective if the final report is confusing, disorganized, or difficult to interpret.
+
+This chapter introduces the idea of \emph{storyboarding}, which is the process of planning the structure and flow of an analysis before fully developing the report. Storyboarding helps organize ideas, identify the main analytical message, and create a logical structure that guides the reader through the analysis.
+
+In many professional environments, analytical reports are written for audiences who may not have strong technical backgrounds. Managers, clients, policy teams, and decision-makers often need a concise explanation of the results and their implications rather than detailed programming logic. A well-structured report helps bridge the gap between technical analysis and practical communication.
+
+By the end of this chapter, you should be able to organize analytical results into a coherent narrative, distinguish technical notes from reader-focused explanations, and prepare a polished R Markdown report that communicates findings clearly and professionally.
+
+\section{Why storyboarding is important}\label{why-storyboarding-is-important}
+
+Many beginners begin writing reports by immediately producing plots and tables without first deciding what story the analysis should communicate. This often leads to reports that feel disorganized, repetitive, or difficult to follow.
+
+Storyboarding helps solve this problem by encouraging analysts to think about the structure of the report before focusing on formatting details or extensive coding.
+
+A good storyboard answers several important questions:
+
+\begin{itemize}
+\tightlist
+\item
+  What is the main purpose of the analysis?
+\item
+  Who is the intended audience?
+\item
+  What are the most important findings?
+\item
+  What evidence supports those findings?
+\item
+  What limitations or uncertainties should be acknowledged?
+\item
+  What should happen next?
+\end{itemize}
+
+Thinking about these questions early helps create reports that are more focused and easier to interpret.
+
+One of the most common reporting mistakes is including every result produced during the analysis. Effective reports focus on the results that are most relevant to the research question or decision-making process.
+
+\section{Organizing the analytical narrative}\label{organizing-the-analytical-narrative}
+
+Most analytical reports follow a similar general structure. Although the exact format may vary depending on the audience and project, the report should guide the reader logically from the problem statement to the conclusions.
+
+A simple storyboard structure often includes the following components:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Section
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Purpose
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Background & Explain why the analysis is being performed \\
+Data & Describe the datasets and variables used \\
+Cleaning and preparation & Explain important cleaning decisions and assumptions \\
+Analysis & Present summaries, comparisons, or calculations \\
+Visualization & Show key figures or tables \\
+Findings & Summarize the main results \\
+Limitations & Discuss uncertainty or missing information \\
+Next steps & Recommend future analysis or actions \\
+\end{longtable}
+
+This structure creates a clear analytical flow that helps readers understand not only the results, but also how those results were produced.
+
+In practice, storyboarding often begins with a rough outline written in plain language before any code or plots are finalized.
+
+For example, before creating visualizations, you might first write:
+
+\begin{quote}
+We want to determine whether cancer mortality rates differ by age group and health region. Before calculating rates, we need to examine population distributions and evaluate whether age structures differ across regions.
+\end{quote}
+
+Writing the analytical purpose in plain language first often helps clarify what figures and summaries are actually needed.
+
+\section{Writing interpretation instead of only showing output}\label{writing-interpretation-instead-of-only-showing-output}
+
+One of the most important parts of reporting is interpretation. Tables and plots should rarely appear without explanation.
+
+After each major figure or summary table, include several sentences explaining:
+
+\begin{itemize}
+\tightlist
+\item
+  what the output shows;
+\item
+  why the result matters;
+\item
+  what patterns or trends are important; and
+\item
+  what limitations should be considered.
+\end{itemize}
+
+For example:
+
+\begin{quote}
+The plot shows that population counts vary substantially across age groups and Health Service Delivery Areas. Older age groups appear more concentrated in some regions than others, suggesting that age standardization may be important before comparing mortality rates between regions.
+\end{quote}
+
+This type of interpretation helps connect the visualization to the broader analytical purpose.
+
+Without interpretation, readers are often left to guess what conclusions they should draw from the output.
+
+A good analytical report explains the meaning of the results, not only the code used to produce them.
+
+\section{Separating technical details from reader-focused explanations}\label{separating-technical-details-from-reader-focused-explanations}
+
+Not all readers require the same level of technical detail. Technical notes are important for reproducibility, but too much technical explanation can interrupt the flow of the report for non-technical audiences.
+
+In many cases, it is useful to separate:
+
+\begin{itemize}
+\tightlist
+\item
+  technical implementation details; and
+\item
+  reader-focused interpretation.
+\end{itemize}
+
+For example, instead of writing:
+
+\begin{quote}
+We used \texttt{pivot\_longer()} to reshape the data from wide to long format.
+\end{quote}
+
+a more reader-focused explanation might be:
+
+\begin{quote}
+The population data were reorganized into a tidy structure so that age groups could be analyzed and visualized consistently.
+\end{quote}
+
+The technical code remains visible in the R Markdown document, but the written explanation focuses on the analytical purpose rather than the programming mechanics.
+
+This approach creates reports that are both reproducible and easier to read.
+
+\section{Building a polished R Markdown report}\label{building-a-polished-r-markdown-report}
+
+R Markdown is particularly useful for reporting because it combines narrative text, code, tables, and visualizations within a single reproducible document.
+
+A polished report should include:
+
+\begin{itemize}
+\tightlist
+\item
+  a clear title and introduction;
+\item
+  consistent formatting and headings;
+\item
+  explanatory text between code chunks;
+\item
+  readable plots and tables;
+\item
+  interpretation of important outputs; and
+\item
+  a concise summary of findings.
+\end{itemize}
+
+When preparing figures, readability should be prioritized over decoration. Axes should be labeled clearly, titles should describe the figure meaningfully, and overcrowded plots should be simplified whenever possible.
+
+For example, instead of a title such as:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Plot 1}
+\end{Highlighting}
+\end{Shaded}
+
+a more informative title would be:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Cancer Mortality by Age Group and Sex}
+\end{Highlighting}
+\end{Shaded}
+
+Clear figure titles improve communication and reduce ambiguity.
+
+Similarly, comments and narrative explanations should focus on helping readers understand the workflow rather than simply describing the code syntax.
+
+\section{Example interpretation workflow}\label{example-interpretation-workflow}
+
+Suppose a visualization shows population counts by age group and health region.
+
+A weak interpretation might be:
+
+\begin{quote}
+This is a bar plot of population by age.
+\end{quote}
+
+A stronger interpretation would be:
+
+\begin{quote}
+The visualization shows that population distributions differ across age groups and health regions. Some regions appear to have relatively older populations, which may influence comparisons of crude mortality rates. This suggests that age-specific or age-standardized analyses may be more appropriate than direct comparisons of overall mortality counts.
+\end{quote}
+
+The second explanation connects the visualization to analytical reasoning and future decision-making.
+
+\section{Practice activity}\label{practice-activity-1}
+
+Choose one visualization created earlier in the course and write a short interpretation paragraph discussing:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  what the visualization shows;
+\item
+  why the result matters;
+\item
+  one limitation of the figure or dataset; and
+\item
+  what analysis or investigation should follow next.
+\end{enumerate}
+
+Focus on writing clearly for a reader who may not have a strong technical background.
+
+\section{Chapter summary}\label{chapter-summary-7}
+
+In this chapter, you learned how storyboarding can improve the organization and clarity of analytical reports. You explored how to structure an analysis into a logical narrative, interpret visualizations in plain language, separate technical implementation details from reader-focused explanations, and prepare polished R Markdown reports.
+
+Strong analytical reporting is not only about producing correct results. It is also about communicating those results clearly, transparently, and persuasively to the intended audience.
+
+\chapter*{References}\label{references}
+\addcontentsline{toc}{chapter}{References}
+
+\phantomsection\label{refs}
+\begin{CSLReferences}{1}{0}
+\bibitem[\citeproctext]{ref-janitor}
+Firke, Sam. 2026. \emph{Janitor: Simple Tools for Examining and Cleaning Dirty Data}. \url{https://cran.r-project.org/package=janitor}.
+
+\bibitem[\citeproctext]{ref-skimr}
+Waring, Elin, Michael Quinn, Amelia McNamara, Eduardo Arino de la Rubia, Hao Zhu, and Shannon Ellis. 2026. \emph{Skimr: Compact and Flexible Summaries of Data}. \url{https://cran.r-project.org/package=skimr}.
+
+\bibitem[\citeproctext]{ref-wickham2017}
+Wickham, Hadley. 2017. \emph{Ggplot2: Elegant Graphics for Data Analysis}. 2nd ed. Springer.
+
+\bibitem[\citeproctext]{ref-ggplot2pkg}
+---------. 2026a. \emph{Ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics}. \url{https://ggplot2.tidyverse.org/}.
+
+\bibitem[\citeproctext]{ref-stringr}
+---------. 2026b. \emph{Stringr: Simple, Consistent Wrappers for Common String Operations}. \url{https://stringr.tidyverse.org/}.
+
+\bibitem[\citeproctext]{ref-wickham2023}
+Wickham, Hadley, Mine Çetinkaya-Rundel, and Garrett Grolemund. 2023. \emph{R for Data Science}. O'Reilly Media. \url{https://r4ds.hadley.nz/}.
+
+\bibitem[\citeproctext]{ref-dplyr}
+Wickham, Hadley, Romain François, Lionel Henry, and Kirill Müller. 2026. \emph{Dplyr: A Grammar of Data Manipulation}. \url{https://dplyr.tidyverse.org/}.
+
+\bibitem[\citeproctext]{ref-xie2015}
+Xie, Yihui. 2015. \emph{Dynamic Documents with r and Knitr}. Chapman; Hall/CRC.
+
+\bibitem[\citeproctext]{ref-xie2016}
+---------. 2016. \emph{Bookdown: Authoring Books and Technical Documents with r Markdown}. Chapman; Hall/CRC. \url{https://bookdown.org/yihui/bookdown/}.
+
+\end{CSLReferences}
+
+\end{document}

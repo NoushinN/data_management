@@ -173,9 +173,8 @@ Visualization is an important part of exploratory analysis because it helps reve
 
 The following line plot displays population counts across age groups by HSDA.
 
-```{r 06-visualization-population-line-plot}
+```{r 06-visualization-population-line-plot, fig.width=7, fig.height=6, out.width='100%'}
 pop_total %>%
-  
   ggplot(
     aes(
       x = Age,
@@ -184,33 +183,41 @@ pop_total %>%
       colour = HSDA
     )
   ) +
-  
   geom_line() +
-  
-  geom_point() +
-  
+  geom_point(size = 1.5) +
+  scale_y_continuous(
+    breaks = scales::breaks_pretty(n = 5),
+    labels = scales::label_comma()
+  ) +
   labs(
     title = "Population by Age Group and HSDA",
     x = "Age group",
     y = "Population",
     colour = "HSDA"
   ) +
-  
   theme_minimal() +
-  
   theme(
     axis.text.x = element_text(
       angle = 45,
-      hjust = 1
+      hjust = 1,
+      size = 8
+    ),
+    axis.text.y = element_text(
+      size = 8
+    ),
+    legend.text = element_text(
+      size = 7
+    ),
+    legend.title = element_text(
+      size = 8
     )
   )
 ```
 
 Because age groups are categorical rather than continuous, a bar plot may sometimes be easier to interpret.
 
-```{r 06-visualization-population-bar-plot}
+```{r 06-visualization-population-bar-plot, fig.width=7, fig.height=6, out.width='100%'}
 pop_total %>%
-  
   ggplot(
     aes(
       x = Age,
@@ -218,58 +225,80 @@ pop_total %>%
       fill = HSDA
     )
   ) +
-  
-  geom_col(position = "dodge") +
-  
+  geom_col(
+    position = "dodge"
+  ) +
+  scale_y_continuous(
+    breaks = scales::breaks_pretty(n = 5),
+    labels = scales::label_comma()
+  ) +
   labs(
     title = "Population Distribution by Age Group and HSDA",
     x = "Age group",
     y = "Population",
     fill = "HSDA"
   ) +
-  
   theme_minimal() +
-  
   theme(
     axis.text.x = element_text(
       angle = 45,
-      hjust = 1
+      hjust = 1,
+      size = 8
+    ),
+    axis.text.y = element_text(
+      size = 8
+    ),
+    legend.text = element_text(
+      size = 7
+    ),
+    legend.title = element_text(
+      size = 8
     )
   )
 ```
 
 When plots become crowded, faceting can improve readability.
 
-```{r 06-visualization-population-facets}
+```{r 06-visualization-population-facets, fig.width=7, fig.height=8, out.width='100%'}
 pop_total %>%
-  
   ggplot(
     aes(
       x = Age,
       y = Population
     )
   ) +
-  
   geom_col() +
-  
-  facet_wrap(~ HSDA) +
-  
+  facet_wrap(
+    ~ HSDA,
+    ncol = 2
+  ) +
+  scale_y_continuous(
+    breaks = scales::breaks_pretty(n = 4),
+    labels = scales::label_comma()
+  ) +
   labs(
     title = "Population by Age Group for Each HSDA",
     x = "Age group",
     y = "Population"
   ) +
-  
   theme_minimal() +
-  
   theme(
     axis.text.x = element_text(
       angle = 45,
-      hjust = 1
+      hjust = 1,
+      size = 7
+    ),
+    axis.text.y = element_text(
+      size = 7
+    ),
+    strip.text = element_text(
+      size = 8
+    ),
+    plot.title = element_text(
+      size = 11
     )
   )
 ```
-
 ## Identifying join keys
 
 Before combining datasets, it is important to identify variables that can serve as join keys.

@@ -9,3 +9,5 @@ bookdown::gitbook:
     download: ["pdf", "epub"]
 bookdown::html_book:
   css: style.css
+  includes:
+    in_header: google-analytics.html

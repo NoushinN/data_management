@@ -19,6 +19,17 @@ classoption: oneside
 bibliography: references.bib
 link-citations: true
 ---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  error = FALSE
+)
+
+options(width = 60)
+```
+
 
 # Welcome {-}
 
@@ -209,3 +220,5 @@ This book is intended for learners who have basic familiarity with R and RStudio
 # Licence {-}
 
 For educational use. See `LICENSE` for details.
+
+If referencing this project, please cite: Nabavi, N. *Data Management with R: Practical Teaching Materials for Reproducible Data Wrangling and Analysis*. [[DOI](https://doi.org/10.5281/zenodo.20750322)

@@ -118,10 +118,10 @@ Several functions provide useful high-level summaries.
 str(mort)
 summary(mort)
 
-str(pop)
+dplyr::glimpse(pop, width = 60)
 summary(pop)
 
-str(corr)
+dplyr::glimpse(corr, width = 60)
 summary(corr)
 
 str(env)

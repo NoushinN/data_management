@@ -43,3 +43,10 @@ Save generated files in:
 ```text
 Outputs/
 ```
+## Citation
+
+If referencing this project, please cite: 
+
+Nabavi, N. *Data Management with R: Practical Teaching Materials for Reproducible Data Wrangling and Analysis*. 
+
+Bookdown project. [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20750322.svg)](https://doi.org/10.5281/zenodo.20750322)
